@@ -1,56 +1,64 @@
-[![NuGet](https://img.shields.io/nuget/dt/Ardalis.GuardClauses.svg)](https://www.nuget.org/packages/Ardalis.GuardClauses)
+[![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum)
 
-NuGet: [Ardalis.GuardClauses](https://www.nuget.org/packages/Ardalis.GuardClauses)
+NuGet: [Ardalis.SmartEnum](https://www.nuget.org/packages/Ardalis.SmartEnum)
 
-# Guard Clauses
-A simple package with guard clause extensions.
+# Smart Enum
+A simple package with a base Smart Enum class.
+
+## Contributors
+
+Thanks for Scott Depouw for his help with this!
 
 ## Usage
 
-```c#
-    public void ProcessOrder(Order order)
-    {
-    	Guard.Against.Null(order, nameof(order));
+Define your smart enum by inheriting from `SmartEnum<TEnum, TValue>` where `TEnum` is the type you're declaring and `TValue` is the type of its value (typically `int`). For example:
 
-        // process order here
+```c#
+    public class TestEnum : SmartEnum<TestEnum, int>
+    {
+        public static TestEnum One = new TestEnum("One", 1);
+        public static TestEnum Two = new TestEnum("Two", 2);
+        public static TestEnum Three = new TestEnum("Three", 3);
+
+        protected TestEnum(string name, int value) : base(name, value)
+        {
+        }
     }
 ```
 
-## Supported Guard Clauses
+### List
 
-- **Guard.Against.Null** (throws if input is null)
-- **Guard.Against.NullOrEmpty** (throws if string input is null or empty)
-- **Guard.Against.NullOrWhiteSpace** (throws if string input is null or whitespace)
-- **Guard.Against.OutOfRange** (throws if integer/DateTime input is outside a provided range)
-- **Guard.Against.OutOfSQLDateRange** (throws if DateTime input is outside the valid range of SQL Server DateTime values)
+You can list all of the available options using the enum's static `List` property:
 
-## Extending with your own Guard Clauses
+```
+    var allOptions = TestEnum.List;
+```
 
-To extend your own guards, you can do the following:
+### FromString
 
-```c#
-    // Using the same namespace will make sure your code picks up your 
-    // extensions no matter where they are in your codebase.
-    namespace Ardalis.GuardClauses
-    {
-        public static class FooGuard
-        {
-            public static void Foo(this IGuardClause guardClause, string input, string parameterName)
-            {
-                if (input?.ToLower() == "foo")
-                    throw new ArgumentException("Should not have been foo!", parameterName);
-            }
-        }
-    }
+Access an instance of an enum by matching a string to its `Name` property:
 
-    // Usage
-    public void SomeMethod(string something)
-    {
-        Guard.Against.Foo(something, nameof(something));
-    }
+```
+    var myEnum = TestEnum.FromString("One");
+```
+
+### FromValue
+
+Access an instance of an enum by matching its value:
+
+```
+    var myEnum = TestEnum.FromValue(1);
+```
+
+### ToString
+
+Display an enum using the `ToString()` override:
+
+```
+    Console.WriteLine(TestEnum.One); // One (1)
 ```
 
 ## References
 
-- [Guard Clauses (podcast: 7 minutes)](http://www.weeklydevtips.com/004)
-- [Guard Clause](http://deviq.com/guard-clause/)
+- [Listing Strongly Typed Enums...)](https://ardalis.com/listing-strongly-typed-enum-options-in-c)
+- [Enum Alternatives in C#](https://ardalis.com/enum-alternatives-in-c)
