@@ -1,4 +1,5 @@
 using Ardalis.SmartEnum;
+using SmartEnum.Exceptions;
 using Xunit;
 
 namespace SmartEnum.UnitTests
@@ -11,6 +12,10 @@ namespace SmartEnum.UnitTests
             Assert.Equal(TestEnum.One, TestEnum.FromValue(1));
         }
 
-        // TODO: test non-matching case
+        [Fact]
+        public void ThrowsGivenNonMatchingValue()
+        {
+            Assert.Throws<SmartEnumNotFoundException>(() => TestEnum.FromValue(-1));
+        }
     }
 }

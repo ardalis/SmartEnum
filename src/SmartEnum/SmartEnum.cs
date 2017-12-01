@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Ardalis.GuardClauses;
+using SmartEnum.Exceptions;
 
 namespace Ardalis.SmartEnum
 {
@@ -49,14 +51,25 @@ namespace Ardalis.SmartEnum
 
         public static TEnum FromName(string name)
         {
-            return List.Single(item => string.Equals(item.Name, name, StringComparison.OrdinalIgnoreCase));
+            Guard.Against.NullOrEmpty(name, nameof(name));
+            var result = List.FirstOrDefault(item => string.Equals(item.Name, name, StringComparison.OrdinalIgnoreCase));
+            if(result == null)
+            {
+                throw new SmartEnumNotFoundException($"No option with Name \"{name}\" found.");
+            }
+            return result;
         }
 
         public static TEnum FromValue(TValue value)
         {
             // Can't use == to compare generics unless we constrain TValue to "class", 
             // which we don't want because then we couldn't use int.
-            return List.Single(item => EqualityComparer<TValue>.Default.Equals(item.Value, value));
+            var result = List.FirstOrDefault(item => EqualityComparer<TValue>.Default.Equals(item.Value, value));
+            if (result == null)
+            {
+                throw new SmartEnumNotFoundException($"No option with Value {{value}} found.");
+            }
+            return result;
         }
 
         public override string ToString() => $"{Name} ({Value})";
