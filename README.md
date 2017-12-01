@@ -7,7 +7,7 @@ A simple package with a base Smart Enum class.
 
 ## Contributors
 
-Thanks for Scott Depouw for his help with this!
+Thanks for [Scott Depouw](https://github.com/sdepouw) for his help with this!
 
 ## Usage
 
