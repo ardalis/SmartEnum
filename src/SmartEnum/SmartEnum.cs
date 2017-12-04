@@ -16,24 +16,23 @@ namespace Ardalis.SmartEnum
     public abstract class SmartEnum<TEnum, TValue>
         where TEnum : SmartEnum<TEnum, TValue>
     {
-        private static readonly List<TEnum> _list = new List<TEnum>();
+        private static readonly Lazy<List<TEnum>> _list = new Lazy<List<TEnum>>(ListAllOptions);
 
-        // Despite analysis tool warnings, we want this static bool to be on this generic type 
-        // (so that each TEnum has its own bool).
-        private static bool _invoked;
+        private static List<TEnum> ListAllOptions()
+        {
+            Type t = typeof(TEnum);
+            return t.GetFields(BindingFlags.Public | BindingFlags.Static)
+            .Where(p => t.IsAssignableFrom(p.FieldType))
+            .Select(pi => (TEnum)pi.GetValue(null))
+            .OrderBy(p => p.Name)
+            .ToList();
+        }
 
         public static List<TEnum> List
         {
             get
             {
-                if (!_invoked)
-                {
-                    _invoked = true;
-                    // Force invocation/initialization by calling one of the derived members.
-                    typeof(TEnum).GetProperties(BindingFlags.Public | BindingFlags.Static).FirstOrDefault(p => p.PropertyType == typeof(TEnum))?.GetValue(null, null);
-                }
-
-                return _list;
+                return _list.Value;
             }
         }
 
@@ -44,9 +43,6 @@ namespace Ardalis.SmartEnum
         {
             Name = name;
             Value = value;
-
-            TEnum item = this as TEnum;
-            List.Add(item);
         }
 
         public static TEnum FromName(string name)
