@@ -17,5 +17,23 @@ namespace SmartEnum.UnitTests
         {
             Assert.Throws<SmartEnumNotFoundException>(() => TestEnum.FromValue(-1));
         }
+
+        [Fact]
+        public void ThrowsWithExpectedMessageGivenNonMatchingValue()
+        {
+            string expected = $"No option with Value -1 found.";
+            string actual = "";
+
+            try
+            {
+                var testEnum = TestEnum.FromValue(-1);
+            }
+            catch (SmartEnumNotFoundException ex)
+            {
+                actual = ex.Message;
+            }
+
+            Assert.Equal(expected, actual);
+        }
     }
 }

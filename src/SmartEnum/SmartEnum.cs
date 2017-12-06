@@ -63,7 +63,7 @@ namespace Ardalis.SmartEnum
             var result = List.FirstOrDefault(item => EqualityComparer<TValue>.Default.Equals(item.Value, value));
             if (result == null)
             {
-                throw new SmartEnumNotFoundException($"No option with Value {{value}} found.");
+                throw new SmartEnumNotFoundException($"No option with Value {value} found.");
             }
             return result;
         }
