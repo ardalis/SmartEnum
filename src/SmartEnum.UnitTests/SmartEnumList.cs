@@ -1,8 +1,7 @@
-using Xunit;
+﻿using Xunit;
 
 namespace SmartEnum.UnitTests
 {
-
     public class SmartEnumList
     {
         [Fact]
