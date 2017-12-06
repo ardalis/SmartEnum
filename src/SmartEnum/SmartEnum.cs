@@ -51,7 +51,7 @@ namespace Ardalis.SmartEnum
             var result = List.FirstOrDefault(item => string.Equals(item.Name, name, StringComparison.OrdinalIgnoreCase));
             if(result == null)
             {
-                throw new SmartEnumNotFoundException($"No option with Name \"{name}\" found.");
+                throw new SmartEnumNotFoundException($"No {typeof(TEnum).Name} with Name \"{name}\" found.");
             }
             return result;
         }
@@ -63,7 +63,7 @@ namespace Ardalis.SmartEnum
             var result = List.FirstOrDefault(item => EqualityComparer<TValue>.Default.Equals(item.Value, value));
             if (result == null)
             {
-                throw new SmartEnumNotFoundException($"No option with Value {value} found.");
+                throw new SmartEnumNotFoundException($"No {typeof(TEnum).Name} with Value {value} found.");
             }
             return result;
         }

@@ -44,5 +44,24 @@ namespace SmartEnum.UnitTests
         {
             Assert.Throws<SmartEnumNotFoundException>(() => TestEnum.FromName("Doesn't Exist"));
         }
+
+        [Fact]
+        public void ThrowsWithExpectedMessageGivenNonMatchingString()
+        {
+            string name = "Doesn't Exist";
+            string expected = $"No TestEnum with Name \"{name}\" found.";
+            string actual = "";
+
+            try
+            {
+                var testEnum = TestEnum.FromName(name);
+            }
+            catch (SmartEnumNotFoundException ex)
+            {
+                actual = ex.Message;
+            }
+
+            Assert.Equal(expected, actual);
+        }
     }
 }

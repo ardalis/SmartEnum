@@ -21,7 +21,7 @@ namespace SmartEnum.UnitTests
         [Fact]
         public void ThrowsWithExpectedMessageGivenNonMatchingValue()
         {
-            string expected = $"No option with Value -1 found.";
+            string expected = $"No TestEnum with Value -1 found.";
             string actual = "";
 
             try
