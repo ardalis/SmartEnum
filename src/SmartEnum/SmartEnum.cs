@@ -43,7 +43,7 @@ namespace Ardalis.SmartEnum
         {
             Guard.Against.NullOrEmpty(name, nameof(name));
             var result = List.FirstOrDefault(item => string.Equals(item.Name, name, StringComparison.OrdinalIgnoreCase));
-            if(result == null)
+            if (result == null)
             {
                 throw new SmartEnumNotFoundException($"No option with Name \"{name}\" found.");
             }
@@ -58,6 +58,18 @@ namespace Ardalis.SmartEnum
             if (result == null)
             {
                 throw new SmartEnumNotFoundException($"No option with Value {{value}} found.");
+            }
+            return result;
+        }
+
+        public static TEnum FromValue(TValue value, TEnum defaultValue)
+        {
+            // Can't use == to compare generics unless we constrain TValue to "class",
+            // which we don't want because then we couldn't use int.
+            var result = List.FirstOrDefault(item => EqualityComparer<TValue>.Default.Equals(item.Value, value));
+            if (result == null)
+            {
+                result = defaultValue;
             }
             return result;
         }
