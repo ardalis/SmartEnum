@@ -16,5 +16,13 @@ namespace SmartEnum.UnitTests
         {
             Assert.Throws<SmartEnumNotFoundException>(() => TestEnum.FromValue(-1));
         }
+
+        [Fact]
+        public void ReturnsDefaultEnumGivenNonMatchingValue()
+        {
+            var defaultEnum = TestEnum.One;
+
+            Assert.Equal(defaultEnum, TestEnum.FromValue(-1, defaultEnum));
+        }
     }
 }
