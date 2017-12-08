@@ -33,10 +33,20 @@ namespace Ardalis.SmartEnum
         public string Name { get; }
         public TValue Value { get; }
 
+        private readonly string _description = null;
+        public string Description => _description ?? Name;
+
         protected SmartEnum(string name, TValue value)
         {
             Name = name;
             Value = value;
+        }
+
+        protected SmartEnum(string name, TValue value, string description)
+        {
+            Name = name;
+            Value = value;
+            _description = description;
         }
 
         public static TEnum FromName(string name)
@@ -74,7 +84,17 @@ namespace Ardalis.SmartEnum
             return result;
         }
 
-        public override string ToString() => $"{Name} ({Value})";
+        public override string ToString()
+        {
+            if (string.IsNullOrWhiteSpace(_description))
+            {
+                return $"{Name} ({Value})";
+            }
+            else
+            {
+                return $"{Name} ({Value}) \"{_description}\"";
+            }
+        }
 
         public static implicit operator TValue(SmartEnum<TEnum, TValue> smartEnum) => smartEnum.Value;
     }

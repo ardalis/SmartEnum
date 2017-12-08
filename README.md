@@ -11,20 +11,28 @@ Thanks for [Scott Depouw](https://github.com/sdepouw) for his help with this!
 
 ## Usage
 
-Define your smart enum by inheriting from `SmartEnum<TEnum, TValue>` where `TEnum` is the type you're declaring and `TValue` is the type of its value (typically `int`). For example:
+Define your smart enum by inheriting from `SmartEnum<TEnum, TValue>` where `TEnum` is the type you're declaring and `TValue` is the type of its value (typically `int`). Descriptions can be declared for your smart enum using the optional constructor argument. For example:
 
 ```c#
     public class TestEnum : SmartEnum<TestEnum, int>
     {
-        public static TestEnum One = new TestEnum(nameof(One), 1);
+        public static TestEnum One = new TestEnum(nameof(One), 1, "One (default)");
         public static TestEnum Two = new TestEnum(nameof(Two), 2);
         public static TestEnum Three = new TestEnum(nameof(Three), 3);
 
         protected TestEnum(string name, int value) : base(name, value)
         {
         }
+
+        protected TestEnum(string name, int value, string description) : base(name, value, description)
+        {
+        }
     }
 ```
+
+### Description
+
+When a description is provided using the optional constructor argument it is returned by the `Description` property. If no description was provided, the `Description` property returns the name.
 
 ### List
 
@@ -55,7 +63,8 @@ Access an instance of an enum by matching its value:
 Display an enum using the `ToString()` override:
 
 ```
-    Console.WriteLine(TestEnum.One); // One (1)
+    Console.WriteLine(TestEnum.One); // One (1) "One (default)"
+    Console.WriteLine(TestEnum.Two); // Two (2)
 ```
 
 ## References
