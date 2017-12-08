@@ -16,6 +16,7 @@
     <Version>1.0.2</Version>
     <AssemblyName>Ardalis.SmartEnum</AssemblyName>
     <PackageIconUrl>https://user-images.githubusercontent.com/782127/33497760-facf6550-d69c-11e7-94e4-b3856da259a9.png</PackageIconUrl>
+    <RootNamespace>Ardalis.SmartEnum</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.1|AnyCPU'">

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Ardalis.GuardClauses;
+using SmartEnum.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Ardalis.GuardClauses;
-using SmartEnum.Exceptions;
 
 namespace Ardalis.SmartEnum
 {
@@ -28,13 +28,7 @@ namespace Ardalis.SmartEnum
             .ToList();
         }
 
-        public static List<TEnum> List
-        {
-            get
-            {
-                return _list.Value;
-            }
-        }
+        public static List<TEnum> List => _list.Value;
 
         public string Name { get; }
         public TValue Value { get; }
@@ -49,7 +43,7 @@ namespace Ardalis.SmartEnum
         {
             Guard.Against.NullOrEmpty(name, nameof(name));
             var result = List.FirstOrDefault(item => string.Equals(item.Name, name, StringComparison.OrdinalIgnoreCase));
-            if(result == null)
+            if (result == null)
             {
                 throw new SmartEnumNotFoundException($"No {typeof(TEnum).Name} with Name \"{name}\" found.");
             }
@@ -58,7 +52,7 @@ namespace Ardalis.SmartEnum
 
         public static TEnum FromValue(TValue value)
         {
-            // Can't use == to compare generics unless we constrain TValue to "class", 
+            // Can't use == to compare generics unless we constrain TValue to "class",
             // which we don't want because then we couldn't use int.
             var result = List.FirstOrDefault(item => EqualityComparer<TValue>.Default.Equals(item.Value, value));
             if (result == null)
@@ -68,6 +62,20 @@ namespace Ardalis.SmartEnum
             return result;
         }
 
+        public static TEnum FromValue(TValue value, TEnum defaultValue)
+        {
+            // Can't use == to compare generics unless we constrain TValue to "class",
+            // which we don't want because then we couldn't use int.
+            var result = List.FirstOrDefault(item => EqualityComparer<TValue>.Default.Equals(item.Value, value));
+            if (result == null)
+            {
+                result = defaultValue;
+            }
+            return result;
+        }
+
         public override string ToString() => $"{Name} ({Value})";
+
+        public static implicit operator TValue(SmartEnum<TEnum, TValue> smartEnum) => smartEnum.Value;
     }
 }

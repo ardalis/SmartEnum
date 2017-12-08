@@ -1,5 +1,4 @@
-using Ardalis.SmartEnum;
-using SmartEnum.Exceptions;
+﻿using SmartEnum.Exceptions;
 using Xunit;
 
 namespace SmartEnum.UnitTests
@@ -34,6 +33,13 @@ namespace SmartEnum.UnitTests
             }
 
             Assert.Equal(expected, actual);
+
+        [Fact]
+        public void ReturnsDefaultEnumGivenNonMatchingValue()
+        {
+            var defaultEnum = TestEnum.One;
+
+            Assert.Equal(defaultEnum, TestEnum.FromValue(-1, defaultEnum));
         }
     }
 }

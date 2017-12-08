@@ -1,5 +1,4 @@
-using Ardalis.SmartEnum;
-using SmartEnum.Exceptions;
+﻿using SmartEnum.Exceptions;
 using System;
 using Xunit;
 
