@@ -18,6 +18,23 @@ namespace SmartEnum.UnitTests
         }
 
         [Fact]
+        public void ThrowsWithExpectedMessageGivenNonMatchingValue()
+        {
+            string expected = $"No TestEnum with Value -1 found.";
+            string actual = "";
+
+            try
+            {
+                var testEnum = TestEnum.FromValue(-1);
+            }
+            catch (SmartEnumNotFoundException ex)
+            {
+                actual = ex.Message;
+            }
+
+            Assert.Equal(expected, actual);
+
+        [Fact]
         public void ReturnsDefaultEnumGivenNonMatchingValue()
         {
             var defaultEnum = TestEnum.One;
