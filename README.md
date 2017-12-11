@@ -17,13 +17,14 @@ Define your smart enum by inheriting from `SmartEnum<TEnum, TValue>` where `TEnu
     public class TestEnum : SmartEnum<TestEnum, int>
     {
         public static TestEnum One = new TestEnum(nameof(One), 1, "One (default)");
-        public static TestEnum Two = new TestEnum(nameof(Two), 2);
+        public static TestEnum Two = new TestEnum(nameof(Two), 2, "The second option");
         public static TestEnum Three = new TestEnum(nameof(Three), 3);
 
         protected TestEnum(string name, int value) : base(name, value)
         {
         }
 
+		// This constructor is optional, required only if you need to use descriptions
         protected TestEnum(string name, int value, string description) : base(name, value, description)
         {
         }
@@ -32,7 +33,7 @@ Define your smart enum by inheriting from `SmartEnum<TEnum, TValue>` where `TEnu
 
 ### Description
 
-When a description is provided using the optional constructor argument it is returned by the `Description` property. If no description was provided, the `Description` property returns the name.
+When a description is provided using the optional constructor argument it is returned by the `Description` property. If no description was provided, the `Description` property returns the name. Descriptions useful when you need to provide a list of options to a user and the names are not suffieciently descriptive; for instance in a dropdown list.
 
 ### List
 
