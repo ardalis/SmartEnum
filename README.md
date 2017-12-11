@@ -33,7 +33,7 @@ Define your smart enum by inheriting from `SmartEnum<TEnum, TValue>` where `TEnu
 
 ### Description
 
-When a description is provided using the optional constructor argument it is returned by the `Description` property. If no description was provided, the `Description` property returns the name. Descriptions useful when you need to provide a list of options to a user and the names are not suffieciently descriptive; for instance in a dropdown list.
+When a description is provided using the optional constructor argument it is returned by the `Description` property. If no description was provided, the `Description` property returns the name. Descriptions are useful when you need to provide a list of options to a user and the names are not suffieciently descriptive; for instance in a dropdown list.
 
 ### List
 
