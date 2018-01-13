@@ -33,6 +33,7 @@ namespace SmartEnum.UnitTests
             }
 
             Assert.Equal(expected, actual);
+        }
 
         [Fact]
         public void ReturnsDefaultEnumGivenNonMatchingValue()
