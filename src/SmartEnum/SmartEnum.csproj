@@ -12,8 +12,8 @@
     <Summary>Classes to help produce strongly typed smarter enums in .NET.</Summary>
     <RepositoryUrl>https://github.com/ardalis/SmartEnum</RepositoryUrl>
     <PackageTags>enum</PackageTags>
-    <PackageReleaseNotes>Fixed issue with List behavior.</PackageReleaseNotes>
-    <Version>1.0.2</Version>
+    <PackageReleaseNotes>Added explicit operator</PackageReleaseNotes>
+    <Version>1.0.3</Version>
     <AssemblyName>Ardalis.SmartEnum</AssemblyName>
     <PackageIconUrl>https://user-images.githubusercontent.com/782127/33497760-facf6550-d69c-11e7-94e4-b3856da259a9.png</PackageIconUrl>
     <RootNamespace>Ardalis.SmartEnum</RootNamespace>
@@ -24,7 +24,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ardalis.GuardClauses" Version="1.2.2" />
+    <PackageReference Include="Ardalis.GuardClauses" Version="1.2.3" />
   </ItemGroup>
 
 </Project>
