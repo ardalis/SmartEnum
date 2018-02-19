@@ -77,5 +77,6 @@ namespace Ardalis.SmartEnum
         public override string ToString() => $"{Name} ({Value})";
 
         public static implicit operator TValue(SmartEnum<TEnum, TValue> smartEnum) => smartEnum.Value;
+        public static explicit operator SmartEnum<TEnum, TValue>(TValue value) => FromValue(value);
     }
 }
