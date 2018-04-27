@@ -39,6 +39,11 @@ namespace Ardalis.SmartEnum
             Value = value;
         }
 
+        protected SmartEnum()
+        {
+            // Required for EF
+        }
+
         public static TEnum FromName(string name)
         {
             Guard.Against.NullOrEmpty(name, nameof(name));
