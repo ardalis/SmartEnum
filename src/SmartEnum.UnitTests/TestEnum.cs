@@ -11,5 +11,10 @@ namespace SmartEnum.UnitTests
         protected TestEnum(string name, int value) : base(name, value)
         {
         }
+
+        private TestEnum() : base()
+        {
+            // required for EF
+        }
     }
 }
