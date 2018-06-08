@@ -58,6 +58,22 @@ Display an enum using the `ToString()` override:
     Console.WriteLine(TestEnum.One); // One (1)
 ```
 
+### Switch
+
+Given an instance of a TestEnum, switch depending on value:
+
+```
+    switch(testEnumVar.Name)
+    {
+        case nameof(TestEnum.One):
+            ...
+        case nameof(TestEnum.Two):
+            ...
+        case nameof(TestEnum.Three):
+            ...
+    }
+```
+
 ## References
 
 - [Listing Strongly Typed Enums...)](https://ardalis.com/listing-strongly-typed-enum-options-in-c)
