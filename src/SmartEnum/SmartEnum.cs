@@ -31,7 +31,7 @@ namespace Ardalis.SmartEnum
         public static List<TEnum> List => _list.Value;
 
         public string Name { get; }
-        public TValue Value { get; }
+        public TValue Value { get; protected set; }
 
         protected SmartEnum(string name, TValue value)
         {
