@@ -13,7 +13,7 @@ namespace Ardalis.SmartEnum
     /// TValue is the type of the enum value, typically int.
     /// </summary>
     /// <remarks></remarks>
-    public abstract class SmartEnum<TEnum, TValue>
+    public abstract class SmartEnum<TEnum, TValue> : IEquatable<SmartEnum<TEnum, TValue>>
         where TEnum : SmartEnum<TEnum, TValue>
     {
         private static readonly Lazy<List<TEnum>> _list = new Lazy<List<TEnum>>(ListAllOptions);
@@ -80,6 +80,51 @@ namespace Ardalis.SmartEnum
         }
 
         public override string ToString() => $"{Name} ({Value})";
+        public override int GetHashCode() => new { Name, Value }.GetHashCode();
+        public override bool Equals(object obj) => Equals(obj as SmartEnum<TEnum, TValue>);
+
+        public bool Equals(SmartEnum<TEnum, TValue> other)
+        {
+            if (other is null)
+            {
+                return false;
+            }
+
+            // If the objects share the same reference, return true
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            // If the runtime types are not the same, return false
+            if (GetType() != other.GetType())
+            {
+                return false;
+            }
+
+            // Return true if both name and value match
+            return Name == other.Name && EqualityComparer<TValue>.Default.Equals(Value, other.Value);
+        }
+
+        public static bool operator ==(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right)
+        {
+            // Handle null on left side
+            if (left is null)
+            {
+                if (right is null)
+                {
+                    // null == null = true
+                    return true;
+                }
+
+                return false;
+            }
+
+            // Equals handles null on right side
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right) => !(left == right);
 
         public static implicit operator TValue(SmartEnum<TEnum, TValue> smartEnum) => smartEnum.Value;
         public static explicit operator SmartEnum<TEnum, TValue>(TValue value) => FromValue(value);
