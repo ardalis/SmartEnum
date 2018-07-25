@@ -7,7 +7,7 @@ A simple package with a base Smart Enum class.
 
 ## Contributors
 
-Thanks for [Scott Depouw](https://github.com/sdepouw) for his help with this!
+Thanks to [Scott Depouw](https://github.com/sdepouw) for his help with this!
 
 ## Usage
 
@@ -71,6 +71,23 @@ Given an instance of a TestEnum, switch depending on value:
             ...
         case nameof(TestEnum.Three):
             ...
+    }
+```
+
+### Persisting with EF Core 2.1 or higher
+
+EF Core 2.1 introduced [value conversions](https://docs.microsoft.com/en-us/ef/core/modeling/value-conversions) which can be used to map SmartEnum types to simple database types. For example, given an entity named `Policy` with a property `PolicyStatus` that is a SmartEnum, you could use the following code to persist just the value to the database:
+
+```
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+
+        builder.Entity<Policy>()
+            .Property(p => p.PolicyStatus)
+            .HasConversion(
+                p => p.Value,
+                p => PolicyStatus.FromValue(p));
     }
 ```
 
