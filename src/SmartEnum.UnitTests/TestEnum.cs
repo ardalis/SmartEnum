@@ -16,5 +16,7 @@ namespace SmartEnum.UnitTests
         {
             // required for EF
         }
+
+        internal static TestEnum CreateFromConstructor(string name, int value) => new TestEnum(name, value);
     }
 }
