@@ -16,7 +16,10 @@ namespace Ardalis.SmartEnum
     public abstract class SmartEnum<TEnum, TValue> : IEquatable<SmartEnum<TEnum, TValue>>
         where TEnum : SmartEnum<TEnum, TValue>
     {
-        private static readonly Lazy<List<TEnum>> _list = new Lazy<List<TEnum>>(ListAllOptions);
+        private static readonly Lazy<Dictionary<TValue, TEnum>> _fromValue = 
+            new Lazy<Dictionary<TValue, TEnum>>(() => ListAllOptions().ToDictionary(i => i.Value));
+        private static readonly Lazy<Dictionary<string, TEnum>> _fromName = 
+            new Lazy<Dictionary<string, TEnum>>(() => ListAllOptions().ToDictionary(i => i.Name, StringComparer.OrdinalIgnoreCase));
 
         private static List<TEnum> ListAllOptions()
         {
@@ -28,7 +31,7 @@ namespace Ardalis.SmartEnum
             .ToList();
         }
 
-        public static List<TEnum> List => _list.Value;
+        public static IReadOnlyCollection<TEnum> List => _fromValue.Value.Values;
 
         public string Name { get; }
         public TValue Value { get; protected set; }
@@ -47,8 +50,7 @@ namespace Ardalis.SmartEnum
         public static TEnum FromName(string name)
         {
             Guard.Against.NullOrEmpty(name, nameof(name));
-            var result = List.FirstOrDefault(item => string.Equals(item.Name, name, StringComparison.OrdinalIgnoreCase));
-            if (result == null)
+            if (!_fromName.Value.TryGetValue(name, out var result))
             {
                 throw new SmartEnumNotFoundException($"No {typeof(TEnum).Name} with Name \"{name}\" found.");
             }
@@ -57,10 +59,7 @@ namespace Ardalis.SmartEnum
 
         public static TEnum FromValue(TValue value)
         {
-            // Can't use == to compare generics unless we constrain TValue to "class",
-            // which we don't want because then we couldn't use int.
-            var result = List.FirstOrDefault(item => EqualityComparer<TValue>.Default.Equals(item.Value, value));
-            if (result == null)
+            if (!_fromValue.Value.TryGetValue(value, out var result))
             {
                 throw new SmartEnumNotFoundException($"No {typeof(TEnum).Name} with Value {value} found.");
             }
@@ -69,10 +68,7 @@ namespace Ardalis.SmartEnum
 
         public static TEnum FromValue(TValue value, TEnum defaultValue)
         {
-            // Can't use == to compare generics unless we constrain TValue to "class",
-            // which we don't want because then we couldn't use int.
-            var result = List.FirstOrDefault(item => EqualityComparer<TValue>.Default.Equals(item.Value, value));
-            if (result == null)
+            if (!_fromValue.Value.TryGetValue(value, out var result))
             {
                 result = defaultValue;
             }
