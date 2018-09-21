@@ -80,7 +80,7 @@ namespace Ardalis.SmartEnum
         }
 
         public override string ToString() => $"{Name} ({Value})";
-        public override int GetHashCode() => new { Name, Value }.GetHashCode();
+        public override int GetHashCode() => ( Name, Value ).GetHashCode();
         public override bool Equals(object obj) => Equals(obj as SmartEnum<TEnum, TValue>);
 
         public bool Equals(SmartEnum<TEnum, TValue> other)
