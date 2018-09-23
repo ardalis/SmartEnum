@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum", "SmartEnum\Smar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartEnum.UnitTests", "SmartEnum.UnitTests\SmartEnum.UnitTests.csproj", "{7EC129B9-8A9B-469E-A160-8C351161F097}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartEnum.AutoFixture", "SmartEnum.AutoFixture\SmartEnum.AutoFixture.csproj", "{97908BA0-B656-47CE-81E6-3011734082BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartEnum.AutoFixture.UnitTests", "SmartEnum.AutoFixture.UnitTests\SmartEnum.AutoFixture.UnitTests.csproj", "{790CC856-58C4-47F3-8561-00B9D912B1D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{7EC129B9-8A9B-469E-A160-8C351161F097}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EC129B9-8A9B-469E-A160-8C351161F097}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EC129B9-8A9B-469E-A160-8C351161F097}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97908BA0-B656-47CE-81E6-3011734082BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97908BA0-B656-47CE-81E6-3011734082BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97908BA0-B656-47CE-81E6-3011734082BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97908BA0-B656-47CE-81E6-3011734082BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{790CC856-58C4-47F3-8561-00B9D912B1D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{790CC856-58C4-47F3-8561-00B9D912B1D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{790CC856-58C4-47F3-8561-00B9D912B1D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{790CC856-58C4-47F3-8561-00B9D912B1D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
