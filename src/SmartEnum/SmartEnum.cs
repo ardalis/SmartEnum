@@ -17,9 +17,10 @@ namespace Ardalis.SmartEnum
         where TEnum : SmartEnum<TEnum, TValue>
     {
         private static readonly Lazy<Dictionary<TValue, TEnum>> _fromValue = 
-            new Lazy<Dictionary<TValue, TEnum>>(() => ListAllOptions().ToDictionary(i => i.Value));
+            new Lazy<Dictionary<TValue, TEnum>>(() => AsDictionary(ListAllOptions(), i => i.Value));
+
         private static readonly Lazy<Dictionary<string, TEnum>> _fromName = 
-            new Lazy<Dictionary<string, TEnum>>(() => ListAllOptions().ToDictionary(i => i.Name, StringComparer.OrdinalIgnoreCase));
+            new Lazy<Dictionary<string, TEnum>>(() => AsDictionary(ListAllOptions(), i => i.Name, StringComparer.OrdinalIgnoreCase));
 
         private static IOrderedEnumerable<TEnum> ListAllOptions()
         {
@@ -28,6 +29,23 @@ namespace Ardalis.SmartEnum
             .Where(p => t.IsAssignableFrom(p.FieldType))
             .Select(pi => (TEnum)pi.GetValue(null))
             .OrderBy(p => p.Name);
+        }
+
+        private static Dictionary<TKey, TEnum> AsDictionary<TKey>(IEnumerable<TEnum> enums, 
+            Func<TEnum, TKey> keySelector,
+            IEqualityComparer<TKey> comparer = null)
+        {
+            var dictionary = new Dictionary<TKey, TEnum>(comparer);
+            foreach(var item in enums)
+            {
+                var key = keySelector(item);
+                if(dictionary.TryGetValue(key, out var duplicate))
+                {
+                    throw new SmartEnumDuplicateException();
+                }
+                dictionary.Add(key, item);
+            }
+            return dictionary;
         }
 
         public static IReadOnlyCollection<TEnum> List => _fromValue.Value.Values;

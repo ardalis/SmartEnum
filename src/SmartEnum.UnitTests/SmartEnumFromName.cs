@@ -62,5 +62,11 @@ namespace SmartEnum.UnitTests
 
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void ThrowsGivenDuplicate()
+        {
+            Assert.Throws<SmartEnumDuplicateException>(() => TestEnumDuplicate.FromName(TestEnumDuplicate.One.Name));
+        }    
     }
 }
