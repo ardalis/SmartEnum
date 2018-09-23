@@ -39,9 +39,9 @@ namespace Ardalis.SmartEnum
             foreach(var item in enums)
             {
                 var key = keySelector(item);
-                if(dictionary.TryGetValue(key, out var duplicate))
+                if(dictionary.ContainsKey(key))
                 {
-                    throw new SmartEnumDuplicateException();
+                    throw new SmartEnumDuplicateException(typeof(TKey), key);
                 }
                 dictionary.Add(key, item);
             }

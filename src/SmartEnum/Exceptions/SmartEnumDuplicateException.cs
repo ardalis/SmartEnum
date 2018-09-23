@@ -4,20 +4,30 @@ namespace SmartEnum.Exceptions
 {
     public class SmartEnumDuplicateException : Exception
     {
-        public SmartEnumDuplicateException() : base()
+        public Type Type { get; }
+        public object Duplicate { get; }
+
+        public SmartEnumDuplicateException(Type type, object duplicate) : 
+            base($"'{duplicate} is a duplicate in '{type.Name}'")
         {
+            Type = type;
+            Duplicate = duplicate;
         }
 
         protected SmartEnumDuplicateException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base(info, context)
         {
         }
 
-        public SmartEnumDuplicateException(string message) : base(message)
+        public SmartEnumDuplicateException(Type type, object duplicate, string message) : base(message)
         {
+            Type = type;
+            Duplicate = duplicate;
         }
 
-        public SmartEnumDuplicateException(string message, Exception innerException) : base(message, innerException)
+        public SmartEnumDuplicateException(Type type, object duplicate, string message, Exception innerException) : base(message, innerException)
         {
+            Type = type;
+            Duplicate = duplicate;
         }
     }
 }
