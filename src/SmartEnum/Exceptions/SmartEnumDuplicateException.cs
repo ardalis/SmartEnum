@@ -8,7 +8,7 @@ namespace SmartEnum.Exceptions
         public object Duplicate { get; }
 
         public SmartEnumDuplicateException(Type type, object duplicate) : 
-            base($"'{duplicate} is a duplicate in '{type.Name}'")
+            base($"'{duplicate}' is a duplicate in '{type.Name}'")
         {
             Type = type;
             Duplicate = duplicate;
