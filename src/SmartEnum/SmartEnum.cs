@@ -80,7 +80,20 @@ namespace Ardalis.SmartEnum
         }
 
         public override string ToString() => $"{Name} ({Value})";
-        public override int GetHashCode() => (Name, Value).GetHashCode();
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                const int HashingBase = (int)2166136261;
+                const int HashingMultiplier = 16777619;
+
+                var hash = HashingBase;
+                hash = (hash * HashingMultiplier) ^ (Object.ReferenceEquals(null, Value) ? 0 : Value.GetHashCode());
+                hash = (hash * HashingMultiplier) ^ (Name is null ? 0 : Name.GetHashCode());
+                return hash;
+            }
+        }   
+
         public override bool Equals(object obj) => (obj is SmartEnum<TEnum, TValue> other) && Equals(other);
 
         public bool Equals(SmartEnum<TEnum, TValue> other)
@@ -97,21 +110,15 @@ namespace Ardalis.SmartEnum
             }
 
             // Return true if both name and value match
-            return (Name, Value).Equals((other.Name, other.Value));
+            return Name == other.Name && EqualityComparer<TValue>.Default.Equals(Value, other.Value);
         }
 
         public static bool operator ==(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right)
         {
-            // Handle same reference, including null
-            if (ReferenceEquals(left, right))
-            {
-                return true;
-            }
-
             // Handle null on left side
             if (left is null)
             {
-                return false;
+                return right is null;
             }
 
             // Equals handles null on right side

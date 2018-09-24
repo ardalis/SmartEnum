@@ -28,8 +28,4 @@
     <PackageReference Include="Ardalis.GuardClauses" Version="1.2.3" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'!='netstandard2.0'">
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-  </ItemGroup>
-
 </Project>
