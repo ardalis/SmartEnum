@@ -80,8 +80,8 @@ namespace Ardalis.SmartEnum
         }
 
         public override string ToString() => $"{Name} ({Value})";
-        public override int GetHashCode() => ( Name, Value ).GetHashCode();
-        public override bool Equals(object obj) => Equals(obj as SmartEnum<TEnum, TValue>);
+        public override int GetHashCode() => (Name, Value).GetHashCode();
+        public override bool Equals(object obj) => (obj is SmartEnum<TEnum, TValue> other) && Equals(other);
 
         public bool Equals(SmartEnum<TEnum, TValue> other)
         {
@@ -96,27 +96,21 @@ namespace Ardalis.SmartEnum
                 return true;
             }
 
-            // If the runtime types are not the same, return false
-            if (GetType() != other.GetType())
-            {
-                return false;
-            }
-
             // Return true if both name and value match
-            return Name == other.Name && EqualityComparer<TValue>.Default.Equals(Value, other.Value);
+            return (Name, Value).Equals((other.Name, other.Value));
         }
 
         public static bool operator ==(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right)
         {
+            // Handle same reference, including null
+            if (ReferenceEquals(left, right))
+            {
+                return true;
+            }
+
             // Handle null on left side
             if (left is null)
             {
-                if (right is null)
-                {
-                    // null == null = true
-                    return true;
-                }
-
                 return false;
             }
 
