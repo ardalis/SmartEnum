@@ -22,13 +22,12 @@ namespace Ardalis.SmartEnum
         private static readonly Lazy<Dictionary<string, TEnum>> _fromName = 
             new Lazy<Dictionary<string, TEnum>>(() => AsDictionary(ListAllOptions(), i => i.Name, StringComparer.OrdinalIgnoreCase));
 
-        private static IOrderedEnumerable<TEnum> ListAllOptions()
+        private static IEnumerable<TEnum> ListAllOptions()
         {
             Type t = typeof(TEnum);
             return t.GetFields(BindingFlags.Public | BindingFlags.Static)
             .Where(p => t.IsAssignableFrom(p.FieldType))
-            .Select(pi => (TEnum)pi.GetValue(null))
-            .OrderBy(p => p.Name);
+            .Select(pi => (TEnum)pi.GetValue(null));
         }
 
         private static Dictionary<TKey, TEnum> AsDictionary<TKey>(IEnumerable<TEnum> enums, 
