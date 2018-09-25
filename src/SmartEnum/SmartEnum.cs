@@ -110,7 +110,7 @@ namespace Ardalis.SmartEnum
             }
 
             // Return true if both name and value match
-            return Name == other.Name && EqualityComparer<TValue>.Default.Equals(Value, other.Value);
+            return Name.Equals(other.Name) && EqualityComparer<TValue>.Default.Equals(Value, other.Value);
         }
 
         public static bool operator ==(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right)
