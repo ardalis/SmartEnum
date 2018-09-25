@@ -80,8 +80,21 @@ namespace Ardalis.SmartEnum
         }
 
         public override string ToString() => $"{Name} ({Value})";
-        public override int GetHashCode() => new { Name, Value }.GetHashCode();
-        public override bool Equals(object obj) => Equals(obj as SmartEnum<TEnum, TValue>);
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                const int HashingBase = (int)2166136261;
+                const int HashingMultiplier = 16777619;
+
+                var hash = HashingBase;
+                hash = (hash * HashingMultiplier) ^ (Object.ReferenceEquals(null, Value) ? 0 : Value.GetHashCode());
+                hash = (hash * HashingMultiplier) ^ (Name is null ? 0 : Name.GetHashCode());
+                return hash;
+            }
+        }   
+
+        public override bool Equals(object obj) => (obj is SmartEnum<TEnum, TValue> other) && Equals(other);
 
         public bool Equals(SmartEnum<TEnum, TValue> other)
         {
@@ -96,14 +109,8 @@ namespace Ardalis.SmartEnum
                 return true;
             }
 
-            // If the runtime types are not the same, return false
-            if (GetType() != other.GetType())
-            {
-                return false;
-            }
-
             // Return true if both name and value match
-            return Name == other.Name && EqualityComparer<TValue>.Default.Equals(Value, other.Value);
+            return Name.Equals(other.Name) && EqualityComparer<TValue>.Default.Equals(Value, other.Value);
         }
 
         public static bool operator ==(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right)
@@ -111,13 +118,7 @@ namespace Ardalis.SmartEnum
             // Handle null on left side
             if (left is null)
             {
-                if (right is null)
-                {
-                    // null == null = true
-                    return true;
-                }
-
-                return false;
+                return right is null;
             }
 
             // Equals handles null on right side
