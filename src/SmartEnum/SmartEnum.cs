@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace Ardalis.SmartEnum
 {
@@ -13,6 +14,7 @@ namespace Ardalis.SmartEnum
     /// TValue is the type of the enum value, typically int.
     /// </summary>
     /// <remarks></remarks>
+    [DataContract]
     public abstract class SmartEnum<TEnum, TValue> : IEquatable<SmartEnum<TEnum, TValue>>
         where TEnum : SmartEnum<TEnum, TValue>
     {
@@ -30,7 +32,9 @@ namespace Ardalis.SmartEnum
 
         public static List<TEnum> List => _list.Value;
 
-        public string Name { get; }
+        [DataMember]
+        public string Name { get; protected set;  }
+        [DataMember]
         public TValue Value { get; protected set; }
 
         protected SmartEnum(string name, TValue value)
