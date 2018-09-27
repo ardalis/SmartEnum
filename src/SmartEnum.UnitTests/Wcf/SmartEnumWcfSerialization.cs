@@ -15,9 +15,11 @@ namespace SmartEnum.UnitTests.Wcf
         public void SurvivesSerializationRoundTrip()
         {
             var result = WcfTestHelper.DataContractSerializationRoundTrip(TestEnum.One);
+            var resultJson = WcfTestHelper.DataContractJsonSerializationRoundTrip(TestEnum.One);
 
 
             Assert.Equal(TestEnum.One, result);
+            Assert.Equal(TestEnum.One, resultJson);
         }
 
         /// <summary>
@@ -33,9 +35,11 @@ namespace SmartEnum.UnitTests.Wcf
             var expected = new TestObjectWithTestEnumProperty { Test = TestWcfEnum.One };
             
             var result = WcfTestHelper.DataContractSerializationRoundTrip(expected);
+            var resultJson = WcfTestHelper.DataContractJsonSerializationRoundTrip(expected);
 
 
             Assert.Equal(expected.Test, result.Test);
+            Assert.Equal(expected.Test, resultJson.Test);
         }
 
         /// <summary>
@@ -50,9 +54,11 @@ namespace SmartEnum.UnitTests.Wcf
             var expected = new TestObjectWithSmartEnumProperty { Test = TestWcfEnum.One };
             
             var result = WcfTestHelper.DataContractSerializationRoundTrip(expected);
+            var resultJson = WcfTestHelper.DataContractJsonSerializationRoundTrip(expected);
 
 
             Assert.Equal(expected.Test, result.Test);
+            Assert.Equal(expected.Test, resultJson.Test);
         }
 
         /// <summary>
@@ -71,9 +77,11 @@ namespace SmartEnum.UnitTests.Wcf
             var expected = new TestObjectWithSmartEnumProperty { Test = TestWcfEnumSubClass.Four };
             
             var result = WcfTestHelper.DataContractSerializationRoundTrip(expected);
+            var resultJson = WcfTestHelper.DataContractJsonSerializationRoundTrip(expected);
 
 
             Assert.Equal(expected.Test, result.Test);
+            Assert.Equal(expected.Test, resultJson.Test);
         }
     }
 }
