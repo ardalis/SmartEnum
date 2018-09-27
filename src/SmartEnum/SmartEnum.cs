@@ -13,8 +13,12 @@ namespace Ardalis.SmartEnum
     /// TEnum is the type that is inheriting from this class.
     /// TValue is the type of the enum value, typically int.
     /// </summary>
-    /// <remarks></remarks>
+    /// <remarks>
+    /// Known Types are reported for serialization for direct derived types only.
+    /// Those types must report their own list of known types.
+    /// </remarks>
     [DataContract]
+    [KnownType(nameof(GetKnownTypes))]
     public abstract class SmartEnum<TEnum, TValue> : IEquatable<SmartEnum<TEnum, TValue>>
         where TEnum : SmartEnum<TEnum, TValue>
     {
@@ -132,5 +136,7 @@ namespace Ardalis.SmartEnum
 
         public static implicit operator TValue(SmartEnum<TEnum, TValue> smartEnum) => smartEnum.Value;
         public static explicit operator SmartEnum<TEnum, TValue>(TValue value) => FromValue(value);
+
+        private static IEnumerable<Type> GetKnownTypes() => new List<Type> { typeof(TEnum) };
     }
 }
