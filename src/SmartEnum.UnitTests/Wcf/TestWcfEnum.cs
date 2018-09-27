@@ -25,15 +25,19 @@ namespace SmartEnum.UnitTests.Wcf
 
         private static IEnumerable<Type> _knownTypes;
 
+        /// <summary>
+        /// Finds all subclasses of this type via reflection so they can be
+        /// known to the serializer.
+        /// </summary>
+        /// <returns></returns>
         private static IEnumerable<Type> GetKnownTypes()
         {
             // The list has already been created, no need to do it again.
             if (_knownTypes != null) return _knownTypes;
 
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            var types = assemblies.SelectMany(assembly => assembly.GetTypes());
-
-            _knownTypes = types.Where(type => type.IsSubclassOf(typeof(TestWcfEnum)));
+            _knownTypes = AppDomain.CurrentDomain.GetAssemblies()
+                            .SelectMany(assembly => assembly.GetTypes())
+                            .Where(type => type.IsSubclassOf(typeof(TestWcfEnum)));
 
             return _knownTypes;
         }

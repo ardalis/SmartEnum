@@ -1,7 +1,6 @@
 ﻿using System.Runtime.Serialization;
-using SmartEnum.UnitTests.Wcf;
 
-namespace SmartEnum.UnitTests
+namespace SmartEnum.UnitTests.Wcf
 {
     [DataContract]
     public class TestObjectWithTestEnumProperty
