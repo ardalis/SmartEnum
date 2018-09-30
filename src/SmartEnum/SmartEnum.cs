@@ -7,32 +7,40 @@ using System.Reflection;
 
 namespace Ardalis.SmartEnum
 {
-    /// <summary>
-    /// A base type to use for creating smart enums in .NET.
-    /// TEnum is the type that is inheriting from this class.
-    /// TValue is the type of the enum value, typically int.
-    /// </summary>
-    /// <remarks></remarks>
     public abstract class SmartEnum<TEnum, TValue> : IEquatable<SmartEnum<TEnum, TValue>>
         where TEnum : SmartEnum<TEnum, TValue>
     {
-        private static readonly Lazy<List<TEnum>> _list = new Lazy<List<TEnum>>(ListAllOptions);
+        private static readonly Lazy<Dictionary<string, TEnum>> _fromName = 
+            new Lazy<Dictionary<string, TEnum>>(() => ListAllOptions().ToDictionary(item => item.Name));
 
-        private static List<TEnum> ListAllOptions()
+        private static readonly Lazy<Dictionary<string, TEnum>> _fromNameIgnoreCase = 
+            new Lazy<Dictionary<string, TEnum>>(() => ListAllOptions().ToDictionary(item => item.Name, StringComparer.OrdinalIgnoreCase));
+
+        private static readonly Lazy<Dictionary<TValue, TEnum>> _fromValue = 
+            new Lazy<Dictionary<TValue, TEnum>>(() => {
+                // multiple enums with same value are allowed but store only one per value
+                var dictionary = new Dictionary<TValue, TEnum>();
+                foreach (var item in ListAllOptions())
+                {
+                    if (!dictionary.ContainsKey(item.Value))
+                        dictionary.Add(item.Value, item);
+                }
+                return dictionary;
+            });
+
+        private static IEnumerable<TEnum> ListAllOptions()
         {
-            Type t = typeof(TEnum);
-            return t.GetFields(BindingFlags.Public | BindingFlags.Static)
-            .Where(p => t.IsAssignableFrom(p.FieldType))
-            .Select(pi => (TEnum)pi.GetValue(null))
-            .OrderBy(p => p.Name)
-            .ToList();
+            Type type = typeof(TEnum);
+            return type.GetFields(BindingFlags.Public | BindingFlags.Static)
+                .Where(fieldInfo => type.IsAssignableFrom(fieldInfo.FieldType))
+                .Select(fieldInfo => (TEnum)fieldInfo.GetValue(null));
         }
 
-        public static List<TEnum> List => _list.Value;
+        public static IReadOnlyCollection<TEnum> List => _fromName.Value.Values;
 
         public string Name { get; }
-        public TValue Value { get; protected set; }
 
+        public TValue Value { get; protected set; }
         protected SmartEnum(string name, TValue value)
         {
             Name = name;
@@ -44,23 +52,41 @@ namespace Ardalis.SmartEnum
             // Required for EF
         }
 
-        public static TEnum FromName(string name)
+        public Type GetUnderlyingType () => typeof(TValue);
+
+        public static TEnum FromName(string name, bool ignoreCase = true)
         {
             Guard.Against.NullOrEmpty(name, nameof(name));
-            var result = List.FirstOrDefault(item => string.Equals(item.Name, name, StringComparison.OrdinalIgnoreCase));
-            if (result == null)
+            if (ignoreCase)
+                return FromName(_fromNameIgnoreCase.Value);
+            else
+                return FromName(_fromName.Value);
+
+            TEnum FromName(Dictionary<string, TEnum> dictionary)
             {
-                throw new SmartEnumNotFoundException($"No {typeof(TEnum).Name} with Name \"{name}\" found.");
+                if (!dictionary.TryGetValue(name, out TEnum result))
+                {
+                    throw new SmartEnumNotFoundException($"No {typeof(TEnum).Name} with Name \"{name}\" found.");
+                }
+                return result;
             }
-            return result;
+        }
+
+        public static bool TryFromName(string name, out TEnum result) =>
+            TryFromName(name, true, out result);
+
+        public static bool TryFromName(string name, bool ignoreCase, out TEnum result)
+        {
+            Guard.Against.NullOrEmpty(name, nameof(name));
+            if (ignoreCase)
+                return _fromNameIgnoreCase.Value.TryGetValue(name, out result);
+            else
+                return _fromName.Value.TryGetValue(name, out result);
         }
 
         public static TEnum FromValue(TValue value)
         {
-            // Can't use == to compare generics unless we constrain TValue to "class",
-            // which we don't want because then we couldn't use int.
-            var result = List.FirstOrDefault(item => EqualityComparer<TValue>.Default.Equals(item.Value, value));
-            if (result == null)
+            if (!_fromValue.Value.TryGetValue(value, out TEnum result))
             {
                 throw new SmartEnumNotFoundException($"No {typeof(TEnum).Name} with Value {value} found.");
             }
@@ -69,19 +95,19 @@ namespace Ardalis.SmartEnum
 
         public static TEnum FromValue(TValue value, TEnum defaultValue)
         {
-            // Can't use == to compare generics unless we constrain TValue to "class",
-            // which we don't want because then we couldn't use int.
-            var result = List.FirstOrDefault(item => EqualityComparer<TValue>.Default.Equals(item.Value, value));
-            if (result == null)
+            if (!_fromValue.Value.TryGetValue(value, out TEnum result))
             {
-                result = defaultValue;
+                return defaultValue;
             }
             return result;
         }
 
+        public static bool TryFromValue(TValue value, out TEnum result) =>
+            _fromValue.Value.TryGetValue(value, out result);
+
         public override string ToString() => $"{Name} ({Value})";
-        public override int GetHashCode() => new { Name, Value }.GetHashCode();
-        public override bool Equals(object obj) => Equals(obj as SmartEnum<TEnum, TValue>);
+        public override int GetHashCode() => ReferenceEquals(null, Value) ? 0 : Value.GetHashCode(); 
+        public override bool Equals(object obj) => (obj is SmartEnum<TEnum, TValue> other) && Equals(other);
 
         public bool Equals(SmartEnum<TEnum, TValue> other)
         {
@@ -96,14 +122,8 @@ namespace Ardalis.SmartEnum
                 return true;
             }
 
-            // If the runtime types are not the same, return false
-            if (GetType() != other.GetType())
-            {
-                return false;
-            }
-
-            // Return true if both name and value match
-            return Name == other.Name && EqualityComparer<TValue>.Default.Equals(Value, other.Value);
+            // Return true if value matches
+            return EqualityComparer<TValue>.Default.Equals(Value, other.Value);
         }
 
         public static bool operator ==(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right)
@@ -111,13 +131,8 @@ namespace Ardalis.SmartEnum
             // Handle null on left side
             if (left is null)
             {
-                if (right is null)
-                {
-                    // null == null = true
-                    return true;
-                }
-
-                return false;
+                // null == null = true
+                return right is null;
             }
 
             // Equals handles null on right side
