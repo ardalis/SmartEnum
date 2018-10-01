@@ -35,6 +35,10 @@ namespace SmartEnum.JsonNet
                     return enumValue;
                 }
             }
+            catch (TargetInvocationException ex)
+            {
+                throw new JsonSerializationException($"Error converting value {reader.Value} to type '{objectType}'.", ex.InnerException);
+            }
             catch (Exception ex)
             {
                 throw new JsonSerializationException($"Error converting value {reader.Value} to type '{objectType}'.", ex);

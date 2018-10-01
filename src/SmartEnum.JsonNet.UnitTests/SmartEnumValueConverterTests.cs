@@ -1,5 +1,6 @@
 using System;
 using SmartEnum;
+using SmartEnum.Exceptions;
 using SmartEnum.JsonNet;
 using Newtonsoft.Json;
 using Xunit;
@@ -35,6 +36,18 @@ namespace SmartEnum.JsonNet.UnitTests
             var obj = JsonConvert.DeserializeObject<TestClass>(JsonString);
 
             obj.SerializeValue.Should().BeSameAs(TestInstance.SerializeValue);
+        }    
+
+        [Fact]
+        public void DeserializeThrowsIfNotValid()
+        {
+            var invalidValue = 30;
+            Action act = () => JsonConvert.DeserializeObject<TestClass>($@"{{""SerializeValue"":""{invalidValue}""}}");
+            
+            act.Should()
+                .Throw<JsonSerializationException>()
+                .WithInnerException<SmartEnumNotFoundException>()
+                .WithMessage($@"No {nameof(TestEnum)} with Value {invalidValue} found.");
         }    
     }
 }
