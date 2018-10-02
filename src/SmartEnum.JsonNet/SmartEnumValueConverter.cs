@@ -7,49 +7,69 @@ namespace SmartEnum.JsonNet
 {
     public class SmartEnumValueConverter : JsonConverter
     {
+
         public override bool CanConvert(Type objectType) => objectType.IsSmartEnum();
         public override bool CanRead => true;
         public override bool CanWrite => true;
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            if (reader.TokenType == JsonToken.Null)
-            {
-                throw new JsonSerializationException($"Cannot convert null value to {objectType}.");
-            }
+            objectType.IsSmartEnum(out var valueType);
 
+            if (reader.TokenType == JsonToken.Null && valueType.IsValueType)
+                throw new JsonSerializationException($"Unexpected token {reader.TokenType} when parsing a smart enum.");
+
+            var value = reader.Value;
+            switch(Type.GetTypeCode(valueType))
+            {
+                case TypeCode.Boolean:
+                    if(reader.TokenType != JsonToken.Boolean)
+                        throw new JsonSerializationException($"'{reader.Value}' is not a boolean.");
+                    break;
+
+                case TypeCode.Int64:
+                    if(reader.TokenType != JsonToken.Integer)
+                        throw new JsonSerializationException($"'{reader.Value}' is not an integer.");
+                    break;
+
+                case TypeCode.Byte:
+                case TypeCode.Char:
+                case TypeCode.Int16:
+                case TypeCode.UInt16:
+                case TypeCode.Int32:
+                case TypeCode.UInt32:
+                case TypeCode.UInt64:
+                    if(reader.TokenType != JsonToken.Integer)
+                        throw new JsonSerializationException($"'{reader.Value}' is not an integer.");
+
+                    // must explicitly convert from Int64 to value type
+                    var converter = TypeDescriptor.GetConverter(valueType);
+                    value = converter.ConvertTo(value, valueType);
+                    break;
+
+                case TypeCode.Single:
+                case TypeCode.Double:
+                    if(reader.TokenType != JsonToken.Float)
+                        throw new JsonSerializationException($"'{reader.Value}' is not a float.");
+                    break;
+
+                case TypeCode.String:
+                    if(reader.TokenType != JsonToken.String)
+                        throw new JsonSerializationException($"'{reader.Value}' is not a string.");
+                    break;
+
+                default:
+                    throw new JsonSerializationException($"Unexpected token '{reader.TokenType}' when parsing a smart enum.");
+            }
+       
             try
             {
-                if (reader.TokenType == JsonToken.String && objectType.IsSmartEnum(out var underlyingType))
-                {
-                    var valueText = reader.Value.ToString();
-                    if (valueText.Length == 0)
-                    {
-                        return null;
-                    }
-
-                    var converter = TypeDescriptor.GetConverter(underlyingType);
-                    var value = converter.ConvertFromInvariantString(valueText);
-
-                    var enumValue = objectType.GetMethod("FromValue", 
-                        BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy, null, 
-                        new Type[] { underlyingType }, null)
-                        .Invoke(null, new object[] { value });
-
-                    return enumValue;
-                }
-            }
-            catch (TargetInvocationException ex)
-            {
-                throw new JsonSerializationException($"Error converting value {reader.Value} to type '{objectType}'.", ex.InnerException);
+                return GeneratedMethods.FromValue(objectType, valueType).Invoke(value);
             }
             catch (Exception ex)
             {
-                throw new JsonSerializationException($"Error converting value {reader.Value} to type '{objectType}'.", ex);
+                throw new JsonSerializationException($"Error converting value '{reader.Value}' to a smart enum.", ex);
             }
-
-            // we don't actually expect to get here.
-            throw new JsonSerializationException($"Unexpected token {reader.TokenType} when parsing enum.");
         }       
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
@@ -60,11 +80,9 @@ namespace SmartEnum.JsonNet
                 return;
             }
 
-            var valueType = value.GetType();
-            var valueProperty = valueType.GetProperty("Value", BindingFlags.Public | BindingFlags.Instance);
-            var valueValue = valueProperty.GetValue(value);
-            var converter = TypeDescriptor.GetConverter(valueType);
-            writer.WriteValue(converter.ConvertToInvariantString(valueValue));
+            var objectType = value.GetType();
+            var objectValue = GeneratedMethods.GetValue(objectType).Invoke(value);
+            writer.WriteValue(objectValue);
         }
     }
 }

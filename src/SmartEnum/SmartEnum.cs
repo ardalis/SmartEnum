@@ -35,6 +35,7 @@ namespace Ardalis.SmartEnum
 
         protected SmartEnum(string name, TValue value)
         {
+            Guard.Against.NullOrEmpty(name, nameof(name));
             Name = name;
             Value = value;
         }

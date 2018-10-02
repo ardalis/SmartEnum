@@ -19,14 +19,14 @@ namespace SmartEnum.UnitTests
 
         [Theory]
         [MemberData(nameof(IsSmartEnumData))]
-        public void IsSmartEnumReturnsExpected(Type type, bool expectedResult, Type expectedUnderlyingType)
+        public void IsSmartEnumReturnsExpected(Type type, bool expectedResult, Type expectedValueType)
         {
-            var result = type.IsSmartEnum(out var underlyingType);
+            var result = type.IsSmartEnum(out var valueType);
 
             Assert.Equal(expectedResult, result);
             if(result)
             {
-                Assert.Equal(expectedUnderlyingType, underlyingType);
+                Assert.Equal(expectedValueType, valueType);
             }
         }
     }

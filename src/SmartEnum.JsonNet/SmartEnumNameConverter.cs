@@ -12,41 +12,27 @@ namespace SmartEnum.JsonNet
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            if (reader.TokenType == JsonToken.Null)
+            switch(reader.TokenType)
             {
-                throw new JsonSerializationException($"Cannot convert null value to {objectType}.");
+                case JsonToken.String:
+                    return GetFromName(objectType, reader.Value.ToString());  
+                            
+                default:
+                    throw new JsonSerializationException($"Unexpected token {reader.TokenType} when parsing a smart enum.");
             }
+        }       
 
+        object GetFromName(Type objectType, string name)
+        {
             try
             {
-                if (reader.TokenType == JsonToken.String && objectType.IsSmartEnum(out var underlyingType))
-                {
-                    var valueText = reader.Value.ToString();
-                    if (valueText.Length == 0)
-                    {
-                        return null;
-                    }
-
-                    var enumValue = objectType.GetMethod("FromName", 
-                        BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy, null, 
-                        new Type[] { typeof(string) }, null)
-                        .Invoke(null, new object[] { valueText });
-
-                    return enumValue;
-                }
-            }
-            catch (TargetInvocationException ex)
-            {
-                throw new JsonSerializationException($"Error converting value {reader.Value} to type '{objectType}'.", ex.InnerException);
+                return GeneratedMethods.FromName(objectType).Invoke(name);  
             }
             catch (Exception ex)
             {
-                throw new JsonSerializationException($"Error converting value {reader.Value} to type '{objectType}'.", ex);
+                throw new JsonSerializationException($"Error converting value '{name}' to a smart enum.", ex);
             }
-
-            // we don't actually expect to get here.
-            throw new JsonSerializationException($"Unexpected token {reader.TokenType} when parsing enum.");
-        }       
+        }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
@@ -56,10 +42,9 @@ namespace SmartEnum.JsonNet
                 return;
             }
 
-            var valueType = value.GetType();
-            var valueProperty = valueType.GetProperty("Name", BindingFlags.Public | BindingFlags.Instance);
-            var valueName = valueProperty.GetValue(value);
-            writer.WriteValue(valueName);
+            var objectType = value.GetType();
+            var objectName = GeneratedMethods.GetName(objectType).Invoke(value);
+            writer.WriteValue(objectName);
         }
     }
 }

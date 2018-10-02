@@ -13,19 +13,54 @@ namespace SmartEnum.JsonNet.UnitTests
         public class TestClass
         {
             [JsonConverter(typeof(SmartEnumValueConverter))]
-            public TestEnum SerializeValue { get; set; }
+            public TestEnumBoolean Bool { get; set; }
+
+            [JsonConverter(typeof(SmartEnumValueConverter))]
+            public TestEnumInt16 Int16 { get; set; }
+            
+            [JsonConverter(typeof(SmartEnumValueConverter))]
+            public TestEnumInt32 Int32 { get; set; }        
+
+            [JsonConverter(typeof(SmartEnumValueConverter))]
+            public TestEnumDouble Double { get; set; }        
+
+            [JsonConverter(typeof(SmartEnumValueConverter))]
+            public TestEnumString String { get; set; }        
+        }
+
+        public class TestIntClass
+        {
+            [JsonConverter(typeof(SmartEnumValueConverter))]
+            public TestEnumInt32 Property { get; set; }        
+        }
+
+        public class TestStringClass
+        {
+            [JsonConverter(typeof(SmartEnumValueConverter))]
+            public TestEnumString Property { get; set; }        
         }
 
         static readonly TestClass TestInstance = new TestClass { 
-            SerializeValue = TestEnum.Three,
+            Bool = TestEnumBoolean.Instance,
+            Int16 = TestEnumInt16.Instance,
+            Int32 = TestEnumInt32.Instance,
+            Double = TestEnumDouble.Instance,
+            String = TestEnumString.Instance,
          };
 
-        static readonly string JsonString = @"{""SerializeValue"":""3""}";
+        static readonly string JsonString = 
+@"{
+  ""Bool"": true,
+  ""Int16"": 1,
+  ""Int32"": 1,
+  ""Double"": 1.0,
+  ""String"": ""A string!""
+}";
 
         [Fact]
         public void SerializesValue()
         {
-            var json = JsonConvert.SerializeObject(TestInstance);
+            var json = JsonConvert.SerializeObject(TestInstance, Formatting.Indented);
 
             json.Should().Be(JsonString);
         }
@@ -35,19 +70,72 @@ namespace SmartEnum.JsonNet.UnitTests
         {
             var obj = JsonConvert.DeserializeObject<TestClass>(JsonString);
 
-            obj.SerializeValue.Should().BeSameAs(TestInstance.SerializeValue);
+            obj.Bool.Should().BeSameAs(TestEnumBoolean.Instance);
+            obj.Int16.Should().BeSameAs(TestEnumInt16.Instance);
+            obj.Int32.Should().BeSameAs(TestEnumInt32.Instance);
+            obj.Double.Should().BeSameAs(TestEnumDouble.Instance);
+            obj.String.Should().BeSameAs(TestEnumString.Instance);
         }    
 
         [Fact]
-        public void DeserializeThrowsIfNotValid()
+        public void DeserializesNullByDefault()
         {
-            var invalidValue = 30;
-            Action act = () => JsonConvert.DeserializeObject<TestClass>($@"{{""SerializeValue"":""{invalidValue}""}}");
-            
+            string json = @"{}";
+
+            var obj = JsonConvert.DeserializeObject<TestClass>(json);
+
+            obj.Bool.Should().BeNull();
+            obj.Int16.Should().BeNull();
+            obj.Int32.Should().BeNull();
+            obj.Double.Should().BeNull();
+            obj.String.Should().BeNull();
+        }    
+        
+        [Fact]
+        public void DeserializeThrowsWhenNotFound()
+        {
+            string json = @"{ ""Bool"": false }";
+
+            Action act = () => JsonConvert.DeserializeObject<TestClass>(json);
+
             act.Should()
                 .Throw<JsonSerializationException>()
+                .WithMessage($@"Error converting value 'False' to a smart enum.")
                 .WithInnerException<SmartEnumNotFoundException>()
-                .WithMessage($@"No {nameof(TestEnum)} with Value {invalidValue} found.");
-        }    
+                .WithMessage($@"No {nameof(TestEnumBoolean)} with Value False found.");
+        }  
+
+        public static TheoryData<string, string> NotValidData =>
+            new TheoryData<string, string> 
+            {
+                { @"{ ""Bool"": 1 }", @"'1' is not a boolean." },
+                { @"{ ""Int16"": true }", @"'True' is not an integer." },
+                { @"{ ""Int32"": true }", @"'True' is not an integer." },
+                { @"{ ""Double"": true }", @"'True' is not a float." },
+                { @"{ ""String"": 1 }", @"'1' is not a string." },
+            };
+        
+        [Theory]
+        [MemberData(nameof(NotValidData))]
+        public void DeserializeThrowsWhenNotValid(string json, string message)
+        {
+            Action act = () => JsonConvert.DeserializeObject<TestClass>(json);
+
+            act.Should()
+                .Throw<JsonSerializationException>()
+                .WithMessage(message);
+        }  
+
+        [Fact]
+        public void DeserializeThrowsWhenNull()
+        {
+            string json = @"{ ""Bool"": null }";
+
+            Action act = () => JsonConvert.DeserializeObject<TestClass>(json);
+
+            act.Should()
+                .Throw<JsonSerializationException>()
+                .WithMessage($@"Unexpected token Null when parsing a smart enum.");
+        }   
     }
 }
