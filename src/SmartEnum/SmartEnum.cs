@@ -7,6 +7,12 @@ using System.Reflection;
 
 namespace Ardalis.SmartEnum
 {
+    /// <summary>
+    /// A base type to use for creating smart enums in .NET.
+    /// </summary>
+    /// <typeparam name="TEnum">The type that is inheriting from this class.</typeparam>
+    /// <typeparam name="TValue">The type of the enum value, typically <see cref="System.Int32"/>.</typeparam>
+    /// <remarks></remarks>
     public abstract class SmartEnum<TEnum, TValue> : IEquatable<SmartEnum<TEnum, TValue>>
         where TEnum : SmartEnum<TEnum, TValue>
     {
