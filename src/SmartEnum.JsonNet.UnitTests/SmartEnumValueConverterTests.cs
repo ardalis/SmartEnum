@@ -100,7 +100,7 @@ namespace SmartEnum.JsonNet.UnitTests
 
             act.Should()
                 .Throw<JsonSerializationException>()
-                .WithMessage($@"Error converting value 'False' to a smart enum.")
+                .WithMessage($@"Error converting False to TestEnumBoolean.")
                 .WithInnerException<SmartEnumNotFoundException>()
                 .WithMessage($@"No {nameof(TestEnumBoolean)} with Value False found.");
         }  
@@ -108,11 +108,11 @@ namespace SmartEnum.JsonNet.UnitTests
         public static TheoryData<string, string> NotValidData =>
             new TheoryData<string, string> 
             {
-                { @"{ ""Bool"": 1 }", @"'1' is not a boolean." },
-                { @"{ ""Int16"": true }", @"'True' is not an integer." },
-                { @"{ ""Int32"": true }", @"'True' is not an integer." },
-                { @"{ ""Double"": true }", @"'True' is not a float." },
-                { @"{ ""String"": 1 }", @"'1' is not a string." },
+                { @"{ ""Bool"": 1 }", @"Error converting 1 to TestEnumBoolean." },
+                { @"{ ""Int16"": true }", @"Error converting True to TestEnumInt16." },
+                { @"{ ""Int32"": true }", @"Error converting True to TestEnumInt32." },
+                { @"{ ""Double"": true }", @"Error converting True to TestEnumDouble." },
+                { @"{ ""String"": 1 }", @"Error converting 1 to TestEnumString." },
             };
         
         [Theory]
@@ -135,7 +135,7 @@ namespace SmartEnum.JsonNet.UnitTests
 
             act.Should()
                 .Throw<JsonSerializationException>()
-                .WithMessage($@"Unexpected token Null when parsing a smart enum.");
+                .WithMessage($@"Error converting Null to TestEnumBoolean.");
         }   
     }
 }
