@@ -27,12 +27,7 @@ namespace SmartEnum.JsonNet
             var value = reader.Value;
             try
             {
-                if (reader.TokenType == JsonToken.Integer && (
-                    valueType == typeof(int) || valueType == typeof(uint) ||
-                    valueType == typeof(byte) || valueType == typeof(char) ||
-                    valueType == typeof(short) || valueType == typeof(ushort) ||
-                    valueType == typeof(ulong) || valueType == typeof(float) ||
-                    valueType == typeof(double)))
+                if (reader.TokenType == JsonToken.Integer && valueType != typeof(long))
                 {
                     // explicit cast is required
                     value = Convert.ChangeType(value, valueType);
@@ -41,8 +36,7 @@ namespace SmartEnum.JsonNet
             }
             catch (Exception ex)
             {
-                var valueString = value is null ? "Null" : value.ToString();
-                throw new JsonSerializationException($"Error converting {valueString} to {objectType.Name}.", ex);
+                throw new JsonSerializationException($"Error converting {value?.ToString() ?? "Null"} to {objectType.Name}.", ex);
             }
         }       
 

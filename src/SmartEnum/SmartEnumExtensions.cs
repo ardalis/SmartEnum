@@ -10,27 +10,25 @@ namespace SmartEnum
 
         public static bool IsSmartEnum(this Type type, out Type valueType)
         {
-            Guard.Against.Null(type, nameof(type));
-
-            if (type.IsAbstract || type.IsGenericTypeDefinition)
+            if (type is null || type.IsAbstract || type.IsGenericTypeDefinition)
             {
                 valueType = null;
                 return false;
             }
 
-            var baseType = type.BaseType;
-            while (!(baseType is null))
+            do
             {
-                if (baseType.IsClass && 
-                    baseType.IsGenericType && 
-                    baseType.GetGenericTypeDefinition() == typeof(Ardalis.SmartEnum.SmartEnum<,>))
-                    {
-                        valueType = baseType.GetGenericArguments()[1];
-                        return true;
-                    }
+                if (type.IsGenericType &&
+                    type.GetGenericTypeDefinition() == typeof(Ardalis.SmartEnum.SmartEnum<,>))
+                {
+                    valueType = type.GetGenericArguments()[1];
+                    return true;
+                }
 
-                baseType = baseType.BaseType;
+                type = type.BaseType;
             }
+            while (!(type is null));
+
             valueType = null;
             return false;
         }
