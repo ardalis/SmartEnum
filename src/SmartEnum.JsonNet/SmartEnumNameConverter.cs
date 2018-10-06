@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System;
 using System.Reflection;
 
-namespace SmartEnum.JsonNet
+namespace Ardalis.SmartEnum.JsonNet
 {
     public class SmartEnumNameConverter : JsonConverter
     {
@@ -36,15 +36,14 @@ namespace SmartEnum.JsonNet
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            if (value == null)
+            if (value is null)
             {
                 writer.WriteNull();
                 return;
             }
 
-            var objectType = value.GetType();
-            var objectName = GeneratedMethods.GetName(objectType).Invoke(value);
-            writer.WriteValue(objectName);
+            var smartEnum = (ISmartEnum)value;
+            writer.WriteValue(smartEnum.Name);
         }
     }
 }

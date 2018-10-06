@@ -1,5 +1,6 @@
 using System;
 using Xunit;
+using Ardalis.SmartEnum;
 
 namespace SmartEnum.UnitTests
 {

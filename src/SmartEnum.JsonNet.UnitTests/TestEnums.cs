@@ -1,6 +1,6 @@
-﻿using Ardalis.SmartEnum;
+﻿using System;
 
-namespace SmartEnum.JsonNet.UnitTests
+namespace Ardalis.SmartEnum.JsonNet.UnitTests
 {
     public sealed class TestEnumBoolean : SmartEnum<TestEnumBoolean, bool>
     {

@@ -1,12 +1,10 @@
 using System;
-using SmartEnum;
 using SmartEnum.Exceptions;
-using SmartEnum.JsonNet;
 using Newtonsoft.Json;
 using Xunit;
 using FluentAssertions;
 
-namespace SmartEnum.JsonNet.UnitTests
+namespace Ardalis.SmartEnum.JsonNet.UnitTests
 {
     public class SmartEnumValueConverterTests
     {

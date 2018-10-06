@@ -13,7 +13,9 @@ namespace Ardalis.SmartEnum
     /// TValue is the type of the enum value, typically int.
     /// </summary>
     /// <remarks></remarks>
-    public abstract class SmartEnum<TEnum, TValue> : IEquatable<SmartEnum<TEnum, TValue>>
+    public abstract class SmartEnum<TEnum, TValue> : 
+        ISmartEnum<TValue>,
+        IEquatable<SmartEnum<TEnum, TValue>>
         where TEnum : SmartEnum<TEnum, TValue>
     {
         private static readonly Lazy<List<TEnum>> _list = new Lazy<List<TEnum>>(ListAllOptions);
@@ -32,6 +34,7 @@ namespace Ardalis.SmartEnum
 
         public string Name { get; }
         public TValue Value { get; protected set; }
+        object ISmartEnum.Value => Value;
 
         protected SmartEnum(string name, TValue value)
         {
@@ -44,6 +47,8 @@ namespace Ardalis.SmartEnum
         {
             // Required for EF
         }
+
+        public Type GetUnderlyingType() => typeof(TValue);
 
         public static TEnum FromName(string name)
         {
