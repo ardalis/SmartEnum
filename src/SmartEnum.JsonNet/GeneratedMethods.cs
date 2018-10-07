@@ -9,23 +9,18 @@ namespace Ardalis.SmartEnum.JsonNet
 {
     static class GeneratedMethods
     {
-        static readonly LockingConcurrentDictionary<Type, Func<string, object>> fromName = 
-            new LockingConcurrentDictionary<Type, Func<string, object>>(enumType => CreateFromName(enumType));
-        static readonly LockingConcurrentDictionary<Type, Func<object, object>> fromValue = 
-            new LockingConcurrentDictionary<Type, Func<object, object>>(enumType => CreateFromValue(enumType));
-        static readonly LockingConcurrentDictionary<Type, Action<JsonWriter, object>> writeValue = 
-            new LockingConcurrentDictionary<Type, Action<JsonWriter, object>>(enumType => CreateWriteValue(enumType));
+        static readonly LockingConcurrentDictionary<Type, Func<string, ISmartEnum>> fromName = 
+            new LockingConcurrentDictionary<Type, Func<string, ISmartEnum>>(enumType => CreateFromName(enumType));
+        static readonly LockingConcurrentDictionary<Type, Func<object, ISmartEnum>> fromValue = 
+            new LockingConcurrentDictionary<Type, Func<object, ISmartEnum>>(enumType => CreateFromValue(enumType));
 
-        public static object FromName(Type enumType, string name) =>
+        public static ISmartEnum FromName(Type enumType, string name) =>
             fromName.GetOrAdd(enumType).Invoke(name);
 
-        public static object FromValue(Type enumType, object value) =>
+        public static ISmartEnum FromValue(Type enumType, object value) =>
             fromValue.GetOrAdd(enumType).Invoke(value);
 
-        public static void WriteValue(JsonWriter writer, object smartEnum) =>
-            writeValue.GetOrAdd(smartEnum.GetType()).Invoke(writer, smartEnum);
-
-        static Func<string, object> CreateFromName(Type enumType)   
+        static Func<string, ISmartEnum> CreateFromName(Type enumType)   
         {
             var nameParam = Expression.Parameter(typeof(string));
 
@@ -34,11 +29,11 @@ namespace Ardalis.SmartEnum.JsonNet
                 new Type[] { typeof(string) }, null);
             var fromNameCall = Expression.Call(fromNameInfo, nameParam);
             
-            var lambda = Expression.Lambda<Func<string, object>>(fromNameCall, nameParam);
+            var lambda = Expression.Lambda<Func<string, ISmartEnum>>(fromNameCall, nameParam);
             return lambda.Compile();
         }
 
-        static Func<object, object> CreateFromValue(Type enumType)   
+        static Func<object, ISmartEnum> CreateFromValue(Type enumType)   
         {
             var valueType = enumType.GetValueType();
 
@@ -50,32 +45,7 @@ namespace Ardalis.SmartEnum.JsonNet
                 new Type[] { valueType }, null);
             var fromValueCall = Expression.Call(fromValueInfo, value);
 
-            var lambda = Expression.Lambda<Func<object, object>>(fromValueCall, objectParam);
-            return lambda.Compile();
-        }
-
-        // Avoids boxing of value
-        static Action<JsonWriter, object> CreateWriteValue(Type enumType)   
-        {
-            var valueType = enumType.GetValueType();
-
-            var objectParam = Expression.Parameter(typeof(object));
-            var writerParam = Expression.Parameter(typeof(JsonWriter));
-
-            var smartEnumType = typeof(ISmartEnum<>).MakeGenericType(valueType);
-            var smartEnum = Expression.Convert(objectParam, smartEnumType);
-
-            var getValueInfo = smartEnumType
-                .GetProperty("Value", BindingFlags.Public | BindingFlags.Instance)
-                .GetGetMethod();
-            var getValueCall = Expression.Call(smartEnum, getValueInfo);
-
-            var writeValueInfo = typeof(JsonWriter).GetMethod("WriteValue", 
-                BindingFlags.Public | BindingFlags.Instance, null, 
-                new Type[] { valueType }, null);
-            var writeValueCall = Expression.Call(writerParam, writeValueInfo, getValueCall);
-
-            var lambda = Expression.Lambda<Action<JsonWriter, object>>(writeValueCall, writerParam, objectParam);
+            var lambda = Expression.Lambda<Func<object, ISmartEnum>>(fromValueCall, objectParam);
             return lambda.Compile();
         }
     }

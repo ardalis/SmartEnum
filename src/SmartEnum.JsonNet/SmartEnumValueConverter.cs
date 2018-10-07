@@ -1,31 +1,26 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
-using System.ComponentModel;
-using System.Reflection;
 
 namespace Ardalis.SmartEnum.JsonNet
 {
-    public class SmartEnumValueConverter : JsonConverter
+    public class SmartEnumValueConverter<TValue> : JsonConverter<ISmartEnum<TValue>>
     {
-        static readonly ConcurrentDictionary<Type, Type> valueTypes = new ConcurrentDictionary<Type, Type>();
-
-        public override bool CanConvert(Type objectType) => objectType.IsSmartEnum();
         public override bool CanRead => true;
         public override bool CanWrite => true;
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override ISmartEnum<TValue> ReadJson(JsonReader reader, Type objectType, ISmartEnum<TValue> existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
-            var valueType = valueTypes.GetOrAdd(objectType, type => type.GetValueType());
             var value = reader.Value;
             try
             {
+                var valueType = typeof(TValue);
                 if (reader.TokenType == JsonToken.Integer && valueType != typeof(long) && valueType != typeof(bool))
                 {
                     // explicit cast is required
                     value = Convert.ChangeType(value, valueType);
                 }
-                return GeneratedMethods.FromValue(objectType, value);
+                return (ISmartEnum<TValue>)GeneratedMethods.FromValue(objectType, value);
             }
             catch (Exception ex)
             {
@@ -33,15 +28,12 @@ namespace Ardalis.SmartEnum.JsonNet
             }
         }       
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, ISmartEnum<TValue> value, JsonSerializer serializer)
         {
             if (value is null)
-            {
                 writer.WriteNull();
-                return;
-            }
-
-            GeneratedMethods.WriteValue(writer, value);
+            else
+                writer.WriteValue(value.Value);
         }
     }
 }

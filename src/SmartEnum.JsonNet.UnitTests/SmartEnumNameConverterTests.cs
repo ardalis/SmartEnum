@@ -10,25 +10,25 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
     {
         public class TestClass
         {
-            [JsonConverter(typeof(SmartEnumNameConverter))]
+            [JsonConverter(typeof(SmartEnumNameConverter<bool>))]
             public TestEnumBoolean Bool { get; set; }
 
-            [JsonConverter(typeof(SmartEnumNameConverter))]
+            [JsonConverter(typeof(SmartEnumNameConverter<short>))]
             public TestEnumInt16 Int16 { get; set; }
             
-            [JsonConverter(typeof(SmartEnumNameConverter))]
+            [JsonConverter(typeof(SmartEnumNameConverter<int>))]
             public TestEnumInt32 Int32 { get; set; }        
 
-            [JsonConverter(typeof(SmartEnumNameConverter))]
+            [JsonConverter(typeof(SmartEnumNameConverter<double>))]
             public TestEnumDouble Double { get; set; }        
 
-            [JsonConverter(typeof(SmartEnumNameConverter))]
+            [JsonConverter(typeof(SmartEnumNameConverter<string>))]
             public TestEnumString String { get; set; }        
         }
 
         public class TestStringClass
         {
-            [JsonConverter(typeof(SmartEnumNameConverter))]
+            [JsonConverter(typeof(SmartEnumNameConverter<string>))]
             public TestEnumString Property { get; set; }        
         }
 
