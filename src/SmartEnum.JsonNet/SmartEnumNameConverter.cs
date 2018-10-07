@@ -26,7 +26,7 @@ namespace Ardalis.SmartEnum.JsonNet
         {
             try
             {
-                return GeneratedMethods.FromName(objectType).Invoke(name);  
+                return GeneratedMethods.FromName(objectType, name);  
             }
             catch (Exception ex)
             {

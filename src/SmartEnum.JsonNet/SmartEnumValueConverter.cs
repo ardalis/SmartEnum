@@ -25,7 +25,7 @@ namespace Ardalis.SmartEnum.JsonNet
                     // explicit cast is required
                     value = Convert.ChangeType(value, valueType);
                 }
-                return GeneratedMethods.FromValue(objectType, valueType).Invoke(value);
+                return GeneratedMethods.FromValue(objectType, value);
             }
             catch (Exception ex)
             {
@@ -41,8 +41,7 @@ namespace Ardalis.SmartEnum.JsonNet
                 return;
             }
 
-            var smartEnum = (ISmartEnum)value;
-            writer.WriteValue(smartEnum.Value);
+            GeneratedMethods.WriteValue(writer, value);
         }
 
         // Source: https://stackoverflow.com/a/13179018/861773
