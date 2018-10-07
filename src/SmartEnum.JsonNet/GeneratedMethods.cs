@@ -29,12 +29,12 @@ namespace Ardalis.SmartEnum.JsonNet
         {
             var nameParam = Expression.Parameter(typeof(string));
 
-            var methodInfo = enumType.GetMethod("FromName", 
+            var fromNameInfo = enumType.GetMethod("FromName", 
                 BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy, null, 
                 new Type[] { typeof(string) }, null);
-            var methodCall = Expression.Call(methodInfo, nameParam);
+            var fromNameCall = Expression.Call(fromNameInfo, nameParam);
             
-            var lambda = Expression.Lambda<Func<string, object>>(methodCall, nameParam);
+            var lambda = Expression.Lambda<Func<string, object>>(fromNameCall, nameParam);
             return lambda.Compile();
         }
 
@@ -45,12 +45,12 @@ namespace Ardalis.SmartEnum.JsonNet
             var objectParam = Expression.Parameter(typeof(object));
             var value = Expression.Convert(objectParam, valueType);
 
-            var methodInfo = enumType.GetMethod("FromValue", 
+            var fromValueInfo = enumType.GetMethod("FromValue", 
                 BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy, null, 
                 new Type[] { valueType }, null);
-            var methodCall = Expression.Call(methodInfo, value);
+            var fromValueCall = Expression.Call(fromValueInfo, value);
 
-            var lambda = Expression.Lambda<Func<object, object>>(methodCall, objectParam);
+            var lambda = Expression.Lambda<Func<object, object>>(fromValueCall, objectParam);
             return lambda.Compile();
         }
 

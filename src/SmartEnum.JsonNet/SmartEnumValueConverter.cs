@@ -20,7 +20,7 @@ namespace Ardalis.SmartEnum.JsonNet
             var value = reader.Value;
             try
             {
-                if (reader.TokenType == JsonToken.Integer && valueType != typeof(long) && IsNumeric(valueType))
+                if (reader.TokenType == JsonToken.Integer && valueType != typeof(long) && valueType != typeof(bool))
                 {
                     // explicit cast is required
                     value = Convert.ChangeType(value, valueType);
@@ -42,34 +42,6 @@ namespace Ardalis.SmartEnum.JsonNet
             }
 
             GeneratedMethods.WriteValue(writer, value);
-        }
-
-        // Source: https://stackoverflow.com/a/13179018/861773
-        public static bool IsNumeric(Type type)
-        {
-            switch (Type.GetTypeCode(type))
-            {
-                case TypeCode.Byte:
-                case TypeCode.SByte:
-                case TypeCode.UInt16:
-                case TypeCode.UInt32:
-                case TypeCode.UInt64:
-                case TypeCode.Int16:
-                case TypeCode.Int32:
-                case TypeCode.Int64:
-                case TypeCode.Decimal:
-                case TypeCode.Double:
-                case TypeCode.Single:
-                    return true;
-                case TypeCode.Object:
-                    if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
-                    {
-                        return IsNumeric(Nullable.GetUnderlyingType(type));
-                    }
-                    return false;
-                default:
-                    return false;
-            }
         }
     }
 }
