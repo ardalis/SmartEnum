@@ -5,6 +5,9 @@ NuGet: [Ardalis.SmartEnum](https://www.nuget.org/packages/Ardalis.SmartEnum)
 # Smart Enum
 A simple package with a base Smart Enum class.
 
+## Give a Star! :star:
+If you like or are using this project to learn or start your solution, please give it a star. Thanks!
+
 ## Contributors
 
 Thanks to [Scott Depouw](https://github.com/sdepouw) for his help with this!
