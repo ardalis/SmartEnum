@@ -26,6 +26,8 @@ bld/
 
 # Visual Studio 2015 cache/options directory
 .vs/
+# Visual Studio Code cache/options directory
+.vscode/
 # Uncomment if you have tasks that create the project's static files in wwwroot
 #wwwroot/
 
@@ -286,3 +288,7 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+# macOS hidden files
+._.DS_Store
+.DS_Store

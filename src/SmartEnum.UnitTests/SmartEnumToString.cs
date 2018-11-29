@@ -1,16 +1,25 @@
-﻿using Xunit;
-
-namespace SmartEnum.UnitTests
+﻿namespace Ardalis.SmartEnum.UnitTests
 {
+    using FluentAssertions;
+    using Xunit;
 
     public class SmartEnumToString
     {
-        [Fact]
-        public void ReturnsFormattedNameAndValue()
+        public static TheoryData<TestEnum> NameData =>
+            new TheoryData<TestEnum> 
+            {
+                TestEnum.One,
+                TestEnum.Two,
+                TestEnum.Three, 
+            };
+
+        [Theory]
+        [MemberData(nameof(NameData))]
+        public void ReturnsFormattedNameAndValue(TestEnum smartEnum)
         {
-            Assert.Equal("One (1)", TestEnum.One.ToString());
-            Assert.Equal("Two (2)", TestEnum.Two.ToString());
-            Assert.Equal("Three (3)", TestEnum.Three.ToString());
+            var result = smartEnum.ToString();
+
+            result.Should().Be(smartEnum.Name);
         }
     }
 }

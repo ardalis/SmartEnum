@@ -1,46 +1,49 @@
-﻿using SmartEnum.Exceptions;
-using Xunit;
-
-namespace SmartEnum.UnitTests
+﻿namespace Ardalis.SmartEnum.UnitTests
 {
+    using System;
+    using FluentAssertions;
+    using Xunit;
+
     public class SmartEnumFromValue
     {
         [Fact]
         public void ReturnsEnumGivenMatchingValue()
         {
-            Assert.Equal(TestEnum.One, TestEnum.FromValue(1));
+            var result = TestEnum.FromValue(1);
+
+            result.Should().BeSameAs(TestEnum.One);
+        }
+
+        [Fact]
+        public void ReturnsEnumGivenDerivedClass()
+        {
+            var result = TestDerivedEnum.FromValue(1);
+
+            result.Should().NotBeNull().And.BeSameAs(TestDerivedEnum.One);
         }
 
         [Fact]
         public void ThrowsGivenNonMatchingValue()
         {
-            Assert.Throws<SmartEnumNotFoundException>(() => TestEnum.FromValue(-1));
-        }
+            var value = -1;
 
-        [Fact]
-        public void ThrowsWithExpectedMessageGivenNonMatchingValue()
-        {
-            string expected = $"No TestEnum with Value -1 found.";
-            string actual = "";
+            Action action = () => TestEnum.FromValue(value);
+            
+            action.Should()
+            .ThrowExactly<SmartEnumNotFoundException>()
+            .WithMessage($"No {typeof(TestEnum).Name} with Value {value} found.");
 
-            try
-            {
-                var testEnum = TestEnum.FromValue(-1);
-            }
-            catch (SmartEnumNotFoundException ex)
-            {
-                actual = ex.Message;
-            }
-
-            Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void ReturnsDefaultEnumGivenNonMatchingValue()
         {
+            var value = -1;
             var defaultEnum = TestEnum.One;
 
-            Assert.Equal(defaultEnum, TestEnum.FromValue(-1, defaultEnum));
+            var result = TestEnum.FromValue(value, defaultEnum);
+
+            result.Should().BeSameAs(defaultEnum);
         }
     }
 }

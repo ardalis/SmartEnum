@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+    <PackageId>Ardalis.SmartEnum.Utf8Json</PackageId>
+    <Title>Ardalis.SmartEnum.Utf8Json</Title>
+    <Company>Ardalis.com</Company>
+    <Summary>Utf8Json (de)serialization support for Ardalis.SmartEnum.</Summary>
+    <PackageTags>enum;smartenum;netstandard2.0;json;utf8json;resolver</PackageTags>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <Version>1.0.0</Version>
+    <AssemblyName>Ardalis.SmartEnum.Utf8Json</AssemblyName>
+    <RootNamespace>Ardalis.SmartEnum.Utf8Json</RootNamespace>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <LangVersion>7.3</LangVersion>
+    <Features>strict</Features>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
+  </ItemGroup>  
+  <ItemGroup>
+    <PackageReference Include="Utf8Json" Version="1.3.7" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="7.9.0.7583" PrivateAssets="All" />
+  </ItemGroup>
+</Project>

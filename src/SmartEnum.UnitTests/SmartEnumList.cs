@@ -1,7 +1,8 @@
-﻿using Xunit;
-
-namespace SmartEnum.UnitTests
+﻿namespace Ardalis.SmartEnum.UnitTests
 {
+    using FluentAssertions;
+    using Xunit;
+
     public class SmartEnumList
     {
         [Fact]
@@ -9,10 +10,11 @@ namespace SmartEnum.UnitTests
         {
             var result = TestEnum.List;
 
-            Assert.Equal(3, result.Count);
-            Assert.Contains(TestEnum.One, result);
-            Assert.Contains(TestEnum.Two, result);
-            Assert.Contains(TestEnum.Three, result);
+            result.Should().BeEquivalentTo(new[] {
+                TestEnum.One,
+                TestEnum.Two,
+                TestEnum.Three,
+            });
         }
     }
 }

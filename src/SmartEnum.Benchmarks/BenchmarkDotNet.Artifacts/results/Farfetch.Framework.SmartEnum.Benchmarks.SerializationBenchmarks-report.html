@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>Ardalis.Benchmarks.SerializationBenchmarks</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.11.1, OS=macOS High Sierra 10.13.6 (17G3025) [Darwin 17.7.0]
+Intel Core i5-7360U CPU 2.30GHz (Kaby Lake), 1 CPU, 4 logical and 2 physical cores
+.NET Core SDK=2.1.403
+  [Host]     : .NET Core 2.1.5 (CoreCLR 4.6.26919.02, CoreFX 4.6.26919.02), 64bit RyuJIT
+  DefaultJob : .NET Core 2.1.5 (CoreCLR 4.6.26919.02, CoreFX 4.6.26919.02), 64bit RyuJIT
+</code></pre>
+<pre><code></code></pre>
+
+<table>
+<thead><tr><th>                           Method</th><th> Mean</th><th>Error</th><th>StdDev</th><th>Library</th><th>Gen 0</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>JsonNet_Enum_Serialize_Name</td><td>992.05 ns</td><td>19.4948 ns</td><td>33.1037 ns</td><td>JsonNet</td><td>0.7734</td><td>1624 B</td>
+</tr><tr><td>JsonNet_Enum_Serialize_Value</td><td>566.43 ns</td><td>11.1941 ns</td><td>14.5554 ns</td><td>JsonNet</td><td>0.6056</td><td>1272 B</td>
+</tr><tr><td>JsonNet_Enum_Deserialize_Name</td><td>1,407.09 ns</td><td>27.4698 ns</td><td>25.6953 ns</td><td>JsonNet</td><td>1.3981</td><td>2936 B</td>
+</tr><tr><td>JsonNet_Enum_Deserialize_Value</td><td>1,311.58 ns</td><td>20.8171 ns</td><td>17.3832 ns</td><td>JsonNet</td><td>1.2760</td><td>2680 B</td>
+</tr><tr><td>JsonNet_SmartEnum_Serialize_Name</td><td>712.34 ns</td><td>16.3263 ns</td><td>15.2716 ns</td><td>JsonNet</td><td>0.7620</td><td>1600 B</td>
+</tr><tr><td>JsonNet_SmartEnum_Serialize_Value</td><td>768.42 ns</td><td>5.7626 ns</td><td>5.1084 ns</td><td>JsonNet</td><td>0.7238</td><td>1520 B</td>
+</tr><tr><td>JsonNet_SmartEnum_Deserialize_Name</td><td>913.36 ns</td><td>4.8423 ns</td><td>4.2926 ns</td><td>JsonNet</td><td>1.3762</td><td>2888 B</td>
+</tr><tr><td>JsonNet_SmartEnum_Deserialize_Value</td><td>943.95 ns</td><td>6.1076 ns</td><td>5.4142 ns</td><td>JsonNet</td><td>1.3838</td><td>2904 B</td>
+</tr><tr><td>Utf8Json_Enum_Serialize_Name</td><td>95.47 ns</td><td>0.4791 ns</td><td>0.4481 ns</td><td>Utf8Json</td><td>0.0190</td><td>40 B</td>
+</tr><tr><td>Utf8Json_Enum_Serialize_Value</td><td>70.55 ns</td><td>0.6986 ns</td><td>0.6193 ns</td><td>Utf8Json</td><td>0.0190</td><td>40 B</td>
+</tr><tr><td>Utf8Json_Enum_Deserialize_Name</td><td>232.96 ns</td><td>2.0785 ns</td><td>1.9442 ns</td><td>Utf8Json</td><td>0.0303</td><td>64 B</td>
+</tr><tr><td>Utf8Json_Enum_Deserialize_Value</td><td>176.59 ns</td><td>0.7716 ns</td><td>0.7218 ns</td><td>Utf8Json</td><td>0.0303</td><td>64 B</td>
+</tr><tr><td>Utf8Json_SmartEnum_Serialize_Name</td><td>81.66 ns</td><td>0.4903 ns</td><td>0.4094 ns</td><td>Utf8Json</td><td>0.0190</td><td>40 B</td>
+</tr><tr><td>Utf8Json_SmartEnum_Serialize_Value</td><td>66.85 ns</td><td>0.4746 ns</td><td>0.4439 ns</td><td>Utf8Json</td><td>0.0190</td><td>40 B</td>
+</tr><tr><td>Utf8Json_SmartEnum_Deserialize_Name</td><td>282.00 ns</td><td>2.5220 ns</td><td>2.3591 ns</td><td>Utf8Json</td><td>0.0453</td><td>96 B</td>
+</tr><tr><td>Utf8Json_SmartEnum_Deserialize_Value</td><td>195.31 ns</td><td>1.4756 ns</td><td>1.3803 ns</td><td>Utf8Json</td><td>0.0303</td><td>64 B</td>
+</tr><tr><td>MessagePack_Enum_Serialize_Name</td><td>87.39 ns</td><td>0.6092 ns</td><td>0.5401 ns</td><td>MessagePack</td><td>0.0151</td><td>32 B</td>
+</tr><tr><td>MessagePack_Enum_Serialize_Value</td><td>57.37 ns</td><td>0.5462 ns</td><td>0.5109 ns</td><td>MessagePack</td><td>0.0151</td><td>32 B</td>
+</tr><tr><td>MessagePack_Enum_Deserialize_Name</td><td>95.40 ns</td><td>0.6211 ns</td><td>0.5810 ns</td><td>MessagePack</td><td>0.0266</td><td>56 B</td>
+</tr><tr><td>MessagePack_Enum_Deserialize_Value</td><td>39.08 ns</td><td>0.5608 ns</td><td>0.4972 ns</td><td>MessagePack</td><td>0.0114</td><td>24 B</td>
+</tr><tr><td>MessagePack_SmartEnum_Serialize_Name</td><td>78.12 ns</td><td>0.6011 ns</td><td>0.5623 ns</td><td>MessagePack</td><td>0.0151</td><td>32 B</td>
+</tr><tr><td>MessagePack_SmartEnum_Serialize_Value</td><td>51.51 ns</td><td>0.4989 ns</td><td>0.4666 ns</td><td>MessagePack</td><td>0.0152</td><td>32 B</td>
+</tr><tr><td>MessagePack_SmartEnum_Deserialize_Name</td><td>98.59 ns</td><td>0.6671 ns</td><td>0.6240 ns</td><td>MessagePack</td><td>0.0266</td><td>56 B</td>
+</tr><tr><td>MessagePack_SmartEnum_Deserialize_Value</td><td>58.34 ns</td><td>0.3679 ns</td><td>0.2873 ns</td><td>MessagePack</td><td>0.0113</td><td>24 B</td>
+</tr><tr><td>ProtoBufNet_Enum_Serialize_Value</td><td>498.42 ns</td><td>4.7729 ns</td><td>4.2311 ns</td><td>ProtoBufNet</td><td>0.0992</td><td>208 B</td>
+</tr><tr><td>ProtoBufNet_Enum_Deserialize_Value</td><td>633.80 ns</td><td>4.8538 ns</td><td>4.5403 ns</td><td>ProtoBufNet</td><td>0.0381</td><td>80 B</td>
+</tr><tr><td>ProtoBufNet_SmartEnum_Serialize_Name</td><td>566.92 ns</td><td>7.7919 ns</td><td>6.5066 ns</td><td>ProtoBufNet</td><td>0.1106</td><td>232 B</td>
+</tr><tr><td>ProtoBufNet_SmartEnum_Serialize_Value</td><td>517.62 ns</td><td>8.1628 ns</td><td>7.2361 ns</td><td>ProtoBufNet</td><td>0.1106</td><td>232 B</td>
+</tr><tr><td>ProtoBufNet_SmartEnum_Deserialize_Name</td><td>1,348.35 ns</td><td>10.0399 ns</td><td>8.9001 ns</td><td>ProtoBufNet</td><td>0.1659</td><td>352 B</td>
+</tr><tr><td>ProtoBufNet_SmartEnum_Deserialize_Value</td><td>966.51 ns</td><td>9.6947 ns</td><td>9.0685 ns</td><td>ProtoBufNet</td><td>0.0496</td><td>104 B</td>
+</tr></tbody></table>
+</body>
+</html>

@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <LangVersion>7.3</LangVersion>
+    <Features>strict</Features>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.11.3" />
+    <PackageReference Include="Constant" Version="2.0.2" />
+    <PackageReference Include="Enums.NET" Version="2.3.2" />
+    <ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
+    <ProjectReference Include="..\SmartEnum.JsonNet\SmartEnum.JsonNet.csproj" />
+    <ProjectReference Include="..\SmartEnum.Utf8Json\SmartEnum.Utf8Json.csproj" />
+    <ProjectReference Include="..\SmartEnum.MessagePack\SmartEnum.MessagePack.csproj" />
+    <ProjectReference Include="..\SmartEnum.ProtoBufNet\SmartEnum.ProtoBufNet.csproj" />
+  </ItemGroup>
+</Project>

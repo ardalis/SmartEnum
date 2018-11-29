@@ -1,15 +1,18 @@
-﻿using Xunit;
-
-namespace SmartEnum.UnitTests
+﻿namespace Ardalis.SmartEnum.UnitTests
 {
+    using FluentAssertions;
+    using Xunit;
+
     public class SmartEnumImplicitValueConversion
     {
         [Fact]
         public void ReturnsValueOfGivenEnum()
         {
-            int result = TestEnum.One;
+            var smartEnum = TestEnum.One;
 
-            Assert.Equal(TestEnum.One.Value, result);
+            int result = smartEnum;
+
+            result.Should().Be(smartEnum.Value);
         }
     }
 }
