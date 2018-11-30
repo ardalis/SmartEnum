@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>Ardalis.Benchmarks.FromNameBenchmarks</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.11.1, OS=macOS High Sierra 10.13.6 (17G3025) [Darwin 17.7.0]
+Intel Core i5-7360U CPU 2.30GHz (Kaby Lake), 1 CPU, 4 logical and 2 physical cores
+.NET Core SDK=2.1.403
+  [Host]     : .NET Core 2.1.5 (CoreCLR 4.6.26919.02, CoreFX 4.6.26919.02), 64bit RyuJIT
+  DefaultJob : .NET Core 2.1.5 (CoreCLR 4.6.26919.02, CoreFX 4.6.26919.02), 64bit RyuJIT
+</code></pre>
+<pre><code></code></pre>
+
+<table>
+<thead><tr><th>                            Method</th><th>  Mean</th><th>Error</th><th> StdDev</th><th>Median</th><th>Library</th><th>Gen 0</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>Enum_FromName_One</td><td>220.30 ns</td><td>1.2587 ns</td><td>1.1774 ns</td><td>220.07 ns</td><td>Enum</td><td>0.0114</td><td>24 B</td>
+</tr><tr><td>Enum_FromName_Ten</td><td>289.65 ns</td><td>2.8237 ns</td><td>2.6413 ns</td><td>288.61 ns</td><td>Enum</td><td>0.0114</td><td>24 B</td>
+</tr><tr><td>Enum_FromName_Invalid</td><td>19,537.84 ns</td><td>206.2382 ns</td><td>172.2182 ns</td><td>19,479.50 ns</td><td>Enum</td><td>0.3052</td><td>672 B</td>
+</tr><tr><td>Enum_FromName_one_IgnoreCase</td><td>233.94 ns</td><td>2.6366 ns</td><td>2.4663 ns</td><td>232.64 ns</td><td>Enum</td><td>0.0114</td><td>24 B</td>
+</tr><tr><td>Enum_FromName_ten_IgnoreCase</td><td>329.88 ns</td><td>1.6069 ns</td><td>1.3418 ns</td><td>329.63 ns</td><td>Enum</td><td>0.0114</td><td>24 B</td>
+</tr><tr><td>Enum_FromName_Invalid_IgnoreCase</td><td>20,087.28 ns</td><td>394.4027 ns</td><td>690.7646 ns</td><td>19,765.10 ns</td><td>Enum</td><td>0.3052</td><td>672 B</td>
+</tr><tr><td>EnumsNET_FromName_One</td><td>94.33 ns</td><td>1.6721 ns</td><td>1.5641 ns</td><td>93.79 ns</td><td>EnumsNET</td><td>-</td><td>0 B</td>
+</tr><tr><td>EnumsNET_FromName_Ten</td><td>96.82 ns</td><td>2.5893 ns</td><td>7.2607 ns</td><td>94.34 ns</td><td>EnumsNET</td><td>-</td><td>0 B</td>
+</tr><tr><td>EnumsNET_FromName_Invalid</td><td>20,058.65 ns</td><td>289.1719 ns</td><td>270.4915 ns</td><td>19,972.23 ns</td><td>EnumsNET</td><td>0.3052</td><td>696 B</td>
+</tr><tr><td>EnumsNET_TryFromName_One</td><td>90.97 ns</td><td>1.7343 ns</td><td>1.7033 ns</td><td>90.13 ns</td><td>EnumsNET</td><td>-</td><td>0 B</td>
+</tr><tr><td>EnumsNET_TryFromName_Ten</td><td>89.77 ns</td><td>0.3545 ns</td><td>0.3142 ns</td><td>89.73 ns</td><td>EnumsNET</td><td>-</td><td>0 B</td>
+</tr><tr><td>EnumsNET_TryFromName_Invalid</td><td>132.78 ns</td><td>0.6905 ns</td><td>0.5391 ns</td><td>132.68 ns</td><td>EnumsNET</td><td>-</td><td>0 B</td>
+</tr><tr><td>Constant_GetFor_One</td><td>35.05 ns</td><td>0.7913 ns</td><td>1.5984 ns</td><td>34.73 ns</td><td>Constant</td><td>-</td><td>0 B</td>
+</tr><tr><td>Constant_GetFor_Ten</td><td>32.90 ns</td><td>0.3696 ns</td><td>0.3457 ns</td><td>32.75 ns</td><td>Constant</td><td>-</td><td>0 B</td>
+</tr><tr><td>Constant_GetFor_Invalid</td><td>17,958.66 ns</td><td>357.8949 ns</td><td>672.2134 ns</td><td>17,771.88 ns</td><td>Constant</td><td>0.3052</td><td>688 B</td>
+</tr><tr><td>Constant_GetOrDefaultFor_One</td><td>31.84 ns</td><td>0.4769 ns</td><td>0.4461 ns</td><td>31.95 ns</td><td>Constant</td><td>-</td><td>0 B</td>
+</tr><tr><td>Constant_GetOrDefaultFor_Ten</td><td>33.26 ns</td><td>0.7509 ns</td><td>1.0769 ns</td><td>33.18 ns</td><td>Constant</td><td>-</td><td>0 B</td>
+</tr><tr><td>Constant_GetOrDefaultFor_Invalid</td><td>2,799.20 ns</td><td>55.8099 ns</td><td>154.6489 ns</td><td>2,764.20 ns</td><td>Constant</td><td>0.2441</td><td>520 B</td>
+</tr><tr><td>Ardalis_FromName_one_IgnoreCase</td><td>212.44 ns</td><td>4.2839 ns</td><td>8.6536 ns</td><td>209.01 ns</td><td>Ardalis</td><td>0.0608</td><td>128 B</td>
+</tr><tr><td>Ardalis_FromName_ten_IgnoreCase</td><td>301.21 ns</td><td>6.3462 ns</td><td>14.5815 ns</td><td>297.03 ns</td><td>Ardalis</td><td>0.0606</td><td>128 B</td>
+</tr><tr><td>Ardalis_FromName_Invalid_IgnoreCase</td><td>18,194.75 ns</td><td>353.3716 ns</td><td>506.7950 ns</td><td>18,116.01 ns</td><td>Ardalis</td><td>0.3052</td><td>640 B</td>
+</tr><tr><td>SmartEnum_FromName_One</td><td>24.03 ns</td><td>0.5701 ns</td><td>1.1385 ns</td><td>23.70 ns</td><td>SmartEnum</td><td>-</td><td>0 B</td>
+</tr><tr><td>SmartEnum_FromName_Ten</td><td>23.62 ns</td><td>0.6063 ns</td><td>1.0296 ns</td><td>23.15 ns</td><td>SmartEnum</td><td>-</td><td>0 B</td>
+</tr><tr><td>SmartEnum_FromName_Invalid</td><td>20,423.48 ns</td><td>905.6022 ns</td><td>2,583.7341 ns</td><td>19,400.12 ns</td><td>SmartEnum</td><td>0.3357</td><td>728 B</td>
+</tr><tr><td>SmartEnum_FromName_one_IgnoreCase</td><td>86.97 ns</td><td>1.8499 ns</td><td>3.1910 ns</td><td>86.75 ns</td><td>SmartEnum</td><td>-</td><td>0 B</td>
+</tr><tr><td>SmartEnum_FromName_ten_IgnoreCase</td><td>84.54 ns</td><td>1.0116 ns</td><td>0.8967 ns</td><td>84.26 ns</td><td>SmartEnum</td><td>-</td><td>0 B</td>
+</tr><tr><td>SmartEnum_FromName_Invalid_IgnoreCase</td><td>18,981.14 ns</td><td>369.3238 ns</td><td>410.5024 ns</td><td>18,797.59 ns</td><td>SmartEnum</td><td>0.3357</td><td>728 B</td>
+</tr><tr><td>SmartEnum_TryFromName_One</td><td>21.66 ns</td><td>0.3837 ns</td><td>0.3589 ns</td><td>21.54 ns</td><td>SmartEnum</td><td>-</td><td>0 B</td>
+</tr><tr><td>SmartEnum_TryFromName_Ten</td><td>21.68 ns</td><td>0.3953 ns</td><td>0.3505 ns</td><td>21.58 ns</td><td>SmartEnum</td><td>-</td><td>0 B</td>
+</tr><tr><td>SmartEnum_TryFromName_Invalid</td><td>18.06 ns</td><td>0.4233 ns</td><td>0.3960 ns</td><td>17.90 ns</td><td>SmartEnum</td><td>-</td><td>0 B</td>
+</tr><tr><td>SmartEnum_TryFromName_one_IgnoreCase</td><td>87.31 ns</td><td>1.4166 ns</td><td>1.1829 ns</td><td>87.56 ns</td><td>SmartEnum</td><td>-</td><td>0 B</td>
+</tr><tr><td>SmartEnum_TryFromName_ten_IgnoreCase</td><td>87.79 ns</td><td>1.7936 ns</td><td>1.8419 ns</td><td>87.19 ns</td><td>SmartEnum</td><td>-</td><td>0 B</td>
+</tr><tr><td>SmartEnum_TryFromName_Invalid_IgnoreCase</td><td>68.48 ns</td><td>1.0099 ns</td><td>0.8953 ns</td><td>68.16 ns</td><td>SmartEnum</td><td>-</td><td>0 B</td>
+</tr></tbody></table>
+</body>
+</html>

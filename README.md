@@ -3,7 +3,7 @@
 NuGet: [Ardalis.SmartEnum](https://www.nuget.org/packages/Ardalis.SmartEnum)
 
 # Smart Enum
-A simple package with a base Smart Enum class.
+An implementation of a [type-safe object-oriented alternative](https://codeblog.jonskeet.uk/2006/01/05/classenum/) to [C# enum](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/enum).
 
 ## Give a Star! :star:
 If you like or are using this project to learn or start your solution, please give it a star. Thanks!
@@ -12,86 +12,344 @@ If you like or are using this project to learn or start your solution, please gi
 
 Thanks to [Scott Depouw](https://github.com/sdepouw) for his help with this!
 
+# Install
+
+The framework is provided as a set of NuGet packages.
+
+To install the minimum requirements:
+
+```
+Install-Package Ardalis.SmartEnum
+```
+
+To install support for serialization, select the lines that apply:
+
+```
+Install-Package Ardalis.SmartEnum.AutoFixture
+Install-Package Ardalis.SmartEnum.JsonNet
+Install-Package Ardalis.SmartEnum.Utf8Json
+Install-Package Ardalis.SmartEnum.MessagePack
+Install-Package Ardalis.SmartEnum.ProtoBufNet
+```
+
 ## Usage
 
-Define your smart enum by inheriting from `SmartEnum<TEnum, TValue>` where `TEnum` is the type you're declaring and `TValue` is the type of its value (typically `int`). For example:
+Define your smart enum by inheriting from `SmartEnum<TEnum>` where `TEnum` is the type you're declaring. For example:
 
-```c#
-    public class TestEnum : SmartEnum<TestEnum, int>
+```csharp
+public sealed class TestEnum : SmartEnum<TestEnum>
+{
+    public static readonly TestEnum One = new TestEnum(nameof(One), 1);
+    public static readonly TestEnum Two = new TestEnum(nameof(Two), 2);
+    public static readonly TestEnum Three = new TestEnum(nameof(Three), 3);
+
+    private TestEnum(string name, int value) : base(name, value)
     {
-        public static TestEnum One = new TestEnum(nameof(One), 1);
-        public static TestEnum Two = new TestEnum(nameof(Two), 2);
-        public static TestEnum Three = new TestEnum(nameof(Three), 3);
+    }
+}
+```
 
-        protected TestEnum(string name, int value) : base(name, value)
+The default value type is `int` but it can be set using the second generic argument `TValue`.
+The string alias can also be set explicitly, where spaces are allowed.
+
+```csharp
+public sealed class TestEnum : SmartEnum<TestEnum, ushort>
+{
+    public static readonly TestEnum One = new TestEnum("A string!", 1);
+    public static readonly TestEnum Two = new TestEnum("Another string!", 2);
+    public static readonly TestEnum Three = new TestEnum("Yet another string!", 3);
+
+    private TestEnum(string name, ushort value) : base(name, value)
+    {
+    }
+}
+```
+
+Just like regular `enum`, more than one string can be assigned to the same value but only one value can be assigned to a string:
+
+```csharp
+public sealed class TestEnum : SmartEnum<TestEnum>
+{
+    public static readonly TestEnum One = new TestEnum(nameof(One), 1);
+    public static readonly TestEnum Two = new TestEnum(nameof(Two), 2);
+    public static readonly TestEnum Three = new TestEnum(nameof(Three), 3);
+    public static readonly TestEnum AnotherThree = new TestEnum(nameof(AnotherThree), 3);
+    // public static TestEnum Three = new TestEnum(nameof(Three), 4); -> throws exception
+
+    private TestEnum(string name, int value) : base(name, value)
+    {
+    }
+}
+```
+
+In this case, `TestEnum.FromValue(3)` will return the first instance found, either `TestEnum.Three` or `TestEnum.AnotherThree`. No order should be assumed.
+
+The `Value` content is used when comparing two smart enums, while `Name` is ignored:
+
+```csharp
+TestEnum.One.Equals(TestEnum.One); // returns true
+TestEnum.One.Equals(TestEnum.Three); // returns false
+TestEnum.Three.Equals(TestEnum.AnotherThree); // returns true
+```
+
+Inheritance can be used to add "behavior" to a smart enum.
+
+This example adds a `BonusSize` property, avoiding the use of the `switch` tipically used with regular enums:
+
+```csharp
+public abstract class EmployeeType : SmartEnum<EmployeeType>
+{
+    public static readonly EmployeeType Manager = new ManagerType();
+    public static readonly EmployeeType Assistant = new AssistantType();
+
+    private EmployeeType(string name, int value) : base(name, value)
+    {
+    }
+
+    public abstract decimal BonusSize { get; }
+
+    private sealed class ManagerType : EmployeeType
+    {
+        public ManagerType() : base("Manager", 1) {}
+
+        public override decimal BonusSize => 10_000m;
+    }
+
+    private sealed class AssistantType : EmployeeType
+    {
+        public AssistantType() : base("Assistant", 2) {}
+
+        public override decimal BonusSize => 1_000m;
+    }
+}
+```
+
+This other example implements a *state machine*. The method `CanTransitionTo()` returns `true` if it's allowed to transition from current state to `next`; otherwise returns `false`.
+
+```csharp
+public abstract class ReservationStatus : SmartEnum<ReservationStatus>
+{
+    public static readonly ReservationStatus New = new NewStatus();
+    public static readonly ReservationStatus Accepted = new AcceptedStatus();
+    public static readonly ReservationStatus Paid = new PaidStatus();
+    public static readonly ReservationStatus Cancelled = new CancelledStatus();
+
+    private ReservationStatus(string name, int value) : base(name, value) 
+    {
+    }
+
+    public abstract bool CanTransitionTo(ReservationStatus next);
+
+    private sealed class NewStatus: ReservationStatus
+    {
+        public NewStatus() : base("New", 0)
         {
         }
+
+        public override bool CanTransitionTo(ReservationStatus next) =>
+            next == ReservationStatus.Accepted || next == ReservationStatus.Cancelled;
     }
+
+    private sealed class AcceptedStatus: ReservationStatus
+    {
+        public AcceptedStatus() : base("Accepted", 1)
+        {
+        }
+
+        public override bool CanTransitionTo(ReservationStatus next) =>
+            next == ReservationStatus.Paid || next == ReservationStatus.Cancelled;
+    }
+
+    private sealed class PaidStatus: ReservationStatus
+    {
+        public PaidStatus() : base("Paid", 2)
+        {
+        }
+
+        public override bool CanTransitionTo(ReservationStatus next) =>
+            next == ReservationStatus.Cancelled;
+    }
+
+    private sealed class CancelledStatus: ReservationStatus
+    {
+        public CancelledStatus() : base("Cancelled", 3)
+        {
+        }
+
+        public override bool CanTransitionTo(ReservationStatus next) =>
+            false;
+    }
+}
 ```
 
 ### List
 
 You can list all of the available options using the enum's static `List` property:
 
-```
-    var allOptions = TestEnum.List;
+```csharp
+foreach (var option in TestEnum.List)
+    Console.WriteLine(option.Name);
 ```
 
-### FromString
+`List` returns an `IReadOnlyCollection` so you can use the `Count` property to efficiently get the number os available options.
+
+```csharp
+var count = TestEnum.List.Count;
+```
+
+### FromName()
 
 Access an instance of an enum by matching a string to its `Name` property:
 
-```
-    var myEnum = TestEnum.FromString("One");
+```csharp
+var myEnum = TestEnum.FromName("One");
 ```
 
-### FromValue
+Exception `SmartEnumNotFoundException` is thrown when name is not found. Alternatively, you can use `TryFromName` that returns `false` when name is not found:
+
+```csharp
+if (TestEnum.TryFromName("One", out var myEnum))
+{
+    // use myEnum here
+}
+```
+
+Both methods have a `ignoreCase` parameter (the default is case sensitive).
+
+### FromValue()
 
 Access an instance of an enum by matching its value:
 
-```
-    var myEnum = TestEnum.FromValue(1);
+```csharp
+var myEnum = TestEnum.FromValue(1);
 ```
 
-### ToString
+Exception `SmartEnumNotFoundException` is thrown when value is not found. Alternatively, you can use `TryFromValue` that returns `false` when value is not found:
+
+```csharp
+if (TestEnum.TryFromValue(1, out var myEnum))
+{
+    // use myEnum here
+}
+```
+
+### ToString()
 
 Display an enum using the `ToString()` override:
 
-```
-    Console.WriteLine(TestEnum.One); // One (1)
+```csharp
+Console.WriteLine(TestEnum.One); // One
 ```
 
 ### Switch
 
 Given an instance of a TestEnum, switch depending on value:
 
+```csharp
+switch(testEnumVar.Name)
+{
+    case nameof(TestEnum.One):
+        ...
+        break;
+    case nameof(TestEnum.Two):
+        ...
+        break;
+    case nameof(TestEnum.Three):
+        ...
+        break;
+    default:
+        ...
+        break;
+}
 ```
-    switch(testEnumVar.Name)
-    {
-        case nameof(TestEnum.One):
-            ...
-        case nameof(TestEnum.Two):
-            ...
-        case nameof(TestEnum.Three):
-            ...
-    }
+
+Using pattern matching:
+
+```csharp
+switch(testEnumVar)
+{
+    case null:
+        ...
+        break;
+    case var e when e.Equals(TestEnum.One):
+        ...
+        break;
+    case var e when e.Equals(TestEnum.Two):
+        ...
+        break;
+    case var e when e.Equals(TestEnum.Three):
+        ...
+        break;
+    default:
+        ...
+        break;
+}
 ```
 
 ### Persisting with EF Core 2.1 or higher
 
 EF Core 2.1 introduced [value conversions](https://docs.microsoft.com/en-us/ef/core/modeling/value-conversions) which can be used to map SmartEnum types to simple database types. For example, given an entity named `Policy` with a property `PolicyStatus` that is a SmartEnum, you could use the following code to persist just the value to the database:
 
-```
-    protected override void OnModelCreating(ModelBuilder builder)
-    {
-        base.OnModelCreating(builder);
+```csharp
+protected override void OnModelCreating(ModelBuilder builder)
+{
+    base.OnModelCreating(builder);
 
-        builder.Entity<Policy>()
-            .Property(p => p.PolicyStatus)
-            .HasConversion(
-                p => p.Value,
-                p => PolicyStatus.FromValue(p));
-    }
+    builder.Entity<Policy>()
+        .Property(p => p.PolicyStatus)
+        .HasConversion(
+            p => p.Value,
+            p => PolicyStatus.FromValue(p));
+}
+```
+
+## AutoFixture support
+
+New instance of a `SmartEnum` should not be created. Instead, references to the existing ones should always be used. [AutoFixture](https://github.com/AutoFixture/AutoFixture) by default doesn't know how to do this. The `Ardalis.SmartEnum.AutoFixture` package includes a specimen builder for `SmartEnum`. Simply add the customization to the `IFixture` builder:
+
+```csharp
+var fixture = new Fixture()
+    .Customize(new SmartEnumCustomization());
+
+var smartEnum = fixture.Create<TestEnum>();
+```
+
+## Json<span></span>.NET support
+
+When serializing a `SmartEnum` to JSON, only one of the properties (`Value` or `Name`) should be used. [Json.NET](https://www.newtonsoft.com/json) by default doesn't know how to do this. The `Ardalis.SmartEnum.JsonNet` package includes a couple of converters to achieve this. Simply use the attribute [JsonConverterAttribute](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonConverter.htm) to assign one of the converters to the `SmartEnum` to be de/serialized:
+
+```csharp
+public class TestClass
+{
+    [JsonConverter(typeof(SmartEnumNameConverter<int>))]
+    public TestEnum Property { get; set; }
+}
+```
+
+uses the `Name`:
+
+```json
+{
+  "Property": "One"
+}
+```
+
+While this:
+
+```csharp
+public class TestClass
+{
+    [JsonConverter(typeof(SmartEnumValueConverter<int>))]
+    public TestEnum Property { get; set; }
+}
+```
+
+uses the `Value`:
+
+```json
+{
+  "Property": 1
+}
 ```
 
 ## References

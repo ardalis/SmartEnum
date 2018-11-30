@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>Ardalis.Benchmarks.EqualsBenchmarks</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.11.1, OS=macOS High Sierra 10.13.6 (17G3025) [Darwin 17.7.0]
+Intel Core i5-7360U CPU 2.30GHz (Kaby Lake), 1 CPU, 4 logical and 2 physical cores
+.NET Core SDK=2.1.403
+  [Host]     : .NET Core 2.1.5 (CoreCLR 4.6.26919.02, CoreFX 4.6.26919.02), 64bit RyuJIT
+  DefaultJob : .NET Core 2.1.5 (CoreCLR 4.6.26919.02, CoreFX 4.6.26919.02), 64bit RyuJIT
+</code></pre>
+<pre><code></code></pre>
+
+<table>
+<thead><tr><th>                   Method</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Median</th><th>Library</th><th>Gen 0</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>Enum_GetHashCode</td><td>0.0016 ns</td><td>0.0063 ns</td><td>0.0056 ns</td><td>0.0000 ns</td><td>Enum</td><td>-</td><td>0 B</td>
+</tr><tr><td>Enum_Equals_SameValue</td><td>14.0599 ns</td><td>0.3943 ns</td><td>0.4987 ns</td><td>13.9135 ns</td><td>Enum</td><td>0.0229</td><td>48 B</td>
+</tr><tr><td>Enum_Equals_DifferentValue</td><td>13.8287 ns</td><td>0.1401 ns</td><td>0.1242 ns</td><td>13.7874 ns</td><td>Enum</td><td>0.0229</td><td>48 B</td>
+</tr><tr><td>Enum_Equals_DifferentType</td><td>11.3394 ns</td><td>0.1624 ns</td><td>0.1519 ns</td><td>11.2961 ns</td><td>Enum</td><td>0.0229</td><td>48 B</td>
+</tr><tr><td>Enum_EqualOperator</td><td>0.0006 ns</td><td>0.0020 ns</td><td>0.0018 ns</td><td>0.0000 ns</td><td>Enum</td><td>-</td><td>0 B</td>
+</tr><tr><td>Enum_NotEqualOperator</td><td>0.0029 ns</td><td>0.0059 ns</td><td>0.0055 ns</td><td>0.0000 ns</td><td>Enum</td><td>-</td><td>0 B</td>
+</tr><tr><td>Constant_GetHashCode</td><td>9.0170 ns</td><td>0.2121 ns</td><td>0.1984 ns</td><td>8.9488 ns</td><td>Constant</td><td>-</td><td>0 B</td>
+</tr><tr><td>Constant_Equals_Null</td><td>2.3111 ns</td><td>0.0279 ns</td><td>0.0247 ns</td><td>2.3066 ns</td><td>Constant</td><td>-</td><td>0 B</td>
+</tr><tr><td>Constant_Equals_SameValue</td><td>2.3230 ns</td><td>0.0297 ns</td><td>0.0263 ns</td><td>2.3290 ns</td><td>Constant</td><td>-</td><td>0 B</td>
+</tr><tr><td>Constant_Equals_DifferentValue</td><td>15.3502 ns</td><td>0.3369 ns</td><td>0.3152 ns</td><td>15.2437 ns</td><td>Constant</td><td>-</td><td>0 B</td>
+</tr><tr><td>Constant_Equals_DifferentType</td><td>7.1682 ns</td><td>0.0751 ns</td><td>0.0627 ns</td><td>7.1483 ns</td><td>Constant</td><td>-</td><td>0 B</td>
+</tr><tr><td>Constant_EqualOperator</td><td>9.2394 ns</td><td>0.0852 ns</td><td>0.0797 ns</td><td>9.2414 ns</td><td>Constant</td><td>-</td><td>0 B</td>
+</tr><tr><td>Constant_NotEqualOperator</td><td>10.1589 ns</td><td>0.1829 ns</td><td>0.1711 ns</td><td>10.0859 ns</td><td>Constant</td><td>-</td><td>0 B</td>
+</tr><tr><td>Ardalis_GetHashCode</td><td>26.8611 ns</td><td>0.2908 ns</td><td>0.2428 ns</td><td>26.8645 ns</td><td>Ardalis</td><td>0.0152</td><td>32 B</td>
+</tr><tr><td>Ardalis_Equals_Null</td><td>2.6078 ns</td><td>0.0376 ns</td><td>0.0333 ns</td><td>2.5934 ns</td><td>Ardalis</td><td>-</td><td>0 B</td>
+</tr><tr><td>Ardalis_Equals_SameValue</td><td>2.1612 ns</td><td>0.1185 ns</td><td>0.1809 ns</td><td>2.0697 ns</td><td>Ardalis</td><td>-</td><td>0 B</td>
+</tr><tr><td>Ardalis_Equals_DifferentValue</td><td>11.2824 ns</td><td>0.2071 ns</td><td>0.1938 ns</td><td>11.2472 ns</td><td>Ardalis</td><td>-</td><td>0 B</td>
+</tr><tr><td>Ardalis_Equals_DifferentType</td><td>7.6414 ns</td><td>0.1569 ns</td><td>0.1468 ns</td><td>7.6183 ns</td><td>Ardalis</td><td>-</td><td>0 B</td>
+</tr><tr><td>Ardalis_EqualOperator</td><td>10.0053 ns</td><td>0.1062 ns</td><td>0.0993 ns</td><td>9.9746 ns</td><td>Ardalis</td><td>-</td><td>0 B</td>
+</tr><tr><td>Ardalis_NotEqualOperator</td><td>11.1820 ns</td><td>0.0755 ns</td><td>0.0669 ns</td><td>11.1700 ns</td><td>Ardalis</td><td>-</td><td>0 B</td>
+</tr><tr><td>SmartEnum_GetHashCode</td><td>1.2080 ns</td><td>0.0571 ns</td><td>0.0635 ns</td><td>1.2010 ns</td><td>SmartEnum</td><td>-</td><td>0 B</td>
+</tr><tr><td>SmartEnum_Equals_Null</td><td>1.4195 ns</td><td>0.0327 ns</td><td>0.0306 ns</td><td>1.4086 ns</td><td>SmartEnum</td><td>-</td><td>0 B</td>
+</tr><tr><td>SmartEnum_Equals_SameValue</td><td>1.9837 ns</td><td>0.0357 ns</td><td>0.0334 ns</td><td>1.9793 ns</td><td>SmartEnum</td><td>-</td><td>0 B</td>
+</tr><tr><td>SmartEnum_Equals_DifferentValue</td><td>2.6676 ns</td><td>0.0849 ns</td><td>0.0794 ns</td><td>2.6458 ns</td><td>SmartEnum</td><td>-</td><td>0 B</td>
+</tr><tr><td>SmartEnum_Equals_DifferentType</td><td>6.4906 ns</td><td>0.0487 ns</td><td>0.0432 ns</td><td>6.4924 ns</td><td>SmartEnum</td><td>-</td><td>0 B</td>
+</tr><tr><td>SmartEnum_EqualOperator</td><td>3.4570 ns</td><td>0.0778 ns</td><td>0.0727 ns</td><td>3.4277 ns</td><td>SmartEnum</td><td>-</td><td>0 B</td>
+</tr><tr><td>SmartEnum_NotEqualOperator</td><td>3.5695 ns</td><td>0.1335 ns</td><td>0.1311 ns</td><td>3.5202 ns</td><td>SmartEnum</td><td>-</td><td>0 B</td>
+</tr></tbody></table>
+</body>
+</html>

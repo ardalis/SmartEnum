@@ -1,22 +1,42 @@
-﻿using Ardalis.SmartEnum;
-
-namespace SmartEnum.UnitTests
+﻿namespace Ardalis.SmartEnum.UnitTests
 {
-    public class TestEnum : SmartEnum<TestEnum, int>
+    using System;
+    
+    public class TestEnum : SmartEnum<TestEnum>
     {
-        public static TestEnum One = new TestEnum(nameof(One), 1);
-        public static TestEnum Two = new TestEnum(nameof(Two), 2);
-        public static TestEnum Three = new TestEnum(nameof(Three), 3);
+        public static readonly TestEnum One = new TestEnum(nameof(One), 1);
+        public static readonly TestEnum Two = new TestEnum(nameof(Two), 2);
+        public static readonly TestEnum Three = new TestEnum(nameof(Three), 3);
 
         protected TestEnum(string name, int value) : base(name, value)
         {
         }
+    }
 
-        private TestEnum() : base()
+    public abstract class TestBaseEnum : SmartEnum<TestBaseEnum>
+    {
+        public static TestBaseEnum One;
+
+        internal TestBaseEnum(string name, int value) : base(name, value)
         {
-            // required for EF
+        }
+    }
+
+    public sealed class TestDerivedEnum : TestBaseEnum
+    {
+        private TestDerivedEnum(string name, int value) : base(name, value) 
+        {
         }
 
-        internal static TestEnum CreateFromConstructor(string name, int value) => new TestEnum(name, value);
+        static TestDerivedEnum()
+        {
+            One = new TestDerivedEnum(nameof(One), 1);
+        }    
+
+        public static new TestBaseEnum FromValue(int value) =>
+            TestBaseEnum.FromValue(value);
+
+        public static new TestBaseEnum FromName(string name, bool ignoreCase = false) =>
+            TestBaseEnum.FromName(name, ignoreCase);
     }
 }

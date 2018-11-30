@@ -1,66 +1,79 @@
-﻿using SmartEnum.Exceptions;
-using System;
-using Xunit;
-
-namespace SmartEnum.UnitTests
+﻿namespace Ardalis.SmartEnum.UnitTests
 {
+    using System;
+    using FluentAssertions;
+    using Xunit;
+
     public class SmartEnumFromName
     {
         [Fact]
         public void ReturnsEnumGivenNoExplicitPriorUse()
         {
-            string expected = "One";
-            Assert.Equal(expected, TestEnum.FromName(expected).Name);
+            var expected = "One";
+
+            var result = TestEnum.FromName(expected);
+
+            result.Name.Should().Be(expected);
         }
 
         [Fact]
         public void ReturnsEnumGivenExplicitPriorUse()
         {
-            string expected = TestEnum.One.Name;
-            Assert.Equal(expected, TestEnum.FromName(expected).Name);
+            var expected = TestEnum.One.Name;
+
+            var result = TestEnum.FromName(expected);
+
+            result.Name.Should().Be(expected);
         }
 
         [Fact]
         public void ReturnsEnumGivenMatchingName()
         {
-            Assert.Equal(TestEnum.One, TestEnum.FromName("One"));
+            var result = TestEnum.FromName("One");
+
+            result.Should().BeSameAs(TestEnum.One);
+        }
+
+        [Fact]
+        public void ReturnsEnumGivenDerivedClass()
+        {
+            var result = TestDerivedEnum.FromName("One");
+
+            result.Should().NotBeNull().And.BeSameAs(TestDerivedEnum.One);
         }
 
         [Fact]
         public void ThrowsGivenEmptyString()
         {
-            Assert.Throws<ArgumentException>(() => TestEnum.FromName(String.Empty));
+            Action action = () => TestEnum.FromName(String.Empty);
+
+            action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"Argument cannot be null or empty.{Environment.NewLine}Parameter name: name")
+            .Which.ParamName.Should().Be("name");
         }
 
         [Fact]
         public void ThrowsGivenNull()
         {
-            Assert.Throws<ArgumentNullException>(() => TestEnum.FromName(null));
+            Action action = () => TestEnum.FromName(null);
+
+            action.Should()
+            .ThrowExactly<ArgumentException>()
+            .WithMessage($"Argument cannot be null or empty.{Environment.NewLine}Parameter name: name")
+            .Which.ParamName.Should().Be("name");
         }
 
         [Fact]
         public void ThrowsGivenNonMatchingString()
         {
-            Assert.Throws<SmartEnumNotFoundException>(() => TestEnum.FromName("Doesn't Exist"));
-        }
+            var name = "Doesn't Exist";
 
-        [Fact]
-        public void ThrowsWithExpectedMessageGivenNonMatchingString()
-        {
-            string name = "Doesn't Exist";
-            string expected = $"No TestEnum with Name \"{name}\" found.";
-            string actual = "";
-
-            try
-            {
-                var testEnum = TestEnum.FromName(name);
-            }
-            catch (SmartEnumNotFoundException ex)
-            {
-                actual = ex.Message;
-            }
-
-            Assert.Equal(expected, actual);
+            Action action = () => TestEnum.FromName(name);
+            
+            action.Should()
+            .ThrowExactly<SmartEnumNotFoundException>()
+            .WithMessage($@"No {typeof(TestEnum).Name} with Name ""{name}"" found.");
         }
     }
 }
