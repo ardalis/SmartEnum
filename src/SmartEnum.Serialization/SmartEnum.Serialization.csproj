@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp2.0;net461</TargetFrameworks>
+    <PackageId>Ardalis.SmartEnum.Serialization</PackageId>
+    <Title>Ardalis.SmartEnum.Serialization</Title>
+    <Company>Ardalis.com</Company>
+    <Summary>System.Runtime.Serialization support for Ardalis.SmartEnum.</Summary>
+    <PackageTags>enum;smartenum;netstandard2.0;json;json.net;converter</PackageTags>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <Version>1.0.0</Version>
+    <AssemblyName>Ardalis.SmartEnum.Serialization</AssemblyName>
+    <RootNamespace>Ardalis.SmartEnum.Serialization</RootNamespace>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <LangVersion>7.3</LangVersion>
+    <Features>strict</Features>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="7.9.0.7583" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
+  </ItemGroup>
+</Project>

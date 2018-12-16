@@ -37,6 +37,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.Utf8Json", "Smart
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.Utf8Json.UnitTests", "SmartEnum.Utf8Json.UnitTests\SmartEnum.Utf8Json.UnitTests.csproj", "{66EF3D1A-32AE-4B28-BC3E-7441615722A9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.Serialization", "SmartEnum.Serialization\SmartEnum.Serialization.csproj", "{F2DBAC0C-16A7-4E51-A4B4-10D25913DE40}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.Serialization.UnitTests", "SmartEnum.Serialization.UnitTests\SmartEnum.Serialization.UnitTests.csproj", "{4F8630B9-45BB-492E-B921-40860CDF3BA8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +99,14 @@ Global
 		{66EF3D1A-32AE-4B28-BC3E-7441615722A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66EF3D1A-32AE-4B28-BC3E-7441615722A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66EF3D1A-32AE-4B28-BC3E-7441615722A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2DBAC0C-16A7-4E51-A4B4-10D25913DE40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2DBAC0C-16A7-4E51-A4B4-10D25913DE40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2DBAC0C-16A7-4E51-A4B4-10D25913DE40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2DBAC0C-16A7-4E51-A4B4-10D25913DE40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F8630B9-45BB-492E-B921-40860CDF3BA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F8630B9-45BB-492E-B921-40860CDF3BA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F8630B9-45BB-492E-B921-40860CDF3BA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F8630B9-45BB-492E-B921-40860CDF3BA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
