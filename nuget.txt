@@ -1,4 +1,13 @@
-dotnet pack -c release /p:Version=1.0.0
+Checklist:
+https://ardalis.com/nuget-publication-checklist
+
+-- update csproj file with version and release notes
+
+dotnet pack -c release /p:Version=1.0.X
 
 -- from /bin/release folder
-dotnet nuget push -s https://www.nuget.org/api/v2/package -k <key> Ardalis.SmartEnum.1.0.0.nupkg
+dotnet nuget push -s https://www.nuget.org/api/v2/package -k <key> Ardalis.SmartEnum.1.0.X.nupkg
+
+git tag -a v1.0.X -m "Published 1.0.X to nuget.org"
+
+git push --follow-tags

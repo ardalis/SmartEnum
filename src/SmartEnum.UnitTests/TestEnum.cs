@@ -1,7 +1,6 @@
 ﻿namespace Ardalis.SmartEnum.UnitTests
 {
-    using System;
-    
+
     public class TestEnum : SmartEnum<TestEnum>
     {
         public static readonly TestEnum One = new TestEnum(nameof(One), 1);
@@ -24,14 +23,14 @@
 
     public sealed class TestDerivedEnum : TestBaseEnum
     {
-        private TestDerivedEnum(string name, int value) : base(name, value) 
+        private TestDerivedEnum(string name, int value) : base(name, value)
         {
         }
 
         static TestDerivedEnum()
         {
             One = new TestDerivedEnum(nameof(One), 1);
-        }    
+        }
 
         public static new TestBaseEnum FromValue(int value) =>
             TestBaseEnum.FromValue(value);
