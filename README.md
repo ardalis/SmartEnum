@@ -2,15 +2,17 @@
 
 NuGet: [Ardalis.SmartEnum](https://www.nuget.org/packages/Ardalis.SmartEnum)
 
-# Smart Enum
-An implementation of a [type-safe object-oriented alternative](https://codeblog.jonskeet.uk/2006/01/05/classenum/) to [C# enum](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/enum).
-
 ## Give a Star! :star:
+
 If you like or are using this project to learn or start your solution, please give it a star. Thanks!
+
+# Smart Enum
+
+An implementation of a [type-safe object-oriented alternative](https://codeblog.jonskeet.uk/2006/01/05/classenum/) to [C# enum](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/enum).
 
 ## Contributors
 
-Thanks to [Scott Depouw](https://github.com/sdepouw) for his help with this!
+Thanks to [Scott Depouw](https://github.com/sdepouw) and [Antão Almada](https://github.com/aalmada) for help with this project!
 
 # Install
 
@@ -34,9 +36,11 @@ Install-Package Ardalis.SmartEnum.ProtoBufNet
 
 ## Usage
 
-Define your smart enum by inheriting from `SmartEnum<TEnum>` where `TEnum` is the type you're declaring. For example:
+Define your smart enum by inheriting from `SmartEnum<TEnum>` where `TEnum` is the type you're declaring. For [example](/src/SmartEnum.UnitTests/TestEnum.cs):
 
 ```csharp
+using Ardalis.SmartEnum;
+
 public sealed class TestEnum : SmartEnum<TestEnum>
 {
     public static readonly TestEnum One = new TestEnum(nameof(One), 1);
@@ -53,6 +57,8 @@ The default value type is `int` but it can be set using the second generic argum
 The string alias can also be set explicitly, where spaces are allowed.
 
 ```csharp
+using Ardalis.SmartEnum;
+
 public sealed class TestEnum : SmartEnum<TestEnum, ushort>
 {
     public static readonly TestEnum One = new TestEnum("A string!", 1);
@@ -68,6 +74,8 @@ public sealed class TestEnum : SmartEnum<TestEnum, ushort>
 Just like regular `enum`, more than one string can be assigned to the same value but only one value can be assigned to a string:
 
 ```csharp
+using Ardalis.SmartEnum;
+
 public sealed class TestEnum : SmartEnum<TestEnum>
 {
     public static readonly TestEnum One = new TestEnum(nameof(One), 1);
@@ -97,6 +105,8 @@ Inheritance can be used to add "behavior" to a smart enum.
 This example adds a `BonusSize` property, avoiding the use of the `switch` tipically used with regular enums:
 
 ```csharp
+using Ardalis.SmartEnum;
+
 public abstract class EmployeeType : SmartEnum<EmployeeType>
 {
     public static readonly EmployeeType Manager = new ManagerType();
@@ -127,6 +137,8 @@ public abstract class EmployeeType : SmartEnum<EmployeeType>
 This other example implements a *state machine*. The method `CanTransitionTo()` returns `true` if it's allowed to transition from current state to `next`; otherwise returns `false`.
 
 ```csharp
+using Ardalis.SmartEnum;
+
 public abstract class ReservationStatus : SmartEnum<ReservationStatus>
 {
     public static readonly ReservationStatus New = new NewStatus();
@@ -356,3 +368,5 @@ uses the `Value`:
 
 - [Listing Strongly Typed Enums...)](https://ardalis.com/listing-strongly-typed-enum-options-in-c)
 - [Enum Alternatives in C#](https://ardalis.com/enum-alternatives-in-c)
+- [Smarter Enumerations (podcast episode)](http://www.weeklydevtips.com/014)
+
