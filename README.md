@@ -1,4 +1,5 @@
 [![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum)
+[![Build Status](https://dev.azure.com/ardalis/SmartEnum/_apis/build/status/ardalis.SmartEnum?branchName=master)](https://dev.azure.com/ardalis/SmartEnum/_build/latest?definitionId=2&branchName=master)
 
 NuGet: [Ardalis.SmartEnum](https://www.nuget.org/packages/Ardalis.SmartEnum)
 
