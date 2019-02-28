@@ -31,7 +31,7 @@
         IEquatable<SmartEnum<TEnum, TValue>>,
         IComparable<SmartEnum<TEnum, TValue>>
         where TEnum : SmartEnum<TEnum, TValue>
-        where TValue : struct, IEquatable<TValue>, IComparable<TValue>
+        where TValue : IEquatable<TValue>, IComparable<TValue>
     {
         static readonly Lazy<Dictionary<string, TEnum>> _fromName = 
             new Lazy<Dictionary<string, TEnum>>(() => GetAllOptions().ToDictionary(item => item.Name));
@@ -93,7 +93,9 @@
         {
             if (String.IsNullOrEmpty(name))
                 throw new ArgumentException("Argument cannot be null or empty.", nameof(name));
-            
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
             _name = name;
             _value = value;
         }
@@ -193,6 +195,9 @@
         /// <seealso cref="SmartEnum{TEnum, TValue}.TryFromValue(TValue, out TEnum)"/>
         public static TEnum FromValue(TValue value)
         {
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
             if (!_fromValue.Value.TryGetValue(value, out var result))
             {
                 throw new SmartEnumNotFoundException($"No {typeof(TEnum).Name} with Value {value} found.");
@@ -213,6 +218,9 @@
         /// <seealso cref="SmartEnum{TEnum, TValue}.TryFromValue(TValue, out TEnum)"/>
         public static TEnum FromValue(TValue value, TEnum defaultValue)
         {
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
             if (!_fromValue.Value.TryGetValue(value, out var result))
             {
                 return defaultValue;
@@ -232,8 +240,16 @@
         /// </returns>
         /// <seealso cref="SmartEnum{TEnum, TValue}.FromValue(TValue)"/>
         /// <seealso cref="SmartEnum{TEnum, TValue}.FromValue(TValue, TEnum)"/>
-        public static bool TryFromValue(TValue value, out TEnum result) =>
-            _fromValue.Value.TryGetValue(value, out result);
+        public static bool TryFromValue(TValue value, out TEnum result)
+        {
+            if (value == null)
+            {
+                result = default;
+                return false;
+            }
+
+            return _fromValue.Value.TryGetValue(value, out result);
+        }
 
         public override string ToString() => 
             _name;
@@ -310,9 +326,5 @@
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator SmartEnum<TEnum, TValue>(TValue value) => 
             FromValue(value);
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator SmartEnum<TEnum, TValue>(TValue? value) => 
-            value.HasValue ? FromValue(value.Value) : null;    
     }
 }

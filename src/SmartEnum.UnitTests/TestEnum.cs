@@ -38,4 +38,16 @@
         public static new TestBaseEnum FromName(string name, bool ignoreCase = false) =>
             TestBaseEnum.FromName(name, ignoreCase);
     }
+
+    public class TestStringEnum : SmartEnum<TestStringEnum, string>
+    {
+        public static readonly TestStringEnum One = new TestStringEnum(nameof(One), nameof(One));
+        public static readonly TestStringEnum Two = new TestStringEnum(nameof(Two), nameof(Two));
+        public static readonly TestStringEnum Three = new TestStringEnum(nameof(Three), nameof(Three));
+
+        protected TestStringEnum(string name, string value) : base(name, value)
+        {
+        }
+    }
+
 }
