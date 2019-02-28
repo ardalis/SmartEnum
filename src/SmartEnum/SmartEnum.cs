@@ -243,7 +243,10 @@
         public static bool TryFromValue(TValue value, out TEnum result)
         {
             if (value == null)
-                throw new ArgumentNullException(nameof(value));
+            {
+                result = default;
+                return false;
+            }
 
             return _fromValue.Value.TryGetValue(value, out result);
         }
