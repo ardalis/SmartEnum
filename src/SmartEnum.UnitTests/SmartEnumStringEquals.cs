@@ -9,13 +9,10 @@ namespace Ardalis.SmartEnum.UnitTests
         public static TheoryData<TestStringEnum, object, bool> EqualsTestEnumObjectData =>
             new TheoryData<TestStringEnum, object, bool> 
             {
-                { TestStringEnum.Null, null, false },
                 { TestStringEnum.One, null, false },
-                { TestStringEnum.Null, TestStringEnum.Null, true },
-                { TestStringEnum.Null, TestStringEnum.One, false },
-                { TestStringEnum.One, TestStringEnum.Null, false },
-                { TestStringEnum.Null, TestEnum.One, false },
                 { TestStringEnum.One, TestEnum.One, false },
+                { TestStringEnum.One, TestStringEnum.One, true },
+                { TestStringEnum.One, TestStringEnum.Two, false },
             };
 
         [Theory]
@@ -30,10 +27,9 @@ namespace Ardalis.SmartEnum.UnitTests
         public static TheoryData<TestStringEnum, TestStringEnum, bool> EqualsSmartEnumData =>
             new TheoryData<TestStringEnum, TestStringEnum, bool> 
             {
-                { TestStringEnum.Null, null, false },
                 { TestStringEnum.One, null, false },
-                { TestStringEnum.Null, TestStringEnum.Null, true },
-                { TestStringEnum.Null, TestStringEnum.One, false },
+                { TestStringEnum.One, TestStringEnum.One, true },
+                { TestStringEnum.One, TestStringEnum.Two, false },
             };
 
         [Theory]
@@ -49,12 +45,10 @@ namespace Ardalis.SmartEnum.UnitTests
             new TheoryData<TestStringEnum, TestStringEnum, bool> 
             {
                 { null, null, true },
-                { null, TestStringEnum.Null, false },
                 { null, TestStringEnum.One, false },
-                { TestStringEnum.Null, null, false },
                 { TestStringEnum.One, null, false },
-                { TestStringEnum.Null, TestStringEnum.Null, true },
-                { TestStringEnum.Null, TestStringEnum.One, false },
+                { TestStringEnum.One, TestStringEnum.One, true },
+                { TestStringEnum.One, TestStringEnum.Two, false },
             };
 
         [Theory]

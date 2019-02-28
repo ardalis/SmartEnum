@@ -93,7 +93,9 @@
         {
             if (String.IsNullOrEmpty(name))
                 throw new ArgumentException("Argument cannot be null or empty.", nameof(name));
-            
+            if (value is null)
+                throw new ArgumentNullException(nameof(value));
+
             _name = name;
             _value = value;
         }
@@ -193,6 +195,9 @@
         /// <seealso cref="SmartEnum{TEnum, TValue}.TryFromValue(TValue, out TEnum)"/>
         public static TEnum FromValue(TValue value)
         {
+            if (value is null)
+                throw new ArgumentNullException(nameof(value));
+
             if (!_fromValue.Value.TryGetValue(value, out var result))
             {
                 throw new SmartEnumNotFoundException($"No {typeof(TEnum).Name} with Value {value} found.");
@@ -213,6 +218,9 @@
         /// <seealso cref="SmartEnum{TEnum, TValue}.TryFromValue(TValue, out TEnum)"/>
         public static TEnum FromValue(TValue value, TEnum defaultValue)
         {
+            if (value is null)
+                throw new ArgumentNullException(nameof(value));
+
             if (!_fromValue.Value.TryGetValue(value, out var result))
             {
                 return defaultValue;
@@ -232,15 +240,20 @@
         /// </returns>
         /// <seealso cref="SmartEnum{TEnum, TValue}.FromValue(TValue)"/>
         /// <seealso cref="SmartEnum{TEnum, TValue}.FromValue(TValue, TEnum)"/>
-        public static bool TryFromValue(TValue value, out TEnum result) =>
-            _fromValue.Value.TryGetValue(value, out result);
+        public static bool TryFromValue(TValue value, out TEnum result)
+        {
+            if (value is null)
+                throw new ArgumentNullException(nameof(value));
+
+            return _fromValue.Value.TryGetValue(value, out result);
+        }
 
         public override string ToString() => 
             _name;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode() =>
-            _value?.GetHashCode() ?? 0; 
+            _value.GetHashCode(); 
 
         public override bool Equals(object obj) => 
             (obj is SmartEnum<TEnum, TValue> other) && Equals(other);
@@ -260,9 +273,6 @@
             // check if it's not null and is same value
             if (other is null)
                 return false;
-
-            if (_value is null)
-                return (other._value is null);
 
             return _value.Equals(other._value);
         }
