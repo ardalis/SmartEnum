@@ -93,7 +93,7 @@
         {
             if (String.IsNullOrEmpty(name))
                 throw new ArgumentException("Argument cannot be null or empty.", nameof(name));
-            if (value is null)
+            if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
             _name = name;
@@ -195,7 +195,7 @@
         /// <seealso cref="SmartEnum{TEnum, TValue}.TryFromValue(TValue, out TEnum)"/>
         public static TEnum FromValue(TValue value)
         {
-            if (value is null)
+            if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
             if (!_fromValue.Value.TryGetValue(value, out var result))
@@ -218,7 +218,7 @@
         /// <seealso cref="SmartEnum{TEnum, TValue}.TryFromValue(TValue, out TEnum)"/>
         public static TEnum FromValue(TValue value, TEnum defaultValue)
         {
-            if (value is null)
+            if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
             if (!_fromValue.Value.TryGetValue(value, out var result))
@@ -242,7 +242,7 @@
         /// <seealso cref="SmartEnum{TEnum, TValue}.FromValue(TValue, TEnum)"/>
         public static bool TryFromValue(TValue value, out TEnum result)
         {
-            if (value is null)
+            if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
             return _fromValue.Value.TryGetValue(value, out result);
