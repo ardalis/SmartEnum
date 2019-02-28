@@ -31,7 +31,7 @@
         IEquatable<SmartEnum<TEnum, TValue>>,
         IComparable<SmartEnum<TEnum, TValue>>
         where TEnum : SmartEnum<TEnum, TValue>
-        where TValue : struct, IEquatable<TValue>, IComparable<TValue>
+        where TValue : IEquatable<TValue>, IComparable<TValue>
     {
         static readonly Lazy<Dictionary<string, TEnum>> _fromName = 
             new Lazy<Dictionary<string, TEnum>>(() => GetAllOptions().ToDictionary(item => item.Name));
@@ -240,7 +240,7 @@
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode() =>
-            _value.GetHashCode(); 
+            _value?.GetHashCode() ?? 0; 
 
         public override bool Equals(object obj) => 
             (obj is SmartEnum<TEnum, TValue> other) && Equals(other);
@@ -260,6 +260,9 @@
             // check if it's not null and is same value
             if (other is null)
                 return false;
+
+            if (_value is null)
+                return (other._value is null);
 
             return _value.Equals(other._value);
         }
@@ -310,9 +313,5 @@
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator SmartEnum<TEnum, TValue>(TValue value) => 
             FromValue(value);
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator SmartEnum<TEnum, TValue>(TValue? value) => 
-            value.HasValue ? FromValue(value.Value) : null;    
     }
 }
