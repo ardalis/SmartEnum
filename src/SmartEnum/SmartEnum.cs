@@ -92,9 +92,9 @@
         protected SmartEnum(string name, TValue value)
         {
             if (String.IsNullOrEmpty(name))
-                throw new ArgumentException("Argument cannot be null or empty.", nameof(name));
+                ThrowHelper.ThrowArgumentNullOrEmptyException(nameof(name));
             if (value == null)
-                throw new ArgumentNullException(nameof(value));
+                ThrowHelper.ThrowArgumentNullException(nameof(value));
 
             _name = name;
             _value = value;
@@ -123,7 +123,7 @@
         public static TEnum FromName(string name, bool ignoreCase = false)
         {
             if (String.IsNullOrEmpty(name))
-                throw new ArgumentException("Argument cannot be null or empty.", nameof(name));
+                ThrowHelper.ThrowArgumentNullOrEmptyException(nameof(name));
 
             if (ignoreCase)
                 return FromName(_fromNameIgnoreCase.Value);
@@ -134,7 +134,7 @@
             {
                 if (!dictionary.TryGetValue(name, out var result))
                 {
-                    throw new SmartEnumNotFoundException($"No {typeof(TEnum).Name} with Name \"{name}\" found.");
+                    ThrowHelper.ThrowNameNotFoundException<TEnum, TValue>(name);
                 }
                 return result;
             }
@@ -174,7 +174,7 @@
         public static bool TryFromName(string name, bool ignoreCase, out TEnum result)
         {
             if (String.IsNullOrEmpty(name))
-                throw new ArgumentException("Argument cannot be null or empty.", nameof(name));
+                ThrowHelper.ThrowArgumentNullOrEmptyException(nameof(name));
 
             if (ignoreCase)
                 return _fromNameIgnoreCase.Value.TryGetValue(name, out result);
@@ -196,11 +196,11 @@
         public static TEnum FromValue(TValue value)
         {
             if (value == null)
-                throw new ArgumentNullException(nameof(value));
+                ThrowHelper.ThrowArgumentNullException(nameof(value));
 
             if (!_fromValue.Value.TryGetValue(value, out var result))
             {
-                throw new SmartEnumNotFoundException($"No {typeof(TEnum).Name} with Value {value} found.");
+                ThrowHelper.ThrowValueNotFoundException<TEnum, TValue>(value);
             }
             return result;
         }
@@ -219,7 +219,7 @@
         public static TEnum FromValue(TValue value, TEnum defaultValue)
         {
             if (value == null)
-                throw new ArgumentNullException(nameof(value));
+                ThrowHelper.ThrowArgumentNullException(nameof(value));
 
             if (!_fromValue.Value.TryGetValue(value, out var result))
             {
