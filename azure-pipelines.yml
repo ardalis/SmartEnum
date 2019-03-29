@@ -32,14 +32,14 @@ steps:
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
-    projects: '**/*.csproj'
+    projects: '**/SmartEnum.csproj'
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
 - task: DotNetCoreCLI@2
   displayName: Test
   inputs:
     command: test
-    projects: '**/*[Tt]ests/*.csproj'
+    projects: '**/*SmartEnum.[Tt]ests/*.csproj'
     arguments: '--configuration $(BuildConfiguration)'
 
 - task: CopyFiles@2
