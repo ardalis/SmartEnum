@@ -26,6 +26,8 @@ steps:
 #    command: restore
 #    projects: '**/*.csproj'
 #
+  script: dotnet --version
+
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
