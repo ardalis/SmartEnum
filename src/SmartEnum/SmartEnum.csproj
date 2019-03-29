@@ -12,12 +12,12 @@
     <Summary>Classes to help produce strongly typed smarter enums in .NET.</Summary>
     <RepositoryUrl>https://github.com/ardalis/SmartEnum</RepositoryUrl>
     <PackageTags>enum</PackageTags>
-    <PackageReleaseNotes>Added performance improvements</PackageReleaseNotes>
-    <Version>1.0.6</Version>
+    <PackageReleaseNotes>Remove struct restriction - allow string values.</PackageReleaseNotes>
+    <Version>1.0.7</Version>
     <AssemblyName>Ardalis.SmartEnum</AssemblyName>
     <PackageIconUrl>https://user-images.githubusercontent.com/782127/33497760-facf6550-d69c-11e7-94e4-b3856da259a9.png</PackageIconUrl>
     <RootNamespace>Ardalis.SmartEnum</RootNamespace>
-    <AssemblyVersion>1.0.6.0</AssemblyVersion>
+    <AssemblyVersion>1.0.7.0</AssemblyVersion>
     <LangVersion>7.3</LangVersion>
     <Features>strict</Features>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -33,7 +33,7 @@
 
   <ItemGroup>
     <PackageReference Include="Ardalis.GuardClauses" Version="1.2.4" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="7.9.0.7583" PrivateAssets="All" />
   </ItemGroup>
 
