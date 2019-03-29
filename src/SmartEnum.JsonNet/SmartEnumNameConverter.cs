@@ -7,9 +7,25 @@ namespace Ardalis.SmartEnum.JsonNet
         where TEnum : SmartEnum<TEnum, TValue>
         where TValue : struct, IEquatable<TValue>, IComparable<TValue>
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public override bool CanRead => true;
+        
+        /// <summary>
+        /// 
+        /// </summary>
         public override bool CanWrite => true;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="objectType"></param>
+        /// <param name="existingValue"></param>
+        /// <param name="hasExistingValue"></param>
+        /// <param name="serializer"></param>
+        /// <returns></returns>
         public override TEnum ReadJson(JsonReader reader, Type objectType, TEnum existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             switch(reader.TokenType)
@@ -34,6 +50,12 @@ namespace Ardalis.SmartEnum.JsonNet
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="writer"></param>
+        /// <param name="value"></param>
+        /// <param name="serializer"></param>
         public override void WriteJson(JsonWriter writer, TEnum value, JsonSerializer serializer)
         {
             if (value is null)

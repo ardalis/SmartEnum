@@ -6,6 +6,12 @@ namespace Ardalis.SmartEnum.AutoFixture
     public class SmartEnumSpecimenBuilder :
         ISpecimenBuilder
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public object Create(object request, ISpecimenContext context)
         {
             if(request is Type type && type.TryGetValues(out var enums))

@@ -29,7 +29,9 @@ namespace Ardalis.SmartEnum.UnitTests
 
         [Theory]
         [MemberData(nameof(IsSmartEnumData))]
+#pragma warning disable xUnit1026 // Theory methods should use all of their parameters
         public void IsSmartEnumReturnsExpected(Type type, bool expectedResult, Type[] _)
+#pragma warning restore xUnit1026 // Theory methods should use all of their parameters
         {
             var result = type.IsSmartEnum();
 

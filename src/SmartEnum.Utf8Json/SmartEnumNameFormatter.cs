@@ -4,6 +4,11 @@ namespace Ardalis.SmartEnum.Utf8Json
     using global::Utf8Json.Internal;
     using System;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TEnum"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
     public class SmartEnumNameFormatter<TEnum, TValue> : IJsonFormatter<TEnum>
         where TEnum : SmartEnum<TEnum, TValue>
         where TValue : struct, IEquatable<TValue>, IComparable<TValue>

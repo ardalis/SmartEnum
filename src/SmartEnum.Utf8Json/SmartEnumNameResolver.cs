@@ -19,6 +19,7 @@ namespace Ardalis.SmartEnum.Utf8Json
         {
             public static readonly IJsonFormatter<T> Formatter;
 
+#pragma warning disable S3963 // "static" fields should be initialized inline
             static FormatterCache()
             {
                 if (typeof(T).IsSmartEnum(out var genericArguments))
@@ -27,6 +28,7 @@ namespace Ardalis.SmartEnum.Utf8Json
                     Formatter = (IJsonFormatter<T>)Activator.CreateInstance(formatterType);                    
                 }
             }
+#pragma warning restore S3963 // "static" fields should be initialized inline
         }    
     }
 }

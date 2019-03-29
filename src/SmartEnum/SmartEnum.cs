@@ -256,8 +256,13 @@
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode() =>
-            _value.GetHashCode(); 
+            _value.GetHashCode();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj) => 
             (obj is SmartEnum<TEnum, TValue> other) && Equals(other);
 

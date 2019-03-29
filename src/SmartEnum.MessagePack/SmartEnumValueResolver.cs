@@ -4,14 +4,25 @@ namespace Ardalis.SmartEnum.MessagePack
     using global::MessagePack;
     using global::MessagePack.Formatters;
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class SmartEnumValueResolver : IFormatterResolver
     {
+        /// <summary>
+        /// Return the instance.
+        /// </summary>
         public static readonly SmartEnumValueResolver Instance = new SmartEnumValueResolver();
 
         private SmartEnumValueResolver() 
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public IMessagePackFormatter<T> GetFormatter<T>() =>
             FormatterCache<T>.Formatter;
 
@@ -19,6 +30,7 @@ namespace Ardalis.SmartEnum.MessagePack
         {
             public static readonly IMessagePackFormatter<T> Formatter;
 
+#pragma warning disable S3963 // "static" fields should be initialized inline
             static FormatterCache()
             {
                 if (typeof(T).IsSmartEnum(out var genericArguments))
@@ -27,6 +39,7 @@ namespace Ardalis.SmartEnum.MessagePack
                     Formatter = (IMessagePackFormatter<T>)Activator.CreateInstance(formatterType);                    
                 }
             }
+#pragma warning restore S3963 // "static" fields should be initialized inline
         }    
     }
 }
