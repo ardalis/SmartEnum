@@ -51,7 +51,7 @@ namespace Ardalis.SmartEnum.MessagePack
                 return MessagePackBinary.WriteSingle(ref bytes, offset, (float)(object)value);
             if (typeof(TValue) == typeof(double))
                 return MessagePackBinary.WriteDouble(ref bytes, offset, (double)(object)value);
-            throw new Exception($"{typeof(TValue)} is not supported."); // should not get to here
+            throw new ArgumentOutOfRangeException(nameof(value), $"{typeof(TValue)} is not supported."); // should not get to here
         }
 
         public TValue Read(ref byte[] bytes, int offset, out int readSize)
@@ -78,7 +78,7 @@ namespace Ardalis.SmartEnum.MessagePack
                 return (TValue)(object)MessagePackBinary.ReadSingle(bytes, offset, out readSize);
             if (typeof(TValue) == typeof(double))
                 return (TValue)(object)MessagePackBinary.ReadDouble(bytes, offset, out readSize);
-            throw new Exception($"{typeof(TValue)} is not supported."); // should not get to here        
+            throw new ArgumentOutOfRangeException(typeof(TValue).ToString(), $"{typeof(TValue)} is not supported."); // should not get to here
         }
     }
 }
