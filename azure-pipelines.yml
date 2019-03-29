@@ -39,7 +39,7 @@ steps:
   displayName: Test
   inputs:
     command: test
-    projects: '**/*SmartEnum.[Tt]ests/*.csproj'
+    projects: '**/SmartEnum.UnitTests.csproj'
     arguments: '--configuration $(BuildConfiguration)'
 
 - task: CopyFiles@2
