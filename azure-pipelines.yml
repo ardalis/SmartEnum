@@ -32,7 +32,7 @@ steps:
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
-    projects: '**/SmartEnum.csproj **/SmartEnum.UnitTests.csproj'
+    projects: 'src/SmartEnum/SmartEnum.csproj src/SmartEnum.UnitTests/SmartEnum.UnitTests.csproj'
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
 - task: DotNetCoreCLI@2
