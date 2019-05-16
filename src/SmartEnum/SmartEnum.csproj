@@ -12,12 +12,12 @@
     <Summary>Classes to help produce strongly typed smarter enums in .NET.</Summary>
     <RepositoryUrl>https://github.com/ardalis/SmartEnum</RepositoryUrl>
     <PackageTags>enum</PackageTags>
-    <PackageReleaseNotes>Remove struct restriction - allow string values.</PackageReleaseNotes>
-    <Version>1.0.7</Version>
+    <PackageReleaseNotes>Adds support for derived SmartEnum types.</PackageReleaseNotes>
+    <Version>1.0.8</Version>
     <AssemblyName>Ardalis.SmartEnum</AssemblyName>
     <PackageIconUrl>https://user-images.githubusercontent.com/782127/33497760-facf6550-d69c-11e7-94e4-b3856da259a9.png</PackageIconUrl>
     <RootNamespace>Ardalis.SmartEnum</RootNamespace>
-    <AssemblyVersion>1.0.7.0</AssemblyVersion>
+    <AssemblyVersion>1.0.8.0</AssemblyVersion>
     <LangVersion>7.3</LangVersion>
     <Features>strict</Features>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
