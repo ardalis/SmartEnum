@@ -20,12 +20,17 @@ namespace Ardalis.SmartEnum
 
         private static List<TEnum> ListAllOptions()
         {
-            Type t = typeof(TEnum);
-            return t.GetFields(BindingFlags.Public | BindingFlags.Static)
-            .Where(p => t.IsAssignableFrom(p.FieldType))
-            .Select(pi => (TEnum)pi.GetValue(null))
-            .OrderBy(p => p.Name)
-            .ToList();
+            Type baseType = typeof(TEnum);
+            IEnumerable<Type> enumTypes = Assembly.GetAssembly(baseType).GetTypes().Where(t => baseType.IsAssignableFrom(t));
+
+            List<TEnum> options = new List<TEnum>();
+            foreach (Type enumType in enumTypes)
+            {
+                List<TEnum> derivedTypeEnums = enumType.GetFieldsOfType<TEnum>();
+                options.AddRange(derivedTypeEnums);
+            }
+
+            return options.OrderBy(t => t.Name).ToList();
         }
 
         public static List<TEnum> List => _list.Value;
