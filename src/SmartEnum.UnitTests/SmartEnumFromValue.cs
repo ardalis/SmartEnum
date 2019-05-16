@@ -43,5 +43,13 @@ namespace SmartEnum.UnitTests
 
             Assert.Equal(defaultEnum, TestEnum.FromValue(-1, defaultEnum));
         }
+
+        [Fact]
+        public void ReturnsDerivedEnumByValue()
+        {
+            BaseTestEnum result = DerivedTestEnum1.FromValue(1);
+
+            Assert.Equal(DerivedTestEnum1.A, result);
+        }
     }
 }
