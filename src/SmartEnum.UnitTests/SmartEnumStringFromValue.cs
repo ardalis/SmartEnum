@@ -1,7 +1,7 @@
 ﻿namespace Ardalis.SmartEnum.UnitTests
 {
-    using System;
     using FluentAssertions;
+    using System;
     using Xunit;
 
     public class SmartEnumStringFromValue
@@ -28,7 +28,7 @@
             var value = string.Empty;
 
             Action action = () => TestStringEnum.FromValue(value);
-            
+
             action.Should()
             .ThrowExactly<SmartEnumNotFoundException>()
             .WithMessage($"No {typeof(TestStringEnum).Name} with Value {value} found.");
@@ -44,6 +44,14 @@
             var result = TestStringEnum.FromValue(value, defaultEnum);
 
             result.Should().BeSameAs(defaultEnum);
+        }
+
+        [Fact]
+        public void ReturnsDerivedEnumByValue()
+        {
+            TestBaseEnumWithDerivedValues result = DerivedTestEnumWithValues1.FromValue(1);
+
+            Assert.Equal(DerivedTestEnumWithValues1.A, result);
         }
     }
 }
