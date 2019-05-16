@@ -26,8 +26,8 @@ namespace Ardalis.SmartEnum
             List<TEnum> options = new List<TEnum>();
             foreach (Type enumType in enumTypes)
             {
-                List<TEnum> derivedTypeEnums = enumType.GetFieldsOfType<TEnum>();
-                options.AddRange(derivedTypeEnums);
+                List<TEnum> typeEnumOptions = enumType.GetFieldsOfType<TEnum>();
+                options.AddRange(typeEnumOptions);
             }
 
             return options.OrderBy(t => t.Name).ToList();
