@@ -16,5 +16,13 @@
                 TestEnum.Three,
             });
         }
+
+        [Fact]
+        public void ReturnsAllBaseAndDerivedSmartEnums()
+        {
+            var result = TestBaseEnumWithDerivedValues.List;
+
+            result.Should().BeEquivalentTo(DerivedTestEnumWithValues1.A, DerivedTestEnumWithValues1.B, DerivedTestEnumWithValues2.C, DerivedTestEnumWithValues2.D);
+        }
     }
 }
