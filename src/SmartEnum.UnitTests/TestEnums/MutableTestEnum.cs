@@ -1,6 +1,6 @@
 ﻿using Ardalis.SmartEnum;
 
-namespace SmartEnum.UnitTests
+namespace SmartEnum.UnitTests.TestEnums
 {
     public class MutableTestEnum : SmartEnum<MutableTestEnum, string>
     {

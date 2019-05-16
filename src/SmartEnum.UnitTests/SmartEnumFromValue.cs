@@ -1,4 +1,5 @@
 ﻿using SmartEnum.Exceptions;
+using SmartEnum.UnitTests.TestEnums;
 using Xunit;
 
 namespace SmartEnum.UnitTests

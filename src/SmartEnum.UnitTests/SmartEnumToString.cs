@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using SmartEnum.UnitTests.TestEnums;
+using Xunit;
 
 namespace SmartEnum.UnitTests
 {

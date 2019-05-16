@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using SmartEnum.UnitTests.TestEnums;
+using Xunit;
 
 namespace SmartEnum.UnitTests
 {
@@ -17,7 +18,7 @@ namespace SmartEnum.UnitTests
         {
             var expected = TestEnum.One;
 
-            Assert.NotEqual(expected, TestEnum.CreateFromConstructor("Two", 2));            
+            Assert.NotEqual(expected, TestEnum.CreateFromConstructor("Two", 2));
         }
     }
 }
