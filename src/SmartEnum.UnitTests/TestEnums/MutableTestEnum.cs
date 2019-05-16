@@ -2,13 +2,11 @@
 
 namespace SmartEnum.UnitTests.TestEnums
 {
-    public class MutableTestEnum : SmartEnum<MutableTestEnum, string>
+    internal class MutableTestEnum : SmartEnum<MutableTestEnum, string>
     {
         public static MutableTestEnum Hello = new MutableTestEnum(nameof(Hello), "Hello");
 
-        protected MutableTestEnum(string name, string value) : base(name, value)
-        {
-        }
+        private MutableTestEnum(string name, string value) : base(name, value) { }
 
         public void SetValue(string value)
         {

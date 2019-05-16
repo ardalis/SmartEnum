@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Ardalis.SmartEnum
 {
-    public static class TypeExtensions
+    internal static class TypeExtensions
     {
         public static List<TFieldType> GetFieldsOfType<TFieldType>(this Type type)
         {

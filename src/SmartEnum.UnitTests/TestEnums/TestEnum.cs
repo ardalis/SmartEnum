@@ -2,15 +2,13 @@
 
 namespace SmartEnum.UnitTests.TestEnums
 {
-    public class TestEnum : SmartEnum<TestEnum, int>
+    internal class TestEnum : SmartEnum<TestEnum, int>
     {
-        public static TestEnum One = new TestEnum(nameof(One), 1);
-        public static TestEnum Two = new TestEnum(nameof(Two), 2);
-        public static TestEnum Three = new TestEnum(nameof(Three), 3);
+        public static readonly TestEnum One = new TestEnum(nameof(One), 1);
+        public static readonly TestEnum Two = new TestEnum(nameof(Two), 2);
+        public static readonly TestEnum Three = new TestEnum(nameof(Three), 3);
 
-        protected TestEnum(string name, int value) : base(name, value)
-        {
-        }
+        private TestEnum(string name, int value) : base(name, value) { }
 
         private TestEnum() : base()
         {
