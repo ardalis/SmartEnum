@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum", "SmartEnum\SmartEnum.csproj", "{2A1AA760-8929-433C-BC27-5513F0289842}"
 EndProject
@@ -36,6 +36,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.Utf8Json", "SmartEnum.Utf8Json\SmartEnum.Utf8Json.csproj", "{8FC7B9E5-B651-42BC-B21B-B45F0C8A239B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.Utf8Json.UnitTests", "SmartEnum.Utf8Json.UnitTests\SmartEnum.Utf8Json.UnitTests.csproj", "{66EF3D1A-32AE-4B28-BC3E-7441615722A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartEnum.EFCore", "Ardalis.SmartEnum.EFCore\SmartEnum.EFCore.csproj", "{AEC98A0D-6B03-4CEC-9525-307CE6CC4AEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartEnum.EFCore.UnitTests", "SmartEnum.EFCore.UnitTests\SmartEnum.EFCore.UnitTests.csproj", "{2EA7E290-4990-474E-BE7F-F786190280F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,6 +99,14 @@ Global
 		{66EF3D1A-32AE-4B28-BC3E-7441615722A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66EF3D1A-32AE-4B28-BC3E-7441615722A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66EF3D1A-32AE-4B28-BC3E-7441615722A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEC98A0D-6B03-4CEC-9525-307CE6CC4AEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEC98A0D-6B03-4CEC-9525-307CE6CC4AEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEC98A0D-6B03-4CEC-9525-307CE6CC4AEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEC98A0D-6B03-4CEC-9525-307CE6CC4AEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EA7E290-4990-474E-BE7F-F786190280F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EA7E290-4990-474E-BE7F-F786190280F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EA7E290-4990-474E-BE7F-F786190280F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EA7E290-4990-474E-BE7F-F786190280F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
