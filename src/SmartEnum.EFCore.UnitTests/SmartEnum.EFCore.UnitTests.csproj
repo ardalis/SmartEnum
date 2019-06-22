@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ardalis.SmartEnum.EFCore\SmartEnum.EFCore.csproj" />
+    <ProjectReference Include="..\SmartEnum.EFCore\SmartEnum.EFCore.csproj" />
   </ItemGroup>
 
 </Project>

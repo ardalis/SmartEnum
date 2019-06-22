@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.Utf8Json", "Smart
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.Utf8Json.UnitTests", "SmartEnum.Utf8Json.UnitTests\SmartEnum.Utf8Json.UnitTests.csproj", "{66EF3D1A-32AE-4B28-BC3E-7441615722A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartEnum.EFCore", "Ardalis.SmartEnum.EFCore\SmartEnum.EFCore.csproj", "{AEC98A0D-6B03-4CEC-9525-307CE6CC4AEC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartEnum.EFCore", "SmartEnum.EFCore\SmartEnum.EFCore.csproj", "{AEC98A0D-6B03-4CEC-9525-307CE6CC4AEC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartEnum.EFCore.UnitTests", "SmartEnum.EFCore.UnitTests\SmartEnum.EFCore.UnitTests.csproj", "{2EA7E290-4990-474E-BE7F-F786190280F2}"
 EndProject
