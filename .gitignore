@@ -292,3 +292,6 @@ __pycache__/
 # macOS hidden files
 ._.DS_Store
 .DS_Store
+
+coverage\.cobertura\.xml
+coverage.json
