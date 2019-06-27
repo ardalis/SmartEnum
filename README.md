@@ -1,10 +1,12 @@
-[![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum)
+[![NuGet](https://img.shields.io/nuget/v/Ardalis.SmartEnum.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum) 
+[![Build Status](https://dev.azure.com/ardalis/SmartEnum/_apis/build/status/ardalis.SmartEnum?branchName=master)](https://dev.azure.com/ardalis/SmartEnum/_build/latest?definitionId=2&branchName=master) 
+![Test Status](https://img.shields.io/azure-devops/tests/ardalis/SmartEnum/2.svg)
 
 NuGet: [Ardalis.SmartEnum](https://www.nuget.org/packages/Ardalis.SmartEnum)
 
 ## Give a Star! :star:
 
-If you like or are using this project to learn or start your solution, please give it a star. Thanks!
+If you like or are using this project please give it a star. Thanks!
 
 # Smart Enum
 

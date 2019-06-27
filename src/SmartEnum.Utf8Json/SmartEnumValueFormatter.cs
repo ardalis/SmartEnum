@@ -39,7 +39,7 @@ namespace Ardalis.SmartEnum.Utf8Json
             else if(typeof(TValue) == typeof(double))
                 writer.WriteDouble((double)(object)value.Value);
             else
-                throw new Exception($"{typeof(TValue).Name} is not supported.");
+                throw new ArgumentOutOfRangeException(typeof(TValue).ToString(), $"{typeof(TValue).Name} is not supported.");
         }
 
         public TEnum Deserialize(ref JsonReader reader, IJsonFormatterResolver formatterResolver)
@@ -74,7 +74,7 @@ namespace Ardalis.SmartEnum.Utf8Json
                 return (TValue)(object)reader.ReadSingle();
             if(typeof(TValue) == typeof(double))
                 return (TValue)(object)reader.ReadDouble();
-            throw new Exception($"{typeof(TValue).Name} is not supported.");
+            throw new ArgumentOutOfRangeException(typeof(TValue).ToString(), $"{typeof(TValue).Name} is not supported.");
         }
     }
 }
