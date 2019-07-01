@@ -51,17 +51,19 @@
                 return dictionary;
             });
 
-        static IEnumerable<TEnum> GetAllOptions()
+        private static IEnumerable<TEnum> GetAllOptions()
         {
-            Type type = typeof(TEnum);
-            foreach (var fieldInfo in type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy))
+            Type baseType = typeof(TEnum);
+            IEnumerable<Type> enumTypes = Assembly.GetAssembly(baseType).GetTypes().Where(t => baseType.IsAssignableFrom(t));
+
+            List<TEnum> options = new List<TEnum>();
+            foreach (Type enumType in enumTypes)
             {
-                object obj = fieldInfo.GetValue(null);
-                if (obj is TEnum value)
-                {
-                    yield return value;
-                }
+                List<TEnum> typeEnumOptions = enumType.GetFieldsOfType<TEnum>();
+                options.AddRange(typeEnumOptions);
             }
+
+            return options.OrderBy(t => t.Name).ToList();
         }
 
         /// <summary>
