@@ -6,6 +6,8 @@
     using System.Reflection;
     using System.Runtime.CompilerServices;
 
+    using Ardalis.SmartEnum.Core;
+
     /// <summary>
     /// A base type to use for creating smart enums with inner value of type <see cref="System.Int32"/>.
     /// </summary>

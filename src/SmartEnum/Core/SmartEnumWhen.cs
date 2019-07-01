@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Ardalis.SmartEnum
+namespace Ardalis.SmartEnum.Core
 {
     public readonly struct SmartEnumWhen<TEnum, TValue>
         where TEnum : SmartEnum<TEnum, TValue>

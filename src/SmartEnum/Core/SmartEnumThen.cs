@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ardalis.SmartEnum
+namespace Ardalis.SmartEnum.Core
 {
     public readonly struct SmartEnumThen<TEnum, TValue>
         where TEnum : SmartEnum<TEnum, TValue>
