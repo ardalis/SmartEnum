@@ -33,7 +33,7 @@ namespace Ardalis.SmartEnum.Core
         /// When this instance is one of the specified <see cref="SmartEnum{TEnum, TValue}"/> parameters.
         /// Execute the action in the subsequent call to Then().
         /// </summary>
-        /// <param name="smartEnums">A collection of <see cref="SmartEnum{TEnum, TValue}"/> values to compare to this instance.</param>
+        /// <param name="smartEnumWhen">A collection of <see cref="SmartEnum{TEnum, TValue}"/> values to compare to this instance.</param>
         /// <returns>A executor object to execute a supplied action.</returns>
         public SmartEnumThen<TEnum, TValue> When(SmartEnum<TEnum, TValue> smartEnumWhen) =>
             new SmartEnumThen<TEnum, TValue>(isMatch: smartEnumWhen == smartEnum, stopEvaluating: stopEvaluating, smartEnum: smartEnum);
