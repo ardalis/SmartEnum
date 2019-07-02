@@ -11,7 +11,7 @@ namespace Ardalis.SmartEnum.Core
         private readonly SmartEnum<TEnum, TValue> smartEnum;
         private readonly bool stopEvaluating;
 
-        public SmartEnumWhen(bool stopEvaluating, SmartEnum<TEnum, TValue> smartEnum)
+        internal SmartEnumWhen(bool stopEvaluating, SmartEnum<TEnum, TValue> smartEnum)
         {
             this.stopEvaluating = stopEvaluating;
             this.smartEnum = smartEnum;
@@ -36,7 +36,7 @@ namespace Ardalis.SmartEnum.Core
         /// <param name="smartEnumWhen">A collection of <see cref="SmartEnum{TEnum, TValue}"/> values to compare to this instance.</param>
         /// <returns>A executor object to execute a supplied action.</returns>
         public SmartEnumThen<TEnum, TValue> When(SmartEnum<TEnum, TValue> smartEnumWhen) =>
-            new SmartEnumThen<TEnum, TValue>(isMatch: smartEnumWhen == smartEnum, stopEvaluating: stopEvaluating, smartEnum: smartEnum);
+            new SmartEnumThen<TEnum, TValue>(isMatch: smartEnum.Equals(smartEnumWhen), stopEvaluating: stopEvaluating, smartEnum: smartEnum);
 
         /// <summary>
         /// When this instance is one of the specified <see cref="SmartEnum{TEnum, TValue}"/> parameters.

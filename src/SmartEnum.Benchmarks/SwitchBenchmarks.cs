@@ -177,6 +177,27 @@ namespace Ardalis.SmartEnum.Benchmarks
             if (value.Equals(TestSmartEnum.Ten)) 
                 return TestSmartEnum.Ten;
             throw new Exception();
-        } 
+        }
+
+        [Benchmark]
+        public TestSmartEnum SmartEnum_When()
+        {
+            TestSmartEnum result = null;
+
+            TestSmartEnum.Ten
+                .When(TestSmartEnum.One).Then(() => result = TestSmartEnum.One)
+                .When(TestSmartEnum.Two).Then(() => result = TestSmartEnum.Two)
+                .When(TestSmartEnum.Three).Then(() => result = TestSmartEnum.Three)
+                .When(TestSmartEnum.Four).Then(() => result = TestSmartEnum.Four)
+                .When(TestSmartEnum.Five).Then(() => result = TestSmartEnum.Five)
+                .When(TestSmartEnum.Six).Then(() => result = TestSmartEnum.Six)
+                .When(TestSmartEnum.Seven).Then(() => result = TestSmartEnum.Seven)
+                .When(TestSmartEnum.Eight).Then(() => result = TestSmartEnum.Eight)
+                .When(TestSmartEnum.Nine).Then(() => result = TestSmartEnum.Nine)
+                .When(TestSmartEnum.Ten).Then(() => result = TestSmartEnum.Ten)
+                .Default(() => throw new Exception());
+
+            return result;
+        }
     }
 }

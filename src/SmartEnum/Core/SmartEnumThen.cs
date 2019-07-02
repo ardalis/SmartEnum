@@ -10,7 +10,7 @@ namespace Ardalis.SmartEnum.Core
         private readonly SmartEnum<TEnum, TValue> smartEnum;
         private readonly bool stopEvaluating;
 
-        public SmartEnumThen(bool isMatch, bool stopEvaluating, SmartEnum<TEnum, TValue> smartEnum)
+        internal SmartEnumThen(bool isMatch, bool stopEvaluating, SmartEnum<TEnum, TValue> smartEnum)
         {
             this.isMatch = isMatch;
             this.smartEnum = smartEnum;

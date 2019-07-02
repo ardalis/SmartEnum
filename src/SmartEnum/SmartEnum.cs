@@ -296,7 +296,7 @@
         /// <param name="smartEnumWhen">A collection of <see cref="SmartEnum{TEnum, TValue}"/> values to compare to this instance.</param>
         /// <returns>A executor object to execute a supplied action.</returns>
         public SmartEnumThen<TEnum, TValue> When(SmartEnum<TEnum, TValue> smartEnumWhen) =>
-            new SmartEnumThen<TEnum, TValue>(smartEnumWhen == this, false, this);
+            new SmartEnumThen<TEnum, TValue>(this.Equals(smartEnumWhen), false, this);
 
         /// <summary>
         /// When this instance is one of the specified <see cref="SmartEnum{TEnum, TValue}"/> parameters.
