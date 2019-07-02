@@ -299,6 +299,17 @@ switch(testEnumVar)
         break;
 }
 ```
+Because of the limitations of pattern matching SmartEnum also provides a fluent interface to help create clean code:
+
+```csharp
+testEnumVar
+    .When(TestEnum.One).Then(() => ... )
+    .When(TestEnum.Two).Then(() => ... )
+    .When(TestEnum.Three).Then(() => ... )
+    .Default( ... );
+```
+
+N.B. For performance critical code the fluent interface carries some overhead that you may wish to avoid. See the available [benchmarks](src/SmartEnum.Benchmarks) code for your use case.
 
 ### Persisting with EF Core 2.1 or higher
 
