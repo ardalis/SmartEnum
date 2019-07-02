@@ -6,6 +6,8 @@
     using System.Reflection;
     using System.Runtime.CompilerServices;
 
+    using Ardalis.SmartEnum.Core;
+
     /// <summary>
     /// A base type to use for creating smart enums with inner value of type <see cref="System.Int32"/>.
     /// </summary>
@@ -286,6 +288,32 @@
 
             return _value.Equals(other._value);
         }
+
+        /// <summary>
+        /// When this instance is one of the specified <see cref="SmartEnum{TEnum, TValue}"/> parameters.
+        /// Execute the action in the subsequent call to Then().
+        /// </summary>
+        /// <param name="smartEnumWhen">A collection of <see cref="SmartEnum{TEnum, TValue}"/> values to compare to this instance.</param>
+        /// <returns>A executor object to execute a supplied action.</returns>
+        public SmartEnumThen<TEnum, TValue> When(SmartEnum<TEnum, TValue> smartEnumWhen) =>
+            new SmartEnumThen<TEnum, TValue>(this.Equals(smartEnumWhen), false, this);
+
+        /// <summary>
+        /// When this instance is one of the specified <see cref="SmartEnum{TEnum, TValue}"/> parameters.
+        /// Execute the action in the subsequent call to Then().
+        /// </summary>
+        /// <param name="smartEnums">A collection of <see cref="SmartEnum{TEnum, TValue}"/> values to compare to this instance.</param>
+        /// <returns>A executor object to execute a supplied action.</returns>
+        public SmartEnumThen<TEnum, TValue> When(params SmartEnum<TEnum, TValue>[] smartEnums) =>
+            new SmartEnumThen<TEnum, TValue>(smartEnums.Contains(this), false, this);
+
+        /// When this instance is one of the specified <see cref="SmartEnum{TEnum, TValue}"/> parameters.
+        /// Execute the action in the subsequent call to Then().
+        /// </summary>
+        /// <param name="smartEnums">A collection of <see cref="SmartEnum{TEnum, TValue}"/> values to compare to this instance.</param>
+        /// <returns>A executor object to execute a supplied action.</returns>
+        public SmartEnumThen<TEnum, TValue> When(IEnumerable<SmartEnum<TEnum, TValue>> smartEnums) =>
+            new SmartEnumThen<TEnum, TValue>(smartEnums.Contains(this), false, this);
 
         public static bool operator ==(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right)
         {
