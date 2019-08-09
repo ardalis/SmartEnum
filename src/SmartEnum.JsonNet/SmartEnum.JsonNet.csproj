@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
     <PackageId>Ardalis.SmartEnum.JsonNet</PackageId>
     <Title>Ardalis.SmartEnum.JsonNet</Title>
     <Company>Ardalis.com</Company>
