@@ -104,7 +104,7 @@ TestEnum.Three.Equals(TestEnum.AnotherThree); // returns true
 
 Inheritance can be used to add "behavior" to a smart enum.
 
-This example adds a `BonusSize` property, avoiding the use of the `switch` tipically used with regular enums:
+This example adds a `BonusSize` property, avoiding the use of the `switch` typically used with regular enums:
 
 ```csharp
 using Ardalis.SmartEnum;
