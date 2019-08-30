@@ -104,7 +104,7 @@ TestEnum.Three.Equals(TestEnum.AnotherThree); // returns true
 
 Inheritance can be used to add "behavior" to a smart enum.
 
-This example adds a `BonusSize` property, avoiding the use of the `switch` tipically used with regular enums:
+This example adds a `BonusSize` property, avoiding the use of the `switch` typically used with regular enums:
 
 ```csharp
 using Ardalis.SmartEnum;
@@ -205,7 +205,7 @@ foreach (var option in TestEnum.List)
     Console.WriteLine(option.Name);
 ```
 
-`List` returns an `IReadOnlyCollection` so you can use the `Count` property to efficiently get the number os available options.
+`List` returns an `IReadOnlyCollection` so you can use the `Count` property to efficiently get the number of available options.
 
 ```csharp
 var count = TestEnum.List.Count;
@@ -310,6 +310,267 @@ testEnumVar
 ```
 
 N.B. For performance critical code the fluent interface carries some overhead that you may wish to avoid. See the available [benchmarks](src/SmartEnum.Benchmarks) code for your use case.
+
+### SmartFlagEnum
+
+Support has been added for a `Flag` functionality.  
+This feature is similar to the behaviour seen when applying the `[Flag]` attribute to Enums in the .NET Framework
+All methods available on the `SmartFlagEnum` class return an `IEnumerable<SmartFlagEnum>` with one or more values depending on the value provided/method called.
+Some Functionality is shared with the original SmartEnum class, listed below are the variations.
+
+### Setting SmartFlagEnum Values
+
+When setting the values for a `SmartFlagEnum` It is imperative to provide values as powers of two.  If at least one value is not set as power of two or two or more power of two values are provided inconsecutively (eg: 1, 2, no four!, 8) a `SmartFlagEnumDoesNotContainPowerOfTwoValuesException` will be thrown.        
+
+```csharp
+public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
+    {
+        public static readonly SmartFlagTestEnum None = new SmartFlagTestEnum(nameof(None), 0);
+        public static readonly SmartFlagTestEnum Card = new SmartFlagTestEnum(nameof(Card), 1);
+        public static readonly SmartFlagTestEnum Cash = new SmartFlagTestEnum(nameof(Cash), 2);
+        public static readonly SmartFlagTestEnum Bpay = new SmartFlagTestEnum(nameof(Bpay), 4);
+        public static readonly SmartFlagTestEnum Paypal = new SmartFlagTestEnum(nameof(Paypal), 8);
+        public static readonly SmartFlagTestEnum BankTransfer = new SmartFlagTestEnum(nameof(BankTransfer), 16);
+
+        public SmartFlagTestEnum(string name, int value) : base(name, value)
+        {
+        }
+    }
+```  
+
+This behaviour can be disabled by applying the `AllowUnsafeFlagEnumValuesAttribute` to the smart enum class.  Note: If power of two values are not provided the SmarFlagEnum will not behave as expected!  
+
+```csharp
+[AllowUnsafeFlagEnumValues]
+public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
+    {
+        public static readonly SmartFlagTestEnum None = new SmartFlagTestEnum(nameof(None), 0);
+        public static readonly SmartFlagTestEnum Card = new SmartFlagTestEnum(nameof(Card), 1);
+        public static readonly SmartFlagTestEnum Cash = new SmartFlagTestEnum(nameof(Cash), 2);
+        public static readonly SmartFlagTestEnum Bpay = new SmartFlagTestEnum(nameof(Bpay), 4);
+        public static readonly SmartFlagTestEnum Paypal = new SmartFlagTestEnum(nameof(Paypal), 8);
+        public static readonly SmartFlagTestEnum BankTransfer = new SmartFlagTestEnum(nameof(BankTransfer), 16);
+
+        public SmartFlagTestEnum(string name, int value) : base(name, value)
+        {
+        }
+    }
+```
+
+`Combination` values can be provided explicitly and will be returned in place of the multiple flag values that would have been returned from the `FromValue()` method.  
+
+```csharp
+public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
+    {
+        public static readonly SmartFlagTestEnum None = new SmartFlagTestEnum(nameof(None), 0);
+        public static readonly SmartFlagTestEnum Card = new SmartFlagTestEnum(nameof(Card), 1);
+        public static readonly SmartFlagTestEnum Cash = new SmartFlagTestEnum(nameof(Cash), 2);
+        public static readonly SmartFlagTestEnum CardAndCash = new SmartFlagTestEnum(nameof(CardAndCash), 3); -- Explicit `Combination` value
+        public static readonly SmartFlagTestEnum Bpay = new SmartFlagTestEnum(nameof(Bpay), 4);
+        public static readonly SmartFlagTestEnum Paypal = new SmartFlagTestEnum(nameof(Paypal), 8);
+        public static readonly SmartFlagTestEnum BankTransfer = new SmartFlagTestEnum(nameof(BankTransfer), 16);
+
+        public SmartFlagTestEnum(string name, int value) : base(name, value)
+        {
+        }
+    }
+```
+
+These explicit values can be provided above the highest allowable flag value without consequence, however attempting to access a value that is higher than the maximum flag value that has not explicitly been provided (for example 4) will cause a `SmartEnumNotFoundException` to be thrown. 
+
+```csharp
+public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
+    {
+        public static readonly SmartFlagTestEnum None = new SmartFlagTestEnum(nameof(None), 0);
+        public static readonly SmartFlagTestEnum Card = new SmartFlagTestEnum(nameof(Card), 1);
+        public static readonly SmartFlagTestEnum Cash = new SmartFlagTestEnum(nameof(Cash), 2);
+        public static readonly SmartFlagTestEnum AfterPay = new SmartFlagTestEnum(nameof(AfterPay), 5);
+
+        public SmartFlagTestEnum(string name, int value) : base(name, value)
+        {
+        }
+    }
+    
+    var myFlagEnums = FromValue(3) -- Works!
+    -and-
+    var myFlagEnums = FromValue(5) -- Works!
+    -but-
+    Var myFlagEnums = FromValue(4) -- will throw an exception :(
+```
+
+A Negative One (-1) value may be provided as an `All` value. When a value of -1 is passed into any of the `FromValue()` methods an IEnumerable containing all values (excluding 0) will be returned.  
+If an explicit `Combination` value exists with a value of -1 this will be returned instead. 
+
+```csharp
+public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
+    {
+        public static readonly SmartFlagTestEnum All = new SmartFlagTestEnum(nameof(All), -1);
+        public static readonly SmartFlagTestEnum None = new SmartFlagTestEnum(nameof(None), 0);
+        public static readonly SmartFlagTestEnum Card = new SmartFlagTestEnum(nameof(Card), 1);
+        public static readonly SmartFlagTestEnum Cash = new SmartFlagTestEnum(nameof(Cash), 2);
+        public static readonly SmartFlagTestEnum Bpay = new SmartFlagTestEnum(nameof(Bpay), 4);
+        public static readonly SmartFlagTestEnum Paypal = new SmartFlagTestEnum(nameof(Paypal), 8);
+        public static readonly SmartFlagTestEnum BankTransfer = new SmartFlagTestEnum(nameof(BankTransfer), 16);
+
+        public SmartFlagTestEnum(string name, int value) : base(name, value)
+        {
+        }
+    }
+```
+
+### Usage - (SmartFlagEnum)
+
+```csharp
+public abstract class EmployeeType : SmartFlagEnum<EmployeeType>
+    {
+        public static readonly EmployeeType Director = new DirectorType();
+        public static readonly EmployeeType Manager = new ManagerType();
+        public static readonly EmployeeType Assistant = new AssistantType();
+
+        private EmployeeType(string name, int value) : base(name, value)
+        {
+        }
+
+        public abstract decimal BonusSize { get; }
+
+        private sealed class DirectorType : EmployeeType
+        {
+            public DirectorType() : base("Director", 1) { }
+
+            public override decimal BonusSize => 100_000m;
+        }
+
+        private sealed class ManagerType : EmployeeType
+        {
+            public ManagerType() : base("Manager", 2) { }
+
+            public override decimal BonusSize => 10_000m;
+        }
+
+        private sealed class AssistantType : EmployeeType
+        {
+            public AssistantType() : base("Assistant", 4) { }
+
+            public override decimal BonusSize => 1_000m;
+        }
+    }
+
+    public class SmartFlagEnumUsageExample
+    {
+        public void UseSmartFlagEnumOne()
+        {
+            var result = EmployeeType.FromValue(3).ToList();
+            
+            var outputString = "";
+            foreach (var employeeType in result)
+            {
+                outputString += $"{employeeType.Name} earns ${employeeType.BonusSize} bonus this year.\n";
+            }
+            
+                => "Director earns $100000 bonus this year.\n"
+                   "Manager earns $10000 bonus this year.\n"
+        }
+         
+        public void UseSmartFlagEnumTwo()
+        {
+            EmployeeType.FromValueToString(-1)
+                => "Director, Manager, Assistant"
+        }
+            
+        public void UseSmartFlagEnumTwo()
+        {
+            EmployeeType.FromValueToString(EmployeeType.Assistant | EmployeeType.Director)
+                => "Director, Assistant"
+        }
+    }
+  
+```
+
+### FromName()
+
+Access an `IEnumerable` of enum instances by matching a string containing one or more enum names seperated by commas to its `Names` property:
+
+```csharp
+var myFlagEnums = TestFlagEnum.FromName("One, Two");
+```
+
+Exception `SmartEnumNotFoundException` is thrown when no names are found. Alternatively, you can use `TryFromName` that returns `false` when no names are found:
+
+```csharp
+if (TestFlagEnum.TryFromName("One, Two", out var myFlagEnums))
+{
+    // use myFlagEnums here
+}
+```
+
+Both methods have a `ignoreCase` parameter (the default is case sensitive).
+
+### FromValue()
+
+Access an `IEnumerable` of enum instances by matching a value:
+
+```csharp
+var myFlagEnums = TestFlagEnum.FromValue(3);
+```
+
+Exception `SmartEnumNotFoundException` is thrown when no values are found. Alternatively, you can use `TryFromValue` that returns `false` when values are not found:
+
+```csharp
+if (TestFlagEnum.TryFromValue(3, out var myFlagEnums))
+{
+    // use myFlagEnums here
+}
+```
+
+Note: Negative values other than (-1) passed into this method will cause a `NegativeValueArgumentException` to be thrown, this behaviour can be disabled by applying the `AllowNegativeInput` attribute to the desired `SmartFlagEnum` class.
+
+```csharp
+[AllowNegativeInput]
+public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
+    {
+        public static readonly SmartFlagTestEnum None = new SmartFlagTestEnum(nameof(None), 0);
+        public static readonly SmartFlagTestEnum Card = new SmartFlagTestEnum(nameof(Card), 1);
+
+        public SmartFlagTestEnum(string name, int value) : base(name, value)
+        {
+        }
+    }
+```
+
+Note: `FromValue()` will accept any input that can be succesfully parsed as an integer.  If an invalid value is supplied it will throw an `InvalidFlagEnumValueParseException`.  
+
+### FromValueToString()
+
+Return a string representation of a series of enum instances name's:
+
+```csharp
+var myFlagEnumString = TestFlagEnum.FromValueToString(3);
+```
+
+Exception `SmartEnumNotFoundException` is thrown when no values are found. Alternatively, you can use `TryFromValueToString` that returns `false` when values are not found:  
+
+```csharp
+if (TestFlagEnum.TryFromValueToString(3, out var myFlagEnumsAsString))
+{
+    // use myFlagEnumsAsString here
+}
+```
+
+Note: Negative values other than (-1) passed into this method will cause a `NegativeValueArgumentException` to be thrown, this behaviour can be disabled by applying the `AllowNegativeInput` attribute to the desired `SmartFlagEnum` class.
+
+### BitWiseOrOperator
+
+The `FromValue()` methods allow the Or ( | ) operator to be used to `add` enum values together and provide multiple values at once.
+
+```csharp
+var myFlagEnums = TestFlagEnum.FromValue(TestFlagEnum.One | TestFlagEnum.Two);
+```
+
+This will only work where the type of the `SmartFlagEnum` has been specified as `Int32` or else can be explicitly cast as an `Int32`.
+
+```csharp
+var myFlagEnums = TestFlagEnumDecimal.FromValue((int)TestFlagEnum.One | (int)TestFlagEnum.Two);
+```
 
 ### Persisting with EF Core 2.1 or higher
 

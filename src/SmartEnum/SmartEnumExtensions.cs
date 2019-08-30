@@ -1,3 +1,6 @@
+using System.Globalization;
+using System.Linq;
+
 namespace Ardalis.SmartEnum
 {
     using System;

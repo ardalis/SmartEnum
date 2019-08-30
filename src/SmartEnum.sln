@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum", "SmartEnum\SmartEnum.csproj", "{2A1AA760-8929-433C-BC27-5513F0289842}"
 EndProject
@@ -37,6 +37,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.Utf8Json", "SmartEnum.Utf8Json\SmartEnum.Utf8Json.csproj", "{8FC7B9E5-B651-42BC-B21B-B45F0C8A239B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.Utf8Json.UnitTests", "SmartEnum.Utf8Json.UnitTests\SmartEnum.Utf8Json.UnitTests.csproj", "{66EF3D1A-32AE-4B28-BC3E-7441615722A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartFlagEnum.UnitTests", "SmartFlagEnum.UnitTests\SmartFlagEnum.UnitTests.csproj", "{9C544D64-F080-4F50-A386-ED2B9BF4833B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -96,6 +98,10 @@ Global
 		{66EF3D1A-32AE-4B28-BC3E-7441615722A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66EF3D1A-32AE-4B28-BC3E-7441615722A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66EF3D1A-32AE-4B28-BC3E-7441615722A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C544D64-F080-4F50-A386-ED2B9BF4833B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C544D64-F080-4F50-A386-ED2B9BF4833B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C544D64-F080-4F50-A386-ED2B9BF4833B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C544D64-F080-4F50-A386-ED2B9BF4833B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
