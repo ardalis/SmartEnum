@@ -74,7 +74,9 @@
         /// <value>A <see cref="IReadOnlyCollection{TEnum}"/> containing all the instances of <see cref="SmartEnum{TEnum, TValue}"/>.</value>
         /// <remarks>Retrieves all the instances of <see cref="SmartEnum{TEnum, TValue}"/> referenced by public static read-only fields in the current class or its bases.</remarks>
         public static IReadOnlyCollection<TEnum> List => 
-            _fromName.Value.Values;
+		    _fromName.Value.Values
+			    .ToList()
+				.AsReadOnly();
 
         private readonly string _name;
         private readonly TValue _value;

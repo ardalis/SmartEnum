@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
     <PackageId>Ardalis.SmartEnum</PackageId>
     <Title>Ardalis.SmartEnum</Title>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -35,6 +35,14 @@
     <PackageReference Include="Ardalis.GuardClauses" Version="1.2.8" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="7.9.0.7583" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
+    <PackageReference Include="System.Linq" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
 </Project>

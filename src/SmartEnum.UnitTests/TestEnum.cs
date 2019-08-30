@@ -1,13 +1,15 @@
-﻿namespace Ardalis.SmartEnum.UnitTests
+﻿using System.Runtime.CompilerServices;
+
+namespace Ardalis.SmartEnum.UnitTests
 {
 
     public class TestEnum : SmartEnum<TestEnum>
     {
-        public static readonly TestEnum One = new TestEnum(nameof(One), 1);
-        public static readonly TestEnum Two = new TestEnum(nameof(Two), 2);
-        public static readonly TestEnum Three = new TestEnum(nameof(Three), 3);
+        public static readonly TestEnum One = new TestEnum(1);
+        public static readonly TestEnum Two = new TestEnum(2);
+        public static readonly TestEnum Three = new TestEnum(3);
 
-        protected TestEnum(string name, int value) : base(name, value)
+        protected TestEnum(int value, [CallerMemberName]string name = null) : base(name, value)
         {
         }
     }
