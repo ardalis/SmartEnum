@@ -205,7 +205,7 @@ foreach (var option in TestEnum.List)
     Console.WriteLine(option.Name);
 ```
 
-`List` returns an `IReadOnlyCollection` so you can use the `Count` property to efficiently get the number os available options.
+`List` returns an `IReadOnlyCollection` so you can use the `Count` property to efficiently get the number of available options.
 
 ```csharp
 var count = TestEnum.List.Count;
