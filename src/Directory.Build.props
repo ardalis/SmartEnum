@@ -13,7 +13,7 @@
     <Version>1.0.8</Version>
     <PackageIconUrl>https://user-images.githubusercontent.com/782127/33497760-facf6550-d69c-11e7-94e4-b3856da259a9.png</PackageIconUrl>
     <AssemblyVersion>1.0.8.0</AssemblyVersion>
-    <LangVersion>Lastest</LangVersion>
+    <LangVersion>Latest</LangVersion>
     <Features>strict</Features>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
