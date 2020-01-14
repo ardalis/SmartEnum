@@ -39,7 +39,7 @@ steps:
   displayName: Test
   inputs:
     command: test
-    projects: 'test/**/*.csproj'
+    projects: 'src/test/**/*.csproj'
     arguments: '--configuration $(BuildConfiguration) --no-build --no-restore'
 
 - task: CopyFiles@2
