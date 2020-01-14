@@ -20,6 +20,6 @@
     <PackageReference Include="FluentAssertions" Version="5.7.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SmartEnum.MessagePack\SmartEnum.MessagePack.csproj" />
+    <ProjectReference Include="..\..\SmartEnum.MessagePack\SmartEnum.MessagePack.csproj" />
   </ItemGroup>
 </Project>

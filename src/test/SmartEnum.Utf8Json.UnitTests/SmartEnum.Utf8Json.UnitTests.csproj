@@ -20,6 +20,6 @@
     <PackageReference Include="FluentAssertions" Version="5.7.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SmartEnum.Utf8Json\SmartEnum.Utf8Json.csproj" />
+    <ProjectReference Include="..\..\SmartEnum.Utf8Json\SmartEnum.Utf8Json.csproj" />
   </ItemGroup>
 </Project>

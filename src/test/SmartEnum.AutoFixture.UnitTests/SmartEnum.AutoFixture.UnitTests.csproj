@@ -21,6 +21,6 @@
     <PackageReference Include="FluentAssertions" Version="5.7.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SmartEnum.AutoFixture\SmartEnum.AutoFixture.csproj" />
+    <ProjectReference Include="..\..\SmartEnum.AutoFixture\SmartEnum.AutoFixture.csproj" />
   </ItemGroup>
 </Project>

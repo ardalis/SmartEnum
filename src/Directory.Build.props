@@ -2,7 +2,6 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory)..\, Directory.Build.props))\Directory.Build.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
     <Title>Ardalis.SmartEnum</Title>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Steve Smith (@ardalis), Daniel Meza (@danielmeza)</Authors>
@@ -17,6 +16,7 @@
     <Features>strict</Features>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
+  
   <PropertyGroup Condition=" '$(IsTestProject)' == 'true' ">
     <IsPackable>false</IsPackable>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)MvcTests.ruleset</CodeAnalysisRuleSet>
