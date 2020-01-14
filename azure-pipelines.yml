@@ -30,22 +30,16 @@ steps:
   displayName: Show dotnet version
 
 - task: DotNetCoreCLI@2
-  displayName: Build SmartEnum
+  displayName: Build all projects
   inputs:
-    projects: '**/SmartEnum.csproj'
+    projects: '**/*.csproj'
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-
-- task: DotNetCoreCLI@2
-  displayName: Build SmartEnum UnitTests
-  inputs:
-    projects: '**/SmartEnum.UnitTests.csproj'
-    arguments: '--configuration $(BuildConfiguration)'
 
 - task: DotNetCoreCLI@2
   displayName: Test
   inputs:
     command: test
-    projects: '**/SmartEnum.UnitTests.csproj'
+    projects: 'test/**/*.csproj'
     arguments: '--configuration $(BuildConfiguration) --no-build --no-restore'
 
 - task: CopyFiles@2
