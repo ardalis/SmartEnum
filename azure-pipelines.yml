@@ -66,13 +66,13 @@ steps:
   inputs:
     command: test
     projects: '**/*Tests.csproj'
-    arguments: '--configuration $(buildConfiguration) --no-build /p:AltCover=true /p:AltCoverForce=true /p:AltCoverCallContext=[Fact] /p:AltCoverXmlReport=..\target\reports\coverage\coverage.opencover.xml'
+    arguments: '--configuration $(buildConfiguration) --no-build /p:AltCover=true /p:AltCoverForce=true /p:AltCoverCallContext=[Fact] /p:AltCoverXmlReport=$(Build.ArtifactStagingDirectory)\reports\coverage\coverage.opencover.xml'
 
 - task: reportgenerator@4
   displayName: ReportGenerator
   inputs:
-    reports: 'src\target\reports\coverage\coverage.opencover.xml'
-    targetdir: 'src\target\reports\coverage'
+    reports: '$(Build.ArtifactStagingDirectory)\reports\coverage\coverage.opencover.xml'
+    targetdir: '$(Build.ArtifactStagingDirectory)\reports\coverage'
     reporttypes: 'HtmlInline_AzurePipelines;Cobertura;Badges'
     assemblyfilters: '-xunit*'
 
@@ -80,8 +80,8 @@ steps:
   displayName: 'Publish code coverage results'
   inputs:
     codeCoverageTool: Cobertura
-    summaryFileLocation: '$(build.sourcesdirectory)\src\target\reports\coverage\Cobertura.xml'
-    reportDirectory: '$(build.sourcesdirectory)\src\target\reports\coverage'
+    summaryFileLocation: '$(Build.ArtifactStagingDirectory)\reports\coverage\Cobertura.xml'
+    reportDirectory: '$(Build.ArtifactStagingDirectory)\src\target\reports\coverage'
 
 #Publish packages
 - task: CopyFiles@2
