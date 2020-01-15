@@ -10,12 +10,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{E458C16C-956D-48B1-B673-C202B96CC748}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		..\.gitignore = ..\.gitignore
-		..\azure-pipelines.yml = ..\azure-pipelines.yml
+		.gitignore = .gitignore
+		azure-pipelines.yml = azure-pipelines.yml
 		Directory.Build.props = Directory.Build.props
-		..\LICENSE = ..\LICENSE
-		..\nuget.txt = ..\nuget.txt
-		..\README.md = ..\README.md
+		LICENSE = LICENSE
+		nuget.txt = nuget.txt
+		README.md = README.md
 		SmartEnumTests.ruleset = SmartEnumTests.ruleset
 	EndProjectSection
 EndProject
