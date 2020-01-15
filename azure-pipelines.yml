@@ -68,13 +68,13 @@ steps:
     projects: '**/*Tests.csproj'
     arguments: '--configuration $(buildConfiguration) --no-build /p:AltCover=true /p:AltCoverForce=true /p:AltCoverCallContext=[Fact] /p:AltCoverXmlReport=$(Build.ArtifactStagingDirectory)\reports\coverage\coverage.opencover.xml'
 
-- task: reportgenerator@4
-  displayName: ReportGenerator
-  inputs:
-    reports: '$(Build.ArtifactStagingDirectory)\reports\coverage\coverage.opencover.xml'
-    targetdir: '$(Build.ArtifactStagingDirectory)\reports\coverage'
-    reporttypes: 'HtmlInline_AzurePipelines;Cobertura;Badges'
-    assemblyfilters: '-xunit*'
+# - task: reportgenerator@4
+#   displayName: ReportGenerator
+#   inputs:
+#     reports: '$(Build.ArtifactStagingDirectory)\reports\coverage\coverage.opencover.xml'
+#     targetdir: '$(Build.ArtifactStagingDirectory)\reports\coverage'
+#     reporttypes: 'HtmlInline_AzurePipelines;Cobertura;Badges'
+#     assemblyfilters: '-xunit*'
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish code coverage results'
