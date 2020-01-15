@@ -49,6 +49,7 @@ steps:
     command: build
     projects: |
       **/*.csproj
+      !**/*Benchmarks.csproj
       !**/*Tests.csproj
     arguments: '--configuration $(buildConfiguration) --output $(Agent.BuildDirectory)'
 
