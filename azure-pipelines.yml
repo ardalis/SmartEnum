@@ -81,7 +81,7 @@ steps:
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: '$(Build.ArtifactStagingDirectory)\reports\coverage\Cobertura.xml'
-    reportDirectory: '$(Build.ArtifactStagingDirectory)\src\target\reports\coverage'
+    reportDirectory: '$(Build.ArtifactStagingDirectory)\reports\coverage'
 
 #Publish packages
 - task: CopyFiles@2
