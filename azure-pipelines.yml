@@ -67,7 +67,7 @@ steps:
     projects: '**/*Tests.csproj'
     arguments: '--configuration $(buildConfiguration) --no-build /p:AltCover=true /p:AltCoverForce=true /p:AltCoverCallContext=[Fact] /p:AltCoverXmlReport=..\target\reports\coverage\coverage.opencover.xml'
 
-- task: Palmmedia.reportgenerator.reportgenerator-build-release-task.reportgenerator@4
+- task: reportgenerator@4
   displayName: ReportGenerator
   inputs:
     reports: 'src\target\reports\coverage\coverage.opencover.xml'
