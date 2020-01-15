@@ -59,19 +59,12 @@ steps:
     projects: '**/*Tests.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
-- task: DotNetCoreCLI@2
-  displayName: Test
-  inputs:
-    command: test
-    projects: '**/*Tests.csproj'
-    arguments: '--configuration $(buildConfiguration) --no-build --no-restore'
-
 # Run tests and create coverage report
 - task: DotNetCoreCLI@2
   displayName: Run test
   inputs:
     command: test
-    projects: '$(Parameters.TestProjects)'
+    projects: '**/*Tests.csproj'
     arguments: '--configuration $(buildConfiguration) --no-build /p:AltCover=true /p:AltCoverForce=true /p:AltCoverCallContext=[Fact] /p:AltCoverXmlReport=..\target\reports\coverage\coverage.opencover.xml'
 
 - task: Palmmedia.reportgenerator.reportgenerator-build-release-task.reportgenerator@4
@@ -89,6 +82,7 @@ steps:
     summaryFileLocation: '$(build.sourcesdirectory)\src\target\reports\coverage\Cobertura.xml'
     reportDirectory: '$(build.sourcesdirectory)\src\target\reports\coverage'
 
+#Publish packages
 - task: CopyFiles@2
   displayName: 'Copy Files'
   inputs:
