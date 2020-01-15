@@ -66,12 +66,12 @@ steps:
   inputs:
     command: test
     projects: '**/*Tests.csproj'
-    arguments: '--configuration $(buildConfiguration) --no-build --collect:"XPlat Code Coverage" /p:AltCover=true /p:AltCoverForce=true /p:AltCoverCallContext=[Fact] /p:AltCoverXmlReport=$(Build.ArtifactStagingDirectory)\reports\coverage\coverage.opencover.xml'
+    arguments: '--configuration $(buildConfiguration) --no-build --collect:"XPlat Code Coverage" /p:AltCover=true /p:AltCoverForce=true /p:AltCoverCallContext=[Fact]
 
 - task: reportgenerator@4
   displayName: ReportGenerator
   inputs:
-    reports: '$(Build.ArtifactStagingDirectory)/**/*coverage.cobertura.xml'
+    reports: $(Agent.TempDirectory)/**/*coverage.cobertura.xml
     targetdir: '$(Build.ArtifactStagingDirectory)/reports/coverage'
     reporttypes: 'HtmlInline_AzurePipelines;Cobertura;Badges'
     assemblyfilters: '-xunit*'
