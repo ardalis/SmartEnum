@@ -18,28 +18,28 @@ variables:
 # https://github.com/danielpalme/ReportGenerator/blob/master/azure-pipelines.yml
 
 steps:
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet version'
-  inputs:
-    command: custom
-    custom: '--version'
+# - task: DotNetCoreCLI@2
+#   displayName: 'dotnet version'
+#   inputs:
+#     command: custom
+#     custom: '--version'
 
-- task: DotNetCoreInstaller@0
-  displayName: 'Use .NET Core SDK 2.2.300'
-  inputs:
-    version: 2.2.300
+# - task: DotNetCoreInstaller@0
+#   displayName: 'Use .NET Core SDK 2.2.300'
+#   inputs:
+#     version: 2.2.300
 
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet info'
-  inputs:
-    command: custom
-    custom: '--info'
+# - task: DotNetCoreCLI@2
+#   displayName: 'dotnet info'
+#   inputs:
+#     command: custom
+#     custom: '--info'
 
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet version'
-  inputs:
-    command: custom
-    custom: '--version'
+# - task: DotNetCoreCLI@2
+#   displayName: 'dotnet version'
+#   inputs:
+#     command: custom
+#     custom: '--version'
   
 # Build
 
@@ -47,9 +47,9 @@ steps:
   displayName: Build src projects
   inputs:
     command: build
-    projects: | 
-     '**/*.csproj'
-     '!**/*Tests.csproj'
+    projects: |
+      **/*.csproj
+      !**/*Tests.csproj
     arguments: '--configuration $(buildConfiguration) --output $(Agent.BuildDirectory)'
 
 - task: DotNetCoreCLI@2
