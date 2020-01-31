@@ -22,7 +22,7 @@
     <ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
   </ItemGroup>  
   <ItemGroup>
-    <PackageReference Include="MessagePack" Version="1.7.3.4" />
+    <PackageReference Include="MessagePack" Version="1.9.3" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All"/>
     <PackageReference Include="SonarAnalyzer.CSharp" Version="7.9.0.7583" PrivateAssets="All" />
   </ItemGroup>
