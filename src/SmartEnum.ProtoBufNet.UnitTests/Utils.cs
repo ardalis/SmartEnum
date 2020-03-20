@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Ardalis.SmartEnum.ProtoBufNet
 {
     using System;
@@ -14,6 +16,6 @@ namespace Ardalis.SmartEnum.ProtoBufNet
                 stream.Seek(0, SeekOrigin.Begin);
                 return (T)model.Deserialize(stream, null, typeof(T));
             }        
-        } 
+        }
     }
 }

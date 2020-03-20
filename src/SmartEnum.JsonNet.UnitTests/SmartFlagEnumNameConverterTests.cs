@@ -16,26 +16,26 @@ namespace SmartEnum.JsonNet.UnitTests
         public class FlagTestClass
         {
             [JsonConverter(typeof(SmartFlagEnumNameConverter<FlagTestEnums.FlagTestEnumInt16, short>))]
-            public IEnumerable<FlagTestEnums.FlagTestEnumInt16> Int16 { get; set; }
+            public FlagTestEnums.FlagTestEnumInt16 Int16 { get; set; }
 
             [JsonConverter(typeof(SmartFlagEnumNameConverter<FlagTestEnums.FlagTestEnumInt32, int>))]
-            public IEnumerable<FlagTestEnums.FlagTestEnumInt32> Int32 { get; set; }
+            public FlagTestEnums.FlagTestEnumInt32 Int32 { get; set; }
 
             [JsonConverter(typeof(SmartFlagEnumNameConverter<FlagTestEnums.FlagTestEnumDouble, double>))]
-            public IEnumerable<FlagTestEnums.FlagTestEnumDouble> Double { get; set; }
+            public FlagTestEnums.FlagTestEnumDouble Double { get; set; }
         }
 
         static readonly FlagTestClass TestInstance = new FlagTestClass
         {
-            Int16 = new List<FlagTestEnums.FlagTestEnumInt16>() { FlagTestEnums.FlagTestEnumInt16.One, FlagTestEnums.FlagTestEnumInt16.Two },
-            Int32 = new List<FlagTestEnums.FlagTestEnumInt32>() { FlagTestEnums.FlagTestEnumInt32.One},
-            Double = new List<FlagTestEnums.FlagTestEnumDouble>() { FlagTestEnums.FlagTestEnumDouble.One}
+            Int16 = FlagTestEnums.FlagTestEnumInt16.Instance,
+            Int32 = FlagTestEnums.FlagTestEnumInt32.Instance,
+            Double = FlagTestEnums.FlagTestEnumDouble.Instance
         };
 
         private const string JsonString = @"{
-  ""Int16"": ""One, Two"",
-  ""Int32"": ""One"",
-  ""Double"": ""One""
+  ""Int16"": ""Instance"",
+  ""Int32"": ""Instance"",
+  ""Double"": ""Instance""
 }";
 
         [Fact]
@@ -51,51 +51,9 @@ namespace SmartEnum.JsonNet.UnitTests
         {
             var obj = JsonConvert.DeserializeObject<FlagTestClass>(JsonString);
 
-            Assert.Equal(obj.Int32, TestInstance.Int32);
-            Assert.Equal(obj.Int16, TestInstance.Int16);
-            Assert.Equal(obj.Double, TestInstance.Double);
-        }
-
-        [Fact]
-        public void DeserializeMultipleNamesInt16()
-        {
-            const string json = @"{""int16"": ""One, Two, Three, Four""}";
-
-            var obj = JsonConvert.DeserializeObject<FlagTestClass>(json);
-            var list = obj.Int16.ToList();
-
-            Assert.Equal(3, obj.Int16.Count());
-            Assert.Equal("One", list[0].Name);
-            Assert.Equal("Two", list[1].Name);
-            Assert.Equal("Three", list[2].Name);
-        }
-
-        [Fact]
-        public void DeserializeMultipleNamesInt32()
-        {
-            const string json = @"{""int32"": ""One, Two, Three""}";
-
-            var obj = JsonConvert.DeserializeObject<FlagTestClass>(json);
-            var list = obj.Int32.ToList();
-
-            Assert.Equal(3, obj.Int32.Count());
-            Assert.Equal("One", list[0].Name);
-            Assert.Equal("Two", list[1].Name);
-            Assert.Equal("Three", list[2].Name);
-        }
-
-        [Fact]
-        public void DeserializeMultipleNamesDouble()
-        {
-            const string json = @"{""double"": ""One, Two, Three, Four""}";
-
-            var obj = JsonConvert.DeserializeObject<FlagTestClass>(json);
-            var list = obj.Double.ToList();
-
-            Assert.Equal(3, obj.Double.Count());
-            Assert.Equal("One", list[0].Name);
-            Assert.Equal("Two", list[1].Name);
-            Assert.Equal("Three", list[2].Name);
+            obj.Int16.Should().BeSameAs(FlagTestEnums.FlagTestEnumInt16.Instance);
+            obj.Int32.Should().BeSameAs(FlagTestEnums.FlagTestEnumInt32.Instance);
+            obj.Double.Should().BeSameAs(FlagTestEnums.FlagTestEnumDouble.Instance);
         }
 
         [Fact]
@@ -111,20 +69,6 @@ namespace SmartEnum.JsonNet.UnitTests
         }
 
         [Fact]
-        public void DeserializeThrowsWhenNamesAreSpelledWrong()
-        {
-            const string json = @"{""int16"": ""Oneses, Twtto, Threee, Foursiesz""}";
-
-            Action act = () => JsonConvert.DeserializeObject<FlagTestClass>(json);
-
-            act.Should()
-                .Throw<JsonSerializationException>()
-                .WithMessage($@"Error converting value 'Oneses, Twtto, Threee, Foursiesz' to a list of smart flag enums.")
-                .WithInnerException<SmartEnumNotFoundException>()
-                .WithMessage($@"No {nameof(FlagTestEnums.FlagTestEnumInt16)} with Name ""Oneses, Twtto, Threee, Foursiesz"" found.");
-        }
-
-        [Fact]
         public void DeserializeThrowsWhenNotFound()
         {
             const string json = @"{ ""int32"": ""Not Found"" }";
@@ -133,7 +77,7 @@ namespace SmartEnum.JsonNet.UnitTests
 
             act.Should()
                 .Throw<JsonSerializationException>()
-                .WithMessage($@"Error converting value 'Not Found' to a list of smart flag enums.")
+                .WithMessage($@"Error converting value 'Not Found' to a smart flag enum.")
                 .WithInnerException<SmartEnumNotFoundException>()
                 .WithMessage($@"No {nameof(FlagTestEnums.FlagTestEnumInt32)} with Name ""Not Found"" found.");
         }

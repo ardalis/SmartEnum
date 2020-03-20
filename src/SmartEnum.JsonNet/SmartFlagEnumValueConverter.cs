@@ -6,52 +6,56 @@ using Newtonsoft.Json;
 
 namespace Ardalis.SmartEnum.JsonNet
 {
-    public class SmartFlagEnumValueConverter<Tenum, Tvalue> : JsonConverter<IEnumerable<Tenum>>
-    where Tenum : SmartFlagEnum<Tenum, Tvalue>
-    where Tvalue: struct, IEquatable<Tvalue>, IComparable<Tvalue>
+    public class SmartFlagEnumValueConverter<TEnum, TValue> : JsonConverter<TEnum>
+    where TEnum : SmartFlagEnum<TEnum, TValue>
+    where TValue: struct, IEquatable<TValue>, IComparable<TValue>
     {
         public override bool CanRead { get; } = true;
         public override bool CanWrite { get; } = true;
 
-        public override IEnumerable<Tenum> ReadJson(JsonReader reader, Type objectType, IEnumerable<Tenum> existingValue, bool hasExistingValue,
-            JsonSerializer serializer)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="objectType"></param>
+        /// <param name="existingValue"></param>
+        /// <param name="hasExistingValue"></param>
+        /// <param name="serializer"></param>
+        /// <returns></returns>
+        public override TEnum ReadJson(JsonReader reader, Type objectType, TEnum existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             try
             {
-                Tvalue value;
-                if (reader.TokenType == JsonToken.Integer && typeof(Tvalue) != typeof(long) &&
-                    typeof(Tvalue) != typeof(bool))
+                TValue value;
+                if (reader.TokenType == JsonToken.Integer && typeof(TValue) != typeof(long) && typeof(TValue) != typeof(bool))
                 {
-                    value = (Tvalue) Convert.ChangeType(reader.Value, typeof(Tvalue));
+                    value = (TValue)Convert.ChangeType(reader.Value, typeof(TValue));
                 }
                 else
                 {
-                    value = (Tvalue) reader.Value;
+                    value = (TValue)reader.Value;
                 }
 
-                return SmartFlagEnum<Tenum, Tvalue>.FromValue(value);
+                return SmartFlagEnum<TEnum, TValue>.DeserializeValue(value);
             }
             catch (Exception ex)
             {
-                throw new JsonSerializationException($"Error converting {reader.Value ?? "Null"} to {objectType.GetGenericArguments().FirstOrDefault().Name}.", ex);
+                throw new JsonSerializationException($"Error converting {reader.Value ?? "Null"} to {objectType.Name}.", ex);
             }
         }
-        public override void WriteJson(JsonWriter writer, IEnumerable<Tenum> value, JsonSerializer serializer)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="writer"></param>
+        /// <param name="value"></param>
+        /// <param name="serializer"></param>
+        public override void WriteJson(JsonWriter writer, TEnum value, JsonSerializer serializer)
         {
-            var outputValue = 0;
             if (value is null)
                 writer.WriteNull();
             else
-            {
-                var enumList = value.ToList();
-                foreach (var smartFlagEnum in enumList)
-                {
-                    outputValue += int.Parse(smartFlagEnum.Value.ToString());
-                }
-            }
-
-            var output = Convert.ChangeType(outputValue, typeof(Tvalue));
-            writer.WriteValue(output);
+                writer.WriteValue(value.Value);
         }
 
     }

@@ -638,6 +638,7 @@ uses the `Value`:
 }
 ```
 
+Note: The SmartFlagEnum works identically to the SmartEnum when being Serialized and Deserialized.
 ## References
 
 - [Listing Strongly Typed Enums...)](https://ardalis.com/listing-strongly-typed-enum-options-in-c)

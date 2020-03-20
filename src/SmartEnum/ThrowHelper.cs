@@ -35,6 +35,10 @@ namespace Ardalis.SmartEnum
             where TEnum : ISmartEnum
             where TValue : IEquatable<TValue>, IComparable<TValue>
         => throw new NegativeValueArgumentException($"The value: {value} input to {typeof(TEnum).Name} was a negative number other than (-1).");
+        public static void ThrowNegativeValueArgumentException<TEnum, TValue>(int value)
+            where TEnum : ISmartEnum
+            where TValue : IEquatable<TValue>, IComparable<TValue>
+            => throw new NegativeValueArgumentException($"The value: {value} input to {typeof(TEnum).Name} was a negative number other than (-1).");
 
         public static void ThrowDoesNotContainPowerOfTwoValuesException<TEnum, TValue>()
             where TEnum : ISmartEnum

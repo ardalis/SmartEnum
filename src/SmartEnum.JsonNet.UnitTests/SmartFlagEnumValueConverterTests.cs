@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Ardalis.SmartEnum;
+﻿using Ardalis.SmartEnum;
 using Ardalis.SmartEnum.JsonNet;
-using Ardalis.SmartEnum.JsonNet.UnitTests;
 using FluentAssertions;
 using Newtonsoft.Json;
+using System;
 using Xunit;
 
 namespace SmartEnum.JsonNet.UnitTests
@@ -16,32 +12,25 @@ namespace SmartEnum.JsonNet.UnitTests
         public class TestClass
         {
             [JsonConverter(typeof(SmartFlagEnumValueConverter<FlagTestEnums.FlagTestEnumInt16, short>))]
-            public IEnumerable<FlagTestEnums.FlagTestEnumInt16> Int16 { get; set; }
+            public FlagTestEnums.FlagTestEnumInt16 Int16 { get; set; }
 
             [JsonConverter(typeof(SmartFlagEnumValueConverter<FlagTestEnums.FlagTestEnumInt32, int>))]
-            public IEnumerable<FlagTestEnums.FlagTestEnumInt32> Int32 { get; set; }
+            public FlagTestEnums.FlagTestEnumInt32 Int32 { get; set; }
 
             [JsonConverter(typeof(SmartFlagEnumValueConverter<FlagTestEnums.FlagTestEnumDouble, double>))]
-            public IEnumerable<FlagTestEnums.FlagTestEnumDouble> Double { get; set; }
-        }
-
-        public class TestIntClass
-        {
-            [JsonConverter(typeof(SmartFlagEnumValueConverter<FlagTestEnums.FlagTestEnumInt32, int>))]
-            public TestEnumInt32 Property { get; set; }
+            public FlagTestEnums.FlagTestEnumDouble Double { get; set; }
         }
 
         static readonly TestClass TestInstance = new TestClass
         {
-            Int16 = new List<FlagTestEnums.FlagTestEnumInt16>() { FlagTestEnums.FlagTestEnumInt16.One, FlagTestEnums.FlagTestEnumInt16.Two },
-            Int32 = new List<FlagTestEnums.FlagTestEnumInt32>() { FlagTestEnums.FlagTestEnumInt32.One, FlagTestEnums.FlagTestEnumInt32.Two, FlagTestEnums.FlagTestEnumInt32.Three, FlagTestEnums.FlagTestEnumInt32.Four },
-            Double = new List<FlagTestEnums.FlagTestEnumDouble>() { FlagTestEnums.FlagTestEnumDouble.One }
+            Int16 = FlagTestEnums.FlagTestEnumInt16.Instance,
+            Int32 = FlagTestEnums.FlagTestEnumInt32.Instance2,
+            Double = FlagTestEnums.FlagTestEnumDouble.Instance
         };
 
-        static readonly string JsonString = 
-            @"{
-  ""Int16"": 3,
-  ""Int32"": 15,
+        private const string JsonString = @"{
+  ""Int16"": 1,
+  ""Int32"": 2,
   ""Double"": 1.0
 }";
         [Fact]
@@ -57,22 +46,9 @@ namespace SmartEnum.JsonNet.UnitTests
         {
             var obj = JsonConvert.DeserializeObject<TestClass>(JsonString);
 
-            Assert.Equal(obj.Int32, TestInstance.Int32);
-            Assert.Equal(obj.Int16, TestInstance.Int16);
-            Assert.Equal(obj.Double, TestInstance.Double);
-        }
-
-        [Fact]
-        public void DeserializeValueAlternative()
-        {
-            const string json = @"{""int32"": 3 }";
-
-            var obj = JsonConvert.DeserializeObject<TestClass>(json);
-            var list = obj.Int32.ToList();
-
-            Assert.Equal(2, obj.Int32.Count());
-            Assert.Equal("One", list[0].Name);
-            Assert.Equal("Two", list[1].Name);
+            Assert.Equal(obj.Int32, FlagTestEnums.FlagTestEnumInt32.Instance2);
+            Assert.Equal(obj.Int16, FlagTestEnums.FlagTestEnumInt16.Instance);
+            Assert.Equal(obj.Double, FlagTestEnums.FlagTestEnumDouble.Instance);
         }
 
         [Fact]
@@ -99,6 +75,23 @@ namespace SmartEnum.JsonNet.UnitTests
                 .WithMessage($@"Error converting 42 to FlagTestEnumInt32.")
                 .WithInnerException<SmartEnumNotFoundException>()
                 .WithMessage($@"No {nameof(FlagTestEnums.FlagTestEnumInt32)} with Value 42 found.");
+        }
+
+        [Fact]
+        public void DeserializeThrowsWhenImplicitFlagEnumValueIsGiven()
+        {
+            string json = @"{ ""int32"": 3 }";
+
+            Action act = () => JsonConvert.DeserializeObject<TestClass>(json);
+
+            Assert.True(FlagTestEnums.FlagTestEnumInt32.Instance.Value == 1);
+            Assert.True(FlagTestEnums.FlagTestEnumInt32.Instance2.Value == 2); 
+
+            act.Should()
+                .Throw<JsonSerializationException>()
+                .WithMessage($@"Error converting 3 to FlagTestEnumInt32.")
+                .WithInnerException<SmartEnumNotFoundException>()
+                .WithMessage($@"No {nameof(FlagTestEnums.FlagTestEnumInt32)} with Value 3 found.");
         }
 
         public static TheoryData<string, string> NotValidData =>

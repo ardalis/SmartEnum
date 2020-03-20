@@ -55,7 +55,7 @@ namespace Ardalis.SmartEnum
                 options.AddRange(typeEnumOptions);
             }
 
-            return options.OrderBy(t => t.Value);        
+            return options.OrderBy(t => t.Value);
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace Ardalis.SmartEnum
         /// <exception cref="SmartEnumNotFoundException"><paramref name="names"/> does not exist.</exception> 
         /// <seealso cref="SmartFlagEnum{TEnum, TValue}.TryFromName(string, out TEnum)"/>
         /// <seealso cref="SmartFlagEnum{TEnum, TValue}.TryFromName(string, bool, out TEnum)"/>
-        public static IEnumerable<TEnum> FromName(string names, bool ignoreCase = false)
+        public static IEnumerable<TEnum> FromName(string names, bool ignoreCase = false, bool deserialize = false)
         {
             if (String.IsNullOrEmpty(names))
                 ThrowHelper.ThrowArgumentNullOrEmptyException(nameof(names));
@@ -194,6 +194,29 @@ namespace Ardalis.SmartEnum
         }
 
         /// <summary>
+        /// Attempts to retrieve a single <see cref="SmartFlagEnum{TEnum}"/> by value.  (Bypasses all Flag behaviour)
+        /// </summary>
+        /// <exception cref="SmartEnumNotFoundException"><paramref name="value"/> does not exist.</exception> 
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static TEnum DeserializeValue(TValue value)
+        {
+            var enumList = GetAllOptions();
+
+            foreach (var smartFlagEnum in enumList)
+            {
+                if (smartFlagEnum.Value.Equals(value))
+                {
+                    return smartFlagEnum;
+                }
+            }
+
+            ThrowHelper.ThrowValueNotFoundException<TEnum, TValue>(value);
+
+            return null;
+        }
+
+        /// <summary>
         /// Gets an <see cref="IEnumerable{TEnum}"/> associated with the specified <paramref name="value"/>.
         /// </summary>
         /// <param name="value">The value of the item/s to get.</param>
@@ -232,7 +255,7 @@ namespace Ardalis.SmartEnum
                 return false;
             }
 
-            
+
             result = GetFlagEnumValues(value, GetAllOptions());
             if (result == null)
             {

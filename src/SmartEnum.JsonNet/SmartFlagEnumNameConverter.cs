@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace Ardalis.SmartEnum.JsonNet
 {
-    public class SmartFlagEnumNameConverter<TEnum, TValue> : JsonConverter<IEnumerable<TEnum>> 
+    public class SmartFlagEnumNameConverter<TEnum, TValue> : JsonConverter<TEnum> 
     where TEnum : SmartFlagEnum<TEnum, TValue>
     where TValue : struct, IComparable<TValue>, IEquatable<TValue>
     {
@@ -15,8 +15,7 @@ namespace Ardalis.SmartEnum.JsonNet
 
         public override bool CanWrite => true;
 
-        public override IEnumerable<TEnum> ReadJson(JsonReader reader, Type objectType, IEnumerable<TEnum> existingValue, bool hasExistingValue,
-            JsonSerializer serializer)
+        public override TEnum ReadJson(JsonReader reader, Type objectType, TEnum existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             switch (reader.TokenType)
             {
@@ -27,15 +26,15 @@ namespace Ardalis.SmartEnum.JsonNet
                     throw new JsonSerializationException($"Unexpected token {reader.TokenType} when parsing a smart flag enum.");
             }
 
-            IEnumerable<TEnum> GetFromName(string name)
+            TEnum GetFromName(string name)
             {
                 try
                 {
-                    return SmartFlagEnum<TEnum, TValue>.FromName(name, false);
+                    return SmartFlagEnum<TEnum, TValue>.FromName(name, false).FirstOrDefault();
                 }
                 catch (Exception ex)
                 {
-                    throw new JsonSerializationException($"Error converting value '{name}' to a list of smart flag enums.", ex);
+                    throw new JsonSerializationException($"Error converting value '{name}' to a smart flag enum.", ex);
                 }
             }
         }
@@ -46,25 +45,12 @@ namespace Ardalis.SmartEnum.JsonNet
         /// <param name="writer"></param>
         /// <param name="value"></param>
         /// <param name="serializer"></param>
-        public override void WriteJson(JsonWriter writer, IEnumerable<TEnum> value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, TEnum value, JsonSerializer serializer)
         {
-            var sb = new StringBuilder();
             if (value is null)
                 writer.WriteNull();
             else
-            {
-                var enumList = value.ToList();
-                foreach (var smartFlagEnum in enumList)
-                {
-                    sb.Append(smartFlagEnum.Name);
-                    if (enumList.Last().Name != smartFlagEnum.Name && enumList.Count > 1)
-                    {
-                        sb.Append(", ");
-                    }
-                }
-            }
-
-            writer.WriteValue(sb.ToString());
+                writer.WriteValue(value.Name);
         }
     }
 }
