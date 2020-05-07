@@ -4,9 +4,9 @@
     using BenchmarkDotNet.Attributes;
     using BenchmarkDotNet.Running;
 
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             var switcher = new BenchmarkSwitcher(new[] {
                     typeof(EqualsBenchmarks),
@@ -15,7 +15,7 @@
                     typeof(FromNameBenchmarks),
                     typeof(SerializationBenchmarks),
                 });
-            switcher.Run(args);        
+            switcher.Run(args);
         }
     }
 }

@@ -1,0 +1,28 @@
+<Project>
+  <PropertyGroup>
+    <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
+    <RepositoryUrl>https://github.com/dotnet/aspnetcore</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RepoRelativeProjectDir>$([MSBuild]::MakeRelative($(RepoRoot), $(MSBuildProjectDirectory)))</RepoRelativeProjectDir>
+
+
+
+
+    <!-- Define useful flags based on project name conventions -->
+    <IsUnitTestProject>false</IsUnitTestProject>
+    <IsUnitTestProject Condition="$(MSBuildProjectName.EndsWith('Tests')) or $(MSBuildProjectName.EndsWith('.Test')) or $(MSBuildProjectName.EndsWith('.FunctionalTest'))">true</IsUnitTestProject>
+    <IsTestAssetProject Condition="$(RepoRelativeProjectDir.Contains('testassets'))">true</IsTestAssetProject>
+    <IsSampleProject Condition="$(RepoRelativeProjectDir.Contains('sample'))">true</IsSampleProject>
+    <IsAnalyzersProject Condition="$(MSBuildProjectName.EndsWith('.Analyzers'))">true</IsAnalyzersProject>
+    <IsShipping Condition="'$(IsSampleProject)' == 'true' or '$(IsTestAssetProject)' == 'true' or '$(IsBenchmarkProject)' == 'true' or '$(IsUnitTestProject)' == 'true'">false</IsShipping>
+
+    <!--
+      Following logic mimics core-setup approach as well as
+      https://github.com/dotnet/arcade/blob/694d59f090b743f894779d04a7ffe11cbaf352e7/src/Microsoft.DotNet.Arcade.Sdk/tools/Publish.proj#L30-L31
+      $(DotNetFinalVersionKind) is set globally when doing final aka stable builds. Arcade infrastructure should pick
+      up $(IsStableBuild) automatically; property is also used to control prerelease branding.
+    -->
+  </PropertyGroup>
+</Project>
