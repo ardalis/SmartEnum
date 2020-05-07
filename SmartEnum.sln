@@ -1,42 +1,54 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum", "SmartEnum\SmartEnum.csproj", "{2A1AA760-8929-433C-BC27-5513F0289842}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum", "src\SmartEnum\SmartEnum.csproj", "{2A1AA760-8929-433C-BC27-5513F0289842}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.UnitTests", "SmartEnum.UnitTests\SmartEnum.UnitTests.csproj", "{7EC129B9-8A9B-469E-A160-8C351161F097}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.UnitTests", "test\SmartEnum.UnitTests\SmartEnum.UnitTests.csproj", "{7EC129B9-8A9B-469E-A160-8C351161F097}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{E458C16C-956D-48B1-B673-C202B96CC748}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		..\.gitignore = ..\.gitignore
-		..\LICENSE = ..\LICENSE
-		..\nuget.txt = ..\nuget.txt
-		..\README.md = ..\README.md
+		.gitignore = .gitignore
+		azure-pipelines.yml = azure-pipelines.yml
+		Directory.Build.props = Directory.Build.props
+		LICENSE = LICENSE
+		nuget.txt = nuget.txt
+		README.md = README.md
+		SmartEnumTests.ruleset = SmartEnumTests.ruleset
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.Benchmarks", "SmartEnum.Benchmarks\SmartEnum.Benchmarks.csproj", "{0F0C288D-39BA-4E83-A7FE-3B90D7CF250A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.Benchmarks", "benchmarks\SmartEnum.Benchmarks\SmartEnum.Benchmarks.csproj", "{0F0C288D-39BA-4E83-A7FE-3B90D7CF250A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.AutoFixture", "SmartEnum.AutoFixture\SmartEnum.AutoFixture.csproj", "{2D6FEC9B-F2B4-4B6F-8FBC-73F8ED6D0843}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.AutoFixture", "src\SmartEnum.AutoFixture\SmartEnum.AutoFixture.csproj", "{2D6FEC9B-F2B4-4B6F-8FBC-73F8ED6D0843}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.AutoFixture.UnitTests", "SmartEnum.AutoFixture.UnitTests\SmartEnum.AutoFixture.UnitTests.csproj", "{5FE49DE4-C835-4FD7-BF83-6253ED3DEDD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.AutoFixture.UnitTests", "test\SmartEnum.AutoFixture.UnitTests\SmartEnum.AutoFixture.UnitTests.csproj", "{5FE49DE4-C835-4FD7-BF83-6253ED3DEDD1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.JsonNet", "SmartEnum.JsonNet\SmartEnum.JsonNet.csproj", "{0293FF49-E253-48D2-A11D-3ED3D81BDF64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.JsonNet", "src\SmartEnum.JsonNet\SmartEnum.JsonNet.csproj", "{0293FF49-E253-48D2-A11D-3ED3D81BDF64}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.JsonNet.UnitTests", "SmartEnum.JsonNet.UnitTests\SmartEnum.JsonNet.UnitTests.csproj", "{3E78F627-5D62-411B-AA93-44311AD86284}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.JsonNet.UnitTests", "test\SmartEnum.JsonNet.UnitTests\SmartEnum.JsonNet.UnitTests.csproj", "{3E78F627-5D62-411B-AA93-44311AD86284}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.MessagePack", "SmartEnum.MessagePack\SmartEnum.MessagePack.csproj", "{A33AB3A6-3095-436C-A732-5B0FDF60D974}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.MessagePack", "src\SmartEnum.MessagePack\SmartEnum.MessagePack.csproj", "{A33AB3A6-3095-436C-A732-5B0FDF60D974}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.MessagePack.UnitTests", "SmartEnum.MessagePack.UnitTests\SmartEnum.MessagePack.UnitTests.csproj", "{DB418628-F36F-4278-A34D-E5BDD35F4707}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.MessagePack.UnitTests", "test\SmartEnum.MessagePack.UnitTests\SmartEnum.MessagePack.UnitTests.csproj", "{DB418628-F36F-4278-A34D-E5BDD35F4707}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.ProtoBufNet", "SmartEnum.ProtoBufNet\SmartEnum.ProtoBufNet.csproj", "{E42A9786-7093-47EE-9916-DC478E922734}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.ProtoBufNet", "src\SmartEnum.ProtoBufNet\SmartEnum.ProtoBufNet.csproj", "{E42A9786-7093-47EE-9916-DC478E922734}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.ProtoBufNet.UnitTests", "SmartEnum.ProtoBufNet.UnitTests\SmartEnum.ProtoBufNet.UnitTests.csproj", "{C65837A3-1AB1-4AD4-9D9E-C3FF437A5714}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.ProtoBufNet.UnitTests", "test\SmartEnum.ProtoBufNet.UnitTests\SmartEnum.ProtoBufNet.UnitTests.csproj", "{C65837A3-1AB1-4AD4-9D9E-C3FF437A5714}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.Utf8Json", "SmartEnum.Utf8Json\SmartEnum.Utf8Json.csproj", "{8FC7B9E5-B651-42BC-B21B-B45F0C8A239B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.Utf8Json", "src\SmartEnum.Utf8Json\SmartEnum.Utf8Json.csproj", "{8FC7B9E5-B651-42BC-B21B-B45F0C8A239B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.Utf8Json.UnitTests", "SmartEnum.Utf8Json.UnitTests\SmartEnum.Utf8Json.UnitTests.csproj", "{66EF3D1A-32AE-4B28-BC3E-7441615722A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.Utf8Json.UnitTests", "test\SmartEnum.Utf8Json.UnitTests\SmartEnum.Utf8Json.UnitTests.csproj", "{66EF3D1A-32AE-4B28-BC3E-7441615722A9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{79268877-BBEF-4DE2-B8D9-697F21933159}"
+	ProjectSection(SolutionItems) = preProject
+		test\Directory.Build.props = test\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FA199ECB-5F29-442A-AAC6-91DBCB7A5A04}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "benchmarks", "benchmarks", "{5952C160-ABAA-4302-9150-0928E82545B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +111,21 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2A1AA760-8929-433C-BC27-5513F0289842} = {FA199ECB-5F29-442A-AAC6-91DBCB7A5A04}
+		{7EC129B9-8A9B-469E-A160-8C351161F097} = {79268877-BBEF-4DE2-B8D9-697F21933159}
+		{0F0C288D-39BA-4E83-A7FE-3B90D7CF250A} = {5952C160-ABAA-4302-9150-0928E82545B1}
+		{2D6FEC9B-F2B4-4B6F-8FBC-73F8ED6D0843} = {FA199ECB-5F29-442A-AAC6-91DBCB7A5A04}
+		{5FE49DE4-C835-4FD7-BF83-6253ED3DEDD1} = {79268877-BBEF-4DE2-B8D9-697F21933159}
+		{0293FF49-E253-48D2-A11D-3ED3D81BDF64} = {FA199ECB-5F29-442A-AAC6-91DBCB7A5A04}
+		{3E78F627-5D62-411B-AA93-44311AD86284} = {79268877-BBEF-4DE2-B8D9-697F21933159}
+		{A33AB3A6-3095-436C-A732-5B0FDF60D974} = {FA199ECB-5F29-442A-AAC6-91DBCB7A5A04}
+		{DB418628-F36F-4278-A34D-E5BDD35F4707} = {79268877-BBEF-4DE2-B8D9-697F21933159}
+		{E42A9786-7093-47EE-9916-DC478E922734} = {FA199ECB-5F29-442A-AAC6-91DBCB7A5A04}
+		{C65837A3-1AB1-4AD4-9D9E-C3FF437A5714} = {79268877-BBEF-4DE2-B8D9-697F21933159}
+		{8FC7B9E5-B651-42BC-B21B-B45F0C8A239B} = {FA199ECB-5F29-442A-AAC6-91DBCB7A5A04}
+		{66EF3D1A-32AE-4B28-BC3E-7441615722A9} = {79268877-BBEF-4DE2-B8D9-697F21933159}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {46896DE3-41B8-442F-A6FB-6AC9F11CCBCE}
