@@ -6,7 +6,7 @@ using Ardalis.SmartEnum.Exceptions;
 using Xunit;
 using Xunit.Sdk;
 
-namespace SmartFlagEnum.UnitTests
+namespace Ardalis.SmartFlagEnum.UnitTests
 {
     public class SmartTestAttributeSafeContainsPowOfTwo : SmartFlagEnum<SmartTestAttributeSafeContainsPowOfTwo>
     {

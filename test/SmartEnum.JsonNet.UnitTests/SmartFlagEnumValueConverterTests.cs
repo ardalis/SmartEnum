@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using System;
 using Xunit;
 
-namespace SmartEnum.JsonNet.UnitTests
+namespace Ardalis.SmartEnum.JsonNet.UnitTests
 {
     public class SmartFlagEnumValueConverterTests
     {

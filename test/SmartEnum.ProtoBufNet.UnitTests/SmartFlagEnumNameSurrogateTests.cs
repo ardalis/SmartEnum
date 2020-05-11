@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using Ardalis.SmartEnum.ProtoBufNet;
-using Ardalis.SmartEnum.ProtoBufNet.UnitTests;
-using FluentAssertions;
+﻿using FluentAssertions;
 using ProtoBuf;
 using ProtoBuf.Meta;
-using SmartEnum.ProtoBufNet.UnitTests;
 using Xunit;
 
 namespace Ardalis.SmartEnum.ProtoBufNet.UnitTests

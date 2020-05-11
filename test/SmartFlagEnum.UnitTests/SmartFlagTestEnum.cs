@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Ardalis.SmartEnum;
 
-namespace SmartEnum.UnitTests
+namespace Ardalis.SmartEnum.UnitTests
 {
     public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
     {

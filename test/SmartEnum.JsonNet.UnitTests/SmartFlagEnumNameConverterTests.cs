@@ -9,7 +9,7 @@ using FluentAssertions;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace SmartEnum.JsonNet.UnitTests
+namespace Ardalis.SmartEnum.JsonNet.UnitTests
 {
     public class SmartFlagEnumNameConverterTests
     {

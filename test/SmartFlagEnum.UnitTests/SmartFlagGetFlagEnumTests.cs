@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using Ardalis.SmartEnum;
 using Ardalis.SmartEnum.Exceptions;
-using SmartEnum.UnitTests;
+using Ardalis.SmartEnum.UnitTests;
 using Xunit;
 
-namespace SmartFlagEnum.UnitTests
+namespace Ardalis.SmartFlagEnum.UnitTests
 {
     public class SmartFlagGetFlagEnumTests
     {

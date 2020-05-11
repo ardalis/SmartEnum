@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading;
 using Ardalis.SmartEnum;
 
-namespace SmartEnum.JsonNet.UnitTests
+namespace Ardalis.SmartEnum.JsonNet.UnitTests
 {
     public class FlagTestEnums
     {
