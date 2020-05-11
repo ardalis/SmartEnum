@@ -5,7 +5,7 @@ using System.Text;
 using Ardalis.SmartEnum;
 using Xunit;
 
-namespace SmartFlagEnum.UnitTests
+namespace Ardalis.SmartFlagEnum.UnitTests
 {
     public abstract class EmployeeType : SmartFlagEnum<EmployeeType>
     {

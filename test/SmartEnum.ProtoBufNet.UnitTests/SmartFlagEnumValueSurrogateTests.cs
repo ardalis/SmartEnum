@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using ProtoBuf;
 using ProtoBuf.Meta;
-using SmartEnum.ProtoBufNet.UnitTests;
+using Ardalis.SmartEnum.ProtoBufNet.UnitTests;
 using Xunit;
 
 namespace Ardalis.SmartEnum.ProtoBufNet.UnitTests

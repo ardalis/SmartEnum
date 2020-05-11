@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Ardalis.SmartEnum;
-using SmartEnum.UnitTests;
+using Ardalis.SmartEnum.UnitTests;
 using Xunit;
 
-namespace SmartFlagEnum.UnitTests
+namespace Ardalis.SmartFlagEnum.UnitTests
 {
     public class SmartFlagEnumFromValue
     {

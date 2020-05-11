@@ -5,7 +5,7 @@ using MessagePack;
 using MessagePack.Resolvers;
 using Xunit;
 
-namespace SmartEnum.MessagePack.UnitTests
+namespace Ardalis.SmartEnum.MessagePack.UnitTests
 {
     public class SmartFlagEnumNameFormatterTests
     {

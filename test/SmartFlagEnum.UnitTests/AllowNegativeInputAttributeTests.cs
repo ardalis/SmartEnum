@@ -5,7 +5,7 @@ using Ardalis.SmartEnum;
 using Ardalis.SmartEnum.Exceptions;
 using Xunit;
 
-namespace SmartFlagEnum.UnitTests
+namespace Ardalis.SmartFlagEnum.UnitTests
 {
     [AllowNegativeInputValues]
     public class AllowNegativeAttributeTest : SmartFlagEnum<AllowNegativeAttributeTest>

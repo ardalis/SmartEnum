@@ -1,5 +1,3 @@
-using SmartEnum.AutoFixture.UnitTests;
-
 namespace Ardalis.SmartEnum.AutoFixture.UnitTests
 {
     using System;
