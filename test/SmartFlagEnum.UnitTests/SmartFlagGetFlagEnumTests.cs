@@ -116,5 +116,18 @@ namespace Ardalis.SmartFlagEnum.UnitTests
             Assert.Single(result);
             Assert.Equal("All", result[0].Name);
         }
+
+        [Fact]
+        public void ReturnsAllWhenGivenIntegerMaxValue()
+        {
+            var result = SmartFlagTestEnum.FromValue(int.MaxValue).ToList();
+
+            Assert.Equal(5, result.Count);
+            Assert.Equal("One", result[0].Name);
+            Assert.Equal("Two", result[1].Name);
+            Assert.Equal("Three", result[2].Name);
+            Assert.Equal("Four", result[3].Name);
+            Assert.Equal("Five", result[4].Name);
+        }
     }
 }

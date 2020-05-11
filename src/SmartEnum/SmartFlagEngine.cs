@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using Ardalis.SmartEnum.Exceptions;
 
@@ -33,6 +34,8 @@ namespace Ardalis.SmartEnum
             ApplyUnsafeFlagEnumAttributeSettings(inputEnumList);
 
             var maximumAllowedValue = CalculateHighestAllowedFlagValue(inputEnumList);
+            
+            var typeMaxValue = GetMaxValue();
 
             foreach (var enumValue in inputEnumList)
             {
@@ -43,9 +46,9 @@ namespace Ardalis.SmartEnum
                 if (currentEnumValueAsInt == inputValueAsInt)
                     return new List<TEnum> { enumValue };
 
-                if (inputValueAsInt == -1)
+                if (inputValueAsInt == -1 || value.Equals(typeMaxValue))
                 {
-                    return inputEnumList.Where(x => int.Parse(x.Value.ToString()) > 0);
+                    return inputEnumList.Where(x => long.Parse(x.Value.ToString()) > 0);
                 }
 
                 AssignFlagStateValuesToDictionary(inputValueAsInt, currentEnumValueAsInt, enumValue, enumFlagStateDictionary);
@@ -191,6 +194,25 @@ namespace Ardalis.SmartEnum
             }
 
             return highestValue;
+        }
+
+        /// <summary>
+        /// Gets the largest possible value of the underlying type for the SmartFlagEnum.
+        /// </summary>
+        /// <exception cref="NotSupportedException">If the underlying type <see cref="TValue"/>
+        /// does not define a <c>MaxValue</c> field, this exception is thrown.
+        /// </exception>
+        /// <returns>The value of the constant <c>MaxValue</c> field defined by the underlying type <see cref="TValue"/>.</returns>
+        private static TValue GetMaxValue()
+        {
+            FieldInfo maxValueField = typeof(TValue).GetField("MaxValue", BindingFlags.Public
+                | BindingFlags.Static);
+            if (maxValueField == null)
+                throw new NotSupportedException(typeof(TValue).Name);
+
+            TValue maxValue = (TValue)maxValueField.GetValue(null);
+
+            return maxValue;
         }
     }
 }
