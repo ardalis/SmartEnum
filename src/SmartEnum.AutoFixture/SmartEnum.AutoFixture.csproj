@@ -3,12 +3,14 @@
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <PackageId>Ardalis.SmartEnum.AutoFixture</PackageId>
     <Title>Ardalis.SmartEnum.AutoFixture</Title>
+    <Company>Ardalis.com</Company>
     <Summary>AutoFixture support for Ardalis.SmartEnum.</Summary>
     <PackageTags>enum;smartenum;netstandard2.0;autofixture</PackageTags>
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageReleaseNotes>Initial version</PackageReleaseNotes>
+    <PackageIcon>icon.png</PackageIcon>
+    <Version>1.0.1</Version>
     <AssemblyName>Ardalis.SmartEnum.AutoFixture</AssemblyName>
     <RootNamespace>Ardalis.SmartEnum.AutoFixture</RootNamespace>
-
     <Features>strict</Features>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>

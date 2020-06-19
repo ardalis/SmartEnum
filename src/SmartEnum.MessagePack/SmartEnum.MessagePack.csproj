@@ -3,10 +3,12 @@
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <PackageId>Ardalis.SmartEnum.MessagePack</PackageId>
     <Title>Ardalis.SmartEnum.MessagePack</Title>
+    <Company>Ardalis.com</Company>
     <Summary>MessagePack (de)serialization support for Ardalis.SmartEnum.</Summary>
     <PackageTags>enum;smartenum;netstandard2.0;messagepack;resolver</PackageTags>
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageReleaseNotes>Initial version</PackageReleaseNotes>
     <PackageIcon>icon.png</PackageIcon>
+    <Version>1.0.0</Version>
     <AssemblyName>Ardalis.SmartEnum.MessagePack</AssemblyName>
     <RootNamespace>Ardalis.SmartEnum.MessagePack</RootNamespace>
     <Features>strict</Features>
