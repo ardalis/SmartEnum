@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <PackageId>Ardalis.SmartEnum</PackageId>
     <Title>Ardalis.SmartEnum</Title>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -13,8 +13,8 @@
     <RepositoryUrl>https://github.com/ardalis/SmartEnum</RepositoryUrl>
     <PackageTags>enum</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.9</Version>
-    <PackageReleaseNotes>Update package icon to include in project.</PackageReleaseNotes>
+    <Version>1.0.10</Version>
+    <PackageReleaseNotes>Remove direct compilation to Net452</PackageReleaseNotes>
     <AssemblyName>Ardalis.SmartEnum</AssemblyName>
     <Features>strict</Features>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

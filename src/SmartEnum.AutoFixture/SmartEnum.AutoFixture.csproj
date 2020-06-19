@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <PackageId>Ardalis.SmartEnum.AutoFixture</PackageId>
     <Title>Ardalis.SmartEnum.AutoFixture</Title>
     <Summary>AutoFixture support for Ardalis.SmartEnum.</Summary>
@@ -16,11 +16,9 @@
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
-  </ItemGroup>
-  <ItemGroup>
+    <PackageReference Include="Ardalis.SmartEnum" Version="1.0.8" />
     <PackageReference Include="AutoFixture" Version="4.5.1" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="7.9.0.7583" PrivateAssets="All" />
   </ItemGroup>
     <ItemGroup>
