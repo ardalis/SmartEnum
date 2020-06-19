@@ -1,4 +1,4 @@
-name: publish to nuget
+name: publish SmartEnum.AutoFixture to nuget
 on:
   push:
     branches:
