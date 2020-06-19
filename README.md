@@ -2,7 +2,9 @@
 [![Build Status](https://dev.azure.com/ardalis/SmartEnum/_apis/build/status/ardalis.SmartEnum?branchName=master)](https://dev.azure.com/ardalis/SmartEnum/_build/latest?definitionId=2&branchName=master) 
 ![Test Status](https://img.shields.io/azure-devops/tests/ardalis/SmartEnum/2.svg)
 
-NuGet: [Ardalis.SmartEnum](https://www.nuget.org/packages/Ardalis.SmartEnum)
+### Sub-packages
+
+SmartEnum.JsonNet: ![publish jsonnet to nuget](https://github.com/ardalis/SmartEnum/workflows/publish%20to%20nuget/badge.svg)
 
 ## Give a Star! :star:
 
