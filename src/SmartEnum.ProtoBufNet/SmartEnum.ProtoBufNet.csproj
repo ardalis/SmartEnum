@@ -6,7 +6,7 @@
     <Company>Ardalis.com</Company>
     <Summary>protobuf-net (de)serialization support for Ardalis.SmartEnum.</Summary>
     <PackageTags>enum;smartenum;netstandard2.0;protobuf;protobufnet;surrogate</PackageTags>
-    <PackageReleaseNotes>Initial version.</PackageReleaseNotes>
+    <PackageReleaseNotes>Initial version</PackageReleaseNotes>
     <PackageIcon>icon.png</PackageIcon>
     <Version>1.0.0</Version>
     <AssemblyName>Ardalis.SmartEnum.ProtoBufNet</AssemblyName>
