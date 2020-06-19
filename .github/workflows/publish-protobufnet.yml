@@ -1,12 +1,12 @@
 name: publish SmartEnum.ProtoBufNet to nuget
-env:
-  project: 'ProtoBufNet'
 on:
   push:
     branches:
       - master # Your default release branch
     paths:
-      - 'src/SmartEnum.{{ env.project }}/**'
+      - 'src/SmartEnum.ProtoBufNet/**'
+env:
+  project: 'ProtoBufNet'
 jobs:
   publish:
     name: list SmartEnum.{{ env.project }} on nuget.org
