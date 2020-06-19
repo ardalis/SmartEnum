@@ -7,6 +7,7 @@
     <Summary>Utf8Json (de)serialization support for Ardalis.SmartEnum.</Summary>
     <PackageTags>enum;smartenum;netstandard2.0;json;utf8json;resolver</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageIcon>icon.png</PackageIcon>
     <AssemblyName>Ardalis.SmartEnum.Utf8Json</AssemblyName>
     <RootNamespace>Ardalis.SmartEnum.Utf8Json</RootNamespace>
     <Features>strict</Features>
@@ -22,5 +23,8 @@
     <PackageReference Include="Utf8Json" Version="1.3.7" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All"/>
     <PackageReference Include="SonarAnalyzer.CSharp" Version="7.9.0.7583" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
 </Project>
