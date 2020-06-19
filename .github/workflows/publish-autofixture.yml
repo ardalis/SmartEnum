@@ -7,7 +7,7 @@ on:
       - 'src/SmartEnum.AutoFixture/**'
 jobs:
   publish:
-    name: list SmartEnum.JsonNet on nuget.org
+    name: list SmartEnum.AutoFixture on nuget.org
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
