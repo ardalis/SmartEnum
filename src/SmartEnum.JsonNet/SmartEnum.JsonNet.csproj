@@ -6,9 +6,9 @@
     <Company>Ardalis.com</Company>
     <Summary>Json.NET (de)serialization support for Ardalis.SmartEnum.</Summary>
     <PackageTags>enum;smartenum;netstandard2.0;json;json.net;converter</PackageTags>
-    <PackageReleaseNotes>Updated to depend on Ardalis.SmartEnum package.</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated dependencies</PackageReleaseNotes>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <AssemblyName>Ardalis.SmartEnum.JsonNet</AssemblyName>
     <RootNamespace>Ardalis.SmartEnum.JsonNet</RootNamespace>
     <Features>strict</Features>
@@ -27,7 +27,7 @@
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="Ardalis.SmartEnum">
-      <Version>1.0.8</Version>
+      <Version>1.0.10</Version>
     </PackageReference>
   </ItemGroup>
 </Project>

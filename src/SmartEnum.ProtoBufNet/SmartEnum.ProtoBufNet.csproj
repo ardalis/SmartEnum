@@ -6,9 +6,9 @@
     <Company>Ardalis.com</Company>
     <Summary>protobuf-net (de)serialization support for Ardalis.SmartEnum.</Summary>
     <PackageTags>enum;smartenum;netstandard2.0;protobuf;protobufnet;surrogate</PackageTags>
-    <PackageReleaseNotes>Initial version</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated dependencies</PackageReleaseNotes>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.0</Version>
+    <Version>1.0.2</Version>
     <AssemblyName>Ardalis.SmartEnum.ProtoBufNet</AssemblyName>
     <RootNamespace>Ardalis.SmartEnum.ProtoBufNet</RootNamespace>
     <Features>strict</Features>
@@ -18,10 +18,10 @@
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Ardalis.SmartEnum" Version="1.0.8" />
+    <PackageReference Include="Ardalis.SmartEnum" Version="1.0.10" />
     <PackageReference Include="protobuf-net" Version="2.4.0" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All"/>
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="7.9.0.7583" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.8.0.18411" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
     <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />

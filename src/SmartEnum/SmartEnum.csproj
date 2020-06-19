@@ -30,7 +30,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="7.9.0.7583" PrivateAssets="All" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.8.0.18411" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
