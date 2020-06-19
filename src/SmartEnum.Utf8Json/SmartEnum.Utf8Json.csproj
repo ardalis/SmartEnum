@@ -7,6 +7,7 @@
     <Summary>Utf8Json (de)serialization support for Ardalis.SmartEnum.</Summary>
     <PackageTags>enum;smartenum;netstandard2.0;json;utf8json;resolver</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageIcon>icon.png</PackageIcon>
     <AssemblyName>Ardalis.SmartEnum.Utf8Json</AssemblyName>
     <RootNamespace>Ardalis.SmartEnum.Utf8Json</RootNamespace>
     <Features>strict</Features>

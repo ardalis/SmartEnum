@@ -6,6 +6,7 @@
     <Summary>MessagePack (de)serialization support for Ardalis.SmartEnum.</Summary>
     <PackageTags>enum;smartenum;netstandard2.0;messagepack;resolver</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageIcon>icon.png</PackageIcon>
     <AssemblyName>Ardalis.SmartEnum.MessagePack</AssemblyName>
     <RootNamespace>Ardalis.SmartEnum.MessagePack</RootNamespace>
     <Features>strict</Features>
