@@ -1,12 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <PackageId>Ardalis.SmartEnum.MessagePack</PackageId>
     <Title>Ardalis.SmartEnum.MessagePack</Title>
+    <Company>Ardalis.com</Company>
     <Summary>MessagePack (de)serialization support for Ardalis.SmartEnum.</Summary>
     <PackageTags>enum;smartenum;netstandard2.0;messagepack;resolver</PackageTags>
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageReleaseNotes>Updated dependencies</PackageReleaseNotes>
     <PackageIcon>icon.png</PackageIcon>
+    <Version>1.0.2</Version>
     <AssemblyName>Ardalis.SmartEnum.MessagePack</AssemblyName>
     <RootNamespace>Ardalis.SmartEnum.MessagePack</RootNamespace>
     <Features>strict</Features>
@@ -16,9 +18,7 @@
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
-  </ItemGroup>  
-  <ItemGroup>
+    <PackageReference Include="Ardalis.SmartEnum" Version="1.0.8" />
     <PackageReference Include="MessagePack" Version="1.9.11" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All"/>
     <PackageReference Include="SonarAnalyzer.CSharp" Version="7.9.0.7583" PrivateAssets="All" />

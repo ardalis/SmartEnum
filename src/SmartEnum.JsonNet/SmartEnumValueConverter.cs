@@ -2,7 +2,6 @@ namespace Ardalis.SmartEnum.JsonNet
 {
     using Newtonsoft.Json;
     using System;
-    using System.Collections.Concurrent;
 
     public class SmartEnumValueConverter<TEnum, TValue> : JsonConverter<TEnum>
         where TEnum : SmartEnum<TEnum, TValue>
