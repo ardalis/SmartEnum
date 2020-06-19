@@ -14,7 +14,7 @@
     <PackageTags>enum</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
     <Version>1.0.10</Version>
-    <PackageReleaseNotes>Remove direct compilation to Net452</PackageReleaseNotes>
+    <PackageReleaseNotes>Remove direct compilation to Net452.</PackageReleaseNotes>
     <AssemblyName>Ardalis.SmartEnum</AssemblyName>
     <Features>strict</Features>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
