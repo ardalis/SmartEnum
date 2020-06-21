@@ -8,7 +8,7 @@ on:
 jobs:
   publish:
     name: list SmartEnum.AutoFixture on nuget.org
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
 
