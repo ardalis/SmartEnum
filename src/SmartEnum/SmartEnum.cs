@@ -180,7 +180,10 @@
         public static bool TryFromName(string name, bool ignoreCase, out TEnum result)
         {
             if (String.IsNullOrEmpty(name))
-                ThrowHelper.ThrowArgumentNullOrEmptyException(nameof(name));
+            {
+                result = default;
+                return false;
+            }
 
             if (ignoreCase)
                 return _fromNameIgnoreCase.Value.TryGetValue(name, out result);
