@@ -3,11 +3,6 @@ namespace Ardalis.SmartEnum.ProtoBufNet
     using System;
     using ProtoBuf;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="TEnum"></typeparam>
-    /// <typeparam name="TValue"></typeparam>
     [ProtoContract]
     public class SmartEnumValueSurrogate<TEnum, TValue>
         where TEnum : SmartEnum<TEnum, TValue>

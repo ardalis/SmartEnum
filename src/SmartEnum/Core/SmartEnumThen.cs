@@ -3,14 +3,14 @@
 namespace Ardalis.SmartEnum.Core
 {
     public readonly struct SmartEnumThen<TEnum, TValue>
-        where TEnum : SmartEnum<TEnum, TValue>
+        where TEnum : ISmartEnum
         where TValue : IEquatable<TValue>, IComparable<TValue>
     {
         private readonly bool isMatch;
-        private readonly SmartEnum<TEnum, TValue> smartEnum;
+        private readonly ISmartEnum smartEnum;
         private readonly bool stopEvaluating;
 
-        internal SmartEnumThen(bool isMatch, bool stopEvaluating, SmartEnum<TEnum, TValue> smartEnum)
+        internal SmartEnumThen(bool isMatch, bool stopEvaluating, ISmartEnum smartEnum)
         {
             this.isMatch = isMatch;
             this.smartEnum = smartEnum;
