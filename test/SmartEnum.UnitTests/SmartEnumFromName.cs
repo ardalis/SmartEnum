@@ -49,7 +49,7 @@
 
             action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"Argument cannot be null or empty.{Environment.NewLine}Parameter name: name")
+            .WithMessage("Argument cannot be null or empty. (Parameter 'name')")
             .Which.ParamName.Should().Be("name");
         }
 
@@ -60,7 +60,7 @@
 
             action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"Argument cannot be null or empty.{Environment.NewLine}Parameter name: name")
+            .WithMessage("Argument cannot be null or empty. (Parameter 'name')")
             .Which.ParamName.Should().Be("name");
         }
 
