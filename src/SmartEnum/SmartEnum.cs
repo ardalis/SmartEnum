@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Reflection;
     using System.Runtime.CompilerServices;
+    using System.Threading;
 
     using Ardalis.SmartEnum.Core;
 
@@ -35,17 +36,21 @@
         where TEnum : SmartEnum<TEnum, TValue>
         where TValue : IEquatable<TValue>, IComparable<TValue>
     {
+        
+        static readonly Lazy<TEnum[]> _enumOptions = 
+            new Lazy<TEnum[]>(GetAllOptions, LazyThreadSafetyMode.ExecutionAndPublication);
+        
         static readonly Lazy<Dictionary<string, TEnum>> _fromName = 
-            new Lazy<Dictionary<string, TEnum>>(() => GetAllOptions().ToDictionary(item => item.Name));
+            new Lazy<Dictionary<string, TEnum>>(() => _enumOptions.Value.ToDictionary(item => item.Name));
 
         static readonly Lazy<Dictionary<string, TEnum>> _fromNameIgnoreCase = 
-            new Lazy<Dictionary<string, TEnum>>(() => GetAllOptions().ToDictionary(item => item.Name, StringComparer.OrdinalIgnoreCase));
+            new Lazy<Dictionary<string, TEnum>>(() => _enumOptions.Value.ToDictionary(item => item.Name, StringComparer.OrdinalIgnoreCase));
 
         static readonly Lazy<Dictionary<TValue, TEnum>> _fromValue = 
             new Lazy<Dictionary<TValue, TEnum>>(() => {
                 // multiple enums with same value are allowed but store only one per value
                 var dictionary = new Dictionary<TValue, TEnum>();
-                foreach (var item in GetAllOptions())
+                foreach (var item in _enumOptions.Value)
                 {
                     if (!dictionary.ContainsKey(item._value))
                         dictionary.Add(item._value, item);
@@ -53,19 +58,15 @@
                 return dictionary;
             });
 
-        private static IEnumerable<TEnum> GetAllOptions()
+        private static TEnum[] GetAllOptions()
         {
             Type baseType = typeof(TEnum);
-            IEnumerable<Type> enumTypes = Assembly.GetAssembly(baseType).GetTypes().Where(t => baseType.IsAssignableFrom(t));
-
-            List<TEnum> options = new List<TEnum>();
-            foreach (Type enumType in enumTypes)
-            {
-                List<TEnum> typeEnumOptions = enumType.GetFieldsOfType<TEnum>();
-                options.AddRange(typeEnumOptions);
-            }
-
-            return options.OrderBy(t => t.Name).ToList();
+            return Assembly.GetAssembly(baseType)
+                .GetTypes()
+                .Where(t => baseType.IsAssignableFrom(t))
+                .SelectMany(t => t.GetFieldsOfType<TEnum>())
+                .OrderBy(t => t.Name)
+                .ToArray();
         }
 
         /// <summary>
