@@ -3,7 +3,8 @@
     using System;
     using FluentAssertions;
     using Xunit;
-
+    using Ardalis.SmartEnum.UnitTests.TestData;
+    
     public class SmartEnumFromName
     {
         [Fact]
@@ -49,7 +50,6 @@
 
             action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"Argument cannot be null or empty.{Environment.NewLine}Parameter name: name")
             .Which.ParamName.Should().Be("name");
         }
 
@@ -60,7 +60,6 @@
 
             action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"Argument cannot be null or empty.{Environment.NewLine}Parameter name: name")
             .Which.ParamName.Should().Be("name");
         }
 

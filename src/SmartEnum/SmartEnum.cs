@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Reflection;
     using System.Runtime.CompilerServices;
     using System.Threading;
 
@@ -36,9 +35,10 @@
         where TEnum : SmartEnum<TEnum, TValue>
         where TValue : IEquatable<TValue>, IComparable<TValue>
     {
-        
-        static readonly Lazy<TEnum[]> _enumOptions = 
-            new Lazy<TEnum[]>(GetAllOptions, LazyThreadSafetyMode.ExecutionAndPublication);
+        static readonly Lazy<IReadOnlyCollection<TEnum>> _enumOptions = 
+            new Lazy<IReadOnlyCollection<TEnum>>(
+                SmartEnumOptions<TEnum, TValue>.GetAll,
+                LazyThreadSafetyMode.ExecutionAndPublication);
         
         static readonly Lazy<Dictionary<string, TEnum>> _fromName = 
             new Lazy<Dictionary<string, TEnum>>(() => _enumOptions.Value.ToDictionary(item => item.Name));
@@ -57,17 +57,6 @@
                 }
                 return dictionary;
             });
-
-        private static TEnum[] GetAllOptions()
-        {
-            Type baseType = typeof(TEnum);
-            return Assembly.GetAssembly(baseType)
-                .GetTypes()
-                .Where(t => baseType.IsAssignableFrom(t))
-                .SelectMany(t => t.GetFieldsOfType<TEnum>())
-                .OrderBy(t => t.Name)
-                .ToArray();
-        }
 
         /// <summary>
         /// Gets a collection containing all the instances of <see cref="SmartEnum{TEnum, TValue}"/>.
@@ -132,10 +121,7 @@
             if (String.IsNullOrEmpty(name))
                 ThrowHelper.ThrowArgumentNullOrEmptyException(nameof(name));
 
-            if (ignoreCase)
-                return FromName(_fromNameIgnoreCase.Value);
-            else
-                return FromName(_fromName.Value);
+            return FromName(ignoreCase ? _fromNameIgnoreCase.Value : _fromName.Value);
 
             TEnum FromName(Dictionary<string, TEnum> dictionary)
             {

@@ -1,8 +1,7 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace Ardalis.SmartEnum.UnitTests
+﻿namespace Ardalis.SmartEnum.UnitTests.TestData
 {
-
+    using System.Runtime.CompilerServices;
+    
     public class TestEnum : SmartEnum<TestEnum>
     {
         public static readonly TestEnum One = new TestEnum(1);
@@ -61,16 +60,39 @@ namespace Ardalis.SmartEnum.UnitTests
     public class DerivedTestEnumWithValues1 : TestBaseEnumWithDerivedValues
     {
         public static readonly DerivedTestEnumWithValues1 A = new DerivedTestEnumWithValues1(nameof(A), 1);
-        public static readonly DerivedTestEnumWithValues1 B = new DerivedTestEnumWithValues1(nameof(B), 1);
+        public static readonly DerivedTestEnumWithValues1 B = new DerivedTestEnumWithValues1(nameof(B), 2);
 
         private DerivedTestEnumWithValues1(string name, int value) : base(name, value) { }
     }
 
     public class DerivedTestEnumWithValues2 : TestBaseEnumWithDerivedValues
     {
-        public static readonly DerivedTestEnumWithValues2 C = new DerivedTestEnumWithValues2(nameof(C), 1);
-        public static readonly DerivedTestEnumWithValues2 D = new DerivedTestEnumWithValues2(nameof(D), 1);
+        public static readonly DerivedTestEnumWithValues2 C = new DerivedTestEnumWithValues2(nameof(C), 3);
+        public static readonly DerivedTestEnumWithValues2 D = new DerivedTestEnumWithValues2(nameof(D), 4);
 
         private DerivedTestEnumWithValues2(string name, int value) : base(name, value) { }
+    }
+    
+    
+    public class AnotherEnumBase : SmartEnum<AnotherEnumBase>
+    {
+        protected AnotherEnumBase(string name, int value) : base(name, value)
+        { }
+    }
+
+    public class AnotherEnumDerived1 : AnotherEnumBase
+    {
+        public static readonly AnotherEnumDerived1 A = new AnotherEnumDerived1(nameof(A), 1);
+        public static readonly AnotherEnumDerived1 B = new AnotherEnumDerived1(nameof(B), 2);
+
+        private AnotherEnumDerived1(string name, int value) : base(name, value) { }
+    }
+    
+    public class AnotherEnumDerived2 : AnotherEnumBase
+    {
+        public static readonly AnotherEnumDerived2 C = new AnotherEnumDerived2(nameof(C), 3);
+        public static readonly AnotherEnumDerived2 D = new AnotherEnumDerived2(nameof(D), 4);
+
+        private AnotherEnumDerived2(string name, int value) : base(name, value) { }
     }
 }
