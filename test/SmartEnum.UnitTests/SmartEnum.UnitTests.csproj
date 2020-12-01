@@ -4,8 +4,10 @@
     <IsPackable>false</IsPackable>
     <LangVersion>7.3</LangVersion>
     <Features>strict</Features>
+    <RootNamespace>Ardalis.SmartEnum.UnitTests</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\SmartEnum.UnitTests.TestData\SmartEnum.UnitTests.TestData.csproj" />
     <ProjectReference Include="..\..\src\SmartEnum\SmartEnum.csproj" />
   </ItemGroup>
   <ItemGroup>

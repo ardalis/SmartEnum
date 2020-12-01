@@ -3,6 +3,7 @@
     using FluentAssertions;
     using System.Collections.Generic;
     using Xunit;
+    using Ardalis.SmartEnum.UnitTests.TestData;
 
     public class SmartEnumWhenThen
     {
