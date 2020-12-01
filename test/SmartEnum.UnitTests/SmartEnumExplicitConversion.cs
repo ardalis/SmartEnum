@@ -2,6 +2,8 @@
 {
     using FluentAssertions;
     using Xunit;
+    using Ardalis.SmartEnum.UnitTests.TestData;
+
 
     public class SmartEnumExplicitConversion
     {
