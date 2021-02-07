@@ -13,7 +13,7 @@
     /// </summary>
     /// <typeparam name="TEnum">The type that is inheriting from this class.</typeparam>
     /// <remarks></remarks>
-    public abstract class SmartEnum<TEnum> : 
+    public abstract class SmartEnum<TEnum> :
         SmartEnum<TEnum, int>
         where TEnum : SmartEnum<TEnum, int>
     {
@@ -29,20 +29,21 @@
     /// <typeparam name="TEnum">The type that is inheriting from this class.</typeparam>
     /// <typeparam name="TValue">The type of the inner value.</typeparam>
     /// <remarks></remarks>
-    public abstract class SmartEnum<TEnum, TValue> : 
+    public abstract class SmartEnum<TEnum, TValue> :
         IEquatable<SmartEnum<TEnum, TValue>>,
         IComparable<SmartEnum<TEnum, TValue>>
         where TEnum : SmartEnum<TEnum, TValue>
         where TValue : IEquatable<TValue>, IComparable<TValue>
     {
-        static readonly Lazy<Dictionary<string, TEnum>> _fromName = 
+        static readonly Lazy<Dictionary<string, TEnum>> _fromName =
             new Lazy<Dictionary<string, TEnum>>(() => GetAllOptions().ToDictionary(item => item.Name));
 
-        static readonly Lazy<Dictionary<string, TEnum>> _fromNameIgnoreCase = 
+        static readonly Lazy<Dictionary<string, TEnum>> _fromNameIgnoreCase =
             new Lazy<Dictionary<string, TEnum>>(() => GetAllOptions().ToDictionary(item => item.Name, StringComparer.OrdinalIgnoreCase));
 
-        static readonly Lazy<Dictionary<TValue, TEnum>> _fromValue = 
-            new Lazy<Dictionary<TValue, TEnum>>(() => {
+        static readonly Lazy<Dictionary<TValue, TEnum>> _fromValue =
+            new Lazy<Dictionary<TValue, TEnum>>(() =>
+            {
                 // multiple enums with same value are allowed but store only one per value
                 var dictionary = new Dictionary<TValue, TEnum>();
                 foreach (var item in GetAllOptions())
@@ -73,10 +74,10 @@
         /// </summary>
         /// <value>A <see cref="IReadOnlyCollection{TEnum}"/> containing all the instances of <see cref="SmartEnum{TEnum, TValue}"/>.</value>
         /// <remarks>Retrieves all the instances of <see cref="SmartEnum{TEnum, TValue}"/> referenced by public static read-only fields in the current class or its bases.</remarks>
-        public static IReadOnlyCollection<TEnum> List => 
-		    _fromName.Value.Values
-			    .ToList()
-				.AsReadOnly();
+        public static IReadOnlyCollection<TEnum> List =>
+            _fromName.Value.Values
+                .ToList()
+                .AsReadOnly();
 
         private readonly string _name;
         private readonly TValue _value;
@@ -110,7 +111,7 @@
         /// Gets the type of the inner value.
         /// </summary>
         /// <value>A <see name="System.Type"/> that is the type of the value of the <see cref="SmartEnum{TEnum, TValue}"/>.</value>
-        public Type GetValueType () => 
+        public Type GetValueType() =>
             typeof(TValue);
 
         /// <summary>
@@ -260,19 +261,14 @@
             return _fromValue.Value.TryGetValue(value, out result);
         }
 
-        public override string ToString() => 
+        public override string ToString() =>
             _name;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode() =>
             _value.GetHashCode();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public override bool Equals(object obj) => 
+        public override bool Equals(object obj) =>
             (obj is SmartEnum<TEnum, TValue> other) && Equals(other);
 
         /// <summary>
@@ -312,6 +308,7 @@
         public SmartEnumThen<TEnum, TValue> When(params SmartEnum<TEnum, TValue>[] smartEnums) =>
             new SmartEnumThen<TEnum, TValue>(smartEnums.Contains(this), false, this);
 
+        /// <summary>
         /// When this instance is one of the specified <see cref="SmartEnum{TEnum, TValue}"/> parameters.
         /// Execute the action in the subsequent call to Then().
         /// </summary>
@@ -323,7 +320,7 @@
         public static bool operator ==(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right)
         {
             // Handle null on left side
-            if (left is null)   
+            if (left is null)
                 return right is null; // null == null = true
 
             // Equals handles null on right side
@@ -331,7 +328,7 @@
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right) => 
+        public static bool operator !=(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right) =>
             !(left == right);
 
         /// <summary>
@@ -344,27 +341,27 @@
             _value.CompareTo(other._value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right) => 
+        public static bool operator <(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right) =>
             left.CompareTo(right) < 0;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <=(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right) => 
+        public static bool operator <=(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right) =>
             left.CompareTo(right) <= 0;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right) => 
+        public static bool operator >(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right) =>
             left.CompareTo(right) > 0;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >=(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right) => 
+        public static bool operator >=(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right) =>
             left.CompareTo(right) >= 0;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator TValue(SmartEnum<TEnum, TValue> smartEnum) => 
+        public static implicit operator TValue(SmartEnum<TEnum, TValue> smartEnum) =>
             smartEnum._value;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator SmartEnum<TEnum, TValue>(TValue value) => 
+        public static explicit operator SmartEnum<TEnum, TValue>(TValue value) =>
             FromValue(value);
     }
 }

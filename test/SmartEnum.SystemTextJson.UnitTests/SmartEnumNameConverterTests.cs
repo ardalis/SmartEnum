@@ -15,9 +15,9 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
 
             [JsonConverter(typeof(SmartEnumNameConverter<TestEnumInt16, short>))]
             public TestEnumInt16 Int16 { get; set; }
-            
+
             [JsonConverter(typeof(SmartEnumNameConverter<TestEnumInt32, int>))]
-            public TestEnumInt32 Int32 { get; set; }        
+            public TestEnumInt32 Int32 { get; set; }
 
             [JsonConverter(typeof(SmartEnumNameConverter<TestEnumDouble, double>))]
             public TestEnumDouble Double { get; set; }
@@ -26,7 +26,8 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
             public TestEnumString String { get; set; }
         }
 
-        static readonly TestClass TestInstance = new TestClass { 
+        static readonly TestClass TestInstance = new TestClass
+        {
             Bool = TestEnumBoolean.Instance,
             Int16 = TestEnumInt16.Instance,
             Int32 = TestEnumInt32.Instance,
@@ -49,7 +50,7 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
             var json = JsonSerializer.Serialize(TestInstance, new JsonSerializerOptions { WriteIndented = true });
 
             json.Should().Be(JsonString);
-         }
+        }
 
         [Fact]
         public void DeserializesNames()
@@ -61,7 +62,7 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
             obj.Int32.Should().BeSameAs(TestEnumInt32.Instance);
             obj.Double.Should().BeSameAs(TestEnumDouble.Instance);
             obj.String.Should().BeSameAs(TestEnumString.Instance);
-        }    
+        }
 
         [Fact]
         public void DeserializesNullByDefault()
@@ -75,7 +76,7 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
             obj.Int32.Should().BeNull();
             obj.Double.Should().BeNull();
             obj.String.Should().BeNull();
-        }    
+        }
 
         [Fact]
         public void DeserializeThrowsWhenNotFound()

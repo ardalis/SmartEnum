@@ -1,11 +1,10 @@
 namespace Ardalis.SmartEnum.Benchmarks
 {
-    using BenchmarkDotNet.Attributes;
     using BenchmarkDotNet.Columns;
     using BenchmarkDotNet.Configs;
     using BenchmarkDotNet.Diagnosers;
-    using BenchmarkDotNet.Jobs;    
-    
+    using BenchmarkDotNet.Jobs;
+
     public class Config : ManualConfig
     {
         public Config()
@@ -14,5 +13,5 @@ namespace Ardalis.SmartEnum.Benchmarks
             Add(MemoryDiagnoser.Default);
             Add(new TagColumn("Library", name => name.Split('_')[0]));
         }
-    }    
+    }
 }

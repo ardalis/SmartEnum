@@ -1,7 +1,5 @@
 ﻿namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
 {
-    using System;
-
     public sealed class TestEnumBoolean : SmartEnum<TestEnumBoolean, bool>
     {
         public static readonly TestEnumBoolean Instance = new TestEnumBoolean(nameof(Instance), true);

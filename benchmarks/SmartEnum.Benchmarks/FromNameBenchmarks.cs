@@ -25,17 +25,17 @@ namespace Ardalis.SmartEnum.Benchmarks
             {
                 return Enum.Parse<TestEnum>("Invalid");
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return TestEnum.One;
             }
         }
-        
+
         [Benchmark]
         public TestEnum Enum_FromName_one_IgnoreCase() => Enum.Parse<TestEnum>("one", true);
 
         [Benchmark]
-        public TestEnum Enum_FromName_ten_IgnoreCase() => Enum.Parse<TestEnum>("ten", true);     
+        public TestEnum Enum_FromName_ten_IgnoreCase() => Enum.Parse<TestEnum>("ten", true);
 
 
         [Benchmark]
@@ -45,11 +45,11 @@ namespace Ardalis.SmartEnum.Benchmarks
             {
                 return Enum.Parse<TestEnum>("Invalid", true);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return TestEnum.One;
             }
-        }        
+        }
 
         ////////////////////////////////////////////////////////////////////////////////
         // Enums.NET
@@ -67,16 +67,16 @@ namespace Ardalis.SmartEnum.Benchmarks
             {
                 return Enums.Parse<TestEnum>("Invalid");
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return TestEnum.One;
             }
         }
-        
+
         [Benchmark]
         public TestEnum EnumsNET_TryFromName_One()
         {
-            if(Enums.TryParse<TestEnum>("One", out var result))
+            if (Enums.TryParse<TestEnum>("One", out var result))
                 return result;
             return TestEnum.One;
         }
@@ -84,18 +84,18 @@ namespace Ardalis.SmartEnum.Benchmarks
         [Benchmark]
         public TestEnum EnumsNET_TryFromName_Ten()
         {
-            if(Enums.TryParse<TestEnum>("Ten", out var result))
+            if (Enums.TryParse<TestEnum>("Ten", out var result))
                 return result;
             return TestEnum.One;
         }
-        
+
         [Benchmark]
         public TestEnum EnumsNET_TryFromName_Invalid()
         {
-            if(Enums.TryParse<TestEnum>("Invalid", out var result))
+            if (Enums.TryParse<TestEnum>("Invalid", out var result))
                 return result;
             return TestEnum.One;
-        }           
+        }
 
         ////////////////////////////////////////////////////////////////////////////////
         // Constant
@@ -113,7 +113,7 @@ namespace Ardalis.SmartEnum.Benchmarks
             {
                 return global::Constant.Constant<string, TestConstant>.GetFor("Invalid");
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return TestConstant.One;
             }
@@ -132,7 +132,7 @@ namespace Ardalis.SmartEnum.Benchmarks
             {
                 return global::Constant.Constant<string, TestConstant>.GetOrDefaultFor("Invalid");
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return TestConstant.One;
             }
@@ -154,17 +154,17 @@ namespace Ardalis.SmartEnum.Benchmarks
             {
                 return TestSmartEnum.FromName("Invalid", false);
             }
-            catch(SmartEnumNotFoundException)
+            catch (SmartEnumNotFoundException)
             {
                 return null;
             }
         }
-        
+
         [Benchmark]
         public TestSmartEnum SmartEnum_FromName_one_IgnoreCase() => TestSmartEnum.FromName("one", true);
 
         [Benchmark]
-        public TestSmartEnum SmartEnum_FromName_ten_IgnoreCase() => TestSmartEnum.FromName("ten", true);     
+        public TestSmartEnum SmartEnum_FromName_ten_IgnoreCase() => TestSmartEnum.FromName("ten", true);
 
 
         [Benchmark]
@@ -174,16 +174,16 @@ namespace Ardalis.SmartEnum.Benchmarks
             {
                 return TestSmartEnum.FromName("Invalid", true);
             }
-            catch(SmartEnumNotFoundException)
+            catch (SmartEnumNotFoundException)
             {
                 return null;
             }
-        }        
-        
+        }
+
         [Benchmark]
         public TestSmartEnum SmartEnum_TryFromName_One()
         {
-            if(TestSmartEnum.TryFromName("One", false, out var result))
+            if (TestSmartEnum.TryFromName("One", false, out var result))
                 return result;
             return null;
         }
@@ -191,15 +191,15 @@ namespace Ardalis.SmartEnum.Benchmarks
         [Benchmark]
         public TestSmartEnum SmartEnum_TryFromName_Ten()
         {
-            if(TestSmartEnum.TryFromName("Ten", false, out var result))
+            if (TestSmartEnum.TryFromName("Ten", false, out var result))
                 return result;
             return null;
         }
-        
+
         [Benchmark]
         public TestSmartEnum SmartEnum_TryFromName_Invalid()
         {
-            if(TestSmartEnum.TryFromName("Invalid", false, out var result))
+            if (TestSmartEnum.TryFromName("Invalid", false, out var result))
                 return result;
             return null;
         }
@@ -207,7 +207,7 @@ namespace Ardalis.SmartEnum.Benchmarks
         [Benchmark]
         public TestSmartEnum SmartEnum_TryFromName_one_IgnoreCase()
         {
-            if(TestSmartEnum.TryFromName("one", true, out var result))
+            if (TestSmartEnum.TryFromName("one", true, out var result))
                 return result;
             return null;
         }
@@ -215,18 +215,18 @@ namespace Ardalis.SmartEnum.Benchmarks
         [Benchmark]
         public TestSmartEnum SmartEnum_TryFromName_ten_IgnoreCase()
         {
-            if(TestSmartEnum.TryFromName("ten", true, out var result))
+            if (TestSmartEnum.TryFromName("ten", true, out var result))
                 return result;
             return null;
         }
-        
+
         [Benchmark]
         public TestSmartEnum SmartEnum_TryFromName_Invalid_IgnoreCase()
         {
-            if(TestSmartEnum.TryFromName("Invalid", true, out var result))
+            if (TestSmartEnum.TryFromName("Invalid", true, out var result))
                 return result;
             return null;
-        }    
+        }
 
     }
 }

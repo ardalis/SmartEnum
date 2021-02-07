@@ -15,7 +15,7 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
 
             [JsonConverter(typeof(SmartEnumValueConverter<TestEnumInt16, short>))]
             public TestEnumInt16 Int16 { get; set; }
-            
+
             [JsonConverter(typeof(SmartEnumValueConverter<TestEnumInt32, int>))]
             public TestEnumInt32 Int32 { get; set; }
 
@@ -26,7 +26,8 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
             public TestEnumString String { get; set; }
         }
 
-        static readonly TestClass TestInstance = new TestClass { 
+        static readonly TestClass TestInstance = new TestClass
+        {
             Bool = TestEnumBoolean.Instance,
             Int16 = TestEnumInt16.Instance,
             Int32 = TestEnumInt32.Instance,
@@ -61,7 +62,7 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
             obj.Int32.Should().BeSameAs(TestEnumInt32.Instance);
             obj.Double.Should().BeSameAs(TestEnumDouble.Instance);
             obj.String.Should().BeSameAs(TestEnumString.Instance);
-        }    
+        }
 
         [Fact]
         public void DeserializesNullByDefault()
@@ -75,8 +76,8 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
             obj.Int32.Should().BeNull();
             obj.Double.Should().BeNull();
             obj.String.Should().BeNull();
-        }    
-        
+        }
+
         [Fact]
         public void DeserializeThrowsWhenNotFound()
         {
@@ -89,10 +90,10 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
                 .WithMessage($@"Error converting value 'False' to a smart enum.")
                 .WithInnerException<SmartEnumNotFoundException>()
                 .WithMessage($@"No {nameof(TestEnumBoolean)} with Value False found.");
-        }  
+        }
 
         public static TheoryData<string, string> NotValidData =>
-            new TheoryData<string, string> 
+            new TheoryData<string, string>
             {
                 { @"{ ""Bool"": 1 }", @"Cannot get the value of a token type 'Number' as a boolean." },
                 { @"{ ""Int16"": true }", @"Cannot get the value of a token type 'True' as a number." },
@@ -100,7 +101,7 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
                 { @"{ ""Double"": true }", @"Cannot get the value of a token type 'True' as a number." },
                 { @"{ ""String"": true }", @"Cannot get the value of a token type 'True' as a string." },
             };
-        
+
         [Theory]
         [MemberData(nameof(NotValidData))]
         public void DeserializeThrowsWhenNotValid(string json, string message)
@@ -111,7 +112,7 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
                 .Throw<JsonException>()
                 .WithInnerException<InvalidOperationException>()
                 .WithMessage(message);
-        }  
+        }
 
         // JsonSerializer doesn't call the converter on null values
         //[Fact]
