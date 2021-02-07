@@ -27,4 +27,11 @@
 
         TestEnumDouble(string name, double value) : base(name, value) { }
     }
+
+    public sealed class TestEnumString : SmartEnum<TestEnumString, string>
+    {
+        public static readonly TestEnumString Instance = new TestEnumString(nameof(Instance), "string");
+
+        TestEnumString(string name, string value) : base(name, value) { }
+    }
 }

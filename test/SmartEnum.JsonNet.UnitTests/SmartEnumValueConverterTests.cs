@@ -20,12 +20,9 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
 
             [JsonConverter(typeof(SmartEnumValueConverter<TestEnumDouble, double>))]
             public TestEnumDouble Double { get; set; }
-        }
 
-        public class TestIntClass
-        {
-            [JsonConverter(typeof(SmartEnumValueConverter<TestEnumInt32, int>))]
-            public TestEnumInt32 Property { get; set; }
+            [JsonConverter(typeof(SmartEnumValueConverter<TestEnumString, string>))]
+            public TestEnumString String { get; set; }
         }
 
         static readonly TestClass TestInstance = new TestClass
@@ -34,6 +31,7 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
             Int16 = TestEnumInt16.Instance,
             Int32 = TestEnumInt32.Instance,
             Double = TestEnumDouble.Instance,
+            String = TestEnumString.Instance,
         };
 
         static readonly string JsonString =
@@ -41,7 +39,8 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
   ""Bool"": true,
   ""Int16"": 1,
   ""Int32"": 1,
-  ""Double"": 1.0
+  ""Double"": 1.0,
+  ""String"": ""string""
 }";
 
         [Fact]
@@ -61,12 +60,13 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
             obj.Int16.Should().BeSameAs(TestEnumInt16.Instance);
             obj.Int32.Should().BeSameAs(TestEnumInt32.Instance);
             obj.Double.Should().BeSameAs(TestEnumDouble.Instance);
+            obj.String.Should().BeSameAs(TestEnumString.Instance);
         }
 
         [Fact]
         public void DeserializesNullByDefault()
         {
-            string json = @"{}";
+            string json = "{}";
 
             var obj = JsonConvert.DeserializeObject<TestClass>(json);
 
@@ -74,6 +74,7 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
             obj.Int16.Should().BeNull();
             obj.Int32.Should().BeNull();
             obj.Double.Should().BeNull();
+            obj.String.Should().BeNull();
         }
 
         [Fact]
@@ -85,18 +86,19 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
 
             act.Should()
                 .Throw<JsonSerializationException>()
-                .WithMessage($@"Error converting False to TestEnumBoolean.")
+                .WithMessage("Error converting False to TestEnumBoolean.")
                 .WithInnerException<SmartEnumNotFoundException>()
-                .WithMessage($@"No {nameof(TestEnumBoolean)} with Value False found.");
+                .WithMessage($"No {nameof(TestEnumBoolean)} with Value False found.");
         }
 
         public static TheoryData<string, string> NotValidData =>
             new TheoryData<string, string>
             {
-                { @"{ ""Bool"": 1 }", @"Error converting 1 to TestEnumBoolean." },
-                { @"{ ""Int16"": true }", @"Error converting True to TestEnumInt16." },
-                { @"{ ""Int32"": true }", @"Error converting True to TestEnumInt32." },
-                { @"{ ""Double"": true }", @"Error converting True to TestEnumDouble." },
+                { @"{ ""Bool"": 1 }", "Error converting 1 to TestEnumBoolean." },
+                { @"{ ""Int16"": true }", "Error converting True to TestEnumInt16." },
+                { @"{ ""Int32"": true }", "Error converting True to TestEnumInt32." },
+                { @"{ ""Double"": true }", "Error converting True to TestEnumDouble." },
+                { @"{ ""String"": true }", "Error converting True to TestEnumString." },
             };
 
         [Theory]
@@ -119,7 +121,7 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
 
             act.Should()
                 .Throw<JsonSerializationException>()
-                .WithMessage($@"Error converting Null to TestEnumBoolean.");
+                .WithMessage("Error converting Null to TestEnumBoolean.");
         }
     }
 }
