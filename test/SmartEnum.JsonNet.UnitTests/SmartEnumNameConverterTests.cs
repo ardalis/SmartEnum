@@ -14,20 +14,21 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
 
             [JsonConverter(typeof(SmartEnumNameConverter<TestEnumInt16, short>))]
             public TestEnumInt16 Int16 { get; set; }
-            
+
             [JsonConverter(typeof(SmartEnumNameConverter<TestEnumInt32, int>))]
-            public TestEnumInt32 Int32 { get; set; }        
+            public TestEnumInt32 Int32 { get; set; }
 
             [JsonConverter(typeof(SmartEnumNameConverter<TestEnumDouble, double>))]
-            public TestEnumDouble Double { get; set; }        
+            public TestEnumDouble Double { get; set; }
         }
 
-        static readonly TestClass TestInstance = new TestClass { 
+        static readonly TestClass TestInstance = new TestClass
+        {
             Bool = TestEnumBoolean.Instance,
             Int16 = TestEnumInt16.Instance,
             Int32 = TestEnumInt32.Instance,
             Double = TestEnumDouble.Instance,
-         };
+        };
 
         static readonly string JsonString =
 @"{
@@ -43,7 +44,7 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
             var json = JsonConvert.SerializeObject(TestInstance, Formatting.Indented);
 
             json.Should().Be(JsonString);
-         }
+        }
 
         [Fact]
         public void DeserializesNames()
@@ -54,7 +55,7 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
             obj.Int16.Should().BeSameAs(TestEnumInt16.Instance);
             obj.Int32.Should().BeSameAs(TestEnumInt32.Instance);
             obj.Double.Should().BeSameAs(TestEnumDouble.Instance);
-        }    
+        }
 
         [Fact]
         public void DeserializesNullByDefault()
@@ -67,7 +68,7 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
             obj.Int16.Should().BeNull();
             obj.Int32.Should().BeNull();
             obj.Double.Should().BeNull();
-        }    
+        }
 
         [Fact]
         public void DeserializeThrowsWhenNotFound()
@@ -81,7 +82,7 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
                 .WithMessage($@"Error converting value 'Not Found' to a smart enum.")
                 .WithInnerException<SmartEnumNotFoundException>()
                 .WithMessage($@"No {nameof(TestEnumBoolean)} with Name ""Not Found"" found.");
-        }  
+        }
 
 
         [Fact]
@@ -94,7 +95,7 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
             act.Should()
                 .Throw<JsonSerializationException>()
                 .WithMessage($@"Unexpected token Null when parsing a smart enum.");
-        }  
+        }
 
     }
 }

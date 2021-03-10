@@ -1,6 +1,5 @@
 namespace Ardalis.SmartEnum.AutoFixture.UnitTests
 {
-    using System;
     using global::AutoFixture;
     using FluentAssertions;
     using Xunit;

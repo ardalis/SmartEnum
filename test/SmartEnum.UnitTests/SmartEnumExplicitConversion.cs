@@ -9,8 +9,8 @@
         public void ReturnsEnumFromGivenValue()
         {
             int value = 1;
-            
-            var result = (TestEnum) value;
+
+            var result = (TestEnum)value;
 
             result.Should().BeSameAs(TestEnum.One);
         }
@@ -20,7 +20,7 @@
         {
             int? value = 1;
 
-            var result = (TestEnum) value;
+            var result = (TestEnum)value;
 
             result.Should().BeSameAs(TestEnum.One);
         }
@@ -30,9 +30,9 @@
         {
             int? value = null;
 
-            var result = (TestEnum) value;
+            var result = (TestEnum)value;
 
             result.Should().BeNull();
-        }    
+        }
     }
 }
