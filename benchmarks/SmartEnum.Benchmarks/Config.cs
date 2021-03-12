@@ -9,9 +9,9 @@ namespace Ardalis.SmartEnum.Benchmarks
     {
         public Config()
         {
-            Add(Job.Default);
-            Add(MemoryDiagnoser.Default);
-            Add(new TagColumn("Library", name => name.Split('_')[0]));
+            AddJob(Job.Default);
+            AddDiagnoser(MemoryDiagnoser.Default);
+            AddColumn(new TagColumn("Library", name => name.Split('_')[0]));
         }
     }
 }
