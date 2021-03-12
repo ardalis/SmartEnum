@@ -1,9 +1,10 @@
-namespace Ardalis.SmartEnum.JsonNet.UnitTests
+namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
 {
-    using System;
-    using Newtonsoft.Json;
-    using Xunit;
     using FluentAssertions;
+    using System;
+    using System.Text.Json;
+    using System.Text.Json.Serialization;
+    using Xunit;
 
     public class SmartEnumNameConverterTests
     {
@@ -20,6 +21,9 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
 
             [JsonConverter(typeof(SmartEnumNameConverter<TestEnumDouble, double>))]
             public TestEnumDouble Double { get; set; }
+
+            [JsonConverter(typeof(SmartEnumNameConverter<TestEnumString, string>))]
+            public TestEnumString String { get; set; }
         }
 
         static readonly TestClass TestInstance = new TestClass
@@ -28,6 +32,7 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
             Int16 = TestEnumInt16.Instance,
             Int32 = TestEnumInt32.Instance,
             Double = TestEnumDouble.Instance,
+            String = TestEnumString.Instance,
         };
 
         static readonly string JsonString =
@@ -35,13 +40,14 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
   ""Bool"": ""Instance"",
   ""Int16"": ""Instance"",
   ""Int32"": ""Instance"",
-  ""Double"": ""Instance""
+  ""Double"": ""Instance"",
+  ""String"": ""Instance""
 }";
 
         [Fact]
         public void SerializesNames()
         {
-            var json = JsonConvert.SerializeObject(TestInstance, Formatting.Indented);
+            var json = JsonSerializer.Serialize(TestInstance, new JsonSerializerOptions { WriteIndented = true });
 
             json.Should().Be(JsonString);
         }
@@ -49,12 +55,13 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
         [Fact]
         public void DeserializesNames()
         {
-            var obj = JsonConvert.DeserializeObject<TestClass>(JsonString);
+            var obj = JsonSerializer.Deserialize<TestClass>(JsonString);
 
             obj.Bool.Should().BeSameAs(TestEnumBoolean.Instance);
             obj.Int16.Should().BeSameAs(TestEnumInt16.Instance);
             obj.Int32.Should().BeSameAs(TestEnumInt32.Instance);
             obj.Double.Should().BeSameAs(TestEnumDouble.Instance);
+            obj.String.Should().BeSameAs(TestEnumString.Instance);
         }
 
         [Fact]
@@ -62,12 +69,13 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
         {
             string json = @"{}";
 
-            var obj = JsonConvert.DeserializeObject<TestClass>(json);
+            var obj = JsonSerializer.Deserialize<TestClass>(json);
 
             obj.Bool.Should().BeNull();
             obj.Int16.Should().BeNull();
             obj.Int32.Should().BeNull();
             obj.Double.Should().BeNull();
+            obj.String.Should().BeNull();
         }
 
         [Fact]
@@ -75,27 +83,27 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
         {
             string json = @"{ ""Bool"": ""Not Found"" }";
 
-            Action act = () => JsonConvert.DeserializeObject<TestClass>(json);
+            Action act = () => JsonSerializer.Deserialize<TestClass>(json);
 
             act.Should()
-                .Throw<JsonSerializationException>()
+                .Throw<JsonException>()
                 .WithMessage($@"Error converting value 'Not Found' to a smart enum.")
                 .WithInnerException<SmartEnumNotFoundException>()
                 .WithMessage($@"No {nameof(TestEnumBoolean)} with Name ""Not Found"" found.");
         }
 
 
-        [Fact]
-        public void DeserializeThrowsWhenNull()
-        {
-            string json = @"{ ""Bool"": null }";
+        // JsonSerializer doesn't call the converter on null values
+        //[Fact]
+        //public void DeserializeThrowsWhenNull()
+        //{
+        //    string json = @"{ ""Bool"": null }";
 
-            Action act = () => JsonConvert.DeserializeObject<TestClass>(json);
+        //    Action act = () => JsonSerializer.Deserialize<TestClass>(json);
 
-            act.Should()
-                .Throw<JsonSerializationException>()
-                .WithMessage($@"Unexpected token Null when parsing a smart enum.");
-        }
-
+        //    act.Should()
+        //        .Throw<JsonException>()
+        //        .WithMessage($@"Unexpected token Null when parsing a smart enum.");
+        //}
     }
 }

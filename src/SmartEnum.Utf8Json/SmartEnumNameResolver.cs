@@ -2,13 +2,12 @@ namespace Ardalis.SmartEnum.Utf8Json
 {
     using System;
     using global::Utf8Json;
-    using global::Utf8Json.Formatters;
 
     public class SmartEnumNameResolver : IJsonFormatterResolver
     {
         public static readonly SmartEnumNameResolver Instance = new SmartEnumNameResolver();
 
-        private SmartEnumNameResolver() 
+        private SmartEnumNameResolver()
         {
         }
 
@@ -25,10 +24,10 @@ namespace Ardalis.SmartEnum.Utf8Json
                 if (typeof(T).IsSmartEnum(out var genericArguments))
                 {
                     var formatterType = typeof(SmartEnumNameFormatter<,>).MakeGenericType(genericArguments);
-                    Formatter = (IJsonFormatter<T>)Activator.CreateInstance(formatterType);                    
+                    Formatter = (IJsonFormatter<T>)Activator.CreateInstance(formatterType);
                 }
             }
 #pragma warning restore S3963 // "static" fields should be initialized inline
-        }    
+        }
     }
 }

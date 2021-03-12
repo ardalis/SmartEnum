@@ -13,7 +13,6 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(IsUnitTestProject)' == 'true' ">
     <IsPackable>false</IsPackable>
-    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)MvcTests.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup Condition=" '$(IsUnitTestProject)' == 'true' ">
     <PackageReference Include="coverlet.collector" Version="1.*"/>

@@ -1,16 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
-    <PackageId>Ardalis.SmartEnum.AutoFixture</PackageId>
-    <Title>Ardalis.SmartEnum.AutoFixture</Title>
+    <TargetFrameworks>netstandard2.0;</TargetFrameworks>
+    <PackageId>Ardalis.SmartEnum.SystemTextJson</PackageId>
+    <Title>Ardalis.SmartEnum.SystemTextJson</Title>
     <Company>Ardalis.com</Company>
-    <Summary>AutoFixture support for Ardalis.SmartEnum.</Summary>
-    <PackageTags>enum;smartenum;netstandard2.0;autofixture</PackageTags>
-    <PackageReleaseNotes>Net452 Added</PackageReleaseNotes>
+    <Summary>System.Text.Json (de)serialization support for Ardalis.SmartEnum.</Summary>
+    <PackageTags>enum;smartenum;netstandard2.0;json;system.text.json;converter</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.3</Version>
-    <AssemblyName>Ardalis.SmartEnum.AutoFixture</AssemblyName>
-    <RootNamespace>Ardalis.SmartEnum.AutoFixture</RootNamespace>
+    <Version>1.0.0</Version>
+    <AssemblyName>Ardalis.SmartEnum.SystemTextJson</AssemblyName>
+    <RootNamespace>Ardalis.SmartEnum.SystemTextJson</RootNamespace>
     <Features>strict</Features>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
@@ -19,11 +18,11 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Ardalis.SmartEnum" Version="1.0.11" />
-    <PackageReference Include="AutoFixture" Version="4.15.0" />
+    <PackageReference Include="System.Text.Json" Version="5.0.1" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.17.0.26580" PrivateAssets="All" />
   </ItemGroup>
-    <ItemGroup>
+  <ItemGroup>
     <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
 </Project>

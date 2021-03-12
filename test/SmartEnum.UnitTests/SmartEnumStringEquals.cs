@@ -1,13 +1,12 @@
 namespace Ardalis.SmartEnum.UnitTests
 {
-    using System;
     using FluentAssertions;
     using Xunit;
 
     public class SmartEnumStringEquals
     {
         public static TheoryData<TestStringEnum, object, bool> EqualsTestEnumObjectData =>
-            new TheoryData<TestStringEnum, object, bool> 
+            new TheoryData<TestStringEnum, object, bool>
             {
                 { TestStringEnum.One, null, false },
                 { TestStringEnum.One, TestEnum.One, false },
@@ -25,7 +24,7 @@ namespace Ardalis.SmartEnum.UnitTests
         }
 
         public static TheoryData<TestStringEnum, TestStringEnum, bool> EqualsSmartEnumData =>
-            new TheoryData<TestStringEnum, TestStringEnum, bool> 
+            new TheoryData<TestStringEnum, TestStringEnum, bool>
             {
                 { TestStringEnum.One, null, false },
                 { TestStringEnum.One, TestStringEnum.One, true },
@@ -42,7 +41,7 @@ namespace Ardalis.SmartEnum.UnitTests
         }
 
         public static TheoryData<TestStringEnum, TestStringEnum, bool> EqualOperatorData =>
-            new TheoryData<TestStringEnum, TestStringEnum, bool> 
+            new TheoryData<TestStringEnum, TestStringEnum, bool>
             {
                 { null, null, true },
                 { null, TestStringEnum.One, false },
@@ -69,4 +68,4 @@ namespace Ardalis.SmartEnum.UnitTests
             result.Should().Be(!expected);
         }
     }
-} 
+}

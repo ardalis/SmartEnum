@@ -9,7 +9,7 @@ namespace Ardalis.SmartEnum.UnitTests
         public static readonly TestEnum Two = new TestEnum(2);
         public static readonly TestEnum Three = new TestEnum(3);
 
-        protected TestEnum(int value, [CallerMemberName]string name = null) : base(name, value)
+        protected TestEnum(int value, [CallerMemberName] string name = null) : base(name, value)
         {
         }
     }

@@ -1,9 +1,10 @@
-namespace Ardalis.SmartEnum.JsonNet.UnitTests
+namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
 {
-    using System;
-    using Newtonsoft.Json;
-    using Xunit;
     using FluentAssertions;
+    using System;
+    using System.Text.Json;
+    using System.Text.Json.Serialization;
+    using Xunit;
 
     public class SmartEnumValueConverterTests
     {
@@ -39,14 +40,14 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
   ""Bool"": true,
   ""Int16"": 1,
   ""Int32"": 1,
-  ""Double"": 1.0,
-  ""String"": ""string""
+  ""Double"": 1.2,
+  ""String"": ""1.5""
 }";
 
         [Fact]
         public void SerializesValue()
         {
-            var json = JsonConvert.SerializeObject(TestInstance, Formatting.Indented);
+            var json = JsonSerializer.Serialize(TestInstance, new JsonSerializerOptions { WriteIndented = true });
 
             json.Should().Be(JsonString);
         }
@@ -54,7 +55,7 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
         [Fact]
         public void DeserializesValue()
         {
-            var obj = JsonConvert.DeserializeObject<TestClass>(JsonString);
+            var obj = JsonSerializer.Deserialize<TestClass>(JsonString);
 
             obj.Bool.Should().BeSameAs(TestEnumBoolean.Instance);
             obj.Int16.Should().BeSameAs(TestEnumInt16.Instance);
@@ -66,9 +67,9 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
         [Fact]
         public void DeserializesNullByDefault()
         {
-            string json = "{}";
+            string json = @"{}";
 
-            var obj = JsonConvert.DeserializeObject<TestClass>(json);
+            var obj = JsonSerializer.Deserialize<TestClass>(json);
 
             obj.Bool.Should().BeNull();
             obj.Int16.Should().BeNull();
@@ -82,46 +83,48 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
         {
             string json = @"{ ""Bool"": false }";
 
-            Action act = () => JsonConvert.DeserializeObject<TestClass>(json);
+            Action act = () => JsonSerializer.Deserialize<TestClass>(json);
 
             act.Should()
-                .Throw<JsonSerializationException>()
-                .WithMessage("Error converting False to TestEnumBoolean.")
+                .Throw<JsonException>()
+                .WithMessage($@"Error converting value 'False' to a smart enum.")
                 .WithInnerException<SmartEnumNotFoundException>()
-                .WithMessage($"No {nameof(TestEnumBoolean)} with Value False found.");
+                .WithMessage($@"No {nameof(TestEnumBoolean)} with Value False found.");
         }
 
         public static TheoryData<string, string> NotValidData =>
             new TheoryData<string, string>
             {
-                { @"{ ""Bool"": 1 }", "Error converting 1 to TestEnumBoolean." },
-                { @"{ ""Int16"": true }", "Error converting True to TestEnumInt16." },
-                { @"{ ""Int32"": true }", "Error converting True to TestEnumInt32." },
-                { @"{ ""Double"": true }", "Error converting True to TestEnumDouble." },
-                { @"{ ""String"": true }", "Error converting True to TestEnumString." },
+                { @"{ ""Bool"": 1 }", @"Cannot get the value of a token type 'Number' as a boolean." },
+                { @"{ ""Int16"": true }", @"Cannot get the value of a token type 'True' as a number." },
+                { @"{ ""Int32"": true }", @"Cannot get the value of a token type 'True' as a number." },
+                { @"{ ""Double"": true }", @"Cannot get the value of a token type 'True' as a number." },
+                { @"{ ""String"": true }", @"Cannot get the value of a token type 'True' as a string." },
             };
 
         [Theory]
         [MemberData(nameof(NotValidData))]
         public void DeserializeThrowsWhenNotValid(string json, string message)
         {
-            Action act = () => JsonConvert.DeserializeObject<TestClass>(json);
+            Action act = () => JsonSerializer.Deserialize<TestClass>(json);
 
             act.Should()
-                .Throw<JsonSerializationException>()
+                .Throw<JsonException>()
+                .WithInnerException<InvalidOperationException>()
                 .WithMessage(message);
         }
 
-        [Fact]
-        public void DeserializeThrowsWhenNull()
-        {
-            string json = @"{ ""Bool"": null }";
+        // JsonSerializer doesn't call the converter on null values
+        //[Fact]
+        //public void DeserializeThrowsWhenNull()
+        //{
+        //    string json = @"{ ""Bool"": null }";
 
-            Action act = () => JsonConvert.DeserializeObject<TestClass>(json);
+        //    Action act = () => JsonSerializer.Deserialize<TestClass>(json);
 
-            act.Should()
-                .Throw<JsonSerializationException>()
-                .WithMessage("Error converting Null to TestEnumBoolean.");
-        }
+        //    act.Should()
+        //        .Throw<JsonException>()
+        //        .WithMessage($@"Error converting Null to TestEnumBoolean.");
+        //}   
     }
 }

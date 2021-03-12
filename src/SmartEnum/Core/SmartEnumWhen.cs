@@ -47,6 +47,7 @@ namespace Ardalis.SmartEnum.Core
         public SmartEnumThen<TEnum, TValue> When(params SmartEnum<TEnum, TValue>[] smartEnums) =>
             new SmartEnumThen<TEnum, TValue>(isMatch: smartEnums.Contains(smartEnum), stopEvaluating: stopEvaluating, smartEnum: smartEnum);
 
+        /// <summary>
         /// When this instance is one of the specified <see cref="SmartEnum{TEnum, TValue}"/> parameters.
         /// Execute the action in the subsequent call to Then().
         /// </summary>
