@@ -5,7 +5,7 @@ namespace Ardalis.SmartEnum.JsonNet
 
     public class SmartEnumValueConverter<TEnum, TValue> : JsonConverter<TEnum>
         where TEnum : SmartEnum<TEnum, TValue>
-        where TValue : struct, IEquatable<TValue>, IComparable<TValue>
+        where TValue : IEquatable<TValue>, IComparable<TValue>
     {
         public override bool CanRead => true;
         public override bool CanWrite => true;
