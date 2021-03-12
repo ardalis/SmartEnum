@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
@@ -13,7 +13,7 @@
     <RepositoryUrl>https://github.com/ardalis/SmartEnum</RepositoryUrl>
     <PackageTags>enum</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.11</Version>
+    <Version>2.0.1</Version>
     <PackageReleaseNotes>Add support for System.Text.Json. Add support for strings to SmartEnumValueConverter (issue #101).</PackageReleaseNotes>
     <AssemblyName>Ardalis.SmartEnum</AssemblyName>
     <Features>strict</Features>
