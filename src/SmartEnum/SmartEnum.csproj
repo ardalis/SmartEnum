@@ -13,8 +13,8 @@
     <RepositoryUrl>https://github.com/ardalis/SmartEnum</RepositoryUrl>
     <PackageTags>enum</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.10</Version>
-    <PackageReleaseNotes>Remove direct compilation to Net452.</PackageReleaseNotes>
+    <Version>1.0.11</Version>
+    <PackageReleaseNotes>Add support for System.Text.Json. Add support for strings to SmartEnumValueConverter (issue #101).</PackageReleaseNotes>
     <AssemblyName>Ardalis.SmartEnum</AssemblyName>
     <Features>strict</Features>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
