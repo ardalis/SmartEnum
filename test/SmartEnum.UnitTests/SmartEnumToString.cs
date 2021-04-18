@@ -6,11 +6,11 @@
     public class SmartEnumToString
     {
         public static TheoryData<TestEnum> NameData =>
-            new TheoryData<TestEnum> 
+            new TheoryData<TestEnum>
             {
                 TestEnum.One,
                 TestEnum.Two,
-                TestEnum.Three, 
+                TestEnum.Three,
             };
 
         [Theory]

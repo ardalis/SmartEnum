@@ -28,7 +28,7 @@
             var value = -1;
 
             Action action = () => TestEnum.FromValue(value);
-            
+
             action.Should()
             .ThrowExactly<SmartEnumNotFoundException>()
             .WithMessage($"No {typeof(TestEnum).Name} with Value {value} found.");

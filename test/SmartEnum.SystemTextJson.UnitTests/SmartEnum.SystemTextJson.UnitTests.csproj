@@ -1,16 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <IsPackable>false</IsPackable>
-    <LangVersion>7.3</LangVersion>
-    <Features>strict</Features>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+
   <ItemGroup>
-    
+    <ProjectReference Include="..\..\src\SmartEnum.SystemTextJson\SmartEnum.SystemTextJson.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\SmartEnum.ProtoBufNet\SmartEnum.ProtoBufNet.csproj" />
-  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Update="coverlet.collector" Version="3.0.2">
       <PrivateAssets>all</PrivateAssets>
@@ -20,12 +17,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Update="FluentAssertions" Version="5.10.3" />
     <PackageReference Update="Microsoft.NET.Test.Sdk" Version="16.8.3" />
-    <PackageReference Update="xunit" Version="2.4.1" />
     <PackageReference Update="xunit.runner.visualstudio" Version="2.4.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+
 </Project>

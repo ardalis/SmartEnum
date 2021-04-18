@@ -4,7 +4,7 @@ namespace Ardalis.SmartEnum.Benchmarks
     // Enum
 
     [global::ProtoBuf.ProtoContract]
-    public enum TestEnum 
+    public enum TestEnum
     {
         [global::ProtoBuf.ProtoEnum]
         One = 1,
@@ -33,7 +33,7 @@ namespace Ardalis.SmartEnum.Benchmarks
         One = 1,
         Two = 2,
     }
-    
+
     ////////////////////////////////////////////////////////////////////////////////
     // Constant
 
@@ -51,7 +51,7 @@ namespace Ardalis.SmartEnum.Benchmarks
         public static readonly TestConstant Nine = new TestConstant(nameof(Nine));
         public static readonly TestConstant Ten = new TestConstant(nameof(Ten));
 
-        TestConstant(string name) : base(name) {}
+        TestConstant(string name) : base(name) { }
     }
 
     public sealed class TestConstant2 : global::Constant.Constant<string, TestConstant2>
@@ -59,12 +59,12 @@ namespace Ardalis.SmartEnum.Benchmarks
         public static readonly TestConstant2 One = new TestConstant2(nameof(One));
         public static readonly TestConstant2 Two = new TestConstant2(nameof(Two));
 
-        TestConstant2(string name) : base(name) {}
+        TestConstant2(string name) : base(name) { }
     }
-    
+
     ////////////////////////////////////////////////////////////////////////////////
     // SmartEnum
-    
+
     public sealed class TestSmartEnum : SmartEnum<TestSmartEnum, int>
     {
         public static readonly TestSmartEnum One = new TestSmartEnum(nameof(One), 1);
@@ -78,7 +78,7 @@ namespace Ardalis.SmartEnum.Benchmarks
         public static readonly TestSmartEnum Nine = new TestSmartEnum(nameof(Nine), 9);
         public static readonly TestSmartEnum Ten = new TestSmartEnum(nameof(Ten), 10);
 
-        TestSmartEnum(string name, int value) : base(name, value) {}
+        TestSmartEnum(string name, int value) : base(name, value) { }
     }
 
     public sealed class TestSmartEnum2 : SmartEnum<TestSmartEnum2, int>
@@ -86,6 +86,6 @@ namespace Ardalis.SmartEnum.Benchmarks
         public static readonly TestSmartEnum2 One = new TestSmartEnum2(nameof(One), 1);
         public static readonly TestSmartEnum2 Two = new TestSmartEnum2(nameof(Two), 2);
 
-        TestSmartEnum2(string name, int value) : base(name, value) {}
+        TestSmartEnum2(string name, int value) : base(name, value) { }
     }
 }

@@ -11,7 +11,9 @@ SmartEnum.MessagePack: [![NuGet](https://img.shields.io/nuget/v/Ardalis.SmartEnu
 
 SmartEnum.ProtoBufNet: [![NuGet](https://img.shields.io/nuget/v/Ardalis.SmartEnum.ProtoBufNet.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.ProtoBufNet)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.ProtoBufNet.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.ProtoBufNet)![publish SmartEnum.ProtoBufNet to nuget](https://github.com/ardalis/SmartEnum/workflows/publish%20SmartEnum.ProtoBufNet%20to%20nuget/badge.svg)
 
-SmartEnum.UtfJson: [![NuGet](https://img.shields.io/nuget/v/Ardalis.SmartEnum.Utf8Json.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.Utf8Json)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.Utf8Json.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.Utf8Json)![publish SmartEnum.Utf8Json to nuget](https://github.com/ardalis/SmartEnum/workflows/publish%20SmartEnum.Utf8Json%20to%20nuget/badge.svg)
+SmartEnum.SystemTextJson: [![NuGet](https://img.shields.io/nuget/v/Ardalis.SmartEnum.SystemTextJson.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.SystemTextJson)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.SystemTextJson.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.SystemTextJson)![publish SmartEnum.SystemTextJson to nuget](https://github.com/ardalis/SmartEnum/workflows/publish%20SmartEnum.SystemTextJson%20to%20nuget/badge.svg)
+
+SmartEnum.Utf8Json: [![NuGet](https://img.shields.io/nuget/v/Ardalis.SmartEnum.Utf8Json.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.Utf8Json)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.Utf8Json.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.Utf8Json)![publish SmartEnum.Utf8Json to nuget](https://github.com/ardalis/SmartEnum/workflows/publish%20SmartEnum.Utf8Json%20to%20nuget/badge.svg)
 
 ## Give a Star! :star:
 

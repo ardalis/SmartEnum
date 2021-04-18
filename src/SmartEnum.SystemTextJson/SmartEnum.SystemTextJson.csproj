@@ -1,16 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
-    <PackageId>Ardalis.SmartEnum.JsonNet</PackageId>
-    <Title>Ardalis.SmartEnum.JsonNet</Title>
+    <TargetFrameworks>netstandard2.0;</TargetFrameworks>
+    <PackageId>Ardalis.SmartEnum.SystemTextJson</PackageId>
+    <Title>Ardalis.SmartEnum.SystemTextJson</Title>
     <Company>Ardalis.com</Company>
-    <Summary>Json.NET (de)serialization support for Ardalis.SmartEnum.</Summary>
-    <PackageTags>enum;smartenum;netstandard2.0;json;json.net;converter</PackageTags>
-    <PackageReleaseNotes>Net452 Added</PackageReleaseNotes>
+    <Summary>System.Text.Json (de)serialization support for Ardalis.SmartEnum.</Summary>
+    <PackageTags>enum;smartenum;netstandard2.0;json;system.text.json;converter</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.3</Version>
-    <AssemblyName>Ardalis.SmartEnum.JsonNet</AssemblyName>
-    <RootNamespace>Ardalis.SmartEnum.JsonNet</RootNamespace>
+    <Version>1.0.0</Version>
+    <AssemblyName>Ardalis.SmartEnum.SystemTextJson</AssemblyName>
+    <RootNamespace>Ardalis.SmartEnum.SystemTextJson</RootNamespace>
     <Features>strict</Features>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
@@ -18,8 +17,8 @@
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Ardalis.SmartEnum" Version="1.0.11" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Ardalis.SmartEnum" Version="2.0.1" />
+    <PackageReference Include="System.Text.Json" Version="5.0.2" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.20.0.28934" PrivateAssets="All" />
   </ItemGroup>

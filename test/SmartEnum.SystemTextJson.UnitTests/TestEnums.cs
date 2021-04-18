@@ -1,4 +1,4 @@
-﻿namespace Ardalis.SmartEnum.ProtoBufNet.UnitTests
+﻿namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
 {
     public sealed class TestEnumBoolean : SmartEnum<TestEnumBoolean, bool>
     {
@@ -23,8 +23,15 @@
 
     public sealed class TestEnumDouble : SmartEnum<TestEnumDouble, double>
     {
-        public static readonly TestEnumDouble Instance = new TestEnumDouble(nameof(Instance), 1.0);
+        public static readonly TestEnumDouble Instance = new TestEnumDouble(nameof(Instance), 1.2);
 
         TestEnumDouble(string name, double value) : base(name, value) { }
+    }
+
+    public sealed class TestEnumString : SmartEnum<TestEnumString, string>
+    {
+        public static readonly TestEnumString Instance = new TestEnumString(nameof(Instance), "1.5");
+
+        TestEnumString(string name, string value) : base(name, value) { }
     }
 }

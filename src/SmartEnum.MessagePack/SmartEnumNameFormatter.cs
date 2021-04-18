@@ -29,5 +29,5 @@ namespace Ardalis.SmartEnum.MessagePack
             var name = MessagePackBinary.ReadString(bytes, offset, out readSize);
             return SmartEnum<TEnum, TValue>.FromName(name);
         }
-   }
+    }
 }

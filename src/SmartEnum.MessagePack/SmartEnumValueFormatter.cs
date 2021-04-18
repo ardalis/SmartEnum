@@ -4,23 +4,10 @@ namespace Ardalis.SmartEnum.MessagePack
     using global::MessagePack;
     using global::MessagePack.Formatters;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="TEnum"></typeparam>
-    /// <typeparam name="TValue"></typeparam>
     public class SmartEnumValueFormatter<TEnum, TValue> : IMessagePackFormatter<TEnum>
         where TEnum : SmartEnum<TEnum, TValue>
         where TValue : struct, IEquatable<TValue>, IComparable<TValue>
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="bytes"></param>
-        /// <param name="offset"></param>
-        /// <param name="value"></param>
-        /// <param name="formatterResolver"></param>
-        /// <returns></returns>
         public int Serialize(ref byte[] bytes, int offset, TEnum value, IFormatterResolver formatterResolver)
         {
             if (value is null)
@@ -29,14 +16,6 @@ namespace Ardalis.SmartEnum.MessagePack
             return Write(ref bytes, offset, value.Value);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="bytes"></param>
-        /// <param name="offset"></param>
-        /// <param name="formatterResolver"></param>
-        /// <param name="readSize"></param>
-        /// <returns></returns>
         public TEnum Deserialize(byte[] bytes, int offset, IFormatterResolver formatterResolver, out int readSize)
         {
             if (MessagePackBinary.IsNil(bytes, offset))
@@ -45,16 +24,9 @@ namespace Ardalis.SmartEnum.MessagePack
                 return default;
             }
 
-            return SmartEnum<TEnum, TValue>.FromValue(Read(ref bytes, offset, out readSize)); 
+            return SmartEnum<TEnum, TValue>.FromValue(Read(ref bytes, offset, out readSize));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="bytes"></param>
-        /// <param name="offset"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
         public int Write(ref byte[] bytes, int offset, TValue value)
         {
             if (typeof(TValue) == typeof(bool))
@@ -82,13 +54,6 @@ namespace Ardalis.SmartEnum.MessagePack
             throw new ArgumentOutOfRangeException(nameof(value), $"{typeof(TValue)} is not supported."); // should not get to here
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="bytes"></param>
-        /// <param name="offset"></param>
-        /// <param name="readSize"></param>
-        /// <returns></returns>
         public TValue Read(ref byte[] bytes, int offset, out int readSize)
         {
             if (typeof(TValue) == typeof(bool))
