@@ -15,7 +15,7 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup Condition=" '$(IsUnitTestProject)' == 'true' ">
-    <PackageReference Include="coverlet.collector" Version="1.*"/>
+    <PackageReference Include="coverlet.collector" Version="3.*"/>
     <PackageReference Include="coverlet.msbuild" Version="3.*">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>

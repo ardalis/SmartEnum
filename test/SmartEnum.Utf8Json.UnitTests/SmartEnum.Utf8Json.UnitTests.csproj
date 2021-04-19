@@ -9,7 +9,7 @@
     <ProjectReference Include="..\..\src\SmartEnum.Utf8Json\SmartEnum.Utf8Json.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Update="coverlet.collector" Version="3.0.2">
+    <PackageReference Update="coverlet.collector" Version="3.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
