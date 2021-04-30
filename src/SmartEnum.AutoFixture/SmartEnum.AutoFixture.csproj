@@ -21,7 +21,7 @@
     <PackageReference Include="Ardalis.SmartEnum" Version="1.0.11" />
     <PackageReference Include="AutoFixture" Version="4.17.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.20.0.28934" PrivateAssets="All" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.22.0.31243" PrivateAssets="All" />
   </ItemGroup>
     <ItemGroup>
     <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
