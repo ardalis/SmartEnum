@@ -8,7 +8,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.0" />
     <PackageReference Include="Constant" Version="2.0.2" />
     <PackageReference Include="Enums.NET" Version="4.0.0" />
     <ProjectReference Include="..\..\src\SmartEnum\SmartEnum.csproj" />
