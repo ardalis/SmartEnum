@@ -1,0 +1,99 @@
+trigger:
+  branches:
+      include:
+      - master
+      - refs/tags/*
+pr:
+- master
+
+pool:
+  vmImage: 'windows-2019'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+# see reference
+# https://github.com/danielpalme/ReportGenerator/blob/master/azure-pipelines.yml
+
+steps:
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet version'
+  inputs:
+    command: custom
+    custom: '--version'
+
+- task: DotNetCoreInstaller@0
+  displayName: 'Use .NET Core SDK 2.2.300'
+  inputs:
+    version: 2.2.300
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet info'
+  inputs:
+    command: custom
+    custom: '--info'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet version'
+  inputs:
+    command: custom
+    custom: '--version'
+  
+# Build
+
+- task: DotNetCoreCLI@2
+  displayName: Build src projects
+  inputs:
+    command: build
+    projects: |
+      **/*.csproj
+      !**/*Benchmarks.csproj
+      !**/*Tests.csproj
+    arguments: '--configuration $(buildConfiguration) --output $(Agent.BuildDirectory)'
+
+- task: DotNetCoreCLI@2
+  displayName: Build UnitTests
+  inputs:
+    command: build
+    projects: '**/*Tests.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
+# Run tests and create coverage report
+- task: DotNetCoreCLI@2
+  displayName: Run test
+  inputs:
+    command: test
+    projects: '**/*Tests.csproj'
+    arguments: '--configuration $(buildConfiguration) --no-build --collect:"XPlat Code Coverage" /p:AltCover=true /p:AltCoverForce=true /p:AltCoverCallContext=[Fact]'
+
+- task: reportgenerator@4
+  displayName: ReportGenerator
+  inputs:
+    reports: $(Agent.TempDirectory)/**/*coverage.cobertura.xml
+    targetdir: '$(Build.ArtifactStagingDirectory)/reports/coverage'
+    reporttypes: 'HtmlInline_AzurePipelines;Cobertura;Badges'
+    assemblyfilters: '-xunit*'
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage results'
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(Build.ArtifactStagingDirectory)\**\*Cobertura.xml'
+    reportDirectory: '$(Build.ArtifactStagingDirectory)\reports\coverage'
+
+#Publish packages
+- task: CopyFiles@2
+  displayName: 'Copy Files'
+  inputs:
+    SourceFolder: '$(Agent.BuildDirectory)'
+    Contents: '**\*.nupkg'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\Package'
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)\Package'
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))

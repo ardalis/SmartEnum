@@ -1,0 +1,32 @@
+<Project>
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory)..\, Directory.Build.props))\Directory.Build.props"/>
+  <PropertyGroup>
+    <Authors>Steve Smith (@ardalis), Daniel Meza (@danielmeza)</Authors>
+    <Company>Ardalis.com</Company>
+    <PackageProjectUrl>https://github.com/ardalis/SmartEnum</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ardalis/SmartEnum</RepositoryUrl>
+    <PackageTags>enum</PackageTags>
+    <Version>1.0.8</Version>
+    <AssemblyVersion>1.0.8.0</AssemblyVersion>
+    <LangVersion>Latest</LangVersion>
+    <Features>strict</Features>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(IsUnitTestProject)' == 'true' ">
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(IsUnitTestProject)' == 'true' ">
+    <PackageReference Include="coverlet.collector" Version="3.*"/>
+    <PackageReference Include="coverlet.msbuild" Version="3.*">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.*"/>
+    <PackageReference Include="xunit" Version="2.*"/>
+    <PackageReference Include="xunit.analyzers" Version="0.10.0"/>
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.*">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="FluentAssertions" Version="5.*"/>
+  </ItemGroup>
+</Project>

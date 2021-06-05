@@ -2,24 +2,17 @@ namespace Ardalis.SmartEnum.Utf8Json
 {
     using System;
     using global::Utf8Json;
-    using global::Utf8Json.Formatters;
 
-    /// <summary>
-    /// 
-    /// </summary>
     public class SmartEnumValueResolver : IJsonFormatterResolver
     {
-        /// <summary>
-        /// 
-        /// </summary>
         public static readonly SmartEnumValueResolver Instance = new SmartEnumValueResolver();
 
-        private SmartEnumValueResolver() 
+        private SmartEnumValueResolver()
         {
         }
 
         /// <summary>
-        /// 
+        /// GetFormatter
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
@@ -36,10 +29,10 @@ namespace Ardalis.SmartEnum.Utf8Json
                 if (typeof(T).IsSmartEnum(out var genericArguments))
                 {
                     var formatterType = typeof(SmartEnumValueFormatter<,>).MakeGenericType(genericArguments);
-                    Formatter = (IJsonFormatter<T>)Activator.CreateInstance(formatterType);                    
+                    Formatter = (IJsonFormatter<T>)Activator.CreateInstance(formatterType);
                 }
             }
 #pragma warning restore S3963 // "static" fields should be initialized inline
-        }    
+        }
     }
 }
