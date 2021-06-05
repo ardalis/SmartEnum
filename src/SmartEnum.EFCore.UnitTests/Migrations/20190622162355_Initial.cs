@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace SmartEnum.EFCore.UnitTests.Migrations
+namespace SmartEnum.EFCore.IntegrationTests.Migrations
 {
     public partial class Initial : Migration
     {

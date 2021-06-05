@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SmartEnum.EFCore.UnitTests.DbContext.Entities
+namespace SmartEnum.EFCore.IntegrationTests.DbContext.Entities
 {
     public class SomeEntity
     {

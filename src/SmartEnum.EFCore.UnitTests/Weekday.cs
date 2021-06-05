@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SmartEnum.EFCore.UnitTests
+namespace SmartEnum.EFCore.IntegrationTests
 {
     public sealed class Weekday : SmartEnum<Weekday, int>
     {

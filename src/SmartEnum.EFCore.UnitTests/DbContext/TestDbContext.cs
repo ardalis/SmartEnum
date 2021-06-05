@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SmartEnum.EFCore.UnitTests.DbContext.Entities;
+using SmartEnum.EFCore.IntegrationTests.DbContext.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SmartEnum.EFCore.UnitTests.DbContext
+namespace SmartEnum.EFCore.IntegrationTests.DbContext
 {
     public class TestDbContext : Microsoft.EntityFrameworkCore.DbContext
     {

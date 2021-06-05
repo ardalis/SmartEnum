@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SmartEnum.EFCore.UnitTests.DbContext;
+using SmartEnum.EFCore.IntegrationTests.DbContext;
 
-namespace SmartEnum.EFCore.UnitTests.Migrations
+namespace SmartEnum.EFCore.IntegrationTests.Migrations
 {
     [DbContext(typeof(TestDbContext))]
     partial class TestDbContextModelSnapshot : ModelSnapshot
@@ -15,7 +15,7 @@ namespace SmartEnum.EFCore.UnitTests.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062");
 
-            modelBuilder.Entity("SmartEnum.EFCore.UnitTests.DbContext.Entities.SomeEntity", b =>
+            modelBuilder.Entity("SmartEnum.EFCore.IntegrationTests.DbContext.Entities.SomeEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
