@@ -1,0 +1,199 @@
+name: CI/CD Pipeline
+
+on: [ push, pull_request, workflow_dispatch ]
+
+jobs:
+  ci:
+    name: Continuous Integration
+    runs-on: windows-latest
+    outputs:
+      are_changes_in_any: ${{ steps.filter_changes.outputs.are_changes_in_any }}
+      are_changes_in_smartenum: ${{ steps.filter_changes.outputs.are_changes_in_smartenum }}
+    steps:
+      - name: Data gatherer
+        id: data_gatherer
+        shell: pwsh
+        run: |
+          # Get default branch
+          $repo = "${{ github.repository }}"
+          $defaultBranch = Invoke-RestMethod -Method GET -Uri https://api.github.com/repos/$repo | Select-Object -ExpandProperty default_branch
+          Write-Output "::set-output name=default_branch::$(echo $defaultBranch)"
+
+      - name: Setup .NET Core
+        id: setup_dotnet_core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.300
+
+      - name: Checkout repository
+        id: checkout_repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Filter changes
+        id: filter_changes
+        uses: dorny/paths-filter@v2
+        with:
+          filters: |
+            are_changes_in_any:
+              - 'src/**'
+            are_changes_in_smartenum:
+              - 'src/SmartEnum/**'
+            are_changes_in_smartenum_autofixture:
+              - 'src/SmartEnum.AutoFixture/**'
+            are_changes_in_smartenum_jsonnet:
+              - 'src/SmartEnum.JsonNet/**'
+            are_changes_in_smartenum_messagepack:
+              - 'src/SmartEnum.MessagePack/**'
+            are_changes_in_smartenum_protobufnet:
+              - 'src/SmartEnum.ProtoBufNet/**'
+            are_changes_in_smartenum_systemtextjson:
+              - 'src/SmartEnum.SystemTextJson/**'
+            are_changes_in_smartenum_utf8json:
+              - 'src/SmartEnum.Utf8Json/**'
+
+      - if: steps.filter_changes.outputs.are_changes_in_smartenum == 'true'
+        name: Build and test SmartEnum project
+        id: build_and_test_smartenum_project
+        shell: pwsh
+        run: |
+          dotnet build .\src\SmartEnum\SmartEnum.csproj --configuration Release --output Artifacts
+          dotnet test .\test\SmartEnum.UnitTests\SmartEnum.UnitTests.csproj --configuration Release --no-build
+
+      - if: steps.filter_changes.outputs.are_changes_in_smartenum_autofixture == 'true'
+        name: Build and test SmartEnum.Autofixture project
+        id: build_and_test_smartenum_autofixture_project
+        shell: pwsh
+        run: |
+          dotnet build .\src\SmartEnum.AutoFixture\SmartEnum.AutoFixture.csproj --configuration Release --output Artifacts
+          dotnet test .\test\SmartEnum.AutoFixture.UnitTests\SmartEnum.AutoFixture.UnitTests.csproj --configuration Release --no-build
+
+      - if: steps.filter_changes.outputs.are_changes_in_smartenum_jsonnet == 'true'
+        name: Build and test SmartEnum.JsonNet project
+        id: build_and_test_smartenum_jsonnet_project
+        shell: pwsh
+        run: |
+          dotnet build .\src\SmartEnum.JsonNet\SmartEnum.JsonNet.csproj --configuration Release --output Artifacts
+          dotnet test .\test\SmartEnum.JsonNet.UnitTests\SmartEnum.JsonNet.UnitTests.csproj --configuration Release --no-build
+
+      - if: steps.filter_changes.outputs.are_changes_in_smartenum_messagepack == 'true'
+        name: Build and test SmartEnum.MessagePack project
+        id: build_and_test_smartenum_messagepack_project
+        shell: pwsh
+        run: |
+          dotnet build .\src\SmartEnum.MessagePack\SmartEnum.MessagePack.csproj --configuration Release --output Artifacts
+          dotnet test .\test\SmartEnum.MessagePack.UnitTests\SmartEnum.MessagePack.UnitTests.csproj --configuration Release --no-build
+
+      - if: steps.filter_changes.outputs.are_changes_in_smartenum_protobufnet == 'true'
+        name: Build and test SmartEnum.ProtoBufNet project
+        id: build_and_test_smartenum_protobufnet_project
+        shell: pwsh
+        run: |
+          dotnet build .\src\SmartEnum.ProtoBufNet\SmartEnum.ProtoBufNet.csproj --configuration Release --output Artifacts
+          dotnet test .\test\SmartEnum.ProtoBufNet.UnitTests\SmartEnum.ProtoBufNet.UnitTests.csproj --configuration Release --no-build
+
+      - if: steps.filter_changes.outputs.are_changes_in_smartenum_systemtextjson == 'true'
+        name: Build and test SmartEnum.SystemTextJson project
+        id: build_and_test_smartenum_systemtextjson_project
+        shell: pwsh
+        run: |
+          dotnet build .\src\SmartEnum.SystemTextJson\SmartEnum.SystemTextJson.csproj --configuration Release --output Artifacts
+          dotnet test .\test\SmartEnum.SystemTextJson.UnitTests\SmartEnum.SystemTextJson.UnitTests.csproj --configuration Release --no-build
+
+      - if: steps.filter_changes.outputs.are_changes_in_smartenum_utf8json == 'true'
+        name: Build and test SmartEnum.Utf8Json project
+        id: build_and_test_smartenum_utf8json_project
+        shell: pwsh
+        run: |
+          dotnet build .\src\SmartEnum.Utf8Json\SmartEnum.Utf8Json.csproj --configuration Release --output Artifacts
+          dotnet test .\test\SmartEnum.Utf8Json.UnitTests\SmartEnum.Utf8Json.UnitTests.csproj --configuration Release --no-build
+
+      - if: steps.filter_changes.outputs.are_changes_in_any == 'true'
+        name: Gather NuGet packages
+        id: gather_nuget_packages
+        shell: pwsh
+        run: |
+          New-Item .\NuGet -ItemType Directory
+          Move-Item -Path .\Artifacts\*.nupkg -Destination .\NuGet
+
+      - if: steps.filter_changes.outputs.are_changes_in_any == 'true'
+        name: Upload artifacts
+        id: upload_artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: NuGet Packages
+          path: NuGet/
+
+  cd:
+    if: needs.ci.outputs.are_changes_in_any == 'true'
+    name: Continuous Deployment
+    needs: ci
+    runs-on: windows-latest
+    steps:
+      - name: Setup dotnet
+        id: setup_dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.300
+
+      - name: Checkout repository
+        id: checkout_repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Download and extract Artifacts
+        id: dl_artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: NuGet Packages
+          path: NuGet/
+
+      - name: Publish to NuGet
+        id: publish_to_nuget
+        shell: pwsh
+        run: |
+          $packagesList = Get-ChildItem -Path NuGet -Filter *.nupkg -File
+
+          foreach ( $package in $packagesList ) {
+            $packageName = $package.Name
+          
+            dotnet nuget push NuGet\$packageName `
+            --source https://api.nuget.org/v3/index.json `
+            --api-key ${{ secrets.NUGET_API_KEY }}
+          }
+
+      - name: Determine SmartEnum version
+        id: determine_smartenum_version
+        shell: pwsh
+        run: |
+          $latestGitVersion = [String]((git tag --list 'SmartEnum-*' --sort=-committerdate)[0]) -replace 'SmartEnum-v', ''
+          $filePath = (Get-ChildItem .\src\SmartEnum\SmartEnum.csproj).FullName
+          $projectVersion = [String](([xml](Get-Content $filePath)).Project.PropertyGroup.Version) -replace '\s', ''
+          $newVersion = ''
+          $isNewTag = 'false'
+          $versionsList = ($projectVersion, $latestGitVersion)
+
+          if ( $projectVersion -ne $latestGitVersion -and $projectVersion -eq ($versionsList | Sort { [Version] $_ } -Descending)[0] ) {
+            $newVersion = $projectVersion
+            $isNewTag = 'true'
+            $smartEnumTag = "SmartEnum-v$newVersion"
+            Write-Output "::set-output name=smartenum_tag::$(echo $smartEnumTag)"
+            Write-Output "::set-output name=new_version::$(echo $newVersion)"
+          }
+
+          Write-Output "::set-output name=is_new_tag::$(echo $isNewTag)"
+
+      - if: steps.determine_smartenum_version.outputs.is_new_tag == 'true'
+        name: Create and publish release
+        id: create_release
+        shell: pwsh
+        run: |
+          $releaseTag = "${{ steps.determine_smartenum_version.outputs.smartenum_tag }}"
+          $releaseTitle = "SmartEnum v${{ steps.determine_smartenum_version.outputs.new_version }}"
+
+          gh release create $releaseTag --title $releaseTitle
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
