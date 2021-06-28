@@ -7,7 +7,7 @@
     <Summary>System.Text.Json (de)serialization support for Ardalis.SmartEnum.</Summary>
     <PackageTags>enum;smartenum;netstandard2.0;json;system.text.json;converter</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.0</Version>
+    <Version>1.0.01</Version>
     <AssemblyName>Ardalis.SmartEnum.SystemTextJson</AssemblyName>
     <RootNamespace>Ardalis.SmartEnum.SystemTextJson</RootNamespace>
     <Features>strict</Features>
