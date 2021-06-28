@@ -118,12 +118,22 @@ jobs:
           Move-Item -Path .\Artifacts\*.nupkg -Destination .\NuGet
 
       - if: steps.filter_changes.outputs.are_changes_in_any == 'true'
+        name: Upload NuGet packages
+        id: upload_packages
+        uses: actions/upload-artifact@v1
+        with:
+          name: NuGet packages
+          path: |
+            NuGet/
+            
+      - if: steps.filter_changes.outputs.are_changes_in_any == 'true'
         name: Upload artifacts
         id: upload_artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: NuGet Packages
-          path: NuGet/
+          name: Artifacts
+          path: |
+            Artifacts/
 
   cd:
     if: needs.ci.outputs.are_changes_in_any == 'true'
@@ -144,11 +154,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Download and extract Artifacts
+      - name: Download and extract NuGet packages
         id: dl_artifact
         uses: actions/download-artifact@v2
         with:
-          name: NuGet Packages
+          name: NuGet packages
           path: NuGet/
 
       - name: Publish to NuGet
