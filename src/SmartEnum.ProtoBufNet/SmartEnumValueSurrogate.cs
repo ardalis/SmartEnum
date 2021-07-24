@@ -11,7 +11,7 @@ namespace Ardalis.SmartEnum.ProtoBufNet
         [ProtoMember(1, IsRequired = true)]
         TValue Value { get; set; }
 
-        public static implicit operator SmartEnumValueSurrogate<TEnum, TValue>(TEnum smartEnum) 
+        public static implicit operator SmartEnumValueSurrogate<TEnum, TValue>(TEnum smartEnum)
         {
             if (smartEnum is null)
                 return null;
@@ -19,8 +19,8 @@ namespace Ardalis.SmartEnum.ProtoBufNet
             return new SmartEnumValueSurrogate<TEnum, TValue> { Value = smartEnum.Value };
         }
 
-        public static implicit operator TEnum(SmartEnumValueSurrogate<TEnum, TValue> surrogate) 
-        { 
+        public static implicit operator TEnum(SmartEnumValueSurrogate<TEnum, TValue> surrogate)
+        {
             if (surrogate is null)
                 return null;
 

@@ -11,7 +11,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="SmartEnumNotFoundException"/> class.
         /// </summary>
-        public SmartEnumNotFoundException() 
+        public SmartEnumNotFoundException()
             : base()
         {
         }
@@ -21,7 +21,7 @@
         /// </summary>
         /// <param name="info">The object that holds the serialized object data.</param>
         /// <param name="context">The contextual information about the source or destination.</param>
-        protected SmartEnumNotFoundException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) 
+        protected SmartEnumNotFoundException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
             : base(info, context)
         {
         }
@@ -30,7 +30,7 @@
         /// Initializes a new instance of the <see cref="SmartEnumNotFoundException"/> class with a specified error message.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
-        public SmartEnumNotFoundException(string message) 
+        public SmartEnumNotFoundException(string message)
             : base(message)
         {
         }
@@ -44,10 +44,10 @@
         /// The exception that is the cause of the current exception. If the <paramref name="innerException"/> parameter is not a null reference, 
         /// the current exception is raised in a <c>catch</c> block that handles the inner exception.
         /// </param>
-        public SmartEnumNotFoundException(string message, Exception innerException) 
+        public SmartEnumNotFoundException(string message, Exception innerException)
             : base(message, innerException)
         {
         }
-    
+
     }
 }

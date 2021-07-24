@@ -7,6 +7,7 @@ namespace Ardalis.SmartEnum
     using System.Linq;
     using System.Reflection;
     using System.Runtime.CompilerServices;
+    using System.Threading;
 
     using Ardalis.SmartEnum.Core;
 
@@ -31,24 +32,28 @@ namespace Ardalis.SmartEnum
     /// <typeparam name="TEnum">The type that is inheriting from this class.</typeparam>
     /// <typeparam name="TValue">The type of the inner value.</typeparam>
     /// <remarks></remarks>
-    public abstract class SmartEnum<TEnum, TValue> : ISmartEnum,
+    public abstract class SmartEnum<TEnum, TValue> :
+    	ISmartEnum,
         IEquatable<SmartEnum<TEnum, TValue>>,
         IComparable<SmartEnum<TEnum, TValue>>
         where TEnum : SmartEnum<TEnum, TValue>
         where TValue : IEquatable<TValue>, IComparable<TValue>
     {
+        static readonly Lazy<TEnum[]> _enumOptions = 
+            new Lazy<TEnum[]>(GetAllOptions, LazyThreadSafetyMode.ExecutionAndPublication);
+        
         static readonly Lazy<Dictionary<string, TEnum>> _fromName =
-            new Lazy<Dictionary<string, TEnum>>(() => GetAllOptions().ToDictionary(item => item.Name));
+            new Lazy<Dictionary<string, TEnum>>(() => _enumOptions.Value.ToDictionary(item => item.Name));
 
         static readonly Lazy<Dictionary<string, TEnum>> _fromNameIgnoreCase =
-            new Lazy<Dictionary<string, TEnum>>(() => GetAllOptions().ToDictionary(item => item.Name, StringComparer.OrdinalIgnoreCase));
+            new Lazy<Dictionary<string, TEnum>>(() => _enumOptions.Value.ToDictionary(item => item.Name, StringComparer.OrdinalIgnoreCase));
 
         static readonly Lazy<Dictionary<TValue, TEnum>> _fromValue =
             new Lazy<Dictionary<TValue, TEnum>>(() =>
             {
                 // multiple enums with same value are allowed but store only one per value
                 var dictionary = new Dictionary<TValue, TEnum>();
-                foreach (var item in GetAllOptions())
+                foreach (var item in _enumOptions.Value)
                 {
                     if (!dictionary.ContainsKey(item._value))
                         dictionary.Add(item._value, item);
@@ -56,22 +61,15 @@ namespace Ardalis.SmartEnum
                 return dictionary;
             });
 
-
-
-
-        private static IEnumerable<TEnum> GetAllOptions()
+        private static TEnum[] GetAllOptions()
         {
             Type baseType = typeof(TEnum);
-            IEnumerable<Type> enumTypes = Assembly.GetAssembly(baseType).GetTypes().Where(t => baseType.IsAssignableFrom(t));
-
-            List<TEnum> options = new List<TEnum>();
-            foreach (Type enumType in enumTypes)
-            {
-                List<TEnum> typeEnumOptions = enumType.GetFieldsOfType<TEnum>();
-                options.AddRange(typeEnumOptions);
-            }
-
-            return options.OrderBy(t => t.Name).ToList();
+            return Assembly.GetAssembly(baseType)
+                .GetTypes()
+                .Where(t => baseType.IsAssignableFrom(t))
+                .SelectMany(t => t.GetFieldsOfType<TEnum>())
+                .OrderBy(t => t.Name)
+                .ToArray();
         }
 
 
@@ -182,7 +180,10 @@ namespace Ardalis.SmartEnum
         public static bool TryFromName(string name, bool ignoreCase, out TEnum result)
         {
             if (String.IsNullOrEmpty(name))
-                ThrowHelper.ThrowArgumentNullOrEmptyException(nameof(name));
+            {
+                result = default;
+                return false;
+            }
 
             if (ignoreCase)
                 return _fromNameIgnoreCase.Value.TryGetValue(name, out result);
@@ -266,11 +267,6 @@ namespace Ardalis.SmartEnum
         public override int GetHashCode() =>
             _value.GetHashCode();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
         public override bool Equals(object obj) =>
             (obj is SmartEnum<TEnum, TValue> other) && Equals(other);
 
@@ -311,6 +307,7 @@ namespace Ardalis.SmartEnum
         public SmartEnumThen<TEnum, TValue> When(params SmartEnum<TEnum, TValue>[] smartEnums) =>
             new SmartEnumThen<TEnum, TValue>(smartEnums.Contains(this), false, this);
 
+        /// <summary>
         /// When this instance is one of the specified <see cref="SmartEnum{TEnum, TValue}"/> parameters.
         /// Execute the action in the subsequent call to Then().
         /// </summary>

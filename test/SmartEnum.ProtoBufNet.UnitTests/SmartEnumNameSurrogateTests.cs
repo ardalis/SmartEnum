@@ -1,6 +1,5 @@
 namespace Ardalis.SmartEnum.ProtoBufNet.UnitTests
 {
-    using System;
     using ProtoBuf;
     using ProtoBuf.Meta;
     using Xunit;
@@ -16,22 +15,24 @@ namespace Ardalis.SmartEnum.ProtoBufNet.UnitTests
 
             [ProtoMember(2)]
             public TestEnumInt16 Int16 { get; set; }
-            
+
             [ProtoMember(3)]
-            public TestEnumInt32 Int32 { get; set; }        
+            public TestEnumInt32 Int32 { get; set; }
 
             [ProtoMember(4)]
-            public TestEnumDouble Double { get; set; }        
+            public TestEnumDouble Double { get; set; }
         }
 
-        static readonly TestClass NullTestInstance = new TestClass { 
+        static readonly TestClass NullTestInstance = new TestClass
+        {
             Bool = null,
             Int16 = null,
             Int32 = null,
             Double = null,
         };
 
-        static readonly TestClass TestInstance = new TestClass { 
+        static readonly TestClass TestInstance = new TestClass
+        {
             Bool = TestEnumBoolean.Instance,
             Int16 = TestEnumInt16.Instance,
             Int32 = TestEnumInt32.Instance,
@@ -78,8 +79,8 @@ message SmartEnumNameSurrogate_TestEnumBoolean_Boolean {
         public void SerializesNull()
         {
             var result = Utils.DeepClone(NullTestInstance, model);
-            
+
             result.Should().BeEquivalentTo(NullTestInstance);
-        }    
+        }
     }
 }

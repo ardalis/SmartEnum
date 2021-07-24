@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -31,7 +31,9 @@ namespace Ardalis.SmartEnum
     /// <typeparam name="TEnum">The type that is inheriting from this class.</typeparam>
     /// <typeparam name="TValue">The type of the inner value.</typeparam>
     /// <remarks></remarks>
-    public abstract class SmartFlagEnum<TEnum, TValue> : SmartFlagEngine<TEnum, TValue>, ISmartEnum,
+    public abstract class SmartFlagEnum<TEnum, TValue> :
+        SmartFlagEngine<TEnum, TValue>,
+        ISmartEnum,
         IEquatable<SmartFlagEnum<TEnum, TValue>>,
         IComparable<SmartFlagEnum<TEnum, TValue>>
         where TEnum : SmartFlagEnum<TEnum, TValue>

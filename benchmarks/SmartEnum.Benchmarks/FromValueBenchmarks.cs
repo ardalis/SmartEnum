@@ -2,7 +2,6 @@ namespace Ardalis.SmartEnum.Benchmarks
 {
     using System;
     using BenchmarkDotNet.Attributes;
-    using EnumsNET;
 
     [Config(typeof(Config))]
     public class FromValueBenchmarks
@@ -23,7 +22,7 @@ namespace Ardalis.SmartEnum.Benchmarks
             {
                 return (TestEnum)1_000;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return TestEnum.One;
             }
@@ -45,7 +44,7 @@ namespace Ardalis.SmartEnum.Benchmarks
             {
                 return TestSmartEnum.FromValue(1_000);
             }
-            catch(SmartEnumNotFoundException)
+            catch (SmartEnumNotFoundException)
             {
                 return null;
             }
@@ -54,7 +53,7 @@ namespace Ardalis.SmartEnum.Benchmarks
         [Benchmark]
         public TestSmartEnum SmartEnum_TryFromValue_1()
         {
-            if(TestSmartEnum.TryFromValue(1, out var result))
+            if (TestSmartEnum.TryFromValue(1, out var result))
                 return result;
             return null;
         }
@@ -62,7 +61,7 @@ namespace Ardalis.SmartEnum.Benchmarks
         [Benchmark]
         public TestSmartEnum SmartEnum_TryFromValue_10()
         {
-            if(TestSmartEnum.TryFromValue(10, out var result))
+            if (TestSmartEnum.TryFromValue(10, out var result))
                 return result;
             return null;
         }
@@ -70,7 +69,7 @@ namespace Ardalis.SmartEnum.Benchmarks
         [Benchmark]
         public TestSmartEnum SmartEnum_TryFromValue_Invalid()
         {
-            if(TestSmartEnum.TryFromValue(1_000, out var result))
+            if (TestSmartEnum.TryFromValue(1_000, out var result))
                 return result;
             return null;
         }

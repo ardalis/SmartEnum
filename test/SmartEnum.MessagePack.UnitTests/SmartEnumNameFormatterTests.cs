@@ -1,8 +1,6 @@
 namespace Ardalis.SmartEnum.MessagePack.UnitTests
 {
-    using System;
     using global::MessagePack;
-    using global::MessagePack.Formatters;
     using global::MessagePack.Resolvers;
     using Xunit;
     using FluentAssertions;
@@ -19,24 +17,26 @@ namespace Ardalis.SmartEnum.MessagePack.UnitTests
             [Key(1)]
             [MessagePackFormatter(typeof(SmartEnumNameFormatter<TestEnumInt16, short>))]
             public TestEnumInt16 Int16 { get; set; }
-            
+
             [Key(2)]
             [MessagePackFormatter(typeof(SmartEnumNameFormatter<TestEnumInt32, int>))]
-            public TestEnumInt32 Int32 { get; set; }        
+            public TestEnumInt32 Int32 { get; set; }
 
             [Key(3)]
             [MessagePackFormatter(typeof(SmartEnumNameFormatter<TestEnumDouble, double>))]
-            public TestEnumDouble Double { get; set; }       
+            public TestEnumDouble Double { get; set; }
         }
 
-        static readonly TestClass NullTestInstance = new TestClass { 
+        static readonly TestClass NullTestInstance = new TestClass
+        {
             Bool = null,
             Int16 = null,
             Int32 = null,
             Double = null,
         };
 
-        static readonly TestClass TestInstance = new TestClass { 
+        static readonly TestClass TestInstance = new TestClass
+        {
             Bool = TestEnumBoolean.Instance,
             Int16 = TestEnumInt16.Instance,
             Int32 = TestEnumInt32.Instance,
@@ -59,7 +59,7 @@ namespace Ardalis.SmartEnum.MessagePack.UnitTests
         public void SerializesValue()
         {
             var message = MessagePackSerializer.Serialize(TestInstance);
-            
+
             MessagePackSerializer.ToJson(message).Should().Be(JsonString);
         }
 
@@ -74,6 +74,6 @@ namespace Ardalis.SmartEnum.MessagePack.UnitTests
             obj.Int16.Should().BeSameAs(TestEnumInt16.Instance);
             obj.Int32.Should().BeSameAs(TestEnumInt32.Instance);
             obj.Double.Should().BeSameAs(TestEnumDouble.Instance);
-        }    
+        }
     }
 }

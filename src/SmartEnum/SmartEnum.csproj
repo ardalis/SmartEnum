@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <PackageId>Ardalis.SmartEnum</PackageId>
     <Title>Ardalis.SmartEnum</Title>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -12,10 +12,13 @@
     <Summary>Classes to help produce strongly typed smarter enums in .NET.</Summary>
     <RepositoryUrl>https://github.com/ardalis/SmartEnum</RepositoryUrl>
     <PackageTags>enum</PackageTags>
-    <PackageReleaseNotes>Adds support for derived SmartEnum types.</PackageReleaseNotes>
+    <PackageIcon>icon.png</PackageIcon>
+    <Version>2.0.1</Version>
+    <PackageReleaseNotes>Add support for System.Text.Json. Add support for strings to SmartEnumValueConverter (issue #101).</PackageReleaseNotes>
     <AssemblyName>Ardalis.SmartEnum</AssemblyName>
     <Features>strict</Features>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
@@ -28,15 +31,17 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="7.9.0.7583" PrivateAssets="All" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.23.0.32424" PrivateAssets="All" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net480' ">
     <PackageReference Include="System.Linq" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
-
+  <ItemGroup>
+    <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
 </Project>

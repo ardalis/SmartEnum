@@ -1,6 +1,5 @@
 namespace Ardalis.SmartEnum.Benchmarks
 {
-    using System;
     using System.IO;
     using BenchmarkDotNet.Attributes;
 
@@ -9,7 +8,7 @@ namespace Ardalis.SmartEnum.Benchmarks
     {
         [global::MessagePack.MessagePackObject]
         [global::ProtoBuf.ProtoContract]
-        public sealed class TestEnumNameClass 
+        public sealed class TestEnumNameClass
         {
             [global::Newtonsoft.Json.JsonConverter(typeof(global::Newtonsoft.Json.Converters.StringEnumConverter))]
             [global::Utf8Json.JsonFormatter(typeof(global::Utf8Json.Formatters.EnumFormatter<TestEnum>), true)]
@@ -21,7 +20,7 @@ namespace Ardalis.SmartEnum.Benchmarks
 
         [global::MessagePack.MessagePackObject]
         [global::ProtoBuf.ProtoContract]
-        public sealed class TestEnumValueClass 
+        public sealed class TestEnumValueClass
         {
             [global::Utf8Json.JsonFormatter(typeof(global::Utf8Json.Formatters.EnumFormatter<TestEnum>), false)]
             [global::MessagePack.Key(0)]
@@ -31,7 +30,7 @@ namespace Ardalis.SmartEnum.Benchmarks
 
         [global::MessagePack.MessagePackObject]
         [global::ProtoBuf.ProtoContract]
-        public sealed class TestSmartEnumNameClass 
+        public sealed class TestSmartEnumNameClass
         {
             [global::Newtonsoft.Json.JsonConverter(typeof(JsonNet.SmartEnumNameConverter<TestSmartEnum, int>))]
             [global::Utf8Json.JsonFormatter(typeof(Utf8Json.SmartEnumNameFormatter<TestSmartEnum, int>))]
@@ -43,7 +42,7 @@ namespace Ardalis.SmartEnum.Benchmarks
 
         [global::MessagePack.MessagePackObject]
         [global::ProtoBuf.ProtoContract]
-        public sealed class TestSmartEnumValueClass 
+        public sealed class TestSmartEnumValueClass
         {
             [global::Newtonsoft.Json.JsonConverter(typeof(JsonNet.SmartEnumValueConverter<TestSmartEnum, int>))]
             [global::Utf8Json.JsonFormatter(typeof(Utf8Json.SmartEnumValueFormatter<TestSmartEnum, int>))]
@@ -63,7 +62,7 @@ namespace Ardalis.SmartEnum.Benchmarks
         static byte[] valueMessagePack;
         static global::ProtoBuf.Meta.RuntimeTypeModel nameModel;
         static global::ProtoBuf.Meta.RuntimeTypeModel valueModel;
-        static Stream serializeStream;        
+        static Stream serializeStream;
         static Stream enumProtoBufDeserializeStream;
         static Stream nameProtoBufDeserializeStream;
         static Stream valueProtoBufDeserializeStream;
@@ -105,7 +104,7 @@ namespace Ardalis.SmartEnum.Benchmarks
             nameProtoBufDeserializeStream.Dispose();
             valueProtoBufDeserializeStream.Dispose();
         }
- 
+
         ////////////////////////////////////////////////////////////////////////////////
         // JsonNet
 
@@ -119,7 +118,7 @@ namespace Ardalis.SmartEnum.Benchmarks
         public TestEnumNameClass JsonNet_Enum_Deserialize_Name() => global::Newtonsoft.Json.JsonConvert.DeserializeObject<TestEnumNameClass>(nameJson);
 
         [Benchmark]
-        public TestEnumValueClass JsonNet_Enum_Deserialize_Value() => global::Newtonsoft.Json.JsonConvert.DeserializeObject<TestEnumValueClass>(valueJson);  
+        public TestEnumValueClass JsonNet_Enum_Deserialize_Value() => global::Newtonsoft.Json.JsonConvert.DeserializeObject<TestEnumValueClass>(valueJson);
 
         [Benchmark]
         public string JsonNet_SmartEnum_Serialize_Name() => global::Newtonsoft.Json.JsonConvert.SerializeObject(nameSmartEnumInstance);
@@ -131,7 +130,7 @@ namespace Ardalis.SmartEnum.Benchmarks
         public TestSmartEnumNameClass JsonNet_SmartEnum_Deserialize_Name() => global::Newtonsoft.Json.JsonConvert.DeserializeObject<TestSmartEnumNameClass>(nameJson);
 
         [Benchmark]
-        public TestSmartEnumValueClass JsonNet_SmartEnum_Deserialize_Value() => global::Newtonsoft.Json.JsonConvert.DeserializeObject<TestSmartEnumValueClass>(valueJson);  
+        public TestSmartEnumValueClass JsonNet_SmartEnum_Deserialize_Value() => global::Newtonsoft.Json.JsonConvert.DeserializeObject<TestSmartEnumValueClass>(valueJson);
 
         ////////////////////////////////////////////////////////////////////////////////
         // Utf8Json
@@ -146,7 +145,7 @@ namespace Ardalis.SmartEnum.Benchmarks
         public TestEnumNameClass Utf8Json_Enum_Deserialize_Name() => global::Utf8Json.JsonSerializer.Deserialize<TestEnumNameClass>(nameJson);
 
         [Benchmark]
-        public TestEnumValueClass Utf8Json_Enum_Deserialize_Value() => global::Utf8Json.JsonSerializer.Deserialize<TestEnumValueClass>(valueJson);  
+        public TestEnumValueClass Utf8Json_Enum_Deserialize_Value() => global::Utf8Json.JsonSerializer.Deserialize<TestEnumValueClass>(valueJson);
 
         [Benchmark]
         public byte[] Utf8Json_SmartEnum_Serialize_Name() => global::Utf8Json.JsonSerializer.Serialize(nameSmartEnumInstance);
@@ -158,7 +157,7 @@ namespace Ardalis.SmartEnum.Benchmarks
         public TestSmartEnumNameClass Utf8Json_SmartEnum_Deserialize_Name() => global::Utf8Json.JsonSerializer.Deserialize<TestSmartEnumNameClass>(nameJson);
 
         [Benchmark]
-        public TestSmartEnumValueClass Utf8Json_SmartEnum_Deserialize_Value() => global::Utf8Json.JsonSerializer.Deserialize<TestSmartEnumValueClass>(valueJson);  
+        public TestSmartEnumValueClass Utf8Json_SmartEnum_Deserialize_Value() => global::Utf8Json.JsonSerializer.Deserialize<TestSmartEnumValueClass>(valueJson);
 
         ////////////////////////////////////////////////////////////////////////////////
         // MessagePack
@@ -173,7 +172,7 @@ namespace Ardalis.SmartEnum.Benchmarks
         public TestEnumNameClass MessagePack_Enum_Deserialize_Name() => global::MessagePack.MessagePackSerializer.Deserialize<TestEnumNameClass>(nameMessagePack);
 
         [Benchmark]
-        public TestEnumValueClass MessagePack_Enum_Deserialize_Value() => global::MessagePack.MessagePackSerializer.Deserialize<TestEnumValueClass>(valueMessagePack);  
+        public TestEnumValueClass MessagePack_Enum_Deserialize_Value() => global::MessagePack.MessagePackSerializer.Deserialize<TestEnumValueClass>(valueMessagePack);
 
         [Benchmark]
         public byte[] MessagePack_SmartEnum_Serialize_Name() => global::MessagePack.MessagePackSerializer.Serialize(nameSmartEnumInstance);
@@ -185,7 +184,7 @@ namespace Ardalis.SmartEnum.Benchmarks
         public TestSmartEnumNameClass MessagePack_SmartEnum_Deserialize_Name() => global::MessagePack.MessagePackSerializer.Deserialize<TestSmartEnumNameClass>(nameMessagePack);
 
         [Benchmark]
-        public TestSmartEnumValueClass MessagePack_SmartEnum_Deserialize_Value() => global::MessagePack.MessagePackSerializer.Deserialize<TestSmartEnumValueClass>(valueMessagePack);  
+        public TestSmartEnumValueClass MessagePack_SmartEnum_Deserialize_Value() => global::MessagePack.MessagePackSerializer.Deserialize<TestSmartEnumValueClass>(valueMessagePack);
 
         ////////////////////////////////////////////////////////////////////////////////
         // ProtoBufNet

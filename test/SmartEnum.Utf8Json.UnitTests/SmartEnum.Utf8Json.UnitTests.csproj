@@ -8,4 +8,21 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\SmartEnum.Utf8Json\SmartEnum.Utf8Json.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="coverlet.collector" Version="3.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Update="coverlet.msbuild" Version="3.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Update="FluentAssertions" Version="5.10.3" />
+    <PackageReference Update="Microsoft.NET.Test.Sdk" Version="16.10.0" />
+    <PackageReference Update="xunit" Version="2.4.1" />
+    <PackageReference Update="xunit.runner.visualstudio" Version="2.4.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 </Project>

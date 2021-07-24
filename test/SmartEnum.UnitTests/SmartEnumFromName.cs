@@ -70,7 +70,7 @@
             var name = "Doesn't Exist";
 
             Action action = () => TestEnum.FromName(name);
-            
+
             action.Should()
             .ThrowExactly<SmartEnumNotFoundException>()
             .WithMessage($@"No {typeof(TestEnum).Name} with Name ""{name}"" found.");
