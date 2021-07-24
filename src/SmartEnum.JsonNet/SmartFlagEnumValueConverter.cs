@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +10,9 @@ namespace Ardalis.SmartEnum.JsonNet
     where TEnum : SmartFlagEnum<TEnum, TValue>
     where TValue: struct, IEquatable<TValue>, IComparable<TValue>
     {
-        public override bool CanRead { get; } = true;
-        public override bool CanWrite { get; } = true;
+        public override bool CanRead => true;
+
+        public override bool CanWrite => true;
 
         /// <summary>
         /// 
