@@ -72,7 +72,6 @@ namespace Ardalis.SmartEnum
                 .ToArray();
         }
 
-
         /// <summary>
         /// Gets a collection containing all the instances of <see cref="SmartEnum{TEnum, TValue}"/>.
         /// </summary>
