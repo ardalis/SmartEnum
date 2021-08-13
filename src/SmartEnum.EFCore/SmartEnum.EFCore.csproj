@@ -9,7 +9,7 @@
     <Description>EFCore support for Ardalis.SmartEnum.</Description>
     <Summary>EFCore support for Ardalis.SmartEnum.</Summary>
     <RepositoryUrl>https://github.com/ardalis/SmartEnum</RepositoryUrl>
-    <PackageTags>enum;smartenum;netstandard2.0;entityframeworkcore</PackageTags>
+    <PackageTags>enum;smartenum;entityframeworkcore</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
     <PackageReleaseNotes>Initial version.</PackageReleaseNotes>
     <Version>1.0.0</Version>
