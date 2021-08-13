@@ -1,5 +1,6 @@
 name: publish SmartEnum.EFCore to nuget
 on:
+  workflow_dispatch:
   push:
     branches:
       - master # Your default release branch
