@@ -2,7 +2,7 @@ name: publish SmartEnum.AutoFixture to nuget
 on:
   push:
     branches:
-      - master # Your default release branch
+      - main # Your default release branch
     paths:
       - 'src/SmartEnum.AutoFixture/**'
 jobs:
@@ -17,7 +17,7 @@ jobs:
       - name: Setup dotnet
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 3.1.300
+          dotnet-version: 5.0.201
       
       # Publish
       - name: publish on version change
