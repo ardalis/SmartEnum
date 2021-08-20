@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master # Your default release branch
+      - main # Your default release branch
     paths:
       - 'src/SmartEnum.EFCore/**'
 jobs:
