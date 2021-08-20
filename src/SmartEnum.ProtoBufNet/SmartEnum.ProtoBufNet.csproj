@@ -1,14 +1,14 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net480</TargetFrameworks>
     <PackageId>Ardalis.SmartEnum.ProtoBufNet</PackageId>
     <Title>Ardalis.SmartEnum.ProtoBufNet</Title>
     <Company>Ardalis.com</Company>
     <Summary>protobuf-net (de)serialization support for Ardalis.SmartEnum.</Summary>
     <PackageTags>enum;smartenum;netstandard2.0;protobuf;protobufnet;surrogate</PackageTags>
-    <PackageReleaseNotes>Net452 Added</PackageReleaseNotes>
+    <PackageReleaseNotes>Upgraded to Net480 and corrected SmartEnum package reference</PackageReleaseNotes>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.3</Version>
+    <Version>1.0.31</Version>
     <AssemblyName>Ardalis.SmartEnum.ProtoBufNet</AssemblyName>
     <RootNamespace>Ardalis.SmartEnum.ProtoBufNet</RootNamespace>
     <Features>strict</Features>
@@ -18,10 +18,10 @@
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Ardalis.SmartEnum" Version="1.0.11" />
-    <PackageReference Include="protobuf-net" Version="2.4.6" />
+    <PackageReference Include="protobuf-net" Version="3.0.101" />
+    <PackageReference Include="Ardalis.SmartEnum" Version="2.0.1" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.23.0.32424" PrivateAssets="All" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.27.0.35380" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
     <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
