@@ -1,14 +1,14 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net480</TargetFrameworks>
     <PackageId>Ardalis.SmartEnum.AutoFixture</PackageId>
     <Title>Ardalis.SmartEnum.AutoFixture</Title>
     <Company>Ardalis.com</Company>
     <Summary>AutoFixture support for Ardalis.SmartEnum.</Summary>
     <PackageTags>enum;smartenum;netstandard2.0;autofixture</PackageTags>
-    <PackageReleaseNotes>Net452 Added</PackageReleaseNotes>
+    <PackageReleaseNotes>Upgraded to Net480 and corrected SmartEnum package reference</PackageReleaseNotes>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.3</Version>
+    <Version>1.0.31</Version>
     <AssemblyName>Ardalis.SmartEnum.AutoFixture</AssemblyName>
     <RootNamespace>Ardalis.SmartEnum.AutoFixture</RootNamespace>
     <Features>strict</Features>
@@ -21,9 +21,9 @@
     <PackageReference Include="Ardalis.SmartEnum" Version="2.0.1" />
     <PackageReference Include="AutoFixture" Version="4.17.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.20.0.28934" PrivateAssets="All" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.27.0.35380" PrivateAssets="All" />
   </ItemGroup>
-    <ItemGroup>
+  <ItemGroup>
     <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
 </Project>
