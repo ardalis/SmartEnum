@@ -37,7 +37,7 @@ To install the minimum requirements:
 Install-Package Ardalis.SmartEnum
 ```
 
-To install support for serialization, select the lines that apply:
+To install support for serialization, AutoFixture or EF Core select the lines that apply:
 
 ```
 Install-Package Ardalis.SmartEnum.AutoFixture
@@ -45,6 +45,7 @@ Install-Package Ardalis.SmartEnum.JsonNet
 Install-Package Ardalis.SmartEnum.Utf8Json
 Install-Package Ardalis.SmartEnum.MessagePack
 Install-Package Ardalis.SmartEnum.ProtoBufNet
+Install-Package Ardalis.SmartEnum.EFCore
 ```
 
 ## Usage
@@ -336,6 +337,19 @@ protected override void OnModelCreating(ModelBuilder builder)
         .HasConversion(
             p => p.Value,
             p => PolicyStatus.FromValue(p));
+}
+```
+
+#### Using SmartEnum.EFCore
+
+If you have installed `Ardalis.SmartEnum.EFCore` it is sufficient to add the following line at the end of the `OnModelCreating` method:
+
+```csharp
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    ...
+    
+    modelBuilder.ConfigureSmartEnum();
 }
 ```
 
