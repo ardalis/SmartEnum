@@ -18,8 +18,8 @@
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="protobuf-net" Version="3.0.101" />
     <PackageReference Include="Ardalis.SmartEnum" Version="2.0.1" />
-    <PackageReference Include="protobuf-net" Version="2.4.6" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.27.0.35380" PrivateAssets="All" />
   </ItemGroup>
