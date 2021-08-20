@@ -45,9 +45,9 @@ namespace Ardalis.SmartEnum.MessagePack.UnitTests
 
         static readonly string JsonString = @"[""Instance"",""Instance"",""Instance"",""Instance""]";
 
-        static SmartEnumNameConverterTests()
+        SmartEnumNameConverterTests()
         {
-            CompositeResolver.Register(
+            _resolver = CompositeResolver.Create(
                 new SmartEnumNameFormatter<TestEnumBoolean, bool>(),
                 new SmartEnumNameFormatter<TestEnumInt16, short>(),
                 new SmartEnumNameFormatter<TestEnumInt32, int>(),
@@ -55,17 +55,29 @@ namespace Ardalis.SmartEnum.MessagePack.UnitTests
             );
         }
 
+        private readonly IFormatterResolver _resolver;
+
         [Fact]
         public void SerializesValue()
         {
-            var message = MessagePackSerializer.Serialize(TestInstance);
+            var options = StandardResolverAllowPrivate.Options
+                .WithCompression(MessagePackCompression.Lz4BlockArray)
+                .WithResolver(_resolver);
+            var message = MessagePackSerializer.Serialize(TestInstance, options);
 
-            MessagePackSerializer.ToJson(message).Should().Be(JsonString);
+            MessagePackSerializer.ConvertToJson(message).Should().Be(JsonString);
+            //var message = MessagePackSerializer.Serialize(TestInstance);
+
+            //MessagePackSerializer.ToJson(message).Should().Be(JsonString);
         }
 
         [Fact]
         public void DeserializesValue()
         {
+            var options = StandardResolverAllowPrivate.Options
+                .WithCompression(MessagePackCompression.Lz4BlockArray)
+                .WithResolver(_resolver);
+
             var message = MessagePackSerializer.Serialize(TestInstance);
 
             var obj = MessagePackSerializer.Deserialize<TestClass>(message);

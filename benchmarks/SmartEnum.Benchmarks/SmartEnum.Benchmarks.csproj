@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -11,10 +11,10 @@
     <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
     <PackageReference Include="Constant" Version="2.0.2" />
     <PackageReference Include="Enums.NET" Version="4.0.0" />
+    <ProjectReference Include="..\..\src\SmartEnum.MessagePack\SmartEnum.MessagePack.csproj" />
     <ProjectReference Include="..\..\src\SmartEnum\SmartEnum.csproj" />
     <ProjectReference Include="..\..\src\SmartEnum.JsonNet\SmartEnum.JsonNet.csproj" />
     <ProjectReference Include="..\..\src\SmartEnum.Utf8Json\SmartEnum.Utf8Json.csproj" />
-    <ProjectReference Include="..\..\src\SmartEnum.MessagePack\SmartEnum.MessagePack.csproj" />
     <ProjectReference Include="..\..\src\SmartEnum.ProtoBufNet\SmartEnum.ProtoBufNet.csproj" />
   </ItemGroup>
 </Project>

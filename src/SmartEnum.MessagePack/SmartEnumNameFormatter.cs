@@ -8,26 +8,53 @@ namespace Ardalis.SmartEnum.MessagePack
         where TEnum : SmartEnum<TEnum, TValue>
         where TValue : struct, IEquatable<TValue>, IComparable<TValue>
     {
-        public int Serialize(ref byte[] bytes, int offset, TEnum value, IFormatterResolver formatterResolver)
+        public void Serialize(ref MessagePackWriter writer, TEnum value, MessagePackSerializerOptions options)
         {
-            if (value is null)
+            if (value == null)
             {
-                return MessagePackBinary.WriteNil(ref bytes, offset);
+                writer.WriteNil();
             }
-
-            return MessagePackBinary.WriteString(ref bytes, offset, value.Name);
+            else
+            {
+                writer.Write(value.Name.ToString());
+            }
         }
 
-        public TEnum Deserialize(byte[] bytes, int offset, IFormatterResolver formatterResolver, out int readSize)
+        public TEnum Deserialize(ref MessagePackReader reader, MessagePackSerializerOptions options)
         {
-            if (MessagePackBinary.IsNil(bytes, offset))
+            if (reader.TryReadNil())
             {
-                readSize = 1;
-                return null;
+                return default;
             }
-
-            var name = MessagePackBinary.ReadString(bytes, offset, out readSize);
-            return SmartEnum<TEnum, TValue>.FromName(name);
+            else
+            {
+                var name = reader.ReadString();
+                return SmartEnum<TEnum, TValue>.FromName(name);
+            }
         }
+
+
+
+        //public int Serialize(ref byte[] bytes, int offset, TEnum value, IFormatterResolver formatterResolver)
+        //{
+        //    if (value is null)
+        //    {
+        //        return MessagePackBinary.WriteNil(ref bytes, offset);
+        //    }
+
+        //    return MessagePackBinary.WriteString(ref bytes, offset, value.Name);
+        //}
+
+        //public TEnum Deserialize(byte[] bytes, int offset, IFormatterResolver formatterResolver, out int readSize)
+        //{
+        //    if (MessagePackBinary.IsNil(bytes, offset))
+        //    {
+        //        readSize = 1;
+        //        return null;
+        //    }
+
+        //    var name = MessagePackBinary.ReadString(bytes, offset, out readSize);
+        //    return SmartEnum<TEnum, TValue>.FromName(name);
+        //}
     }
 }

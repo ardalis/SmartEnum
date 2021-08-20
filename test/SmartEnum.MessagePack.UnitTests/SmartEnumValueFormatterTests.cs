@@ -45,9 +45,9 @@ namespace Ardalis.SmartEnum.MessagePack.UnitTests
 
         static readonly string JsonString = "[true,1,1,1]";
 
-        static SmartEnumValueConverterTests()
+        SmartEnumValueConverterTests()
         {
-            CompositeResolver.Register(
+            _resolver = CompositeResolver.Create(
                 new SmartEnumValueFormatter<TestEnumBoolean, bool>(),
                 new SmartEnumValueFormatter<TestEnumInt16, short>(),
                 new SmartEnumValueFormatter<TestEnumInt32, int>(),
@@ -55,18 +55,29 @@ namespace Ardalis.SmartEnum.MessagePack.UnitTests
             );
         }
 
+        private readonly IFormatterResolver _resolver;
+
+
         [Fact]
         public void SerializesValue()
         {
-            var message = MessagePackSerializer.Serialize(TestInstance);
+            var options = StandardResolverAllowPrivate.Options
+                .WithCompression(MessagePackCompression.Lz4BlockArray)
+                .WithResolver(_resolver);
 
-            MessagePackSerializer.ToJson(message).Should().Be(JsonString);
+            var message = MessagePackSerializer.Serialize(TestInstance, options);
+
+            MessagePackSerializer.ConvertToJson(message).Should().Be(JsonString);
         }
 
         [Fact]
         public void DeserializesValue()
         {
-            var message = MessagePackSerializer.Serialize(TestInstance);
+            var options = StandardResolverAllowPrivate.Options
+                .WithCompression(MessagePackCompression.Lz4BlockArray)
+                .WithResolver(_resolver);
+
+            var message = MessagePackSerializer.Serialize(TestInstance, options);
 
             var obj = MessagePackSerializer.Deserialize<TestClass>(message);
 
