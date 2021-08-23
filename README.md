@@ -371,7 +371,7 @@ When serializing a `SmartEnum` to JSON, only one of the properties (`Value` or `
 ```csharp
 public class TestClass
 {
-    [JsonConverter(typeof(SmartEnumNameConverter<int>))]
+    [JsonConverter(typeof(SmartEnumNameConverter<TestEnum,int>))]
     public TestEnum Property { get; set; }
 }
 ```
@@ -389,7 +389,7 @@ While this:
 ```csharp
 public class TestClass
 {
-    [JsonConverter(typeof(SmartEnumValueConverter<int>))]
+    [JsonConverter(typeof(SmartEnumValueConverter<TestEnum,int>))]
     public TestEnum Property { get; set; }
 }
 ```
