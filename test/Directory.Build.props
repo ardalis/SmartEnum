@@ -27,6 +27,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="FluentAssertions" Version="5.*"/>
+    <PackageReference Include="FluentAssertions" Version="6.*"/>
   </ItemGroup>
 </Project>
