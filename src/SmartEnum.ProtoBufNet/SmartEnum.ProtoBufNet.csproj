@@ -21,7 +21,7 @@
     <PackageReference Include="protobuf-net" Version="3.0.101" />
     <PackageReference Include="Ardalis.SmartEnum" Version="2.0.1" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.29.0.36737" PrivateAssets="All" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.32.0.39516" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
     <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
