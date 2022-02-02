@@ -13,11 +13,11 @@
     <ProjectReference Include="..\..\src\SmartEnum.AutoFixture\SmartEnum.AutoFixture.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Update="coverlet.collector" Version="3.1.0">
+    <PackageReference Update="coverlet.collector" Version="3.1.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Update="coverlet.msbuild" Version="3.1.0">
+    <PackageReference Update="coverlet.msbuild" Version="3.1.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
