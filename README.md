@@ -148,6 +148,33 @@ public abstract class EmployeeType : SmartEnum<EmployeeType>
 }
 ```
 
+You can take this a step further and use the `ManagerType` and associated `BonusSize` property in a parent class like so:
+
+```csharp
+public class Manager 
+{
+    private ManagerType _managerType { get; set; }
+    public string Type
+    {
+        get => _managerType.Name;
+        set
+        {
+            if (!ManagerType.TryFromName(value, true, out var parsed))
+            {
+                throw new Exception($"Invalid manage type of '{value}'");
+            }
+            _managerType = parsed;
+        }
+    }
+
+    public string BonusSize
+    {
+        get => _managerType.BonusSize();
+        set => _bonusSize_ = value;
+    }
+}
+```
+
 This other example implements a *state machine*. The method `CanTransitionTo()` returns `true` if it's allowed to transition from current state to `next`; otherwise returns `false`.
 
 ```csharp
