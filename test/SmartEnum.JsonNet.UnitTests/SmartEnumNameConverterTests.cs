@@ -20,6 +20,9 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
 
             [JsonConverter(typeof(SmartEnumNameConverter<TestEnumDouble, double>))]
             public TestEnumDouble Double { get; set; }
+
+            [JsonConverter(typeof(SmartEnumNameConverter<TestEnumString, string>))]
+            public TestEnumString String { get; set; }
         }
 
         static readonly TestClass TestInstance = new TestClass
@@ -28,6 +31,7 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
             Int16 = TestEnumInt16.Instance,
             Int32 = TestEnumInt32.Instance,
             Double = TestEnumDouble.Instance,
+            String = TestEnumString.Instance,
         };
 
         static readonly string JsonString =
@@ -35,7 +39,8 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
   ""Bool"": ""Instance"",
   ""Int16"": ""Instance"",
   ""Int32"": ""Instance"",
-  ""Double"": ""Instance""
+  ""Double"": ""Instance"",
+  ""String"": ""Instance""
 }";
 
         [Fact]
@@ -55,6 +60,7 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
             obj.Int16.Should().BeSameAs(TestEnumInt16.Instance);
             obj.Int32.Should().BeSameAs(TestEnumInt32.Instance);
             obj.Double.Should().BeSameAs(TestEnumDouble.Instance);
+            obj.String.Should().BeSameAs(TestEnumString.Instance);
         }
 
         [Fact]
@@ -68,6 +74,7 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
             obj.Int16.Should().BeNull();
             obj.Int32.Should().BeNull();
             obj.Double.Should().BeNull();
+            obj.String.Should().BeNull();
         }
 
         [Fact]
