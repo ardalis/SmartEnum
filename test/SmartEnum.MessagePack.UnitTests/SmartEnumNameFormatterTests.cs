@@ -47,7 +47,7 @@ namespace Ardalis.SmartEnum.MessagePack.UnitTests
 
         static SmartEnumNameConverterTests()
         {
-            CompositeResolver.Register(
+            CompositeResolver.Create(
                 new SmartEnumNameFormatter<TestEnumBoolean, bool>(),
                 new SmartEnumNameFormatter<TestEnumInt16, short>(),
                 new SmartEnumNameFormatter<TestEnumInt32, int>(),
@@ -60,7 +60,7 @@ namespace Ardalis.SmartEnum.MessagePack.UnitTests
         {
             var message = MessagePackSerializer.Serialize(TestInstance);
 
-            MessagePackSerializer.ToJson(message).Should().Be(JsonString);
+            MessagePackSerializer.ConvertToJson(message).Should().Be(JsonString);
         }
 
         [Fact]

@@ -148,6 +148,33 @@ public abstract class EmployeeType : SmartEnum<EmployeeType>
 }
 ```
 
+You can take this a step further and use the `ManagerType` and associated `BonusSize` property in a parent class like so:
+
+```csharp
+public class Manager 
+{
+    private ManagerType _managerType { get; set; }
+    public string Type
+    {
+        get => _managerType.Name;
+        set
+        {
+            if (!ManagerType.TryFromName(value, true, out var parsed))
+            {
+                throw new Exception($"Invalid manage type of '{value}'");
+            }
+            _managerType = parsed;
+        }
+    }
+
+    public string BonusSize
+    {
+        get => _managerType.BonusSize();
+        set => _bonusSize_ = value;
+    }
+}
+```
+
 This other example implements a *state machine*. The method `CanTransitionTo()` returns `true` if it's allowed to transition from current state to `next`; otherwise returns `false`.
 
 ```csharp
@@ -601,6 +628,8 @@ protected override void OnModelCreating(ModelBuilder builder)
 }
 ```
 
+Remember, you need to implement your own parameterless constructor to make it works with db context. See [#103 issue](https://github.com/ardalis/SmartEnum/issues/103).
+
 #### Using SmartEnum.EFCore
 
 If you have installed `Ardalis.SmartEnum.EFCore` it is sufficient to add the following line at the end of the `OnModelCreating` method:
@@ -632,7 +661,7 @@ When serializing a `SmartEnum` to JSON, only one of the properties (`Value` or `
 ```csharp
 public class TestClass
 {
-    [JsonConverter(typeof(SmartEnumNameConverter<int>))]
+    [JsonConverter(typeof(SmartEnumNameConverter<TestEnum,int>))]
     public TestEnum Property { get; set; }
 }
 ```
@@ -650,7 +679,7 @@ While this:
 ```csharp
 public class TestClass
 {
-    [JsonConverter(typeof(SmartEnumValueConverter<int>))]
+    [JsonConverter(typeof(SmartEnumValueConverter<TestEnum,int>))]
     public TestEnum Property { get; set; }
 }
 ```

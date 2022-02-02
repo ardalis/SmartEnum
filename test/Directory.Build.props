@@ -20,13 +20,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.*"/>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*"/>
     <PackageReference Include="xunit" Version="2.*"/>
     <PackageReference Include="xunit.analyzers" Version="0.10.0"/>
     <PackageReference Include="xunit.runner.visualstudio" Version="2.*">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="FluentAssertions" Version="5.*"/>
+    <PackageReference Include="FluentAssertions" Version="6.*"/>
   </ItemGroup>
 </Project>

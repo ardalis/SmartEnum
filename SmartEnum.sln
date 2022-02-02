@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29709.97
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum", "src\SmartEnum\SmartEnum.csproj", "{2A1AA760-8929-433C-BC27-5513F0289842}"
 EndProject
@@ -61,6 +61,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.EFCore.IntegrationTests", "src\SmartEnum.EFCore.UnitTests\SmartEnum.EFCore.IntegrationTests.csproj", "{DF5E3B19-AE8E-48A4-B023-4FA42D6EA8FF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "IntegrationTests", "{EF5634F4-4667-4481-934C-D1CFA042AD0B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.ModelBinding", "src\SmartEnum.ModelBinding\SmartEnum.ModelBinding.csproj", "{C9028EC4-2B46-4A4F-BDE8-BC249BFB0C5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -140,6 +142,10 @@ Global
 		{DF5E3B19-AE8E-48A4-B023-4FA42D6EA8FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF5E3B19-AE8E-48A4-B023-4FA42D6EA8FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF5E3B19-AE8E-48A4-B023-4FA42D6EA8FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9028EC4-2B46-4A4F-BDE8-BC249BFB0C5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9028EC4-2B46-4A4F-BDE8-BC249BFB0C5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9028EC4-2B46-4A4F-BDE8-BC249BFB0C5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9028EC4-2B46-4A4F-BDE8-BC249BFB0C5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -164,6 +170,7 @@ Global
 		{CDA8EF6E-F678-4FD3-80B0-5C61FC76EE51} = {FA199ECB-5F29-442A-AAC6-91DBCB7A5A04}
 		{DF5E3B19-AE8E-48A4-B023-4FA42D6EA8FF} = {EF5634F4-4667-4481-934C-D1CFA042AD0B}
 		{EF5634F4-4667-4481-934C-D1CFA042AD0B} = {79268877-BBEF-4DE2-B8D9-697F21933159}
+		{C9028EC4-2B46-4A4F-BDE8-BC249BFB0C5A} = {FA199ECB-5F29-442A-AAC6-91DBCB7A5A04}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {46896DE3-41B8-442F-A6FB-6AC9F11CCBCE}
