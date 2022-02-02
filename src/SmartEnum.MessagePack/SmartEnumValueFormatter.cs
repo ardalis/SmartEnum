@@ -20,17 +20,61 @@ namespace Ardalis.SmartEnum.MessagePack
 
         private void Write(ref MessagePackWriter writer, TValue value)
         {
-            if (typeof(TValue) == typeof(bool)) writer.Write((bool)(object)value);
-            if (typeof(TValue) == typeof(byte)) writer.Write((byte)(object)value);
-            if (typeof(TValue) == typeof(sbyte)) writer.Write((sbyte)(object)value);
-            if (typeof(TValue) == typeof(short)) writer.Write((short)(object)value);
-            if (typeof(TValue) == typeof(ushort)) writer.Write((ushort)(object)value);
-            if (typeof(TValue) == typeof(int)) writer.Write((int)(object)value);
-            if (typeof(TValue) == typeof(uint)) writer.Write((uint)(object)value);
-            if (typeof(TValue) == typeof(long)) writer.Write((long)(object)value);
-            if (typeof(TValue) == typeof(ulong)) writer.Write((ulong)(object)value);
-            if (typeof(TValue) == typeof(float)) writer.Write((float)(object)value);
-            if (typeof(TValue) == typeof(double)) writer.Write((double)(object)value);
+            if (typeof(TValue) == typeof(byte))
+            {
+                writer.Write((byte)(object)value);
+                return;
+            }
+            if (typeof(TValue) == typeof(bool))
+            {
+                writer.Write((bool)(object)value);
+                return;
+            }
+            if (typeof(TValue) == typeof(sbyte))
+            {
+                writer.Write((sbyte)(object)value);
+                return;
+            }
+            if (typeof(TValue) == typeof(short))
+            {
+                writer.Write((short)(object)value);
+                return;
+            }
+            if (typeof(TValue) == typeof(ushort))
+            {
+                writer.Write((ushort)(object)value);
+                return;
+            }
+            if (typeof(TValue) == typeof(int))
+            {
+                writer.Write((int)(object)value);
+                return;
+            }
+            if (typeof(TValue) == typeof(uint))
+            {
+                writer.Write((uint)(object)value);
+                return;
+            }
+            if (typeof(TValue) == typeof(long))
+            {
+                writer.Write((long)(object)value);
+                return;
+            }
+            if (typeof(TValue) == typeof(ulong))
+            {
+                writer.Write((ulong)(object)value);
+                return;
+            }
+            if (typeof(TValue) == typeof(float))
+            {
+                writer.Write((float)(object)value);
+                return;
+            }
+            if (typeof(TValue) == typeof(double))
+            {
+                writer.Write((double)(object)value);
+                return;
+            }
             throw new ArgumentOutOfRangeException(nameof(value), $"{typeof(TValue)} is not supported."); // should not get to here
         }
 
