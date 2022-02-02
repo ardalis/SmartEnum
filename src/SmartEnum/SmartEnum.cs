@@ -1,4 +1,6 @@
-﻿namespace Ardalis.SmartEnum
+﻿using System.Runtime.InteropServices.ComTypes;
+
+namespace Ardalis.SmartEnum
 {
     using System;
     using System.Collections.Generic;
@@ -31,6 +33,7 @@
     /// <typeparam name="TValue">The type of the inner value.</typeparam>
     /// <remarks></remarks>
     public abstract class SmartEnum<TEnum, TValue> :
+    	ISmartEnum,
         IEquatable<SmartEnum<TEnum, TValue>>,
         IComparable<SmartEnum<TEnum, TValue>>
         where TEnum : SmartEnum<TEnum, TValue>
@@ -39,10 +42,10 @@
         static readonly Lazy<TEnum[]> _enumOptions = 
             new Lazy<TEnum[]>(GetAllOptions, LazyThreadSafetyMode.ExecutionAndPublication);
         
-        static readonly Lazy<Dictionary<string, TEnum>> _fromName = 
+        static readonly Lazy<Dictionary<string, TEnum>> _fromName =
             new Lazy<Dictionary<string, TEnum>>(() => _enumOptions.Value.ToDictionary(item => item.Name));
 
-        static readonly Lazy<Dictionary<string, TEnum>> _fromNameIgnoreCase = 
+        static readonly Lazy<Dictionary<string, TEnum>> _fromNameIgnoreCase =
             new Lazy<Dictionary<string, TEnum>>(() => _enumOptions.Value.ToDictionary(item => item.Name, StringComparer.OrdinalIgnoreCase));
 
         static readonly Lazy<Dictionary<TValue, TEnum>> _fromValue =
@@ -82,6 +85,18 @@
         private readonly string _name;
         private readonly TValue _value;
 
+
+        protected SmartEnum(string name, TValue value)
+        {
+            if (String.IsNullOrEmpty(name))
+                ThrowHelper.ThrowArgumentNullOrEmptyException(nameof(name));
+            if (value == null)
+                ThrowHelper.ThrowArgumentNullException(nameof(value));
+
+            _name = name;
+            _value = value;
+        }
+
         /// <summary>
         /// Gets the name.
         /// </summary>
@@ -96,23 +111,6 @@
         public TValue Value =>
             _value;
 
-        protected SmartEnum(string name, TValue value)
-        {
-            if (String.IsNullOrEmpty(name))
-                ThrowHelper.ThrowArgumentNullOrEmptyException(nameof(name));
-            if (value == null)
-                ThrowHelper.ThrowArgumentNullException(nameof(value));
-
-            _name = name;
-            _value = value;
-        }
-
-        /// <summary>
-        /// Gets the type of the inner value.
-        /// </summary>
-        /// <value>A <see name="System.Type"/> that is the type of the value of the <see cref="SmartEnum{TEnum, TValue}"/>.</value>
-        public Type GetValueType() =>
-            typeof(TValue);
 
         /// <summary>
         /// Gets the item associated with the specified name.

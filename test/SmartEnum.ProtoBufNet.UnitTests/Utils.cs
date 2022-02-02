@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Ardalis.SmartEnum.ProtoBufNet
 {
     using System.IO;

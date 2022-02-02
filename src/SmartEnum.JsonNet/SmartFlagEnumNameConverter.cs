@@ -1,13 +1,15 @@
+﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
+using System.Linq;
+using System.Text;
+using Newtonsoft.Json;
 
 namespace Ardalis.SmartEnum.JsonNet
 {
-    using Newtonsoft.Json;
-    using System;
-
-    public class SmartEnumNameConverter<TEnum, TValue> : JsonConverter<TEnum>
-        where TEnum : SmartEnum<TEnum, TValue>
-        where TValue : IEquatable<TValue>, IComparable<TValue>
+    public class SmartFlagEnumNameConverter<TEnum, TValue> : JsonConverter<TEnum> 
+    where TEnum : SmartFlagEnum<TEnum, TValue>
+    where TValue : struct, IComparable<TValue>, IEquatable<TValue>
     {
         public override bool CanRead => true;
 
@@ -21,22 +23,28 @@ namespace Ardalis.SmartEnum.JsonNet
                     return GetFromName((string)reader.Value);
 
                 default:
-                    throw new JsonSerializationException($"Unexpected token {reader.TokenType} when parsing a smart enum.");
+                    throw new JsonSerializationException($"Unexpected token {reader.TokenType} when parsing a smart flag enum.");
             }
 
             TEnum GetFromName(string name)
             {
                 try
                 {
-                    return SmartEnum<TEnum, TValue>.FromName(name, false);
+                    return SmartFlagEnum<TEnum, TValue>.FromName(name, false).FirstOrDefault();
                 }
                 catch (Exception ex)
                 {
-                    throw new JsonSerializationException($"Error converting value '{name}' to a smart enum.", ex);
+                    throw new JsonSerializationException($"Error converting value '{name}' to a smart flag enum.", ex);
                 }
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="writer"></param>
+        /// <param name="value"></param>
+        /// <param name="serializer"></param>
         public override void WriteJson(JsonWriter writer, TEnum value, JsonSerializer serializer)
         {
             if (value is null)
