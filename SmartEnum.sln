@@ -60,6 +60,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.EFCore.Integratio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "IntegrationTests", "{EF5634F4-4667-4481-934C-D1CFA042AD0B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartEnum.ModelBinding", "SmartEnum.ModelBinding\SmartEnum.ModelBinding.csproj", "{299BCE09-6CA5-4E07-AD55-F3C8AAB30155}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -134,6 +136,10 @@ Global
 		{DF5E3B19-AE8E-48A4-B023-4FA42D6EA8FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF5E3B19-AE8E-48A4-B023-4FA42D6EA8FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF5E3B19-AE8E-48A4-B023-4FA42D6EA8FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{299BCE09-6CA5-4E07-AD55-F3C8AAB30155}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{299BCE09-6CA5-4E07-AD55-F3C8AAB30155}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{299BCE09-6CA5-4E07-AD55-F3C8AAB30155}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{299BCE09-6CA5-4E07-AD55-F3C8AAB30155}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -157,6 +163,7 @@ Global
 		{CDA8EF6E-F678-4FD3-80B0-5C61FC76EE51} = {FA199ECB-5F29-442A-AAC6-91DBCB7A5A04}
 		{DF5E3B19-AE8E-48A4-B023-4FA42D6EA8FF} = {EF5634F4-4667-4481-934C-D1CFA042AD0B}
 		{EF5634F4-4667-4481-934C-D1CFA042AD0B} = {79268877-BBEF-4DE2-B8D9-697F21933159}
+		{299BCE09-6CA5-4E07-AD55-F3C8AAB30155} = {FA199ECB-5F29-442A-AAC6-91DBCB7A5A04}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {46896DE3-41B8-442F-A6FB-6AC9F11CCBCE}
