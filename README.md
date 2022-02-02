@@ -148,7 +148,7 @@ public abstract class EmployeeType : SmartEnum<EmployeeType>
 }
 ```
 
-You can take this a step further and use the `ManagerType` and assocaited `BonusSize` property in a parent class like so:
+You can take this a step further and use the `ManagerType` and associated `BonusSize` property in a parent class like so:
 
 ```csharp
 public class Manager 
