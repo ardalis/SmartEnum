@@ -1,4 +1,4 @@
-﻿namespace Ardalis.SmartEnum.UnitTests
+namespace Ardalis.SmartEnum.UnitTests
 {
     using FluentAssertions;
     using Xunit;
@@ -22,7 +22,11 @@
         {
             var result = TestBaseEnumWithDerivedValues.List;
 
-            result.Should().BeEquivalentTo(DerivedTestEnumWithValues1.A, DerivedTestEnumWithValues1.B, DerivedTestEnumWithValues2.C, DerivedTestEnumWithValues2.D);
+            result.Should().BeEquivalentTo(new TestBaseEnumWithDerivedValues[] { 
+                DerivedTestEnumWithValues1.A,
+                DerivedTestEnumWithValues1.B,
+                DerivedTestEnumWithValues2.C,
+                DerivedTestEnumWithValues2.D});
         }
     }
 }
