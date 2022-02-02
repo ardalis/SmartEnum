@@ -367,6 +367,8 @@ protected override void OnModelCreating(ModelBuilder builder)
 }
 ```
 
+Remember, you need to implement your own parameterless constructor to make it works with db context. See [#103 issue](https://github.com/ardalis/SmartEnum/issues/103).
+
 #### Using SmartEnum.EFCore
 
 If you have installed `Ardalis.SmartEnum.EFCore` it is sufficient to add the following line at the end of the `OnModelCreating` method:
