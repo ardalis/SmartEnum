@@ -356,7 +356,9 @@ namespace Ardalis.SmartEnum
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator TValue(SmartEnum<TEnum, TValue> smartEnum) =>
-            smartEnum._value;
+            smartEnum is not null
+                ? smartEnum._value 
+                : default;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator SmartEnum<TEnum, TValue>(TValue value) =>
