@@ -21,7 +21,7 @@
     <PackageReference Include="MessagePack" Version="2.3.85" />
     <PackageReference Include="Ardalis.SmartEnum" Version="2.0.1" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.35.0.42613" PrivateAssets="All" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.36.0.43782" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
     <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
