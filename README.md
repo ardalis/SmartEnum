@@ -5,6 +5,10 @@
 
 SmartEnum.AutoFixture: [![NuGet](https://img.shields.io/nuget/v/Ardalis.SmartEnum.AutoFixture.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.AutoFixture)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.AutoFixture.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.AutoFixture)![publish SmartEnum.AutoFixture to nuget](https://github.com/ardalis/SmartEnum/workflows/publish%20SmartEnum.AutoFixture%20to%20nuget/badge.svg)
 
+SmartEnum.Dapper: [![NuGet](https://img.shields.io/nuget/v/Ardalis.SmartEnum.Dapper.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.Dapper)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.Dapper.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.Dapper)![publish SmartEnum.Dapper to nuget](https://github.com/ardalis/SmartEnum/workflows/publish%20SmartEnum.Dapper%20to%20nuget/badge.svg)
+
+SmartEnum.EFCore: [![NuGet](https://img.shields.io/nuget/v/Ardalis.SmartEnum.EFCore.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.EFCore)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.EFCore.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.EFCore)![publish SmartEnum.EFCore to nuget](https://github.com/ardalis/SmartEnum/workflows/publish%20SmartEnum.EFCore%20to%20nuget/badge.svg)
+
 SmartEnum.JsonNet: [![NuGet](https://img.shields.io/nuget/v/Ardalis.SmartEnum.JsonNet.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.JsonNet)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.JsonNet.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.JsonNet)![publish jsonnet to nuget](https://github.com/ardalis/SmartEnum/workflows/publish%20SmartEnum.JsonNet%20to%20nuget/badge.svg)
 
 SmartEnum.MessagePack: [![NuGet](https://img.shields.io/nuget/v/Ardalis.SmartEnum.MessagePack.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.MessagePack)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.MessagePack.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.MessagePack)![publish SmartEnum.MessagePack to nuget](https://github.com/ardalis/SmartEnum/workflows/publish%20SmartEnum.MessagePack%20to%20nuget/badge.svg)
@@ -37,7 +41,7 @@ To install the minimum requirements:
 Install-Package Ardalis.SmartEnum
 ```
 
-To install support for serialization, AutoFixture or EF Core select the lines that apply:
+To install support for serialization, AutoFixture, EF Core or Dapper select the lines that apply:
 
 ```
 Install-Package Ardalis.SmartEnum.AutoFixture
@@ -46,6 +50,7 @@ Install-Package Ardalis.SmartEnum.Utf8Json
 Install-Package Ardalis.SmartEnum.MessagePack
 Install-Package Ardalis.SmartEnum.ProtoBufNet
 Install-Package Ardalis.SmartEnum.EFCore
+Install-Package Ardalis.SmartEnum.Dapper
 ```
 
 ## Usage
@@ -693,6 +698,62 @@ uses the `Value`:
 ```
 
 Note: The SmartFlagEnum works identically to the SmartEnum when being Serialized and Deserialized.
+
+## Dapper support
+
+To enable Dapper support for `SmartEnum` values, add a `SmartEnumTypeHandler` to `SqlMapper` for the
+given `SmartEnum` type. There are two inheritors of `SmartEnumTypeHandler`:
+`SmartEnumByNameTypeHandler`, which maps the Name of a `SmartEnum` to a database column, and
+`SmartEnumByValueTypeHandler`, which maps the Value of a `SmartEnum` to a database column.
+
+```csharp
+// Maps the name of TestEnum objects (e.g. "One", "Two", or "Three") to a database column.
+SqlMapper.AddTypeHandler(typeof(TestEnum), new SmartEnumByNameTypeHandler<TestEnum>());
+```
+
+```csharp
+// Maps the value of TestEnum objects (e.g. 1, 2, or 3) to a database column.
+SqlMapper.AddTypeHandler(typeof(TestEnum), new SmartEnumByValueTypeHandler<TestEnum>());
+```
+
+### DapperSmartEnum
+
+To avoid needing to explicitly register a `SmartEnum` type with Dapper, it can be done automatically
+by inheriting from `DapperSmartEnumByName` or `DapperSmartEnumByValue` instead of from `SmartEnum`.
+
+```csharp
+public class TestEnumByName : DapperSmartEnumByName<TestEnumByName>
+{
+    public static readonly TestEnumByName One = new TestEnumByName(1);
+    public static readonly TestEnumByName Two = new TestEnumByName(2);
+    public static readonly TestEnumByName Three = new TestEnumByName(3);
+
+    protected TestEnumByName(int value, [CallerMemberName] string name = null) : base(name, value)
+    {
+    }
+}
+```
+
+```csharp
+public class TestEnumByValue : DapperSmartEnumByValue<TestEnumByValue>
+{
+    public static readonly TestEnumByValue One = new TestEnumByValue(1);
+    public static readonly TestEnumByValue Two = new TestEnumByValue(2);
+    public static readonly TestEnumByValue Three = new TestEnumByValue(3);
+
+    protected TestEnumByValue(int value, [CallerMemberName] string name = null) : base(name, value)
+    {
+    }
+}
+```
+
+Inheritors of `DapperSmartEnum` can be decorated with custom attributes in order to configure
+its type handler. Use `DbTypeAttribute` (e.g. `[DbType(DbType.String)]`) to specify that parameters
+should have their `DbType` property set to the specified value. Use `DoNotSetDbTypeAttribute` (e.g.
+`[DoNotSetDbType]`) to specify that parameters should not have their `DbType` property set. Use
+`IgnoreCaseAttribute` (e.g. `[IgnoreCase]`) when inheriting from `DapperSmartEnumByName` to specify
+that database values do not need to match the case of a SmartEnum Name.
+
 ## References
 
 - [Listing Strongly Typed Enums...)](https://ardalis.com/listing-strongly-typed-enum-options-in-c)
