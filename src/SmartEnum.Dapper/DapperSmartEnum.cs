@@ -39,12 +39,7 @@ namespace Ardalis.SmartEnum.Dapper
     {
         static DapperSmartEnum()
         {
-            var typeHandler = new TSmartEnumTypeHandler();
-
-            foreach (var customAttribute in Attribute.GetCustomAttributes(typeof(TEnum), false))
-                typeHandler.ConfigureFromCustomAttribute(customAttribute);
-
-            SqlMapper.AddTypeHandler(typeof(TEnum), typeHandler);
+            DapperRegistration<TEnum, TValue, TSmartEnumTypeHandler>.EnsureTypeHandlerAdded();
         }
 
         /// <inheritdoc/>
