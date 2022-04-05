@@ -19,7 +19,7 @@
   <ItemGroup>
     <PackageReference Include="System.Text.Json" Version="6.0.1" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.35.0.42613" PrivateAssets="All" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.37.0.45539" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
     <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
