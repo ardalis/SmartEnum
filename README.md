@@ -5,6 +5,10 @@
 
 SmartEnum.AutoFixture: [![NuGet](https://img.shields.io/nuget/v/Ardalis.SmartEnum.AutoFixture.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.AutoFixture)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.AutoFixture.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.AutoFixture)![publish SmartEnum.AutoFixture to nuget](https://github.com/ardalis/SmartEnum/workflows/publish%20SmartEnum.AutoFixture%20to%20nuget/badge.svg)
 
+SmartEnum.Dapper: [![NuGet](https://img.shields.io/nuget/v/Ardalis.SmartEnum.Dapper.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.Dapper)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.Dapper.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.Dapper)![publish SmartEnum.Dapper to nuget](https://github.com/ardalis/SmartEnum/workflows/publish%20SmartEnum.Dapper%20to%20nuget/badge.svg)
+
+SmartEnum.EFCore: [![NuGet](https://img.shields.io/nuget/v/Ardalis.SmartEnum.EFCore.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.EFCore)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.EFCore.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.EFCore)![publish SmartEnum.EFCore to nuget](https://github.com/ardalis/SmartEnum/workflows/publish%20SmartEnum.EFCore%20to%20nuget/badge.svg)
+
 SmartEnum.JsonNet: [![NuGet](https://img.shields.io/nuget/v/Ardalis.SmartEnum.JsonNet.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.JsonNet)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.JsonNet.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.JsonNet)![publish jsonnet to nuget](https://github.com/ardalis/SmartEnum/workflows/publish%20SmartEnum.JsonNet%20to%20nuget/badge.svg)
 
 SmartEnum.MessagePack: [![NuGet](https://img.shields.io/nuget/v/Ardalis.SmartEnum.MessagePack.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.MessagePack)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.MessagePack.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.MessagePack)![publish SmartEnum.MessagePack to nuget](https://github.com/ardalis/SmartEnum/workflows/publish%20SmartEnum.MessagePack%20to%20nuget/badge.svg)
@@ -37,7 +41,7 @@ To install the minimum requirements:
 Install-Package Ardalis.SmartEnum
 ```
 
-To install support for serialization, AutoFixture or EF Core select the lines that apply:
+To install support for serialization, AutoFixture, EF Core or Dapper select the lines that apply:
 
 ```
 Install-Package Ardalis.SmartEnum.AutoFixture
@@ -46,6 +50,7 @@ Install-Package Ardalis.SmartEnum.Utf8Json
 Install-Package Ardalis.SmartEnum.MessagePack
 Install-Package Ardalis.SmartEnum.ProtoBufNet
 Install-Package Ardalis.SmartEnum.EFCore
+Install-Package Ardalis.SmartEnum.Dapper
 ```
 
 ## Usage
@@ -144,6 +149,33 @@ public abstract class EmployeeType : SmartEnum<EmployeeType>
         public AssistantType() : base("Assistant", 2) {}
 
         public override decimal BonusSize => 1_000m;
+    }
+}
+```
+
+You can take this a step further and use the `ManagerType` and associated `BonusSize` property in a parent class like so:
+
+```csharp
+public class Manager 
+{
+    private ManagerType _managerType { get; set; }
+    public string Type
+    {
+        get => _managerType.Name;
+        set
+        {
+            if (!ManagerType.TryFromName(value, true, out var parsed))
+            {
+                throw new Exception($"Invalid manage type of '{value}'");
+            }
+            _managerType = parsed;
+        }
+    }
+
+    public string BonusSize
+    {
+        get => _managerType.BonusSize();
+        set => _bonusSize_ = value;
     }
 }
 ```
@@ -323,6 +355,267 @@ testEnumVar
 
 N.B. For performance critical code the fluent interface carries some overhead that you may wish to avoid. See the available [benchmarks](src/SmartEnum.Benchmarks) code for your use case.
 
+### SmartFlagEnum
+
+Support has been added for a `Flag` functionality.  
+This feature is similar to the behaviour seen when applying the `[Flag]` attribute to Enums in the .NET Framework
+All methods available on the `SmartFlagEnum` class return an `IEnumerable<SmartFlagEnum>` with one or more values depending on the value provided/method called.
+Some Functionality is shared with the original SmartEnum class, listed below are the variations.
+
+### Setting SmartFlagEnum Values
+
+When setting the values for a `SmartFlagEnum` It is imperative to provide values as powers of two.  If at least one value is not set as power of two or two or more power of two values are provided inconsecutively (eg: 1, 2, no four!, 8) a `SmartFlagEnumDoesNotContainPowerOfTwoValuesException` will be thrown.        
+
+```csharp
+public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
+    {
+        public static readonly SmartFlagTestEnum None = new SmartFlagTestEnum(nameof(None), 0);
+        public static readonly SmartFlagTestEnum Card = new SmartFlagTestEnum(nameof(Card), 1);
+        public static readonly SmartFlagTestEnum Cash = new SmartFlagTestEnum(nameof(Cash), 2);
+        public static readonly SmartFlagTestEnum Bpay = new SmartFlagTestEnum(nameof(Bpay), 4);
+        public static readonly SmartFlagTestEnum Paypal = new SmartFlagTestEnum(nameof(Paypal), 8);
+        public static readonly SmartFlagTestEnum BankTransfer = new SmartFlagTestEnum(nameof(BankTransfer), 16);
+
+        public SmartFlagTestEnum(string name, int value) : base(name, value)
+        {
+        }
+    }
+```  
+
+This behaviour can be disabled by applying the `AllowUnsafeFlagEnumValuesAttribute` to the smart enum class.  Note: If power of two values are not provided the SmarFlagEnum will not behave as expected!  
+
+```csharp
+[AllowUnsafeFlagEnumValues]
+public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
+    {
+        public static readonly SmartFlagTestEnum None = new SmartFlagTestEnum(nameof(None), 0);
+        public static readonly SmartFlagTestEnum Card = new SmartFlagTestEnum(nameof(Card), 1);
+        public static readonly SmartFlagTestEnum Cash = new SmartFlagTestEnum(nameof(Cash), 2);
+        public static readonly SmartFlagTestEnum Bpay = new SmartFlagTestEnum(nameof(Bpay), 4);
+        public static readonly SmartFlagTestEnum Paypal = new SmartFlagTestEnum(nameof(Paypal), 8);
+        public static readonly SmartFlagTestEnum BankTransfer = new SmartFlagTestEnum(nameof(BankTransfer), 16);
+
+        public SmartFlagTestEnum(string name, int value) : base(name, value)
+        {
+        }
+    }
+```
+
+`Combination` values can be provided explicitly and will be returned in place of the multiple flag values that would have been returned from the `FromValue()` method.  
+
+```csharp
+public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
+    {
+        public static readonly SmartFlagTestEnum None = new SmartFlagTestEnum(nameof(None), 0);
+        public static readonly SmartFlagTestEnum Card = new SmartFlagTestEnum(nameof(Card), 1);
+        public static readonly SmartFlagTestEnum Cash = new SmartFlagTestEnum(nameof(Cash), 2);
+        public static readonly SmartFlagTestEnum CardAndCash = new SmartFlagTestEnum(nameof(CardAndCash), 3); -- Explicit `Combination` value
+        public static readonly SmartFlagTestEnum Bpay = new SmartFlagTestEnum(nameof(Bpay), 4);
+        public static readonly SmartFlagTestEnum Paypal = new SmartFlagTestEnum(nameof(Paypal), 8);
+        public static readonly SmartFlagTestEnum BankTransfer = new SmartFlagTestEnum(nameof(BankTransfer), 16);
+
+        public SmartFlagTestEnum(string name, int value) : base(name, value)
+        {
+        }
+    }
+```
+
+These explicit values can be provided above the highest allowable flag value without consequence, however attempting to access a value that is higher than the maximum flag value that has not explicitly been provided (for example 4) will cause a `SmartEnumNotFoundException` to be thrown. 
+
+```csharp
+public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
+    {
+        public static readonly SmartFlagTestEnum None = new SmartFlagTestEnum(nameof(None), 0);
+        public static readonly SmartFlagTestEnum Card = new SmartFlagTestEnum(nameof(Card), 1);
+        public static readonly SmartFlagTestEnum Cash = new SmartFlagTestEnum(nameof(Cash), 2);
+        public static readonly SmartFlagTestEnum AfterPay = new SmartFlagTestEnum(nameof(AfterPay), 5);
+
+        public SmartFlagTestEnum(string name, int value) : base(name, value)
+        {
+        }
+    }
+    
+    var myFlagEnums = FromValue(3) -- Works!
+    -and-
+    var myFlagEnums = FromValue(5) -- Works!
+    -but-
+    Var myFlagEnums = FromValue(4) -- will throw an exception :(
+```
+
+A Negative One (-1) value may be provided as an `All` value. When a value of -1 is passed into any of the `FromValue()` methods an IEnumerable containing all values (excluding 0) will be returned.  
+If an explicit `Combination` value exists with a value of -1 this will be returned instead. 
+
+```csharp
+public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
+    {
+        public static readonly SmartFlagTestEnum All = new SmartFlagTestEnum(nameof(All), -1);
+        public static readonly SmartFlagTestEnum None = new SmartFlagTestEnum(nameof(None), 0);
+        public static readonly SmartFlagTestEnum Card = new SmartFlagTestEnum(nameof(Card), 1);
+        public static readonly SmartFlagTestEnum Cash = new SmartFlagTestEnum(nameof(Cash), 2);
+        public static readonly SmartFlagTestEnum Bpay = new SmartFlagTestEnum(nameof(Bpay), 4);
+        public static readonly SmartFlagTestEnum Paypal = new SmartFlagTestEnum(nameof(Paypal), 8);
+        public static readonly SmartFlagTestEnum BankTransfer = new SmartFlagTestEnum(nameof(BankTransfer), 16);
+
+        public SmartFlagTestEnum(string name, int value) : base(name, value)
+        {
+        }
+    }
+```
+
+### Usage - (SmartFlagEnum)
+
+```csharp
+public abstract class EmployeeType : SmartFlagEnum<EmployeeType>
+    {
+        public static readonly EmployeeType Director = new DirectorType();
+        public static readonly EmployeeType Manager = new ManagerType();
+        public static readonly EmployeeType Assistant = new AssistantType();
+
+        private EmployeeType(string name, int value) : base(name, value)
+        {
+        }
+
+        public abstract decimal BonusSize { get; }
+
+        private sealed class DirectorType : EmployeeType
+        {
+            public DirectorType() : base("Director", 1) { }
+
+            public override decimal BonusSize => 100_000m;
+        }
+
+        private sealed class ManagerType : EmployeeType
+        {
+            public ManagerType() : base("Manager", 2) { }
+
+            public override decimal BonusSize => 10_000m;
+        }
+
+        private sealed class AssistantType : EmployeeType
+        {
+            public AssistantType() : base("Assistant", 4) { }
+
+            public override decimal BonusSize => 1_000m;
+        }
+    }
+
+    public class SmartFlagEnumUsageExample
+    {
+        public void UseSmartFlagEnumOne()
+        {
+            var result = EmployeeType.FromValue(3).ToList();
+            
+            var outputString = "";
+            foreach (var employeeType in result)
+            {
+                outputString += $"{employeeType.Name} earns ${employeeType.BonusSize} bonus this year.\n";
+            }
+            
+                => "Director earns $100000 bonus this year.\n"
+                   "Manager earns $10000 bonus this year.\n"
+        }
+         
+        public void UseSmartFlagEnumTwo()
+        {
+            EmployeeType.FromValueToString(-1)
+                => "Director, Manager, Assistant"
+        }
+            
+        public void UseSmartFlagEnumTwo()
+        {
+            EmployeeType.FromValueToString(EmployeeType.Assistant | EmployeeType.Director)
+                => "Director, Assistant"
+        }
+    }
+  
+```
+
+### FromName()
+
+Access an `IEnumerable` of enum instances by matching a string containing one or more enum names seperated by commas to its `Names` property:
+
+```csharp
+var myFlagEnums = TestFlagEnum.FromName("One, Two");
+```
+
+Exception `SmartEnumNotFoundException` is thrown when no names are found. Alternatively, you can use `TryFromName` that returns `false` when no names are found:
+
+```csharp
+if (TestFlagEnum.TryFromName("One, Two", out var myFlagEnums))
+{
+    // use myFlagEnums here
+}
+```
+
+Both methods have a `ignoreCase` parameter (the default is case sensitive).
+
+### FromValue()
+
+Access an `IEnumerable` of enum instances by matching a value:
+
+```csharp
+var myFlagEnums = TestFlagEnum.FromValue(3);
+```
+
+Exception `SmartEnumNotFoundException` is thrown when no values are found. Alternatively, you can use `TryFromValue` that returns `false` when values are not found:
+
+```csharp
+if (TestFlagEnum.TryFromValue(3, out var myFlagEnums))
+{
+    // use myFlagEnums here
+}
+```
+
+Note: Negative values other than (-1) passed into this method will cause a `NegativeValueArgumentException` to be thrown, this behaviour can be disabled by applying the `AllowNegativeInput` attribute to the desired `SmartFlagEnum` class.
+
+```csharp
+[AllowNegativeInput]
+public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
+    {
+        public static readonly SmartFlagTestEnum None = new SmartFlagTestEnum(nameof(None), 0);
+        public static readonly SmartFlagTestEnum Card = new SmartFlagTestEnum(nameof(Card), 1);
+
+        public SmartFlagTestEnum(string name, int value) : base(name, value)
+        {
+        }
+    }
+```
+
+Note: `FromValue()` will accept any input that can be succesfully parsed as an integer.  If an invalid value is supplied it will throw an `InvalidFlagEnumValueParseException`.  
+
+### FromValueToString()
+
+Return a string representation of a series of enum instances name's:
+
+```csharp
+var myFlagEnumString = TestFlagEnum.FromValueToString(3);
+```
+
+Exception `SmartEnumNotFoundException` is thrown when no values are found. Alternatively, you can use `TryFromValueToString` that returns `false` when values are not found:  
+
+```csharp
+if (TestFlagEnum.TryFromValueToString(3, out var myFlagEnumsAsString))
+{
+    // use myFlagEnumsAsString here
+}
+```
+
+Note: Negative values other than (-1) passed into this method will cause a `NegativeValueArgumentException` to be thrown, this behaviour can be disabled by applying the `AllowNegativeInput` attribute to the desired `SmartFlagEnum` class.
+
+### BitWiseOrOperator
+
+The `FromValue()` methods allow the Or ( | ) operator to be used to `add` enum values together and provide multiple values at once.
+
+```csharp
+var myFlagEnums = TestFlagEnum.FromValue(TestFlagEnum.One | TestFlagEnum.Two);
+```
+
+This will only work where the type of the `SmartFlagEnum` has been specified as `Int32` or else can be explicitly cast as an `Int32`.
+
+```csharp
+var myFlagEnums = TestFlagEnumDecimal.FromValue((int)TestFlagEnum.One | (int)TestFlagEnum.Two);
+```
+
 ### Persisting with EF Core 2.1 or higher
 
 EF Core 2.1 introduced [value conversions](https://docs.microsoft.com/en-us/ef/core/modeling/value-conversions) which can be used to map SmartEnum types to simple database types. For example, given an entity named `Policy` with a property `PolicyStatus` that is a SmartEnum, you could use the following code to persist just the value to the database:
@@ -339,6 +632,8 @@ protected override void OnModelCreating(ModelBuilder builder)
             p => PolicyStatus.FromValue(p));
 }
 ```
+
+Remember, you need to implement your own parameterless constructor to make it works with db context. See [#103 issue](https://github.com/ardalis/SmartEnum/issues/103).
 
 #### Using SmartEnum.EFCore
 
@@ -371,7 +666,7 @@ When serializing a `SmartEnum` to JSON, only one of the properties (`Value` or `
 ```csharp
 public class TestClass
 {
-    [JsonConverter(typeof(SmartEnumNameConverter<int>))]
+    [JsonConverter(typeof(SmartEnumNameConverter<TestEnum,int>))]
     public TestEnum Property { get; set; }
 }
 ```
@@ -389,7 +684,7 @@ While this:
 ```csharp
 public class TestClass
 {
-    [JsonConverter(typeof(SmartEnumValueConverter<int>))]
+    [JsonConverter(typeof(SmartEnumValueConverter<TestEnum,int>))]
     public TestEnum Property { get; set; }
 }
 ```
@@ -401,6 +696,63 @@ uses the `Value`:
   "Property": 1
 }
 ```
+
+Note: The SmartFlagEnum works identically to the SmartEnum when being Serialized and Deserialized.
+
+## Dapper support
+
+To enable Dapper support for `SmartEnum` values, add a `SmartEnumTypeHandler` to `SqlMapper` for the
+given `SmartEnum` type. There are two inheritors of `SmartEnumTypeHandler`:
+`SmartEnumByNameTypeHandler`, which maps the Name of a `SmartEnum` to a database column, and
+`SmartEnumByValueTypeHandler`, which maps the Value of a `SmartEnum` to a database column.
+
+```csharp
+// Maps the name of TestEnum objects (e.g. "One", "Two", or "Three") to a database column.
+SqlMapper.AddTypeHandler(typeof(TestEnum), new SmartEnumByNameTypeHandler<TestEnum>());
+```
+
+```csharp
+// Maps the value of TestEnum objects (e.g. 1, 2, or 3) to a database column.
+SqlMapper.AddTypeHandler(typeof(TestEnum), new SmartEnumByValueTypeHandler<TestEnum>());
+```
+
+### DapperSmartEnum
+
+To avoid needing to explicitly register a `SmartEnum` type with Dapper, it can be done automatically
+by inheriting from `DapperSmartEnumByName` or `DapperSmartEnumByValue` instead of from `SmartEnum`.
+
+```csharp
+public class TestEnumByName : DapperSmartEnumByName<TestEnumByName>
+{
+    public static readonly TestEnumByName One = new TestEnumByName(1);
+    public static readonly TestEnumByName Two = new TestEnumByName(2);
+    public static readonly TestEnumByName Three = new TestEnumByName(3);
+
+    protected TestEnumByName(int value, [CallerMemberName] string name = null) : base(name, value)
+    {
+    }
+}
+```
+
+```csharp
+public class TestEnumByValue : DapperSmartEnumByValue<TestEnumByValue>
+{
+    public static readonly TestEnumByValue One = new TestEnumByValue(1);
+    public static readonly TestEnumByValue Two = new TestEnumByValue(2);
+    public static readonly TestEnumByValue Three = new TestEnumByValue(3);
+
+    protected TestEnumByValue(int value, [CallerMemberName] string name = null) : base(name, value)
+    {
+    }
+}
+```
+
+Inheritors of `DapperSmartEnum` can be decorated with custom attributes in order to configure
+its type handler. Use `DbTypeAttribute` (e.g. `[DbType(DbType.String)]`) to specify that parameters
+should have their `DbType` property set to the specified value. Use `DoNotSetDbTypeAttribute` (e.g.
+`[DoNotSetDbType]`) to specify that parameters should not have their `DbType` property set. Use
+`IgnoreCaseAttribute` (e.g. `[IgnoreCase]`) when inheriting from `DapperSmartEnumByName` to specify
+that database values do not need to match the case of a SmartEnum Name.
 
 ## References
 

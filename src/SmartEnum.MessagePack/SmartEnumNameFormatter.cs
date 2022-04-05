@@ -10,27 +10,16 @@ namespace Ardalis.SmartEnum.MessagePack
     {
         public void Serialize(ref MessagePackWriter writer, TEnum value, MessagePackSerializerOptions options)
         {
-            if (value == null)
-            {
-                writer.WriteNil();
-            }
-            else
-            {
-                writer.Write(value.Name.ToString());
-            }
+            if (value is null) return;
+
+            writer.Write(value.Name);
         }
 
         public TEnum Deserialize(ref MessagePackReader reader, MessagePackSerializerOptions options)
         {
-            if (reader.TryReadNil())
-            {
-                return default;
-            }
-            else
-            {
-                var name = reader.ReadString();
-                return SmartEnum<TEnum, TValue>.FromName(name);
-            }
+            var name = reader.ReadString();
+            return SmartEnum<TEnum, TValue>.FromName(name);
+
         }
 
 

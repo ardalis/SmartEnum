@@ -10,89 +10,85 @@ namespace Ardalis.SmartEnum.MessagePack
     {
         public void Serialize(ref MessagePackWriter writer, TEnum value, MessagePackSerializerOptions options)
         {
-            if(value is null)
+            if (value is null)
             {
                 writer.WriteNil();
             }
-            else
+
+            Write(ref writer, value.Value);
+        }
+
+        private void Write(ref MessagePackWriter writer, TValue value)
+        {
+            if (typeof(TValue) == typeof(byte))
             {
-                Write(writer, value.Value);
+                writer.Write((byte)(object)value);
+                return;
             }
+            if (typeof(TValue) == typeof(bool))
+            {
+                writer.Write((bool)(object)value);
+                return;
+            }
+            if (typeof(TValue) == typeof(sbyte))
+            {
+                writer.Write((sbyte)(object)value);
+                return;
+            }
+            if (typeof(TValue) == typeof(short))
+            {
+                writer.Write((short)(object)value);
+                return;
+            }
+            if (typeof(TValue) == typeof(ushort))
+            {
+                writer.Write((ushort)(object)value);
+                return;
+            }
+            if (typeof(TValue) == typeof(int))
+            {
+                writer.Write((int)(object)value);
+                return;
+            }
+            if (typeof(TValue) == typeof(uint))
+            {
+                writer.Write((uint)(object)value);
+                return;
+            }
+            if (typeof(TValue) == typeof(long))
+            {
+                writer.Write((long)(object)value);
+                return;
+            }
+            if (typeof(TValue) == typeof(ulong))
+            {
+                writer.Write((ulong)(object)value);
+                return;
+            }
+            if (typeof(TValue) == typeof(float))
+            {
+                writer.Write((float)(object)value);
+                return;
+            }
+            if (typeof(TValue) == typeof(double))
+            {
+                writer.Write((double)(object)value);
+                return;
+            }
+            throw new ArgumentOutOfRangeException(nameof(value), $"{typeof(TValue)} is not supported."); // should not get to here
         }
 
         public TEnum Deserialize(ref MessagePackReader reader, MessagePackSerializerOptions options)
         {
-            if (reader.TryReadNil())
+            if(reader.TryReadNil())
             {
                 return default;
             }
 
-            return SmartEnum<TEnum, TValue>.FromValue(Read(reader));
+            return SmartEnum<TEnum, TValue>.FromValue((TValue)Read(ref reader));
         }
 
-        //public int Serialize(ref byte[] bytes, int offset, TEnum value, IFormatterResolver formatterResolver)
-        //{
-        //    if (value is null)
-        //        return MessagePackBinary.WriteNil(ref bytes, offset);
-
-        //    return Write(ref bytes, offset, value.Value);
-        //}
-
-        //public TEnum Deserialize(byte[] bytes, int offset, IFormatterResolver formatterResolver, out int readSize)
-        //{
-        //    if (MessagePackBinary.IsNil(bytes, offset))
-        //    {
-        //        readSize = 1;
-        //        return default;
-        //    }
-
-        //    return SmartEnum<TEnum, TValue>.FromValue(Read());
-        //}
-
-        private void Write(MessagePackWriter writer, TValue value)
-        {
-            switch(value)
-            {
-                case bool boolean:
-                    writer.Write(boolean);
-                    break;
-                case byte myByte:
-                    writer.Write(myByte);
-                    break;
-                case sbyte mysByte:
-                    writer.Write(mysByte);
-                    break;
-                case short myShort:
-                    writer.Write(myShort);
-                    break;
-                case ushort myUShort:
-                    writer.Write(myUShort);
-                    break;
-                case int myInt:
-                    writer.Write(myInt);
-                    break;
-                case uint myUInt:
-                    writer.Write(myUInt);
-                    break;
-                case long myLong:
-                    writer.Write(myLong);
-                    break;
-                case ulong myULong:
-                    writer.Write(myULong);
-                    break;
-                case float myFloat:
-                    writer.Write(myFloat);
-                    break;
-                case double myDouble:
-                    writer.Write(myDouble);
-                    break;
-
-                case object _:
-                    throw new ArgumentOutOfRangeException(nameof(value), $"{typeof(TValue)} is not supported."); // should not get to here
-            }
-        }
-
-        private TValue Read(MessagePackReader reader)
+        public TValue Read(ref MessagePackReader reader)
         {
             if (typeof(TValue) == typeof(bool))
                 return (TValue)(object)reader.ReadBoolean();

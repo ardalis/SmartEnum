@@ -47,7 +47,7 @@ namespace Ardalis.SmartEnum.MessagePack.UnitTests
 
         public SmartEnumValueConverterTests()
         {
-            _resolver = CompositeResolver.Create(
+            CompositeResolver.Create(
                 new SmartEnumValueFormatter<TestEnumBoolean, bool>(),
                 new SmartEnumValueFormatter<TestEnumInt16, short>(),
                 new SmartEnumValueFormatter<TestEnumInt32, int>(),
@@ -66,8 +66,6 @@ namespace Ardalis.SmartEnum.MessagePack.UnitTests
             var options = StandardResolverAllowPrivate.Options
                 .WithCompression(MessagePackCompression.Lz4BlockArray)
                 .WithResolver(_resolver);
-
-            var message = MessagePackSerializer.Serialize(TestInstance, options);
 
             MessagePackSerializer.ConvertToJson(message).Should().Be(JsonString);
         }

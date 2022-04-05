@@ -1,3 +1,6 @@
+using System.Globalization;
+using System.Linq;
+
 namespace Ardalis.SmartEnum
 {
     using System;
@@ -38,7 +41,7 @@ namespace Ardalis.SmartEnum
         {
             while (type != null)
             {
-                if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(SmartEnum<,>))
+                if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(SmartEnum<,>) || type.IsGenericType && type.GetGenericTypeDefinition() == typeof(SmartFlagEnum<,>))
                 {
                     var listPropertyInfo = type.GetProperty("List", BindingFlags.Public | BindingFlags.Static);
                     enums = (IEnumerable<object>)listPropertyInfo.GetValue(type, null);

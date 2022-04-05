@@ -73,9 +73,6 @@ namespace Ardalis.SmartEnum.Benchmarks
             global::Utf8Json.Resolvers.CompositeResolver.Register(
                 new Utf8Json.SmartEnumNameFormatter<TestSmartEnum, int>(),
                 new Utf8Json.SmartEnumValueFormatter<TestSmartEnum, int>());
-            //global::MessagePack.Resolvers.CompositeResolver.Register(
-            //    new MessagePack.SmartEnumNameFormatter<TestSmartEnum, int>(),
-            //    new MessagePack.SmartEnumValueFormatter<TestSmartEnum, int>());
 
             var resolver = global::MessagePack.Resolvers.CompositeResolver.Create(
                 new MessagePack.SmartEnumNameFormatter<TestSmartEnum, int>(),

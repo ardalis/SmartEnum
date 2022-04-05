@@ -16,5 +16,16 @@ namespace Ardalis.SmartEnum.AutoFixture.UnitTests
 
             result.Should().BeSameAs(TestEnum.One);
         }
+
+        [Fact]
+        public void ReturnsSmartEnumGivenNoExplicitPriorUse()
+        {
+            var fixture = new Fixture()
+                .Customize(new SmartEnumCustomization());
+
+            var result = fixture.Create<SmartFlagTestEnum>();
+
+            result.Should().BeSameAs(SmartFlagTestEnum.One);
+        }
     }
 }

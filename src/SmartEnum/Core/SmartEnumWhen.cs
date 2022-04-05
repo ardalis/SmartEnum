@@ -5,13 +5,13 @@ using System.Linq;
 namespace Ardalis.SmartEnum.Core
 {
     public readonly struct SmartEnumWhen<TEnum, TValue>
-        where TEnum : SmartEnum<TEnum, TValue>
+        where TEnum : ISmartEnum
         where TValue : IEquatable<TValue>, IComparable<TValue>
     {
-        private readonly SmartEnum<TEnum, TValue> smartEnum;
+        private readonly ISmartEnum smartEnum;
         private readonly bool stopEvaluating;
 
-        internal SmartEnumWhen(bool stopEvaluating, SmartEnum<TEnum, TValue> smartEnum)
+        internal SmartEnumWhen(bool stopEvaluating, ISmartEnum smartEnum)
         {
             this.stopEvaluating = stopEvaluating;
             this.smartEnum = smartEnum;
@@ -35,7 +35,7 @@ namespace Ardalis.SmartEnum.Core
         /// </summary>
         /// <param name="smartEnumWhen">A collection of <see cref="SmartEnum{TEnum, TValue}"/> values to compare to this instance.</param>
         /// <returns>A executor object to execute a supplied action.</returns>
-        public SmartEnumThen<TEnum, TValue> When(SmartEnum<TEnum, TValue> smartEnumWhen) =>
+        public SmartEnumThen<TEnum, TValue> When(ISmartEnum smartEnumWhen) =>
             new SmartEnumThen<TEnum, TValue>(isMatch: smartEnum.Equals(smartEnumWhen), stopEvaluating: stopEvaluating, smartEnum: smartEnum);
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Ardalis.SmartEnum.Core
         /// </summary>
         /// <param name="smartEnums">A collection of <see cref="SmartEnum{TEnum, TValue}"/> values to compare to this instance.</param>
         /// <returns>A executor object to execute a supplied action.</returns>
-        public SmartEnumThen<TEnum, TValue> When(params SmartEnum<TEnum, TValue>[] smartEnums) =>
+        public SmartEnumThen<TEnum, TValue> When(params ISmartEnum[] smartEnums) =>
             new SmartEnumThen<TEnum, TValue>(isMatch: smartEnums.Contains(smartEnum), stopEvaluating: stopEvaluating, smartEnum: smartEnum);
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace Ardalis.SmartEnum.Core
         /// </summary>
         /// <param name="smartEnums">A collection of <see cref="SmartEnum{TEnum, TValue}"/> values to compare to this instance.</param>
         /// <returns>A executor object to execute a supplied action.</returns>
-        public SmartEnumThen<TEnum, TValue> When(IEnumerable<SmartEnum<TEnum, TValue>> smartEnums) =>
+        public SmartEnumThen<TEnum, TValue> When(IEnumerable<ISmartEnum> smartEnums) =>
             new SmartEnumThen<TEnum, TValue>(isMatch: smartEnums.Contains(smartEnum), stopEvaluating: stopEvaluating, smartEnum: smartEnum);
     }
 }
