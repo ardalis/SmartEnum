@@ -80,7 +80,7 @@ namespace Ardalis.SmartEnum.MessagePack
 
         public TEnum Deserialize(ref MessagePackReader reader, MessagePackSerializerOptions options)
         {
-            if(reader.TryReadNil())
+            if (reader.TryReadNil())
             {
                 return default;
             }

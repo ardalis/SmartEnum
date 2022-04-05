@@ -1,8 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Ardalis.SmartEnum;
-
 namespace Ardalis.SmartEnum.AutoFixture.UnitTests
 {
     class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>

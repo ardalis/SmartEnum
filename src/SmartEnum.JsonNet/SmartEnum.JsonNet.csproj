@@ -1,29 +1,31 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net480</TargetFrameworks>
-    <PackageId>Ardalis.SmartEnum.JsonNet</PackageId>
-    <Title>Ardalis.SmartEnum.JsonNet</Title>
-    <Company>Ardalis.com</Company>
-    <Summary>Json.NET (de)serialization support for Ardalis.SmartEnum.</Summary>
-    <PackageTags>enum;smartenum;netstandard2.0;json;json.net;converter</PackageTags>
-    <PackageReleaseNotes>Upgraded to Net480 and corrected SmartEnum package reference</PackageReleaseNotes>
-    <PackageIcon>icon.png</PackageIcon>
-    <Version>1.0.31</Version>
-    <AssemblyName>Ardalis.SmartEnum.JsonNet</AssemblyName>
-    <RootNamespace>Ardalis.SmartEnum.JsonNet</RootNamespace>
-    <Features>strict</Features>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Ardalis.SmartEnum" Version="2.0.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.35.0.42613" PrivateAssets="All" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;net480</TargetFrameworks>
+		<PackageId>Ardalis.SmartEnum.JsonNet</PackageId>
+		<Title>Ardalis.SmartEnum.JsonNet</Title>
+		<Company>Ardalis.com</Company>
+		<Summary>Json.NET (de)serialization support for Ardalis.SmartEnum.</Summary>
+		<PackageTags>enum;smartenum;netstandard2.0;json;json.net;converter</PackageTags>
+		<PackageReleaseNotes>Updating dependencies; Consolidating to version 2.1.0</PackageReleaseNotes>
+		<PackageIcon>icon.png</PackageIcon>
+		<Version>2.1.0</Version>
+		<AssemblyName>Ardalis.SmartEnum.JsonNet</AssemblyName>
+		<RootNamespace>Ardalis.SmartEnum.JsonNet</RootNamespace>
+		<Features>strict</Features>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+		<PackageReference Include="SonarAnalyzer.CSharp" Version="8.37.0.45539" PrivateAssets="All" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
+	</ItemGroup>
 </Project>

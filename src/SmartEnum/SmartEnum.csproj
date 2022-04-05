@@ -13,8 +13,8 @@
     <RepositoryUrl>https://github.com/ardalis/SmartEnum</RepositoryUrl>
     <PackageTags>enum</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>2.0.1</Version>
-    <PackageReleaseNotes>Add support for System.Text.Json. Add support for strings to SmartEnumValueConverter (issue #101).</PackageReleaseNotes>
+    <Version>2.1.0</Version>
+    <PackageReleaseNotes>Many minor fixes and upgrades to dependent packages. Consolidating all dependent packages to this version.</PackageReleaseNotes>
     <AssemblyName>Ardalis.SmartEnum</AssemblyName>
     <Features>strict</Features>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -31,7 +31,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.35.0.42613" PrivateAssets="All" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.37.0.45539" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net480' ">

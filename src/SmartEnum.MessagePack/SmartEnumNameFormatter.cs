@@ -19,7 +19,6 @@ namespace Ardalis.SmartEnum.MessagePack
         {
             var name = reader.ReadString();
             return SmartEnum<TEnum, TValue>.FromName(name);
-
         }
     }
 }

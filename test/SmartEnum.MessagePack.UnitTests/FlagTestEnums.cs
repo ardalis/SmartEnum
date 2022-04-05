@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Ardalis.SmartEnum.MessagePack.UnitTests
 {
-    public sealed class FlagTestEnumInt16 : SmartFlagEnum<FlagTestEnumInt16, short>
+	public sealed class FlagTestEnumInt16 : SmartFlagEnum<FlagTestEnumInt16, short>
     {
         public static readonly FlagTestEnumInt16 Instance = new FlagTestEnumInt16(nameof(Instance), 1);
 

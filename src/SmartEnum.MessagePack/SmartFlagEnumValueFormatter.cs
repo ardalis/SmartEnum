@@ -1,4 +1,4 @@
-﻿namespace Ardalis.SmartEnum.MessagePack
+namespace Ardalis.SmartEnum.MessagePack
 {
     using System;
     using global::MessagePack;
@@ -16,99 +16,119 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="bytes"></param>
-        /// <param name="offset"></param>
+        /// <param name="writer"></param>
         /// <param name="value"></param>
-        /// <param name="formatterResolver"></param>
-        /// <returns></returns>
-        public int Serialize(ref byte[] bytes, int offset, TEnum value, IFormatterResolver formatterResolver)
+        /// <param name="options"></param>
+        public void Serialize(ref MessagePackWriter writer, TEnum value, MessagePackSerializerOptions options)
         {
             if (value is null)
-                return MessagePackBinary.WriteNil(ref bytes, offset);
-
-            return Write(ref bytes, offset, value.Value);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="bytes"></param>
-        /// <param name="offset"></param>
-        /// <param name="formatterResolver"></param>
-        /// <param name="readSize"></param>
-        /// <returns></returns>
-        public TEnum Deserialize(byte[] bytes, int offset, IFormatterResolver formatterResolver, out int readSize)
-        {
-            if (MessagePackBinary.IsNil(bytes, offset))
             {
-                readSize = 1;
-                return default;
+                writer.WriteNil();
             }
 
-            return SmartFlagEnum<TEnum, TValue>.DeserializeValue(Read(ref bytes, offset, out readSize));
+            Write(ref writer, value.Value);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="bytes"></param>
-        /// <param name="offset"></param>
-        /// <param name="value"></param>
+        /// <param name="reader"></param>
+        /// <param name="options"></param>
         /// <returns></returns>
-        public int Write(ref byte[] bytes, int offset, TValue value)
+        public TEnum Deserialize(ref MessagePackReader reader, MessagePackSerializerOptions options)
+        {
+            if (reader.TryReadNil())
+            {
+                return default;
+            }
+            return SmartFlagEnum<TEnum, TValue>.DeserializeValue(Read(ref reader));
+        }
+
+        private void Write(ref MessagePackWriter writer, TValue value)
         {
             if (typeof(TValue) == typeof(byte))
-                return MessagePackBinary.WriteByte(ref bytes, offset, (byte)(object)value);
+            {
+                writer.Write((byte)(object)value);
+                return;
+            }
             if (typeof(TValue) == typeof(sbyte))
-                return MessagePackBinary.WriteSByte(ref bytes, offset, (sbyte)(object)value);
+            {
+                writer.Write((sbyte)(object)value);
+                return;
+            }
             if (typeof(TValue) == typeof(short))
-                return MessagePackBinary.WriteInt16(ref bytes, offset, (short)(object)value);
+            {
+                writer.Write((short)(object)value);
+                return;
+            }
             if (typeof(TValue) == typeof(ushort))
-                return MessagePackBinary.WriteUInt16(ref bytes, offset, (ushort)(object)value);
+            {
+                writer.Write((ushort)(object)value);
+                return;
+            }
             if (typeof(TValue) == typeof(int))
-                return MessagePackBinary.WriteInt32(ref bytes, offset, (int)(object)value);
+            {
+                writer.Write((int)(object)value);
+                return;
+            }
             if (typeof(TValue) == typeof(uint))
-                return MessagePackBinary.WriteUInt32(ref bytes, offset, (uint)(object)value);
+            {
+                writer.Write((uint)(object)value);
+                return;
+            }
             if (typeof(TValue) == typeof(long))
-                return MessagePackBinary.WriteInt64(ref bytes, offset, (long)(object)value);
+            {
+                writer.Write((long)(object)value);
+                return;
+            }
             if (typeof(TValue) == typeof(ulong))
-                return MessagePackBinary.WriteUInt64(ref bytes, offset, (ulong)(object)value);
+            {
+                writer.Write((ulong)(object)value);
+                return;
+            }
             if (typeof(TValue) == typeof(float))
-                return MessagePackBinary.WriteSingle(ref bytes, offset, (float)(object)value);
+            {
+                writer.Write((float)(object)value);
+                return;
+            }
             if (typeof(TValue) == typeof(double))
-                return MessagePackBinary.WriteDouble(ref bytes, offset, (double)(object)value);
+            {
+                writer.Write((double)(object)value);
+                return;
+            }
             throw new ArgumentOutOfRangeException(nameof(value), $"{typeof(TValue)} is not supported."); // should not get to here
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="bytes"></param>
-        /// <param name="offset"></param>
-        /// <param name="readSize"></param>
+        /// <param name="reader"></param>
         /// <returns></returns>
-        public TValue Read(ref byte[] bytes, int offset, out int readSize)
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public TValue Read(ref MessagePackReader reader)
         {
+            if (typeof(TValue) == typeof(bool))
+                return (TValue)(object)reader.ReadBoolean();
             if (typeof(TValue) == typeof(byte))
-                return (TValue)(object)MessagePackBinary.ReadByte(bytes, offset, out readSize);
+                return (TValue)(object)reader.ReadByte();
             if (typeof(TValue) == typeof(sbyte))
-                return (TValue)(object)MessagePackBinary.ReadSByte(bytes, offset, out readSize);
+                return (TValue)(object)reader.ReadSByte();
             if (typeof(TValue) == typeof(short))
-                return (TValue)(object)MessagePackBinary.ReadInt16(bytes, offset, out readSize);
+                return (TValue)(object)reader.ReadInt16();
             if (typeof(TValue) == typeof(ushort))
-                return (TValue)(object)MessagePackBinary.ReadUInt16(bytes, offset, out readSize);
+                return (TValue)(object)reader.ReadUInt16();
             if (typeof(TValue) == typeof(int))
-                return (TValue)(object)MessagePackBinary.ReadInt32(bytes, offset, out readSize);
+                return (TValue)(object)reader.ReadInt32();
             if (typeof(TValue) == typeof(uint))
-                return (TValue)(object)MessagePackBinary.ReadUInt32(bytes, offset, out readSize);
+                return (TValue)(object)reader.ReadUInt32();
             if (typeof(TValue) == typeof(long))
-                return (TValue)(object)MessagePackBinary.ReadInt64(bytes, offset, out readSize);
+                return (TValue)(object)reader.ReadInt64();
             if (typeof(TValue) == typeof(ulong))
-                return (TValue)(object)MessagePackBinary.ReadUInt64(bytes, offset, out readSize);
+                return (TValue)(object)reader.ReadUInt64();
             if (typeof(TValue) == typeof(float))
-                return (TValue)(object)MessagePackBinary.ReadSingle(bytes, offset, out readSize);
+                return (TValue)(object)reader.ReadSingle();
             if (typeof(TValue) == typeof(double))
-                return (TValue)(object)MessagePackBinary.ReadDouble(bytes, offset, out readSize);
+                return (TValue)(object)reader.ReadDouble();
             throw new ArgumentOutOfRangeException(typeof(TValue).ToString(), $"{typeof(TValue)} is not supported."); // should not get to here
         }
     }

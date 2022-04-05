@@ -40,11 +40,11 @@ namespace Ardalis.SmartEnum.ProtoBufNet.UnitTests
         };
 
         readonly string SchemaString =
-@"syntax = ""proto2"";
+@"syntax = ""proto3"";
 package Ardalis.SmartEnum.ProtoBufNet;
 
 message SmartEnumValueSurrogate_TestEnumBoolean_Boolean {
-   required bool Value = 1;
+   bool Value = 1;
 }
 ";
 
