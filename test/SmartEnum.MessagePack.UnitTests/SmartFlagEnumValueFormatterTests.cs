@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Ardalis.SmartEnum.MessagePack;
@@ -46,7 +46,7 @@ namespace Ardalis.SmartEnum.MessagePack.UnitTests
 
         static SmartFlagEnumValueFormatterTests()
         {
-            CompositeResolver.Register(
+            CompositeResolver.Create(
                 new SmartFlagEnumValueFormatter<FlagTestEnumInt16, short>(),
                 new SmartFlagEnumValueFormatter<FlagTestEnumInt32, int>(),
                 new SmartFlagEnumValueFormatter<FlagTestEnumDouble, double>()
@@ -58,7 +58,7 @@ namespace Ardalis.SmartEnum.MessagePack.UnitTests
         {
             var message = MessagePackSerializer.Serialize(FlagTestInstance);
 
-            MessagePackSerializer.ToJson(message).Should().Be(JsonString);
+            MessagePackSerializer.ConvertToJson(message).Should().Be(JsonString);
         }
 
         [Fact]

@@ -1,4 +1,4 @@
-﻿using Ardalis.SmartEnum.MessagePack;
+using Ardalis.SmartEnum.MessagePack;
 using Ardalis.SmartEnum.MessagePack.UnitTests;
 using FluentAssertions;
 using MessagePack;
@@ -43,7 +43,7 @@ namespace Ardalis.SmartEnum.MessagePack.UnitTests
 
         static SmartFlagEnumNameFormatterTests()
         {
-            CompositeResolver.Register(
+            CompositeResolver.Create(
                 new SmartFlagEnumNameFormatter<FlagTestEnumInt16, short>(),
                 new SmartFlagEnumNameFormatter<FlagTestEnumInt32, int>(),
                 new SmartFlagEnumNameFormatter<FlagTestEnumDouble, double>()
@@ -55,7 +55,7 @@ namespace Ardalis.SmartEnum.MessagePack.UnitTests
         {
             var message = MessagePackSerializer.Serialize(FlagTestInstance);
 
-            MessagePackSerializer.ToJson(message).Should().Be(JsonString);
+            MessagePackSerializer.ConvertToJson(message).Should().Be(JsonString);
         }
 
         [Fact]

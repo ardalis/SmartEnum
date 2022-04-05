@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
+using System;
 using System.Linq;
-using System.Text;
 using Newtonsoft.Json;
 
 namespace Ardalis.SmartEnum.JsonNet
