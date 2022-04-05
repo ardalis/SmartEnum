@@ -1,4 +1,4 @@
-﻿namespace Ardalis.SmartEnum.Utf8Json
+namespace Ardalis.SmartEnum.Utf8Json
 {
     using global::Utf8Json;
     using global::Utf8Json.Internal;
@@ -13,9 +13,7 @@
             if (value is null)
             {
                 writer.WriteNull();
-                return;
             }
-
             else if (typeof(TValue) == typeof(byte))
                 writer.WriteByte((byte)(object)value.Value);
             else if (typeof(TValue) == typeof(sbyte))
