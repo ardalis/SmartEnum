@@ -25,4 +25,7 @@
   <ItemGroup>
     <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
+  </ItemGroup>
 </Project>
