@@ -1,37 +1,36 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net6</TargetFrameworks>
-    <PackageId>Ardalis.SmartEnum.EFCore</PackageId>
-    <Title>Ardalis.SmartEnum.EFCore</Title>
-    <Authors>Steve Smith (@ardalis)</Authors>
-    <Company>Ardalis.com</Company>
-    <Description>EFCore support for Ardalis.SmartEnum.</Description>
-    <Summary>EFCore support for Ardalis.SmartEnum.</Summary>
-    <RepositoryUrl>https://github.com/ardalis/SmartEnum</RepositoryUrl>
-    <PackageTags>enum;smartenum;entityframeworkcore;</PackageTags>
-    <PackageIcon>icon.png</PackageIcon>
-    <PackageReleaseNotes>Initial version.</PackageReleaseNotes>
-    <Version>1.0.0</Version>
-    <AssemblyName>Ardalis.SmartEnum.EFCore</AssemblyName>
-    <RootNamespace>Ardalis.SmartEnum.EFCore</RootNamespace>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <LangVersion>7.3</LangVersion>
-    <Features>strict</Features>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net6</TargetFrameworks>
+		<PackageId>Ardalis.SmartEnum.EFCore</PackageId>
+		<Title>Ardalis.SmartEnum.EFCore</Title>
+		<Authors>Steve Smith (@ardalis)</Authors>
+		<Company>Ardalis.com</Company>
+		<Description>EFCore support for Ardalis.SmartEnum.</Description>
+		<Summary>EFCore support for Ardalis.SmartEnum.</Summary>
+		<RepositoryUrl>https://github.com/ardalis/SmartEnum</RepositoryUrl>
+		<PackageTags>enum;smartenum;entityframeworkcore;</PackageTags>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageReleaseNotes>Updating dependencies; Consolidating to version 2.1.0</PackageReleaseNotes>
+		<Version>2.1.0</Version>
+		<AssemblyName>Ardalis.SmartEnum.EFCore</AssemblyName>
+		<RootNamespace>Ardalis.SmartEnum.EFCore</RootNamespace>
+		<LangVersion>7.3</LangVersion>
+		<Features>strict</Features>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
+	</ItemGroup>
 </Project>
