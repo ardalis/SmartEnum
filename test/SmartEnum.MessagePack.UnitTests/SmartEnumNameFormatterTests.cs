@@ -5,7 +5,7 @@ namespace Ardalis.SmartEnum.MessagePack.UnitTests
     using Xunit;
     using FluentAssertions;
 
-    public class SmartEnumNameConverterTests
+    public class SmartEnumNameFormatterTests
     {
         [MessagePackObject]
         public class TestClass
@@ -45,7 +45,7 @@ namespace Ardalis.SmartEnum.MessagePack.UnitTests
 
         static readonly string JsonString = @"[""Instance"",""Instance"",""Instance"",""Instance""]";
 
-        static SmartEnumNameConverterTests()
+        static SmartEnumNameFormatterTests()
         {
             CompositeResolver.Create(
                 new SmartEnumNameFormatter<TestEnumBoolean, bool>(),

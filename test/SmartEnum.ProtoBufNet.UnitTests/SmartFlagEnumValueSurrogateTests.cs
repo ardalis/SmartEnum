@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using ProtoBuf;
 using ProtoBuf.Meta;
 using Ardalis.SmartEnum.ProtoBufNet.UnitTests;
@@ -36,11 +36,11 @@ namespace Ardalis.SmartEnum.ProtoBufNet.UnitTests
         };
 
         readonly string SchemaString =
-            @"syntax = ""proto2"";
+            @"syntax = ""proto3"";
 package Ardalis.SmartEnum.ProtoBufNet;
 
 message SmartFlagEnumValueSurrogate_FlagTestEnumInt32_Int32 {
-   required int32 Value = 1;
+   int32 Value = 1;
 }
 ";
 

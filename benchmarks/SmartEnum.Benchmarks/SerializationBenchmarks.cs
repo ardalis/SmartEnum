@@ -73,12 +73,15 @@ namespace Ardalis.SmartEnum.Benchmarks
             global::Utf8Json.Resolvers.CompositeResolver.Register(
                 new Utf8Json.SmartEnumNameFormatter<TestSmartEnum, int>(),
                 new Utf8Json.SmartEnumValueFormatter<TestSmartEnum, int>());
-            global::MessagePack.Resolvers.CompositeResolver.Create(
+
+            var resolver = global::MessagePack.Resolvers.CompositeResolver.Create(
                 new MessagePack.SmartEnumNameFormatter<TestSmartEnum, int>(),
                 new MessagePack.SmartEnumValueFormatter<TestSmartEnum, int>());
+            var options =  global::MessagePack.Resolvers.StandardResolverAllowPrivate.Options
+                            .WithResolver(resolver);
 
-            nameMessagePack = global::MessagePack.MessagePackSerializer.Serialize(nameEnumInstance);
-            valueMessagePack = global::MessagePack.MessagePackSerializer.Serialize(valueEnumInstance);
+            nameMessagePack = global::MessagePack.MessagePackSerializer.Serialize(nameEnumInstance, options);
+            valueMessagePack = global::MessagePack.MessagePackSerializer.Serialize(valueEnumInstance, options);
 
             serializeStream = new MemoryStream();
 

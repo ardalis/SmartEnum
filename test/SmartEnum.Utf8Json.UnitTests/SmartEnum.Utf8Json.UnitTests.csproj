@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <IsPackable>false</IsPackable>
@@ -7,6 +7,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\SmartEnum.Utf8Json\SmartEnum.Utf8Json.csproj" />
+    <ProjectReference Include="..\..\src\SmartEnum\SmartEnum.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Update="coverlet.collector" Version="3.1.1">

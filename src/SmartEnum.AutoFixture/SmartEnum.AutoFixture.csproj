@@ -18,12 +18,14 @@
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Ardalis.SmartEnum" Version="2.0.1" />
     <PackageReference Include="AutoFixture" Version="4.17.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.35.0.42613" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
     <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
   </ItemGroup>
 </Project>

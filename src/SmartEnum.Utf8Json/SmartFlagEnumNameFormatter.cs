@@ -1,10 +1,11 @@
-﻿using System.Linq;
+using System.Linq;
 
 namespace Ardalis.SmartEnum.Utf8Json
 {
     using global::Utf8Json;
     using global::Utf8Json.Internal;
     using System;
+    using Ardalis.SmartEnum;
 
     /// <summary>
     /// 
