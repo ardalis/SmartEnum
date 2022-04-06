@@ -5,6 +5,7 @@
 		<Title>Ardalis.SmartEnum.AutoFixture</Title>
 		<Company>Ardalis.com</Company>
 		<Summary>AutoFixture support for Ardalis.SmartEnum.</Summary>
+    	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageTags>enum;smartenum;netstandard2.0;autofixture</PackageTags>
 		<PackageReleaseNotes>Updating dependencies; Consolidating to version 2.1.0</PackageReleaseNotes>
 		<PackageIcon>icon.png</PackageIcon>

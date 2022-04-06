@@ -6,6 +6,7 @@
 		<Company>Ardalis.com</Company>
 		<Description>Dapper support for Ardalis.SmartEnum.</Description>
 		<Summary>Dapper support for Ardalis.SmartEnum.</Summary>
+    	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/ardalis/SmartEnum</RepositoryUrl>
 		<PackageTags>enum;smartenum;dapper;</PackageTags>
 		<PackageReleaseNotes>Initial version.</PackageReleaseNotes>

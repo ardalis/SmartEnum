@@ -10,6 +10,7 @@
     <PackageProjectUrl>https://github.com/ardalis/SmartEnum</PackageProjectUrl>
     <Description>Classes to help produce strongly typed smarter enums in .NET.</Description>
     <Summary>Classes to help produce strongly typed smarter enums in .NET.</Summary>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/ardalis/SmartEnum</RepositoryUrl>
     <PackageTags>enum</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
