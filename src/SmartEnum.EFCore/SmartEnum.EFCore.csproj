@@ -8,6 +8,7 @@
 		<Company>Ardalis.com</Company>
 		<Description>EFCore support for Ardalis.SmartEnum.</Description>
 		<Summary>EFCore support for Ardalis.SmartEnum.</Summary>
+    	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/ardalis/SmartEnum</RepositoryUrl>
 		<PackageTags>enum;smartenum;entityframeworkcore;</PackageTags>
 		<PackageIcon>icon.png</PackageIcon>
