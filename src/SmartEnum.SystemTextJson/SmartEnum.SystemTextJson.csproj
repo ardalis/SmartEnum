@@ -19,7 +19,7 @@
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="System.Text.Json" Version="6.0.2" />
+		<PackageReference Include="System.Text.Json" Version="6.0.4" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 		<PackageReference Include="SonarAnalyzer.CSharp" Version="8.38.0.46746" PrivateAssets="All" />
 	</ItemGroup>
