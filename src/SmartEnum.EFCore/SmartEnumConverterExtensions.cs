@@ -1,4 +1,4 @@
-﻿using Ardalis.SmartEnum;
+using Ardalis.SmartEnum;
 using Ardalis.SmartEnum.EFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -20,6 +20,8 @@ namespace SmartEnum.EFCore
         {
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
+                bool isOwned = entityType.IsOwned();
+
                 var properties = entityType.ClrType.GetProperties()
                     .Where(p => TypeUtil.IsDerived(p.PropertyType, typeof(SmartEnum<,>)));
 
@@ -31,7 +33,15 @@ namespace SmartEnum.EFCore
 
                     var converter = (ValueConverter)Activator.CreateInstance(converterType);
 
-                    modelBuilder.Entity(entityType.Name).Property(property.Name).HasConversion(converter);
+
+                    if (isOwned)
+                    {
+                        entityType.FindProperty(property.Name).SetValueConverter(converter);
+                    }
+                    else
+                    {
+                        modelBuilder.Entity(entityType.Name).Property(property.Name).HasConversion(converter);
+                    }
                 }
             }
         }

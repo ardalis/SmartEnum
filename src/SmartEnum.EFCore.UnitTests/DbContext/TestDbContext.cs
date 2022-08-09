@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SmartEnum.EFCore.IntegrationTests.DbContext.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,14 +15,17 @@ namespace SmartEnum.EFCore.IntegrationTests.DbContext
         {
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-                optionsBuilder.UseSqlite("Data Source=:memory:;");
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<SomeEntity>()
+                .OwnsOne(
+                    e => e.OwnedEntity,
+                    owned =>
+                    {
+                        owned.Property(o => o.Value).HasColumnName("Owned1Value");
+                        owned.Property(o => o.Weekday).HasColumnName("Owned1Weekday");
+                    });
+
             modelBuilder.ConfigureSmartEnum();
         }
 

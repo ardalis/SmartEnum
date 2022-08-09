@@ -30,6 +30,11 @@ namespace SmartEnum.EFCore.IntegrationTests
                     db.SomeEntities.Add(new SomeEntity
                     {
                         Weekday = Weekday.Thursday,
+                        OwnedEntity = new SomeOwnedEntity
+                        { 
+                            Value = 2,
+                            Weekday = Weekday.Friday
+                        }
                     });
 
                     db.SaveChanges();
@@ -38,9 +43,12 @@ namespace SmartEnum.EFCore.IntegrationTests
                 using (var db = new TestDbContext(options))
                 {
                     var entities = db.SomeEntities.ToList();
-
                     entities.Count.Should().Be(1);
-                    entities.Single().Weekday.Should().Be(Weekday.Thursday);
+
+                    var entity = entities.Single();
+                    entity.Weekday.Should().Be(Weekday.Thursday);
+                    entity.OwnedEntity.Value.Should().Be(2);
+                    entity.OwnedEntity.Weekday.Should().Be(Weekday.Friday);
                 }
             }
         }

@@ -17,4 +17,8 @@
     <ProjectReference Include="..\..\src\SmartEnum\SmartEnum.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Update="xunit.analyzers" Version="1.0.0" />
+  </ItemGroup>
+
 </Project>
