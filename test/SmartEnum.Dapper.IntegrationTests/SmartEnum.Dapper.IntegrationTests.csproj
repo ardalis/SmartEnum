@@ -24,8 +24,4 @@
 		<PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.7" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <PackageReference Update="xunit.analyzers" Version="1.0.0" />
-	</ItemGroup>
-
 </Project>
