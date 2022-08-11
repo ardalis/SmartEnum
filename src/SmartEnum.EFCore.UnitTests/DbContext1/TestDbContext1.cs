@@ -1,17 +1,17 @@
 using Microsoft.EntityFrameworkCore;
-using SmartEnum.EFCore.IntegrationTests.DbContext.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using SmartEnum.EFCore.IntegrationTests.Entities;
 
-namespace SmartEnum.EFCore.IntegrationTests.DbContext
+namespace SmartEnum.EFCore.IntegrationTests.DbContext1
 {
-    public class TestDbContext : Microsoft.EntityFrameworkCore.DbContext
+    /// <summary>
+    /// This DbContext configures SmartEnum via the OnModelCreating extension method.
+    /// </summary>
+    public class TestDbContext1 : Microsoft.EntityFrameworkCore.DbContext
     {
-        public TestDbContext(DbContextOptions<TestDbContext> options) : base(options)
+        public TestDbContext1(DbContextOptions<TestDbContext1> options) : base(options)
         { }
 
-        public TestDbContext()
+        public TestDbContext1()
         {
         }
 

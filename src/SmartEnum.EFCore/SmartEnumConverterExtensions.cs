@@ -15,6 +15,29 @@ namespace SmartEnum.EFCore
         /// Adds a converter for all properties derived from <see cref="SmartEnum{TValue, TKey}"/>
         /// so that entity framework core can work with it.
         /// </summary>
+        public static void ConfigureSmartEnum(this ModelConfigurationBuilder configurationBuilder)
+        {
+            var modelBuilder = configurationBuilder.CreateModelBuilder(null);
+            var propertyTypes = modelBuilder.Model.GetEntityTypes()
+                .SelectMany(e => e.ClrType.GetProperties())
+                .Where(p => TypeUtil.IsDerived(p.PropertyType, typeof(SmartEnum<,>)))
+                .Select(p => p.PropertyType)
+                .Distinct();
+
+            foreach (var propertyType in propertyTypes)
+            {
+                var keyType = TypeUtil.GetValueType(propertyType, typeof(SmartEnum<,>));
+                var converterType = typeof(SmartEnumConverter<,>).MakeGenericType(propertyType, keyType);
+
+                configurationBuilder.Properties(propertyType)
+                    .HaveConversion(converterType);
+            }
+        }
+
+        /// <summary>
+        /// Adds a converter for all properties derived from <see cref="SmartEnum{TValue, TKey}"/>
+        /// so that entity framework core can work with it.
+        /// </summary>
         /// <param name="modelBuilder"></param>
         public static void ConfigureSmartEnum(this ModelBuilder modelBuilder)
         {

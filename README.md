@@ -1,4 +1,4 @@
-[![NuGet](https://img.shields.io/nuget/v/Ardalis.SmartEnum.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum) 
+[![NuGet](https://img.shields.io/nuget/v/Ardalis.SmartEnum.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum)
 ![Last Publish Ardalis.SmartEnum to NuGet](https://github.com/ardalis/SmartEnum/workflows/publish%20Ardalis.SmartEnum%20to%20nuget/badge.svg)
 
 ### Sub-packages
@@ -156,7 +156,7 @@ public abstract class EmployeeType : SmartEnum<EmployeeType>
 You can take this a step further and use the `ManagerType` and associated `BonusSize` property in a parent class like so:
 
 ```csharp
-public class Manager 
+public class Manager
 {
     private ManagerType _managerType { get; set; }
     public string Type
@@ -192,7 +192,7 @@ public abstract class ReservationStatus : SmartEnum<ReservationStatus>
     public static readonly ReservationStatus Paid = new PaidStatus();
     public static readonly ReservationStatus Cancelled = new CancelledStatus();
 
-    private ReservationStatus(string name, int value) : base(name, value) 
+    private ReservationStatus(string name, int value) : base(name, value)
     {
     }
 
@@ -357,14 +357,14 @@ N.B. For performance critical code the fluent interface carries some overhead th
 
 ### SmartFlagEnum
 
-Support has been added for a `Flag` functionality.  
+Support has been added for a `Flag` functionality.
 This feature is similar to the behaviour seen when applying the `[Flag]` attribute to Enums in the .NET Framework
 All methods available on the `SmartFlagEnum` class return an `IEnumerable<SmartFlagEnum>` with one or more values depending on the value provided/method called.
 Some Functionality is shared with the original SmartEnum class, listed below are the variations.
 
 ### Setting SmartFlagEnum Values
 
-When setting the values for a `SmartFlagEnum` It is imperative to provide values as powers of two.  If at least one value is not set as power of two or two or more power of two values are provided inconsecutively (eg: 1, 2, no four!, 8) a `SmartFlagEnumDoesNotContainPowerOfTwoValuesException` will be thrown.        
+When setting the values for a `SmartFlagEnum` It is imperative to provide values as powers of two.  If at least one value is not set as power of two or two or more power of two values are provided inconsecutively (eg: 1, 2, no four!, 8) a `SmartFlagEnumDoesNotContainPowerOfTwoValuesException` will be thrown.
 
 ```csharp
 public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
@@ -380,9 +380,9 @@ public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
         {
         }
     }
-```  
+```
 
-This behaviour can be disabled by applying the `AllowUnsafeFlagEnumValuesAttribute` to the smart enum class.  Note: If power of two values are not provided the SmarFlagEnum will not behave as expected!  
+This behaviour can be disabled by applying the `AllowUnsafeFlagEnumValuesAttribute` to the smart enum class.  Note: If power of two values are not provided the SmarFlagEnum will not behave as expected!
 
 ```csharp
 [AllowUnsafeFlagEnumValues]
@@ -401,7 +401,7 @@ public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
     }
 ```
 
-`Combination` values can be provided explicitly and will be returned in place of the multiple flag values that would have been returned from the `FromValue()` method.  
+`Combination` values can be provided explicitly and will be returned in place of the multiple flag values that would have been returned from the `FromValue()` method.
 
 ```csharp
 public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
@@ -420,7 +420,7 @@ public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
     }
 ```
 
-These explicit values can be provided above the highest allowable flag value without consequence, however attempting to access a value that is higher than the maximum flag value that has not explicitly been provided (for example 4) will cause a `SmartEnumNotFoundException` to be thrown. 
+These explicit values can be provided above the highest allowable flag value without consequence, however attempting to access a value that is higher than the maximum flag value that has not explicitly been provided (for example 4) will cause a `SmartEnumNotFoundException` to be thrown.
 
 ```csharp
 public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
@@ -434,7 +434,7 @@ public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
         {
         }
     }
-    
+
     var myFlagEnums = FromValue(3) -- Works!
     -and-
     var myFlagEnums = FromValue(5) -- Works!
@@ -442,8 +442,8 @@ public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
     Var myFlagEnums = FromValue(4) -- will throw an exception :(
 ```
 
-A Negative One (-1) value may be provided as an `All` value. When a value of -1 is passed into any of the `FromValue()` methods an IEnumerable containing all values (excluding 0) will be returned.  
-If an explicit `Combination` value exists with a value of -1 this will be returned instead. 
+A Negative One (-1) value may be provided as an `All` value. When a value of -1 is passed into any of the `FromValue()` methods an IEnumerable containing all values (excluding 0) will be returned.
+If an explicit `Combination` value exists with a value of -1 this will be returned instead.
 
 ```csharp
 public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
@@ -504,30 +504,30 @@ public abstract class EmployeeType : SmartFlagEnum<EmployeeType>
         public void UseSmartFlagEnumOne()
         {
             var result = EmployeeType.FromValue(3).ToList();
-            
+
             var outputString = "";
             foreach (var employeeType in result)
             {
                 outputString += $"{employeeType.Name} earns ${employeeType.BonusSize} bonus this year.\n";
             }
-            
+
                 => "Director earns $100000 bonus this year.\n"
                    "Manager earns $10000 bonus this year.\n"
         }
-         
+
         public void UseSmartFlagEnumTwo()
         {
             EmployeeType.FromValueToString(-1)
                 => "Director, Manager, Assistant"
         }
-            
+
         public void UseSmartFlagEnumTwo()
         {
             EmployeeType.FromValueToString(EmployeeType.Assistant | EmployeeType.Director)
                 => "Director, Assistant"
         }
     }
-  
+
 ```
 
 ### FromName()
@@ -581,7 +581,7 @@ public class SmartFlagTestEnum : SmartFlagEnum<SmartFlagTestEnum>
     }
 ```
 
-Note: `FromValue()` will accept any input that can be succesfully parsed as an integer.  If an invalid value is supplied it will throw an `InvalidFlagEnumValueParseException`.  
+Note: `FromValue()` will accept any input that can be succesfully parsed as an integer.  If an invalid value is supplied it will throw an `InvalidFlagEnumValueParseException`.
 
 ### FromValueToString()
 
@@ -591,7 +591,7 @@ Return a string representation of a series of enum instances name's:
 var myFlagEnumString = TestFlagEnum.FromValueToString(3);
 ```
 
-Exception `SmartEnumNotFoundException` is thrown when no values are found. Alternatively, you can use `TryFromValueToString` that returns `false` when values are not found:  
+Exception `SmartEnumNotFoundException` is thrown when no values are found. Alternatively, you can use `TryFromValueToString` that returns `false` when values are not found:
 
 ```csharp
 if (TestFlagEnum.TryFromValueToString(3, out var myFlagEnumsAsString))
@@ -637,13 +637,24 @@ Remember, you need to implement your own parameterless constructor to make it wo
 
 #### Using SmartEnum.EFCore
 
-If you have installed `Ardalis.SmartEnum.EFCore` it is sufficient to add the following line at the end of the `OnModelCreating` method:
+EF Core 6 introduced pre-convention model configuration which allows value conversions to be configured for specific types within a model. If you have installed `Ardalis.SmartEnum.EFCore` it is sufficient to add the following line at the end of the `ConfigureConventions` method:
+
+```csharp
+protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+{
+    ...
+
+    configurationBuilder.ConfigureSmartEnum();
+}
+```
+
+For previous versions of EF Core, the following line can be added at the end of the `OnModelCreating` method:
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     ...
-    
+
     modelBuilder.ConfigureSmartEnum();
 }
 ```

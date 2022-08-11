@@ -1,7 +1,4 @@
-﻿using Ardalis.SmartEnum;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Ardalis.SmartEnum;
 
 namespace SmartEnum.EFCore.IntegrationTests
 {

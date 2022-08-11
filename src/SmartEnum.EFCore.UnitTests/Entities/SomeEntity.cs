@@ -1,9 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartEnum.EFCore.IntegrationTests.DbContext.Entities
+namespace SmartEnum.EFCore.IntegrationTests.Entities
 {
     public class SomeEntity
     {
