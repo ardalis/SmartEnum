@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 namespace SmartEnum.EFCore.IntegrationTests.Entities
 {
     [Owned]
-    public class SomeOwnedEntity
+    public class SomeOuterOwnedEntity
     {
         public int Value { get; set; }
 
@@ -16,5 +16,7 @@ namespace SmartEnum.EFCore.IntegrationTests.Entities
         public TestStringEnum Test3 { get; set; }
 
         public TestBaseEnumWithDerivedValues Test4 { get; set; }
+
+        public SomeOwnedEntity InnerOwnedEntity { get; set; }
     }
 }

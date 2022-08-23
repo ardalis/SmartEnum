@@ -637,14 +637,14 @@ Remember, you need to implement your own parameterless constructor to make it wo
 
 #### Using SmartEnum.EFCore
 
-EF Core 6 introduced pre-convention model configuration which allows value conversions to be configured for specific types within a model. If you have installed `Ardalis.SmartEnum.EFCore` it is sufficient to add the following line at the end of the `ConfigureConventions` method:
+EF Core 6 introduced pre-convention model configuration which allows value conversions to be configured for specific types within a model. If you have installed `Ardalis.SmartEnum.EFCore` it is sufficient to add the following line at the beginning of the `ConfigureConventions` method:
 
 ```csharp
 protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
 {
-    ...
-
     configurationBuilder.ConfigureSmartEnum();
+
+    ...
 }
 ```
 

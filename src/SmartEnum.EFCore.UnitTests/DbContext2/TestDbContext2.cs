@@ -22,14 +22,7 @@ namespace SmartEnum.EFCore.IntegrationTests.DbContext1
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<SomeEntity>()
-                .OwnsOne(
-                    e => e.OwnedEntity,
-                    owned =>
-                    {
-                        owned.Property(o => o.Value).HasColumnName("Owned1Value");
-                        owned.Property(o => o.Weekday).HasColumnName("Owned1Weekday");
-                    });
+            modelBuilder.ApplyConfiguration(new SomeEntity.Configuration());
         }
 
         public DbSet<SomeEntity> SomeEntities { get; set; }
