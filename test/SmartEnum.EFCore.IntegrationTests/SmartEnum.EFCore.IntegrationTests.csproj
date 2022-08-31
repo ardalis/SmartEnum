@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SmartEnum.EFCore\SmartEnum.EFCore.csproj" />
+    <ProjectReference Include="..\..\src\SmartEnum.EFCore\SmartEnum.EFCore.csproj" />
   </ItemGroup>
 
 </Project>
