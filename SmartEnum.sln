@@ -58,7 +58,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.SystemTextJson.Un
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.EFCore", "src\SmartEnum.EFCore\SmartEnum.EFCore.csproj", "{CDA8EF6E-F678-4FD3-80B0-5C61FC76EE51}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.EFCore.IntegrationTests", "src\SmartEnum.EFCore.UnitTests\SmartEnum.EFCore.IntegrationTests.csproj", "{DF5E3B19-AE8E-48A4-B023-4FA42D6EA8FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.EFCore.IntegrationTests", "test\SmartEnum.EFCore.IntegrationTests\SmartEnum.EFCore.IntegrationTests.csproj", "{DF5E3B19-AE8E-48A4-B023-4FA42D6EA8FF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "IntegrationTests", "{EF5634F4-4667-4481-934C-D1CFA042AD0B}"
 EndProject
