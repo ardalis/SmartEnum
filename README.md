@@ -770,4 +770,4 @@ that database values do not need to match the case of a SmartEnum Name.
 - [Listing Strongly Typed Enums...)](https://ardalis.com/listing-strongly-typed-enum-options-in-c)
 - [Enum Alternatives in C#](https://ardalis.com/enum-alternatives-in-c)
 - [Smarter Enumerations (podcast episode)](http://www.weeklydevtips.com/014)
-
+- [Persisting a Smart Enum with Entity Framework Core](https://blog.nimblepros.com/blogs/persisting-a-smart-enum-with-entity-framework-core/)
