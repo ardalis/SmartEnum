@@ -769,6 +769,8 @@ that database values do not need to match the case of a SmartEnum Name.
 
 - [Race](https://github.com/pdevito3/PeakLimsApi/blob/main/PeakLims/src/PeakLims/Domain/Races/Race.cs)
 
+[Search for more](https://github.com/search?l=C%23&q=Ardalis.SmartEnum&type=Code)
+
 ## References
 
 - [Listing Strongly Typed Enums...)](https://ardalis.com/listing-strongly-typed-enum-options-in-c)
