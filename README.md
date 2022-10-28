@@ -1,6 +1,36 @@
 [![NuGet](https://img.shields.io/nuget/v/Ardalis.SmartEnum.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum)
 ![Last Publish Ardalis.SmartEnum to NuGet](https://github.com/ardalis/SmartEnum/workflows/publish%20Ardalis.SmartEnum%20to%20nuget/badge.svg)
 
+## Table Of Contents
+
+- [Table Of Contents](#table-of-contents)
+  * [Sub-packages](#sub-packages)
+  * [Give a Star! ⭐](give-a-star-star)
+- [SmartEnum](#smart-enum)
+  * [Contributors](#contributors)
+- [Install](#install)
+  * [Usage](#usage)
+  * [List](#list)
+  * [FromName()](#fromname)
+  * [FromValue()](#fromvalue)
+  * [ToString()](#tostring)
+  * [Switch](#switch)
+  * [SmartFlagEnum](#smartflagenum)
+  * [Setting SmartFlagEnum Values](#setting-smartflagenum-values)
+  * [Usage - (SmartFlagEnum)](#usage---smartflagenum)
+  * [FromName()](#fromname-1)
+  * [FromValue()](#fromvalue-1)
+  * [FromValueToString()](#fromvaluetostring)
+  * [BitWiseOrOperator](#bitwiseoroperator)
+  * [Persisting with EF Core 2.1 or higher](#persisting-with-ef-core-21-or-higher)
+  * [Using SmartEnum.EFCore](#using-smartenumefcore)
+  * [AutoFixture support](#autofixture-support)
+  * [Json.NET support](#jsonnet-support)
+  * [Dapper support](#dapper-support)
+  * [DapperSmartEnum](#dappersmartenum)
+  * [Examples in the Real World](#examples-in-the-real-world)
+  * [References](#references)
+
 ### Sub-packages
 
 SmartEnum.AutoFixture: [![NuGet](https://img.shields.io/nuget/v/Ardalis.SmartEnum.AutoFixture.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.AutoFixture)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.AutoFixture.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum.AutoFixture)![publish SmartEnum.AutoFixture to nuget](https://github.com/ardalis/SmartEnum/workflows/publish%20SmartEnum.AutoFixture%20to%20nuget/badge.svg)
