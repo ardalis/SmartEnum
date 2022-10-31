@@ -12,7 +12,7 @@
     <ProjectReference Include="..\..\src\SmartEnum.ProtoBufNet\SmartEnum.ProtoBufNet.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Update="coverlet.collector" Version="3.1.2">
+    <PackageReference Update="coverlet.collector" Version="3.2.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
