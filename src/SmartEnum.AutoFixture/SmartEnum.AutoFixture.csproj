@@ -21,7 +21,7 @@
 	<ItemGroup>
 		<PackageReference Include="AutoFixture" Version="4.17.0" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-		<PackageReference Include="SonarAnalyzer.CSharp" Version="8.42.0.51121" PrivateAssets="All" />
+		<PackageReference Include="SonarAnalyzer.CSharp" Version="8.49.0.57237" PrivateAssets="All" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
