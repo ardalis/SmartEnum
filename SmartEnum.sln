@@ -70,6 +70,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.Dapper.UnitTests"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.Dapper.IntegrationTests", "test\SmartEnum.Dapper.IntegrationTests\SmartEnum.Dapper.IntegrationTests.csproj", "{ACCA93E9-EE80-490C-81A3-824086E4EA2F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartEnum.SourceGenerator", "src\SmartEnum.SourceGenerator\SmartEnum.SourceGenerator.csproj", "{B37A3D40-E954-4100-AC02-1F549B127487}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartEnum.SourceGenerator.UnitTests", "test\SmartEnum.SourceGenerator.UnitTests\SmartEnum.SourceGenerator.UnitTests.csproj", "{5829243E-F6DF-4A5E-997E-B810F95F11D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -164,6 +168,14 @@ Global
 		{ACCA93E9-EE80-490C-81A3-824086E4EA2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACCA93E9-EE80-490C-81A3-824086E4EA2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACCA93E9-EE80-490C-81A3-824086E4EA2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B37A3D40-E954-4100-AC02-1F549B127487}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B37A3D40-E954-4100-AC02-1F549B127487}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B37A3D40-E954-4100-AC02-1F549B127487}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B37A3D40-E954-4100-AC02-1F549B127487}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5829243E-F6DF-4A5E-997E-B810F95F11D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5829243E-F6DF-4A5E-997E-B810F95F11D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5829243E-F6DF-4A5E-997E-B810F95F11D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5829243E-F6DF-4A5E-997E-B810F95F11D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -192,6 +204,8 @@ Global
 		{7E08FCFA-2318-4D36-BAB5-8AFA41F00CC3} = {FA199ECB-5F29-442A-AAC6-91DBCB7A5A04}
 		{ADBD5097-87A4-492B-9399-6A4CCC53CD5A} = {79268877-BBEF-4DE2-B8D9-697F21933159}
 		{ACCA93E9-EE80-490C-81A3-824086E4EA2F} = {EF5634F4-4667-4481-934C-D1CFA042AD0B}
+		{B37A3D40-E954-4100-AC02-1F549B127487} = {FA199ECB-5F29-442A-AAC6-91DBCB7A5A04}
+		{5829243E-F6DF-4A5E-997E-B810F95F11D3} = {79268877-BBEF-4DE2-B8D9-697F21933159}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {46896DE3-41B8-442F-A6FB-6AC9F11CCBCE}
