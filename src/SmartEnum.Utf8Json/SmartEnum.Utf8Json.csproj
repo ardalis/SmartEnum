@@ -1,6 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;net480</TargetFrameworks>
 		<PackageId>Ardalis.SmartEnum.Utf8Json</PackageId>
 		<Title>Ardalis.SmartEnum.Utf8Json</Title>
 		<Company>Ardalis.com</Company>

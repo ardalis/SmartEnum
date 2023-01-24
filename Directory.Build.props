@@ -4,12 +4,10 @@
 		<RepositoryUrl>https://github.com/ardalis/SmartEnum</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<TargetFramework>net7.0</TargetFramework>
 	</PropertyGroup>
 	<PropertyGroup>
 		<RepoRelativeProjectDir>$([MSBuild]::MakeRelative($(RepoRoot), $(MSBuildProjectDirectory)))</RepoRelativeProjectDir>
-
-
-
 
 		<!-- Define useful flags based on project name conventions -->
 		<IsUnitTestProject>false</IsUnitTestProject>

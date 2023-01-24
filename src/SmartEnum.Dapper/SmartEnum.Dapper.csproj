@@ -1,6 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;net480</TargetFrameworks>
 		<PackageId>Ardalis.SmartEnum.Dapper</PackageId>
 		<Title>Ardalis.SmartEnum.Dapper</Title>
 		<Company>Ardalis.com</Company>

@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6</TargetFrameworks>
 		<PackageId>Ardalis.SmartEnum.EFCore</PackageId>
 		<Title>Ardalis.SmartEnum.EFCore</Title>
 		<Authors>Steve Smith (@ardalis)</Authors>
