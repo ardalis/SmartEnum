@@ -13,7 +13,7 @@
     <RepositoryUrl>https://github.com/ardalis/SmartEnum</RepositoryUrl>
     <PackageTags>enum</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <Version>2.1.0</Version>
+    <Version>7.0.0</Version>
     <PackageReleaseNotes>Many minor fixes and upgrades to dependent packages. Consolidating all dependent packages to this version.</PackageReleaseNotes>
     <AssemblyName>Ardalis.SmartEnum</AssemblyName>
     <Features>strict</Features>
@@ -28,15 +28,6 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.42.0.51121" PrivateAssets="All" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net480' ">
-    <PackageReference Include="System.Linq" Version="4.3.0" />
-  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />

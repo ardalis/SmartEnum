@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{E4
 		.gitignore = .gitignore
 		azure-pipelines.yml = azure-pipelines.yml
 		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
 		LICENSE = LICENSE
 		nuget.txt = nuget.txt
 		README.md = README.md

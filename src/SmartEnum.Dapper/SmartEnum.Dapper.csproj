@@ -21,12 +21,9 @@
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Ardalis.SmartEnum" Version="2.1.0" />
-		<PackageReference Include="Dapper" Version="2.0.123" />
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-		<PackageReference Include="SonarAnalyzer.CSharp" Version="8.42.0.51121" PrivateAssets="All" />
+		<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
 	<ItemGroup>
-		<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+	  <ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
 	</ItemGroup>
 </Project>

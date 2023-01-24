@@ -1,0 +1,12 @@
+<Project>
+	<PropertyGroup>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageVersion Include="AutoFixture" Version="4.17.0" />
+		<PackageVersion Include="Dapper" Version="2.0.123" />
+		<PackageVersion Include="Microsoft.SourceLink.GitHub" Version="1.1.1" />
+		<PackageVersion Include="SonarAnalyzer.CSharp" Version="8.42.0.51121" />
+	</ItemGroup>
+</Project>
