@@ -3,21 +3,13 @@
 	<PropertyGroup>
 		<PackageId>Ardalis.SmartEnum.EFCore</PackageId>
 		<Title>Ardalis.SmartEnum.EFCore</Title>
-		<Authors>Steve Smith (@ardalis)</Authors>
-		<Company>Ardalis.com</Company>
 		<Description>EFCore support for Ardalis.SmartEnum.</Description>
 		<Summary>EFCore support for Ardalis.SmartEnum.</Summary>
-    	<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<RepositoryUrl>https://github.com/ardalis/SmartEnum</RepositoryUrl>
-		<PackageTags>enum;smartenum;entityframeworkcore;</PackageTags>
+		<PackageTags>enum;smartenum;entityframeworkcore;ardalis</PackageTags>
 		<PackageIcon>icon.png</PackageIcon>
-		<PackageReleaseNotes>Updating dependencies; Consolidating to version 2.1.0</PackageReleaseNotes>
-		<Version>2.1.0</Version>
+		<PackageReleaseNotes>Updating to net7.</PackageReleaseNotes>
 		<AssemblyName>Ardalis.SmartEnum.EFCore</AssemblyName>
 		<RootNamespace>Ardalis.SmartEnum.EFCore</RootNamespace>
-		<LangVersion>7.3</LangVersion>
-		<Features>strict</Features>
-		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

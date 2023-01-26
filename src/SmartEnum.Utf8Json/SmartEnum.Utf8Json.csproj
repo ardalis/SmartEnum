@@ -2,17 +2,13 @@
 	<PropertyGroup>
 		<PackageId>Ardalis.SmartEnum.Utf8Json</PackageId>
 		<Title>Ardalis.SmartEnum.Utf8Json</Title>
-		<Company>Ardalis.com</Company>
+		<Description>Utf8Json (de)serialization support for Ardalis.SmartEnum.</Description>
 		<Summary>Utf8Json (de)serialization support for Ardalis.SmartEnum.</Summary>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageTags>enum;smartenum;netstandard2.0;json;utf8json;resolver</PackageTags>
-		<PackageReleaseNotes>Updating dependencies; Consolidating to version 2.1.0</PackageReleaseNotes>
+		<PackageTags>enum;smartenum;ardalis;json;utf8json;resolver</PackageTags>
+		<PackageReleaseNotes>Updating to net7.</PackageReleaseNotes>
 		<PackageIcon>icon.png</PackageIcon>
-		<Version>2.1.0</Version>
 		<AssemblyName>Ardalis.SmartEnum.Utf8Json</AssemblyName>
 		<RootNamespace>Ardalis.SmartEnum.Utf8Json</RootNamespace>
-		<Features>strict</Features>
-		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>

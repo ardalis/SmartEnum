@@ -1,38 +1,28 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <PackageId>Ardalis.SmartEnum</PackageId>
-    <Title>Ardalis.SmartEnum</Title>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Steve Smith (@ardalis)</Authors>
-    <Company>Ardalis.com</Company>
-    <PackageProjectUrl>https://github.com/ardalis/SmartEnum</PackageProjectUrl>
-    <Description>Classes to help produce strongly typed smarter enums in .NET.</Description>
-    <Summary>Classes to help produce strongly typed smarter enums in .NET.</Summary>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/ardalis/SmartEnum</RepositoryUrl>
-    <PackageTags>enum</PackageTags>
-    <PackageIcon>icon.png</PackageIcon>
-    <Version>7.0.0</Version>
-    <PackageReleaseNotes>Many minor fixes and upgrades to dependent packages. Consolidating all dependent packages to this version.</PackageReleaseNotes>
-    <AssemblyName>Ardalis.SmartEnum</AssemblyName>
-    <Features>strict</Features>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
+	<PropertyGroup>
+		<PackageId>Ardalis.SmartEnum</PackageId>
+		<Title>Ardalis.SmartEnum</Title>
+		<Description>Classes to help produce strongly typed smarter enums in .NET.</Description>
+		<Summary>Classes to help produce strongly typed smarter enums in .NET.</Summary>
+		<PackageTags>enum;smartenum;ardalis</PackageTags>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageReleaseNotes>Updating to net7.</PackageReleaseNotes>
+		<AssemblyName>Ardalis.SmartEnum</AssemblyName>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
+		<DefineConstants>TRACE;DEBUG</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
+		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Properties\PublishProfiles\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Properties\PublishProfiles\" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+	</ItemGroup>
 </Project>
