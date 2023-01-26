@@ -1,5 +1,6 @@
 name: publish SmartEnum.Utf8Json to nuget
 on:
+  workflow_dispatch:
   push:
     branches:
       - main # Your default release branch
@@ -21,9 +22,9 @@ jobs:
       
       # Publish
       - name: publish on version change
-        uses: rohith/publish-nuget@v2
+        uses: alirezanet/publish-nuget@v3.0.0
         with:
-          # PROJECT_FILE_PATH: src/SmartEnum.Utf8Json/SmartEnum.Utf8Json.csproj # Relative to repository root
+          PROJECT_FILE_PATH: src/SmartEnum.Utf8Json/SmartEnum.Utf8Json.csproj # Relative to repository root
           VERSION_FILE_PATH: Directory.Build.props # Filepath with version info, relative to repository root. Defaults to project file
           VERSION_REGEX: <Version>(.*)<\/Version> # Regex pattern to extract version info in a capturing group
           TAG_COMMIT: true # Flag to enable / disable git tagging
