@@ -6,6 +6,6 @@ namespace Ardalis.SmartEnum
 {
     public interface ISmartEnum
     {
-        //Empty Interface
+        // Empty Interface
     }
 }
