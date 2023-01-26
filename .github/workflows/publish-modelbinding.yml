@@ -22,7 +22,7 @@ jobs:
       
       # Publish
       - name: publish on version change
-        uses: irezanet/publish-nuget@v3.0.0
+        uses: alirezanet/publish-nuget@v3.0.0
         with:
           PROJECT_FILE_PATH: src/SmartEnum.ModelBinding/SmartEnum.ModelBinding.csproj # Relative to repository root
           VERSION_FILE_PATH: Directory.Build.props # Filepath with version info, relative to repository root. Defaults to project file
