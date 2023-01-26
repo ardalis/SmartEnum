@@ -59,7 +59,7 @@ An implementation of a [type-safe object-oriented alternative](https://codeblog.
 
 ## Contributors
 
-Thanks to [Scott Depouw](https://github.com/sdepouw) and [Antão Almada](https://github.com/aalmada) for help with this project!
+Thanks to [Scott Depouw](https://github.com/sdepouw), [Antão Almada](https://github.com/aalmada), and [Nagasudhir Pulla](https://github.com/nagasudhirpulla) for help with this project!
 
 # Install
 
@@ -71,7 +71,7 @@ To install the minimum requirements:
 Install-Package Ardalis.SmartEnum
 ```
 
-To install support for serialization, AutoFixture, EF Core or Dapper select the lines that apply:
+To install support for serialization, AutoFixture, EF Core, Model Binding, or Dapper select the lines that apply:
 
 ```
 Install-Package Ardalis.SmartEnum.AutoFixture
@@ -80,6 +80,7 @@ Install-Package Ardalis.SmartEnum.Utf8Json
 Install-Package Ardalis.SmartEnum.MessagePack
 Install-Package Ardalis.SmartEnum.ProtoBufNet
 Install-Package Ardalis.SmartEnum.EFCore
+Install-Package Ardalis.SmartEnum.ModelBinding
 Install-Package Ardalis.SmartEnum.Dapper
 ```
 
