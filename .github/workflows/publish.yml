@@ -1,8 +1,6 @@
 name: publish Ardalis.SmartEnum to nuget
 on:
   workflow_dispatch:
-    branches:
-      - main
   push:
     branches:
       - main # Your default release branch
