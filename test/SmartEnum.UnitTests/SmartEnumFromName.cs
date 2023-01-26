@@ -1,4 +1,4 @@
-﻿namespace Ardalis.SmartEnum.UnitTests
+namespace Ardalis.SmartEnum.UnitTests
 {
     using System;
     using FluentAssertions;
@@ -48,9 +48,9 @@
             Action action = () => TestEnum.FromName(String.Empty);
 
             action.Should()
-            .ThrowExactly<ArgumentException>()
-            .WithMessage($"Argument cannot be null or empty.{Environment.NewLine}Parameter name: name")
-            .Which.ParamName.Should().Be("name");
+                .ThrowExactly<ArgumentException>()
+                .WithMessage($"Argument cannot be null or empty. (Parameter 'name')")
+                .Which.ParamName.Should().Be("name");
         }
 
         [Fact]
@@ -60,7 +60,7 @@
 
             action.Should()
             .ThrowExactly<ArgumentException>()
-            .WithMessage($"Argument cannot be null or empty.{Environment.NewLine}Parameter name: name")
+            .WithMessage($"Argument cannot be null or empty. (Parameter 'name')")
             .Which.ParamName.Should().Be("name");
         }
 
