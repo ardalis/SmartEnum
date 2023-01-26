@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
     <IsPackable>false</IsPackable>
     <LangVersion>7.3</LangVersion>
     <Features>strict</Features>
@@ -13,18 +12,18 @@
     <ProjectReference Include="..\..\src\SmartEnum.AutoFixture\SmartEnum.AutoFixture.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Update="coverlet.collector" Version="3.2.0">
+    <PackageReference Include="coverlet.collector">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Update="coverlet.msbuild" Version="3.2.0">
+    <PackageReference Include="coverlet.msbuild" >
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Update="FluentAssertions" Version="6.8.0" />
-    <PackageReference Update="Microsoft.NET.Test.Sdk" Version="17.4.1" />
-    <PackageReference Update="xunit" Version="2.4.2" />
-    <PackageReference Update="xunit.runner.visualstudio" Version="2.4.5">
+    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>

@@ -14,7 +14,7 @@
   <PropertyGroup Condition=" '$(IsUnitTestProject)' == 'true' ">
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-  <ItemGroup Condition=" '$(IsUnitTestProject)' == 'true' ">
+  <!--<ItemGroup Condition=" '$(IsUnitTestProject)' == 'true' ">
     <PackageReference Include="coverlet.collector" Version="3.*"/>
     <PackageReference Include="coverlet.msbuild" Version="3.*">
       <PrivateAssets>all</PrivateAssets>
@@ -28,5 +28,5 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="FluentAssertions" Version="6.*"/>
-  </ItemGroup>
+  </ItemGroup>-->
 </Project>

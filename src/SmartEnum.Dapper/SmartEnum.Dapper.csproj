@@ -1,33 +1,26 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;net480</TargetFrameworks>
 		<PackageId>Ardalis.SmartEnum.Dapper</PackageId>
 		<Title>Ardalis.SmartEnum.Dapper</Title>
-		<Company>Ardalis.com</Company>
 		<Description>Dapper support for Ardalis.SmartEnum.</Description>
 		<Summary>Dapper support for Ardalis.SmartEnum.</Summary>
-    	<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<RepositoryUrl>https://github.com/ardalis/SmartEnum</RepositoryUrl>
-		<PackageTags>enum;smartenum;dapper;</PackageTags>
-		<PackageReleaseNotes>Initial version.</PackageReleaseNotes>
+		<PackageTags>enum;smartenum;dapper;ardalis</PackageTags>
+		<PackageReleaseNotes>Updating to net7.</PackageReleaseNotes>
 		<PackageIcon>icon.png</PackageIcon>
-		<Version>1.0.0</Version>
 		<AssemblyName>Ardalis.SmartEnum.Dapper</AssemblyName>
 		<RootNamespace>Ardalis.SmartEnum.Dapper</RootNamespace>
-		<Features>strict</Features>
-		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Ardalis.SmartEnum" Version="2.1.0" />
-		<PackageReference Include="Dapper" Version="2.0.123" />
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-		<PackageReference Include="SonarAnalyzer.CSharp" Version="8.42.0.51121" PrivateAssets="All" />
+		<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
 	<ItemGroup>
-		<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+	  <PackageReference Include="Dapper" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
 	</ItemGroup>
 </Project>

@@ -1,14 +1,14 @@
-name: publish SmartEnum.EFCore to nuget
+name: publish Ardalis.SmartEnum.ModelBinding to nuget
 on:
   workflow_dispatch:
   push:
     branches:
       - main # Your default release branch
     paths:
-      - 'src/SmartEnum.EFCore/**'
+      - 'src/SmartEnum.ModelBinding/**'
 jobs:
   publish:
-    name: list SmartEnum.EFCore on nuget.org
+    name: list Ardalis.SmartEnum.ModelBinding on nuget.org
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,15 +18,15 @@ jobs:
       - name: Setup dotnet
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 7.0.x
+          dotnet-version: 7.0.2
       
       # Publish
       - name: publish on version change
         uses: irezanet/publish-nuget@v3.0.0
         with:
-          PROJECT_FILE_PATH: src/SmartEnum.EFCore/SmartEnum.EFCore.csproj # Relative to repository root
+          PROJECT_FILE_PATH: src/SmartEnum.ModelBinding/SmartEnum.ModelBinding.csproj # Relative to repository root
           VERSION_FILE_PATH: Directory.Build.props # Filepath with version info, relative to repository root. Defaults to project file
           VERSION_REGEX: <Version>(.*)<\/Version> # Regex pattern to extract version info in a capturing group
           TAG_COMMIT: true # Flag to enable / disable git tagging
-          TAG_FORMAT: SmartEnumEFCore-v* # Format of the git tag, [*] gets replaced with version
+          TAG_FORMAT: SmartEnumModelBinding-v* # Format of the git tag, [*] gets replaced with version
           NUGET_KEY: ${{secrets.NUGET_API_KEY}} # nuget.org API key

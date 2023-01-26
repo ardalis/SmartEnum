@@ -1,5 +1,6 @@
 name: publish SmartEnum.MessagePack to nuget
 on:
+  workflow_dispatch:
   push:
     branches:
       - main # Your default release branch
@@ -17,14 +18,14 @@ jobs:
       - name: Setup dotnet
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 5.0.201
+          dotnet-version: 7.0.x
       
       # Publish
       - name: publish on version change
-        uses: rohith/publish-nuget@v2
+        uses: irezanet/publish-nuget@v3.0.0
         with:
           PROJECT_FILE_PATH: src/SmartEnum.MessagePack/SmartEnum.MessagePack.csproj # Relative to repository root
-          # VERSION_FILE_PATH: Directory.Build.props # Filepath with version info, relative to repository root. Defaults to project file
+          VERSION_FILE_PATH: Directory.Build.props # Filepath with version info, relative to repository root. Defaults to project file
           VERSION_REGEX: <Version>(.*)<\/Version> # Regex pattern to extract version info in a capturing group
           TAG_COMMIT: true # Flag to enable / disable git tagging
           TAG_FORMAT: SmartEnumMessagePack-v* # Format of the git tag, [*] gets replaced with version
