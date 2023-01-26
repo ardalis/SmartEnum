@@ -1,8 +1,6 @@
 name: publish SmartEnum.AutoFixture to nuget
 on:
   workflow_dispatch:
-    branches:
-      - main
   push:
     branches:
       - main # Your default release branch
