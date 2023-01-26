@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<PackageId>Ardalis.SmartEnum.EFCore</PackageId>
+		<Title>Ardalis.SmartEnum.EFCore</Title>
+		<Description>EFCore support for Ardalis.SmartEnum.</Description>
+		<Summary>EFCore support for Ardalis.SmartEnum.</Summary>
+		<PackageTags>enum;smartenum;entityframeworkcore;ardalis</PackageTags>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageReleaseNotes>Updating to net7.</PackageReleaseNotes>
+		<AssemblyName>Ardalis.SmartEnum.EFCore</AssemblyName>
+		<RootNamespace>Ardalis.SmartEnum.EFCore</RootNamespace>
+		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
+	</ItemGroup>
+
+</Project>

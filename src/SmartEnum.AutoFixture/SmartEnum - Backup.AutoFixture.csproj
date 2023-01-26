@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<PackageId>Ardalis.SmartEnum.AutoFixture</PackageId>
+		<Title>Ardalis.SmartEnum.AutoFixture</Title>
+		<Description>AutoFixture support for Ardalis.SmartEnum.</Description>
+		<Summary>AutoFixture support for Ardalis.SmartEnum.</Summary>
+		<PackageTags>enum;smartenum;ardalis;autofixture</PackageTags>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageReleaseNotes>Updating to net7</PackageReleaseNotes>
+		<AssemblyName>Ardalis.SmartEnum.AutoFixture</AssemblyName>
+		<RootNamespace>Ardalis.SmartEnum.AutoFixture</RootNamespace>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="AutoFixture" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+		<PackageReference Include="SonarAnalyzer.CSharp" PrivateAssets="All" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
+	</ItemGroup>
+</Project>
