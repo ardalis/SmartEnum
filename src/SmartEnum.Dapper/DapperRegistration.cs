@@ -1,6 +1,6 @@
 namespace Ardalis.SmartEnum.Dapper
 {
-    //using global::Dapper;
+    using global::Dapper;
     using System;
 
     /// <summary>
