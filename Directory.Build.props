@@ -1,15 +1,21 @@
 <Project>
 	<PropertyGroup>
 		<RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Authors>Steve Smith (@ardalis)</Authors>
+		<Company>Ardalis.com</Company>
 		<RepositoryUrl>https://github.com/ardalis/SmartEnum</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
+		<PackageProjectUrl>https://github.com/ardalis/SmartEnum</PackageProjectUrl>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<TargetFramework>net7.0</TargetFramework>
+		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+		<Version>7.0.0</Version>
+		<Features>strict</Features>
 	</PropertyGroup>
 	<PropertyGroup>
 		<RepoRelativeProjectDir>$([MSBuild]::MakeRelative($(RepoRoot), $(MSBuildProjectDirectory)))</RepoRelativeProjectDir>
-
-
-
 
 		<!-- Define useful flags based on project name conventions -->
 		<IsUnitTestProject>false</IsUnitTestProject>

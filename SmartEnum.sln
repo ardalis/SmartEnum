@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{E4
 		.gitignore = .gitignore
 		azure-pipelines.yml = azure-pipelines.yml
 		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
 		LICENSE = LICENSE
 		nuget.txt = nuget.txt
 		README.md = README.md
@@ -42,9 +43,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartEnum.Utf8Json.UnitTests", "test\SmartEnum.Utf8Json.UnitTests\SmartEnum.Utf8Json.UnitTests.csproj", "{66EF3D1A-32AE-4B28-BC3E-7441615722A9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{79268877-BBEF-4DE2-B8D9-697F21933159}"
-	ProjectSection(SolutionItems) = preProject
-		test\Directory.Build.props = test\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FA199ECB-5F29-442A-AAC6-91DBCB7A5A04}"
 EndProject

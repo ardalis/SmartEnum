@@ -24,6 +24,7 @@ namespace Ardalis.SmartEnum.MessagePack
             if (value is null)
             {
                 writer.WriteNil();
+                return;
             }
 
             Write(ref writer, value.Value);

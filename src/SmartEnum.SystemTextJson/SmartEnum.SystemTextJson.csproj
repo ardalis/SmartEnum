@@ -1,27 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;</TargetFrameworks>
 		<PackageId>Ardalis.SmartEnum.SystemTextJson</PackageId>
 		<Title>Ardalis.SmartEnum.SystemTextJson</Title>
-		<Company>Ardalis.com</Company>
+		<Description>System.Text.Json (de)serialization support for Ardalis.SmartEnum.</Description>
 		<Summary>System.Text.Json (de)serialization support for Ardalis.SmartEnum.</Summary>
     	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageTags>enum;smartenum;netstandard2.0;json;system.text.json;converter</PackageTags>
 		<PackageIcon>icon.png</PackageIcon>
-		<PackageReleaseNotes>Updating dependencies; Consolidating to version 2.1.0</PackageReleaseNotes>
-		<Version>2.1.0</Version>
+		<PackageReleaseNotes>Updating to net7.</PackageReleaseNotes>
 		<AssemblyName>Ardalis.SmartEnum.SystemTextJson</AssemblyName>
 		<RootNamespace>Ardalis.SmartEnum.SystemTextJson</RootNamespace>
-		<Features>strict</Features>
-		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="System.Text.Json" Version="6.0.6" />
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-		<PackageReference Include="SonarAnalyzer.CSharp" Version="8.42.0.51121" PrivateAssets="All" />
+		<PackageReference Include="System.Text.Json" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+		<PackageReference Include="SonarAnalyzer.CSharp" PrivateAssets="All" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
