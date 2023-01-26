@@ -9,6 +9,7 @@
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageReleaseNotes>Updating to net7.</PackageReleaseNotes>
 		<AssemblyName>Ardalis.SmartEnum</AssemblyName>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
@@ -23,6 +24,10 @@
 		<Folder Include="Properties\PublishProfiles\" />
 	</ItemGroup>
 	<ItemGroup>
+		<None Include="..\..\README.md">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		</None>
 		<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
 </Project>
