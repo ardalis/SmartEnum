@@ -9,7 +9,8 @@
 - [SmartEnum](#smart-enum)
   * [Contributors](#contributors)
 - [Install](#install)
-  * [Usage](#usage)
+  * [Version](#version)
+- [Usage](#usage)
   * [List](#list)
   * [FromName()](#fromname)
   * [FromValue()](#fromvalue)
@@ -63,7 +64,7 @@ Thanks to [Scott Depouw](https://github.com/sdepouw), [Antão Almada](https://gi
 
 # Install
 
-The framework is provided as a set of NuGet packages.
+The framework is provided as a set of NuGet packages. In many cases you'll only need the base package, but if you need serialization and/or ORM support there are many implementation-specific packages available to assist.
 
 To install the minimum requirements:
 
@@ -82,6 +83,16 @@ Install-Package Ardalis.SmartEnum.ProtoBufNet
 Install-Package Ardalis.SmartEnum.EFCore
 Install-Package Ardalis.SmartEnum.ModelBinding
 Install-Package Ardalis.SmartEnum.Dapper
+```
+
+## Version
+
+The latest version of the package supports .NET 7. If you don't need or aren't yet ready to move to .NET 7 or later, you should install the previous stable version, [Ardalis.SmartEnum 2.1](https://www.nuget.org/packages/Ardalis.SmartEnum/2.1.0).
+
+Example package manager command:
+
+```
+Install-Package Ardalis.SmartEnum -Version 2.1.0
 ```
 
 ## Usage
