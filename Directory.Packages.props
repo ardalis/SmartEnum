@@ -13,7 +13,7 @@
     <PackageVersion Include="FluentAssertions" Version="6.9.0" />
     <PackageVersion Include="MessagePack" Version="2.4.59" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-    <PackageVersion Include="Microsoft.Data.Sqlite" Version="7.0.2" />
+    <PackageVersion Include="Microsoft.Data.Sqlite" Version="7.0.4" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="7.0.2" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.2" />
