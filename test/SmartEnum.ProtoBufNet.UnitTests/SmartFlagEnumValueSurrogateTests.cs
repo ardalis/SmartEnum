@@ -62,7 +62,7 @@ message SmartFlagEnumValueSurrogate_FlagTestEnumInt32_Int32 {
         {
             var result = model.GetSchema(typeof(FlagTestEnumInt32));
 
-            result.Should().BeEquivalentTo(SchemaString);
+            result.Replace("\r\n", "\n").Should().BeEquivalentTo(SchemaString.Replace("\r\n", "\n"));
         }
 
         [Fact]

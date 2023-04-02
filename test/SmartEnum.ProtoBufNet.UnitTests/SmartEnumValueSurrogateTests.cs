@@ -64,7 +64,7 @@ message SmartEnumValueSurrogate_TestEnumBoolean_Boolean {
         {
             var result = model.GetSchema(typeof(TestEnumBoolean));
 
-            result.Should().BeEquivalentTo(SchemaString);
+            result.Replace("\r\n", "\n").Should().BeEquivalentTo(SchemaString.Replace("\r\n", "\n"));
         }
 
         [Fact]
