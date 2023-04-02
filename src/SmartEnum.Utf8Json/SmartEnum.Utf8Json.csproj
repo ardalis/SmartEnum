@@ -14,7 +14,7 @@
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 	<ItemGroup>
-		<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+		<None Include="$(SolutionDir)img\icon.png" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Utf8Json" />

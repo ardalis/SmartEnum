@@ -19,7 +19,7 @@
 		<PackageReference Include="SonarAnalyzer.CSharp" PrivateAssets="All" />
 	</ItemGroup>
 	<ItemGroup>
-		<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+		<None Include="$(SolutionDir)img\icon.png" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
