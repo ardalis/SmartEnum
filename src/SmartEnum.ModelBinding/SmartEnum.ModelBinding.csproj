@@ -11,13 +11,17 @@
 		<AssemblyName>Ardalis.SmartEnum.ModelBinding</AssemblyName>
 	</PropertyGroup>
 
-	
-	<ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" />
-  </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+	</ItemGroup>
 
 </Project>
