@@ -28,11 +28,13 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
             Double = FlagTestEnums.FlagTestEnumDouble.Instance
         };
 
-        private const string JsonString = @"{
-  ""Int16"": 1,
-  ""Int32"": 2,
-  ""Double"": 1.0
-}";
+        static readonly string JsonString = JsonConvert.SerializeObject(new
+        {
+            Int16 = 1,
+            Int32 = 2,
+            Double = 1.0
+        }, Formatting.Indented);
+        
         [Fact]
         public void SerializesValue()
         {

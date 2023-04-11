@@ -35,14 +35,14 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
             String = TestEnumString.Instance,
         };
 
-        static readonly string JsonString =
-@"{
-  ""Bool"": true,
-  ""Int16"": 1,
-  ""Int32"": 1,
-  ""Double"": 1.2,
-  ""String"": ""1.5""
-}";
+        static readonly string JsonString = JsonSerializer.Serialize(new
+        {
+            Bool = true,
+            Int16 = 1,
+            Int32 = 1,
+            Double = 1.2,
+            String = "1.5"
+        }, new JsonSerializerOptions { WriteIndented = true });
 
         [Fact]
         public void SerializesValue()
