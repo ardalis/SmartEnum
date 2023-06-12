@@ -4,6 +4,8 @@
     <IsPackable>false</IsPackable>
     <LangVersion>7.3</LangVersion>
     <Features>strict</Features>
+    <TargetFrameworks>net7.0;net6.0</TargetFrameworks>
+    <TargetFramework />
   </PropertyGroup>
   <ItemGroup>
     
@@ -16,7 +18,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="coverlet.msbuild" >
+    <PackageReference Include="coverlet.msbuild">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>

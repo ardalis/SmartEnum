@@ -2,13 +2,15 @@
 	<PropertyGroup>
 		<IsPackable>false</IsPackable>
 		<RootNamespace>Ardalis.SmartEnum.Dapper.UnitTests</RootNamespace>
+		<TargetFrameworks>net7.0;net6.0</TargetFrameworks>
+		<TargetFramework />
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.NET.Test.Sdk"  />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" />
 		<PackageReference Include="Moq" />
 		<PackageReference Include="xunit" />
-		<PackageReference Include="xunit.runner.visualstudio" >
+		<PackageReference Include="xunit.runner.visualstudio">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>

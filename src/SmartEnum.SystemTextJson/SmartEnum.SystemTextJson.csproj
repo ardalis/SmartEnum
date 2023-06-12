@@ -10,6 +10,8 @@
 		<PackageReleaseNotes>Updating to net7.</PackageReleaseNotes>
 		<AssemblyName>Ardalis.SmartEnum.SystemTextJson</AssemblyName>
 		<RootNamespace>Ardalis.SmartEnum.SystemTextJson</RootNamespace>
+		<TargetFrameworks>net7.0;net6.0;netstandard2.1</TargetFrameworks>
+		<TargetFramework />
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>

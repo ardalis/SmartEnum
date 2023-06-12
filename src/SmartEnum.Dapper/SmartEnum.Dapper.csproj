@@ -7,9 +7,12 @@
 		<PackageTags>enum;smartenum;dapper;ardalis</PackageTags>
 		<PackageReleaseNotes>Updating to net7.</PackageReleaseNotes>
 		<PackageIcon>icon.png</PackageIcon>
+		<LangVersion>11.0</LangVersion>
 		<AssemblyName>Ardalis.SmartEnum.Dapper</AssemblyName>
 		<RootNamespace>Ardalis.SmartEnum.Dapper</RootNamespace>
 		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+		<TargetFrameworks>net7.0;net6.0;netstandard2.1</TargetFrameworks>
+		<TargetFramework />
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>

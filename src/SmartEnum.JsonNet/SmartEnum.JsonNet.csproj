@@ -9,12 +9,14 @@
 		<PackageIcon>icon.png</PackageIcon>
 		<AssemblyName>Ardalis.SmartEnum.JsonNet</AssemblyName>
 		<RootNamespace>Ardalis.SmartEnum.JsonNet</RootNamespace>
+		<TargetFrameworks>net7.0;net6.0;netstandard2.1</TargetFrameworks>
+		<TargetFramework />
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json"  />
+		<PackageReference Include="Newtonsoft.Json" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
 		<PackageReference Include="SonarAnalyzer.CSharp" PrivateAssets="All" />
 	</ItemGroup>

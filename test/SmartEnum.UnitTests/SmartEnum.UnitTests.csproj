@@ -3,6 +3,8 @@
     <IsPackable>false</IsPackable>
     <LangVersion>7.3</LangVersion>
     <Features>strict</Features>
+    <TargetFrameworks>net7.0;net6.0</TargetFrameworks>
+    <TargetFramework />
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\SmartEnum\SmartEnum.csproj" />
