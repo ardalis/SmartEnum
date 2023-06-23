@@ -33,7 +33,7 @@ namespace Ardalis.SmartEnum.UnitTests
         }
 
         [Fact]
-        public void VanillaStringEnum_FromValue_WhenStringDoesNotMatchCase_DoesNotReturnItem()
+        public void VanillaStringEnum_FromValue_WhenStringDoesNotMatchCase_Throws()
         {
             //act
             Assert.Throws<SmartEnumNotFoundException>(() =>
@@ -53,7 +53,7 @@ namespace Ardalis.SmartEnum.UnitTests
         }
 
         [Fact]
-        public void CaseSensitiveEnum_FromValue_WhenStringDoesNotMatchCase_DoesNotReturnItem()
+        public void CaseSensitiveEnum_FromValue_WhenStringDoesNotMatchCase_Throws()
         {
             //act
             Assert.Throws<SmartEnumNotFoundException>(() =>
