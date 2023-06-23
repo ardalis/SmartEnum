@@ -1,5 +1,3 @@
-﻿using System.Runtime.InteropServices.ComTypes;
-
 namespace Ardalis.SmartEnum
 {
     using System;
@@ -52,7 +50,7 @@ namespace Ardalis.SmartEnum
             new Lazy<Dictionary<TValue, TEnum>>(() =>
             {
                 // multiple enums with same value are allowed but store only one per value
-                var dictionary = new Dictionary<TValue, TEnum>();
+                var dictionary = new Dictionary<TValue, TEnum>(GetValueComparer());
                 foreach (var item in _enumOptions.Value)
                 {
                     if (!dictionary.ContainsKey(item._value))
@@ -70,6 +68,12 @@ namespace Ardalis.SmartEnum
                 .SelectMany(t => t.GetFieldsOfType<TEnum>())
                 .OrderBy(t => t.Name)
                 .ToArray();
+        }
+
+        private static IEqualityComparer<TValue> GetValueComparer()
+        {
+            var comparer = typeof(TEnum).GetCustomAttribute<SmartEnumComparerAttribute<TValue>>();
+            return comparer?.Comparer;
         }
 
         /// <summary>
