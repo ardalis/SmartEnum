@@ -1,9 +1,9 @@
-using FluentAssertions;
-using System;
-using Xunit;
-
 namespace Ardalis.SmartEnum.UnitTests
 {
+    using FluentAssertions;
+    using System;
+    using Xunit;
+
     public class SmartEnumComparerAttribute
     {
         public class VanillaStringEnum : SmartEnum<VanillaStringEnum, string>
