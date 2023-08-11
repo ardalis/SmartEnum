@@ -1,4 +1,4 @@
-﻿namespace Ardalis.SmartEnum.UnitTests
+namespace Ardalis.SmartEnum.UnitTests
 {
     using FluentAssertions;
     using System;
@@ -11,6 +11,7 @@
             {
                 { nameof(TestStringEnum.One), TestStringEnum.One },
                 { nameof(TestStringEnum.Two), TestStringEnum.Two },
+                { null, TestStringEnum.None }
             };
 
         [Theory]
@@ -25,7 +26,7 @@
         [Fact]
         public void ThrowsGivenNonMatchingValue()
         {
-            var value = string.Empty;
+            var value = "invalid";
 
             Action action = () => TestStringEnum.FromValue(value);
 
@@ -38,13 +39,14 @@
         [Fact]
         public void ReturnsDefaultEnumGivenNonMatchingValue()
         {
-            var value = string.Empty;
+            var value = "invalid";
             var defaultEnum = TestStringEnum.One;
 
             var result = TestStringEnum.FromValue(value, defaultEnum);
 
             result.Should().BeSameAs(defaultEnum);
         }
+
 
         [Fact]
         public void ReturnsDerivedEnumByValue()
