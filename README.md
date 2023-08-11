@@ -29,6 +29,7 @@
   * [Json.NET support](#jsonnet-support)
   * [Dapper support](#dapper-support)
   * [DapperSmartEnum](#dappersmartenum)
+  * [Case Insensitive String Enum](#case-insensitive-string-enum)
   * [Examples in the Real World](#examples-in-the-real-world)
   * [References](#references)
 
@@ -806,6 +807,28 @@ should have their `DbType` property set to the specified value. Use `DoNotSetDbT
 `[DoNotSetDbType]`) to specify that parameters should not have their `DbType` property set. Use
 `IgnoreCaseAttribute` (e.g. `[IgnoreCase]`) when inheriting from `DapperSmartEnumByName` to specify
 that database values do not need to match the case of a SmartEnum Name.
+
+### Case Insensitive String Enum
+
+When creating enums of strings, the default behaviour of SmartEnum is to compare the strings with a case sensitive comparer.
+It is possible to specify a different equality comparer for the enum values, for example a case insensitive one:
+
+```csharp
+[SmartEnumStringComparer(StringComparison.InvariantCultureIgnoreCase)]
+public class CaseInsensitiveEnum : SmartEnum<CaseInsensitiveEnum, string>
+{
+    protected CaseInsensitiveEnum(string name, string value) : base(name, value) { }
+
+    public static CaseInsensitiveEnum One = new CaseInsensitiveEnum("One", "one");
+    public static CaseInsensitiveEnum Two = new CaseInsensitiveEnum("Two", "two");
+}
+
+var e1 = CaseInsensitiveEnum.FromValue("ONE");
+var e2 = CaseInsensitiveEnum.FromValue("one");
+
+//e1 is equal to e2
+```
+
 
 ## Examples in the Real World
 
