@@ -4,7 +4,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="AutoFixture" Version="4.17.0" />
-    <PackageVersion Include="BenchmarkDotNet" Version="0.13.4" />
+    <PackageVersion Include="BenchmarkDotNet" Version="0.13.9" />
     <PackageVersion Include="Constant" Version="2.0.4" />
     <PackageVersion Include="coverlet.collector" Version="3.2.0" />
     <PackageVersion Include="coverlet.msbuild" Version="3.2.0" />
