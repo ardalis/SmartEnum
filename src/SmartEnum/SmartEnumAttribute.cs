@@ -45,7 +45,7 @@ namespace Ardalis.SmartEnum
                 throw new InvalidOperationException($"{nameof(smartEnumType)} must be a SmartEnum.");
             _smartEnumType = smartEnumType;
             _allowCaseInsensitiveMatch = allowCaseInsensitiveMatch;
-            ErrorMessage = string.Format(errorMessage, propertyName, string.Join(", ", GetValidSmartEnumValues()));
+            ErrorMessage = string.Format(errorMessage, propertyName, string.Join(", ", GetValidSmartEnumNames()));
         }
 
         public override bool IsValid(object value)
@@ -53,11 +53,11 @@ namespace Ardalis.SmartEnum
             if (value is not string name) return true;
 
             return _allowCaseInsensitiveMatch
-                ? GetValidSmartEnumValues().Contains(name, StringComparer.InvariantCultureIgnoreCase)
-                : GetValidSmartEnumValues().Contains(name);
+                ? GetValidSmartEnumNames().Contains(name, StringComparer.InvariantCultureIgnoreCase)
+                : GetValidSmartEnumNames().Contains(name);
         }
 
-        private List<string> GetValidSmartEnumValues()
+        private List<string> GetValidSmartEnumNames()
         {
             List<string> values = new();
             var typeWithList = _smartEnumType.BaseType!.Name == typeof(SmartEnum<>).Name
