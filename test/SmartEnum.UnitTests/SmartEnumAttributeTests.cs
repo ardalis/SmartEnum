@@ -13,45 +13,46 @@ namespace Ardalis.SmartEnum.UnitTests
         [Fact]
         public void ThrowsWhenCtorGetsNullType()
         {
-            SmartEnumAttribute CtorCall()
-            {
-                return new SmartEnumAttribute(null);
-            }
+            // ReSharper disable once ObjectCreationAsStatement
+            Action ctorCall = () => new SmartEnumAttribute(null);
 
-            Assert.Throws<ArgumentNullException>(CtorCall);
+            ctorCall.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Fact]
         public void ThrowsWhenCtorGetsNullPropertyName()
         {
-            SmartEnumAttribute CtorCall()
-            {
-                return new SmartEnumAttribute(typeof(TestSmartEnum), propertyName: null, errorMessage: "Some Error Message");
-            }
+            // ReSharper disable once ObjectCreationAsStatement
+            Action ctorCall = () => new SmartEnumAttribute(typeof(TestSmartEnum), propertyName: null, errorMessage: "Some Error Message");
 
-            Assert.Throws<ArgumentNullException>(CtorCall);
+            ctorCall.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Fact]
         public void ThrowsWhenCtorGetsNullErrorMessage()
         {
-            SmartEnumAttribute CtorCall()
-            {
-                return new SmartEnumAttribute(typeof(TestSmartEnum), errorMessage: null);
-            }
+            // ReSharper disable once ObjectCreationAsStatement
+            Action ctorCall = () => new SmartEnumAttribute(typeof(TestSmartEnum), errorMessage: null);
 
-            Assert.Throws<ArgumentNullException>(CtorCall);
+            ctorCall.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Fact]
         public void ThrowsWhenCtorGetsNonSmartEnumType()
         {
-            SmartEnumAttribute CtorCall()
-            {
-                return new SmartEnumAttribute(typeof(TestValidationModel));
-            }
+            // ReSharper disable once ObjectCreationAsStatement
+            Action ctorCall = () => new SmartEnumAttribute(typeof(SmartEnumAttributeTests));
 
-            Assert.Throws<InvalidOperationException>(CtorCall);
+            ctorCall.Should().ThrowExactly<InvalidOperationException>();
+        }
+
+        [Fact]
+        public void DoesNotThrowWhenCtorForSmartEnumWithDifferentKeyType()
+        {
+            // ReSharper disable once ObjectCreationAsStatement
+            Action ctorCall = () => new SmartEnumAttribute(typeof(TestSmartEnumString));
+
+            ctorCall.Should().NotThrow();
         }
 
         [Fact]
@@ -140,15 +141,6 @@ namespace Ardalis.SmartEnum.UnitTests
             var isValid = attribute.IsValid(invalidName);
 
             isValid.Should().BeFalse();
-        }
-
-        [Fact]
-        public void DoesNotThrowForSmartEnumWithDifferentKeyType()
-        {
-            // ReSharper disable once ObjectCreationAsStatement
-            Action ctorCall = () => new SmartEnumAttribute(typeof(TestSmartEnumString));
-
-            ctorCall.Should().NotThrow();
         }
 
         private class TestValidationModel
