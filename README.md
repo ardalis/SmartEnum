@@ -30,6 +30,9 @@
   * [Dapper support](#dapper-support)
   * [DapperSmartEnum](#dappersmartenum)
   * [Case Insensitive String Enum](#case-insensitive-string-enum)
+  * [Validation Attributes](#TODO)
+    - Name validator (TODO: see if we don't have to use reflection to get to the right List() property)
+    - Value validator (TODO: write and test; base class the current attr; force type checking? param? make param in name validator?)
   * [Examples in the Real World](#examples-in-the-real-world)
   * [References](#references)
 
