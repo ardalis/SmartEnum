@@ -45,7 +45,7 @@ namespace Ardalis.SmartEnum.UnitTests
         [Fact]
         public void DoesNotThrowWhenCtorForSmartEnumWithDifferentKeyType()
         {
-            Action ctorCall = () => new SmartEnumNameAttribute(typeof(TestSmartEnumString));
+            Action ctorCall = () => new SmartEnumNameAttribute(typeof(TestSmartEnumWithStringKeyType));
 
             ctorCall.Should().NotThrow();
         }
@@ -169,9 +169,9 @@ namespace Ardalis.SmartEnum.UnitTests
             private TestSmartEnum(string name, int value) : base(name, value) { }
         }
 
-        private class TestSmartEnumString : SmartEnum<TestSmartEnumString, string>
+        private class TestSmartEnumWithStringKeyType : SmartEnum<TestSmartEnumWithStringKeyType, string>
         {
-            private TestSmartEnumString(string name, string value) : base(name, value) { }
+            private TestSmartEnumWithStringKeyType(string name, string value) : base(name, value) { }
         }
     }
 }
