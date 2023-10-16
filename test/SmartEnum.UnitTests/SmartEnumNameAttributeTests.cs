@@ -67,65 +67,82 @@ namespace Ardalis.SmartEnum.UnitTests
             using (new AssertionScope())
             {
                 validationResults.Should().HaveCount(1);
-                validationResults.Single().ErrorMessage.Should().Contain(nameof(TestValidationModel.SomeProp));
-                foreach (var name in TestSmartEnum.List.Select(cqo => cqo.Name))
-                    validationResults.Single().ErrorMessage.Should().Contain(name);
+                string errorMessage = validationResults.Single().ErrorMessage;
+                errorMessage.Should().Contain(nameof(TestValidationModel.SomeProp));
+                errorMessage.Should().Contain(TestSmartEnum.TestFoo.Name);
+                errorMessage.Should().Contain(TestSmartEnum.TestBar.Name);
+                errorMessage.Should().Contain(TestSmartEnum.TestFizz.Name);
+                errorMessage.Should().Contain(TestSmartEnum.TestBuzz.Name);
             }
         }
 
         [Fact]
-        public void ValidatesGivenNonString()
+        public void IsValidGivenNonString()
         {
-            var attribute = new SmartEnumAttribute(typeof(TestSmartEnum));
+            var attribute = new SmartEnumNameAttribute(typeof(TestSmartEnum));
             object nonString = new { };
 
-            var isValid = attribute.IsValid(nonString);
+            bool isValid = attribute.IsValid(nonString);
 
             isValid.Should().BeTrue();
         }
 
         [Fact]
-        public void ValidatesGivenNullString()
+        public void IsValidGivenNullString()
         {
-            var attribute = new SmartEnumAttribute(typeof(TestSmartEnum));
+            var attribute = new SmartEnumNameAttribute(typeof(TestSmartEnum));
+            string nullString = null;
 
-            var isValid = attribute.IsValid(null);
+            // ReSharper disable once ExpressionIsAlwaysNull
+            bool isValid = attribute.IsValid(nullString);
 
             isValid.Should().BeTrue();
         }
 
         [Fact]
-        public void ValidatesForEachMemberOfAGivenSmartEnum()
+        public void IsValidGivenNullNonString()
+        {
+            var attribute = new SmartEnumNameAttribute(typeof(TestSmartEnum));
+            object nullObject = null;
+
+            // ReSharper disable once ExpressionIsAlwaysNull
+            bool isValid = attribute.IsValid(nullObject);
+
+            isValid.Should().BeTrue();
+        }
+
+        [Fact]
+        public void IsValidForEachMemberOfAGivenSmartEnum()
         {
             var attribute = new SmartEnumNameAttribute(typeof(TestSmartEnum));
             using (new AssertionScope())
             {
                 foreach (var addressTypeName in TestSmartEnum.List.Select(at => at.Name))
                 {
-                    var isValid = attribute.IsValid(addressTypeName);
+                    bool isValid = attribute.IsValid(addressTypeName);
                     isValid.Should().BeTrue();
                 }
             }
         }
 
         [Fact]
-        public void ValidatesForCaseInsensitiveStringWhenCaseInsensitiveMatchingEnabled()
+        public void IsValidForCaseInsensitiveStringWhenCaseInsensitiveMatchingEnabled()
         {
             var attribute = new SmartEnumNameAttribute(typeof(TestSmartEnum), allowCaseInsensitiveMatch: true);
             var caseInsensitiveSource = TestSmartEnum.TestFoo.Name.ToLower();
 
-            var isValid = attribute.IsValid(caseInsensitiveSource);
+            bool isValid = attribute.IsValid(caseInsensitiveSource);
 
             isValid.Should().BeTrue();
         }
 
         [Fact]
-        public void DoesNotValidateForCaseInsensitiveStringWhenCaseInsensitiveMatchingDisabled()
+        public void IsNotValidForCaseInsensitiveStringWhenCaseInsensitiveMatchingDisabled()
         {
             var attribute = new SmartEnumNameAttribute(typeof(TestSmartEnum));
             var caseInsensitiveSource = TestSmartEnum.TestFoo.Name.ToLower();
 
-            var isValid = attribute.IsValid(caseInsensitiveSource);
+            bool isValid = attribute.IsValid(caseInsensitiveSource);
 
             isValid.Should().BeFalse();
         }
@@ -134,11 +151,11 @@ namespace Ardalis.SmartEnum.UnitTests
         [InlineData("   ")]
         [InlineData("Some Wrong Value")]
         [InlineData("25")]
-        public void DoesNotValidateGivenNonSmartEnumNames(string invalidName)
+        public void IsNotValidGivenNonSmartEnumNames(string invalidName)
         {
             var attribute = new SmartEnumNameAttribute(typeof(TestSmartEnum));
 
-            var isValid = attribute.IsValid(invalidName);
+            bool isValid = attribute.IsValid(invalidName);
 
             isValid.Should().BeFalse();
         }
@@ -151,7 +168,10 @@ namespace Ardalis.SmartEnum.UnitTests
 
         private class TestSmartEnum : SmartEnum<TestSmartEnum>
         {
-            public static readonly TestSmartEnum TestFoo = new TestSmartEnum(nameof(TestFoo), 2);
+            public static readonly TestSmartEnum TestFoo = new TestSmartEnum(nameof(TestFoo), 1);
+            public static readonly TestSmartEnum TestBar = new TestSmartEnum(nameof(TestBar), 2);
+            public static readonly TestSmartEnum TestFizz = new TestSmartEnum(nameof(TestFizz), 3);
+            public static readonly TestSmartEnum TestBuzz = new TestSmartEnum(nameof(TestBuzz), 4);
 
             private TestSmartEnum(string name, int value) : base(name, value) { }
         }
