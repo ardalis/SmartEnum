@@ -13,7 +13,6 @@ namespace Ardalis.SmartEnum.UnitTests
         [Fact]
         public void ThrowsWhenCtorGetsNullType()
         {
-            // ReSharper disable once ObjectCreationAsStatement
             Action ctorCall = () => new SmartEnumNameAttribute(null);
 
             ctorCall.Should().ThrowExactly<ArgumentNullException>();
@@ -22,7 +21,6 @@ namespace Ardalis.SmartEnum.UnitTests
         [Fact]
         public void ThrowsWhenCtorGetsNullPropertyName()
         {
-            // ReSharper disable once ObjectCreationAsStatement
             Action ctorCall = () => new SmartEnumNameAttribute(typeof(TestSmartEnum), propertyName: null, errorMessage: "Some Error Message");
 
             ctorCall.Should().ThrowExactly<ArgumentNullException>();
@@ -31,7 +29,6 @@ namespace Ardalis.SmartEnum.UnitTests
         [Fact]
         public void ThrowsWhenCtorGetsNullErrorMessage()
         {
-            // ReSharper disable once ObjectCreationAsStatement
             Action ctorCall = () => new SmartEnumNameAttribute(typeof(TestSmartEnum), errorMessage: null);
 
             ctorCall.Should().ThrowExactly<ArgumentNullException>();
@@ -40,7 +37,6 @@ namespace Ardalis.SmartEnum.UnitTests
         [Fact]
         public void ThrowsWhenCtorGetsNonSmartEnumType()
         {
-            // ReSharper disable once ObjectCreationAsStatement
             Action ctorCall = () => new SmartEnumNameAttribute(typeof(SmartEnumNameAttributeTests));
 
             ctorCall.Should().ThrowExactly<InvalidOperationException>();
@@ -49,7 +45,6 @@ namespace Ardalis.SmartEnum.UnitTests
         [Fact]
         public void DoesNotThrowWhenCtorForSmartEnumWithDifferentKeyType()
         {
-            // ReSharper disable once ObjectCreationAsStatement
             Action ctorCall = () => new SmartEnumNameAttribute(typeof(TestSmartEnumString));
 
             ctorCall.Should().NotThrow();
@@ -93,7 +88,6 @@ namespace Ardalis.SmartEnum.UnitTests
             var attribute = new SmartEnumNameAttribute(typeof(TestSmartEnum));
             string nullString = null;
 
-            // ReSharper disable once ExpressionIsAlwaysNull
             bool isValid = attribute.IsValid(nullString);
 
             isValid.Should().BeTrue();
@@ -105,7 +99,6 @@ namespace Ardalis.SmartEnum.UnitTests
             var attribute = new SmartEnumNameAttribute(typeof(TestSmartEnum));
             object nullObject = null;
 
-            // ReSharper disable once ExpressionIsAlwaysNull
             bool isValid = attribute.IsValid(nullObject);
 
             isValid.Should().BeTrue();
