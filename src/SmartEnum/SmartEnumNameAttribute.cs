@@ -63,7 +63,7 @@ namespace Ardalis.SmartEnum
 
         private List<string> GetValidSmartEnumNames()
         {
-            List<string> values = new();
+            List<string> validNames = new();
             var typeWithList = _smartEnumType.BaseType!.Name == typeof(SmartEnum<>).Name
                 ? _smartEnumType.BaseType.BaseType!
                 : _smartEnumType.BaseType!;
@@ -73,9 +73,9 @@ namespace Ardalis.SmartEnum
             {
                 var namePropInfo = val.GetType().GetProperty("Name", BindingFlags.Public | BindingFlags.Instance);
                 var value = namePropInfo!.GetValue(val);
-                if (value is string valName) values.Add(valName);
+                if (value is string name) validNames.Add(name);
             }
-            return values;
+            return validNames;
         }
     }
 }
