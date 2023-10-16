@@ -27,15 +27,19 @@ namespace Ardalis.SmartEnum
         /// </param>
         /// <param name="errorMessage">
         ///     Message template to show when validation fails. {0} is <paramref name="propertyName" /> and
-        ///     {1} is the comma-separated list of SmartEnum values.
+        ///     {1} is the comma-separated list of SmartEnum names.
         /// </param>
         /// <exception cref="ArgumentNullException">When any of the constructor parameters are null.</exception>
         /// <exception cref="InvalidOperationException">
         ///     When <paramref name="smartEnumType" /> is not a
         ///     <see cref="SmartEnum{TEnum}" /> or <see cref="SmartEnum{TEnum,TValue}" />
         /// </exception>
-        public SmartEnumNameAttribute(Type smartEnumType, [CallerMemberName] string propertyName = null, bool allowCaseInsensitiveMatch = false,
-            string errorMessage = "{0} must be one of: {1}")
+        public SmartEnumNameAttribute(
+            Type smartEnumType,
+            [CallerMemberName] string propertyName = null,
+            bool allowCaseInsensitiveMatch = false,
+            string errorMessage = "{0} must be one of: {1}"
+        )
         {
             if (smartEnumType is null) throw new ArgumentNullException(nameof(smartEnumType));
             if (propertyName is null) throw new ArgumentNullException(nameof(propertyName));
