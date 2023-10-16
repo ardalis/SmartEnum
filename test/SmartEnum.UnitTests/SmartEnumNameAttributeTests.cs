@@ -110,9 +110,9 @@ namespace Ardalis.SmartEnum.UnitTests
             var attribute = new SmartEnumNameAttribute(typeof(TestSmartEnum));
             using (new AssertionScope())
             {
-                foreach (var addressTypeName in TestSmartEnum.List.Select(at => at.Name))
+                foreach (var name in TestSmartEnum.List.Select(at => at.Name))
                 {
-                    bool isValid = attribute.IsValid(addressTypeName);
+                    bool isValid = attribute.IsValid(name);
                     isValid.Should().BeTrue();
                 }
             }
