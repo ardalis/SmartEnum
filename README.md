@@ -834,7 +834,7 @@ The DataAnnotations ValidationAttribute `SmartEnumNameAttribute` allows you to v
 
 In addition to specifying the `SmartEnum` to match, you may also pass additional parameters:
 - `allowCaseInsensitiveMatch` (default `false`)
-- `errorMessage` (default `"{0} must be one of: {1}"`: A `string.Format()` string to customize the error
+- `errorMessage` (default `"{0} must be one of: {1}"`): A format string to customize the error
   - `{0}` is the name of the property being validated
   - `{1}` is the comma-separated list of valid `SmartEnum` names
 
