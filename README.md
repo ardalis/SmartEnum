@@ -62,7 +62,7 @@ An implementation of a [type-safe object-oriented alternative](https://codeblog.
 
 ## Contributors
 
-Thanks to [Scott Depouw](https://github.com/sdepouw), [Antão Almada](https://github.com/aalmada), and [Nagasudhir Pulla](https://github.com/nagasudhirpulla) for help with this project!
+Thanks to [Scott DePouw](https://github.com/sdepouw), [Antão Almada](https://github.com/aalmada), and [Nagasudhir Pulla](https://github.com/nagasudhirpulla) for help with this project!
 
 # Install
 
