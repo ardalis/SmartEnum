@@ -8,13 +8,13 @@ using Xunit;
 
 namespace Ardalis.SmartEnum.UnitTests
 {
-    public class SmartEnumAttributeTests
+    public class SmartEnumNameAttributeTests
     {
         [Fact]
         public void ThrowsWhenCtorGetsNullType()
         {
             // ReSharper disable once ObjectCreationAsStatement
-            Action ctorCall = () => new SmartEnumAttribute(null);
+            Action ctorCall = () => new SmartEnumNameAttribute(null);
 
             ctorCall.Should().ThrowExactly<ArgumentNullException>();
         }
@@ -23,7 +23,7 @@ namespace Ardalis.SmartEnum.UnitTests
         public void ThrowsWhenCtorGetsNullPropertyName()
         {
             // ReSharper disable once ObjectCreationAsStatement
-            Action ctorCall = () => new SmartEnumAttribute(typeof(TestSmartEnum), propertyName: null, errorMessage: "Some Error Message");
+            Action ctorCall = () => new SmartEnumNameAttribute(typeof(TestSmartEnum), propertyName: null, errorMessage: "Some Error Message");
 
             ctorCall.Should().ThrowExactly<ArgumentNullException>();
         }
@@ -32,7 +32,7 @@ namespace Ardalis.SmartEnum.UnitTests
         public void ThrowsWhenCtorGetsNullErrorMessage()
         {
             // ReSharper disable once ObjectCreationAsStatement
-            Action ctorCall = () => new SmartEnumAttribute(typeof(TestSmartEnum), errorMessage: null);
+            Action ctorCall = () => new SmartEnumNameAttribute(typeof(TestSmartEnum), errorMessage: null);
 
             ctorCall.Should().ThrowExactly<ArgumentNullException>();
         }
@@ -41,7 +41,7 @@ namespace Ardalis.SmartEnum.UnitTests
         public void ThrowsWhenCtorGetsNonSmartEnumType()
         {
             // ReSharper disable once ObjectCreationAsStatement
-            Action ctorCall = () => new SmartEnumAttribute(typeof(SmartEnumAttributeTests));
+            Action ctorCall = () => new SmartEnumNameAttribute(typeof(SmartEnumNameAttributeTests));
 
             ctorCall.Should().ThrowExactly<InvalidOperationException>();
         }
@@ -50,7 +50,7 @@ namespace Ardalis.SmartEnum.UnitTests
         public void DoesNotThrowWhenCtorForSmartEnumWithDifferentKeyType()
         {
             // ReSharper disable once ObjectCreationAsStatement
-            Action ctorCall = () => new SmartEnumAttribute(typeof(TestSmartEnumString));
+            Action ctorCall = () => new SmartEnumNameAttribute(typeof(TestSmartEnumString));
 
             ctorCall.Should().NotThrow();
         }
@@ -97,7 +97,7 @@ namespace Ardalis.SmartEnum.UnitTests
         [Fact]
         public void ValidatesForEachMemberOfAGivenSmartEnum()
         {
-            var attribute = new SmartEnumAttribute(typeof(TestSmartEnum));
+            var attribute = new SmartEnumNameAttribute(typeof(TestSmartEnum));
             using (new AssertionScope())
             {
                 foreach (var addressTypeName in TestSmartEnum.List.Select(at => at.Name))
@@ -111,7 +111,7 @@ namespace Ardalis.SmartEnum.UnitTests
         [Fact]
         public void ValidatesForCaseInsensitiveStringWhenCaseInsensitiveMatchingEnabled()
         {
-            var attribute = new SmartEnumAttribute(typeof(TestSmartEnum), allowCaseInsensitiveMatch: true);
+            var attribute = new SmartEnumNameAttribute(typeof(TestSmartEnum), allowCaseInsensitiveMatch: true);
             var caseInsensitiveSource = TestSmartEnum.TestFoo.Name.ToLower();
 
             var isValid = attribute.IsValid(caseInsensitiveSource);
@@ -122,7 +122,7 @@ namespace Ardalis.SmartEnum.UnitTests
         [Fact]
         public void DoesNotValidateForCaseInsensitiveStringWhenCaseInsensitiveMatchingDisabled()
         {
-            var attribute = new SmartEnumAttribute(typeof(TestSmartEnum));
+            var attribute = new SmartEnumNameAttribute(typeof(TestSmartEnum));
             var caseInsensitiveSource = TestSmartEnum.TestFoo.Name.ToLower();
 
             var isValid = attribute.IsValid(caseInsensitiveSource);
@@ -136,7 +136,7 @@ namespace Ardalis.SmartEnum.UnitTests
         [InlineData("25")]
         public void DoesNotValidateGivenNonSmartEnumNames(string invalidName)
         {
-            var attribute = new SmartEnumAttribute(typeof(TestSmartEnum));
+            var attribute = new SmartEnumNameAttribute(typeof(TestSmartEnum));
 
             var isValid = attribute.IsValid(invalidName);
 
@@ -145,7 +145,7 @@ namespace Ardalis.SmartEnum.UnitTests
 
         private class TestValidationModel
         {
-            [SmartEnum(typeof(TestSmartEnum))]
+            [SmartEnumName(typeof(TestSmartEnum))]
             public string SomeProp { get; set; }
         }
 

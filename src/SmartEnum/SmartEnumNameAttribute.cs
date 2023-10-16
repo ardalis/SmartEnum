@@ -14,7 +14,7 @@ namespace Ardalis.SmartEnum
     /// Nulls and non-<see cref="string"/> values are considered valid
     /// (add <see cref="RequiredAttribute"/> if you want the field to be required).
     /// </summary>
-    public class SmartEnumAttribute : ValidationAttribute
+    public class SmartEnumNameAttribute : ValidationAttribute
     {
         private readonly bool _allowCaseInsensitiveMatch;
         private readonly Type _smartEnumType;
@@ -34,7 +34,7 @@ namespace Ardalis.SmartEnum
         ///     When <paramref name="smartEnumType" /> is not a
         ///     <see cref="SmartEnum{TEnum}" /> or <see cref="SmartEnum{TEnum,TValue}" />
         /// </exception>
-        public SmartEnumAttribute(Type smartEnumType, [CallerMemberName] string propertyName = null, bool allowCaseInsensitiveMatch = false,
+        public SmartEnumNameAttribute(Type smartEnumType, [CallerMemberName] string propertyName = null, bool allowCaseInsensitiveMatch = false,
             string errorMessage = "{0} must be one of: {1}")
         {
             if (smartEnumType is null) throw new ArgumentNullException(nameof(smartEnumType));
