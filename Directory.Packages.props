@@ -8,7 +8,7 @@
     <PackageVersion Include="Constant" Version="2.0.4" />
     <PackageVersion Include="coverlet.collector" Version="3.2.0" />
     <PackageVersion Include="coverlet.msbuild" Version="3.2.0" />
-    <PackageVersion Include="Dapper" Version="2.0.123" />
+    <PackageVersion Include="Dapper" Version="2.1.11" />
     <PackageVersion Include="Enums.NET" Version="4.0.1" />
     <PackageVersion Include="FluentAssertions" Version="6.11.0" />
     <PackageVersion Include="MessagePack" Version="2.4.59" />
