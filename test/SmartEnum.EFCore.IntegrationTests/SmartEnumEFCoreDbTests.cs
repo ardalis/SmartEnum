@@ -85,6 +85,7 @@ namespace SmartEnum.EFCore.IntegrationTests
                 Test2 = TestDerivedEnum.One,
                 Test3 = TestStringEnum.One,
                 Test4 = DerivedTestEnumWithValues1.A,
+                NotMappedTest = TestEnum.One,
                 OwnedEntity = new SomeOwnedEntity
                 {
                     Value = 2,
@@ -143,6 +144,7 @@ namespace SmartEnum.EFCore.IntegrationTests
             entity.Test2.Should().Be(TestDerivedEnum.One);
             entity.Test3.Should().Be(TestStringEnum.One);
             entity.Test4.Should().Be(DerivedTestEnumWithValues1.A);
+            entity.NotMappedTest.Should().BeNull();
 
             entity.OwnedEntity.Value.Should().Be(2);
             entity.OwnedEntity.Weekday.Should().Be(Weekday.Friday);
@@ -150,6 +152,7 @@ namespace SmartEnum.EFCore.IntegrationTests
             entity.OwnedEntity.Test2.Should().Be(TestDerivedEnum.One);
             entity.OwnedEntity.Test3.Should().Be(TestStringEnum.Two);
             entity.OwnedEntity.Test4.Should().Be(DerivedTestEnumWithValues1.B);
+            entity.OwnedEntity.NotMappedTest.Should().BeNull();
 
             entity.OuterOwnedEntity.Value.Should().Be(3);
             entity.OuterOwnedEntity.Weekday.Should().Be(Weekday.Friday);
@@ -157,6 +160,7 @@ namespace SmartEnum.EFCore.IntegrationTests
             entity.OuterOwnedEntity.Test2.Should().Be(TestDerivedEnum.One);
             entity.OuterOwnedEntity.Test3.Should().Be(TestStringEnum.Two);
             entity.OuterOwnedEntity.Test4.Should().Be(DerivedTestEnumWithValues1.B);
+            entity.OuterOwnedEntity.NotMappedTest.Should().BeNull();
 
             entity.OuterOwnedEntity.InnerOwnedEntity.Value.Should().Be(4);
             entity.OuterOwnedEntity.InnerOwnedEntity.Weekday.Should().Be(Weekday.Friday);
@@ -164,6 +168,7 @@ namespace SmartEnum.EFCore.IntegrationTests
             entity.OuterOwnedEntity.InnerOwnedEntity.Test2.Should().Be(TestDerivedEnum.One);
             entity.OuterOwnedEntity.InnerOwnedEntity.Test3.Should().Be(TestStringEnum.Two);
             entity.OuterOwnedEntity.InnerOwnedEntity.Test4.Should().Be(DerivedTestEnumWithValues1.B);
+            entity.OuterOwnedEntity.InnerOwnedEntity.NotMappedTest.Should().BeNull();
 
             entity.OwnedEntities.Should().SatisfyRespectively(
                 o =>
@@ -174,6 +179,7 @@ namespace SmartEnum.EFCore.IntegrationTests
                     o.Test2.Should().Be(TestDerivedEnum.One);
                     o.Test3.Should().Be(TestStringEnum.Three);
                     o.Test4.Should().Be(DerivedTestEnumWithValues1.A);
+                    o.NotMappedTest.Should().BeNull();
                 },
                 o =>
                 {
@@ -183,6 +189,7 @@ namespace SmartEnum.EFCore.IntegrationTests
                     o.Test2.Should().Be(TestDerivedEnum.One);
                     o.Test3.Should().Be(TestStringEnum.One);
                     o.Test4.Should().Be(DerivedTestEnumWithValues1.B);
+                    o.NotMappedTest.Should().BeNull();
                 });
         }
     }
