@@ -1,25 +1,65 @@
-name: Build-Test
+name: .NET Core
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ "*" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "*" ]
+    branches: [ main ]
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    
     steps:
     - uses: actions/checkout@v3
-    - name: Setup .NET
+    - name: Setup .NET Core
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 7.0.x
-    - name: Restore dependencies
+          dotnet-version: '7.x'
+    - name: Install dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --configuration Release --no-restore
+      
+      # See https://josh-ops.com/posts/github-code-coverage/
+      # Add coverlet.collector nuget package to test project - 'dotnet add <TestProject.cspoj> package coverlet
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-restore --verbosity normal --collect:"XPlat Code Coverage" --logger trx --results-directory coverage
+      
+    - name: Copy Coverage To Predictable Location
+      # run: cp coverage/*/coverage.cobertura.xml coverage/coverage.cobertura.xml
+      run: find coverage -type f -name coverage.cobertura.xml -exec cp -p {} coverage/coverage.cobertura.xml \;
+      
+    - name: Code Coverage Summary Report
+      uses: irongut/CodeCoverageSummary@v1.3.0
+      # uses: joshjohanning/CodeCoverageSummary@v1.0.2
+      with:
+        filename: coverage/coverage.cobertura.xml
+        badge: true
+        format: 'markdown'
+        output: 'both'
+
+    - name: Upload code coverage results artifact
+      uses: actions/upload-artifact@v3
+      if: success() || failure()
+      with:
+        name: code-coverage-results
+        path: code-coverage-results.md
+        retention-days: 1
+    
+    - name: Save the PR number in an artifact
+      if: github.event_name == 'pull_request' && (success() || failure()) 
+      shell: bash
+      env:
+        PR_NUMBER: ${{ github.event.number }}
+      run: echo $PR_NUMBER > pr-number.txt
+  
+    - name: Upload the PR number
+      uses: actions/upload-artifact@v3
+      if: github.event_name == 'pull_request' &&  (success() || failure())
+      with:
+        name: pr-number
+        path: ./pr-number.txt
+        retention-days: 1

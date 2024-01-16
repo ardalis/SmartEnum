@@ -2,6 +2,7 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
 {
     using FluentAssertions;
     using System;
+    using System.Collections.Generic;
     using System.Text.Json;
     using System.Text.Json.Serialization;
     using Xunit;
@@ -24,6 +25,10 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
 
             [JsonConverter(typeof(SmartEnumValueConverter<TestEnumString, string>))]
             public TestEnumString String { get; set; }
+
+            public IDictionary<TestEnumInt32, string> DictInt32String { get; set; }
+
+            public IDictionary<TestEnumString, string> DictStringString { get; set; }
         }
 
         static readonly TestClass TestInstance = new TestClass
@@ -33,6 +38,8 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
             Int32 = TestEnumInt32.Instance,
             Double = TestEnumDouble.Instance,
             String = TestEnumString.Instance,
+            DictInt32String = TestDictInt32EnumString.Instance,
+            DictStringString = TestDictStringEnumString.Instance
         };
 
         static readonly string JsonString = JsonSerializer.Serialize(new
@@ -41,13 +48,15 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
             Int16 = 1,
             Int32 = 1,
             Double = 1.2,
-            String = "1.5"
-        }, new JsonSerializerOptions { WriteIndented = true });
+            String = "1.5",
+            DictInt32String = new DictInt32EnumStringJson(),
+            DictStringString = new DictStringEnumStringJson()
+        }, TestJsonConverters.ValueConverterOptions);
 
         [Fact]
         public void SerializesValue()
         {
-            var json = JsonSerializer.Serialize(TestInstance, new JsonSerializerOptions { WriteIndented = true });
+            var json = JsonSerializer.Serialize(TestInstance, TestJsonConverters.ValueConverterOptions);
 
             json.Should().Be(JsonString);
         }
@@ -55,13 +64,15 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
         [Fact]
         public void DeserializesValue()
         {
-            var obj = JsonSerializer.Deserialize<TestClass>(JsonString);
+            var obj = JsonSerializer.Deserialize<TestClass>(JsonString, TestJsonConverters.ValueConverterOptions);
 
             obj.Bool.Should().BeSameAs(TestEnumBoolean.Instance);
             obj.Int16.Should().BeSameAs(TestEnumInt16.Instance);
             obj.Int32.Should().BeSameAs(TestEnumInt32.Instance);
             obj.Double.Should().BeSameAs(TestEnumDouble.Instance);
             obj.String.Should().BeSameAs(TestEnumString.Instance);
+            obj.DictInt32String.Should().BeEquivalentTo(TestDictInt32EnumString.Instance);
+            obj.DictStringString.Should().BeEquivalentTo(TestDictStringEnumString.Instance);
         }
 
         [Fact]
@@ -76,6 +87,8 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
             obj.Int32.Should().BeNull();
             obj.Double.Should().BeNull();
             obj.String.Should().BeNull();
+            obj.DictInt32String.Should().BeNull();
+            obj.DictStringString.Should().BeNull();
         }
 
         [Fact]

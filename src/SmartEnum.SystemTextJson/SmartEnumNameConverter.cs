@@ -39,5 +39,22 @@ namespace Ardalis.SmartEnum.SystemTextJson
                 throw new JsonException($"Error converting value '{name}' to a smart enum.", ex);
             }
         }
+
+        public override TEnum ReadAsPropertyName(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            switch (reader.TokenType)
+            {
+                case JsonTokenType.PropertyName:
+                    return GetFromName(reader.GetString());
+
+                default:
+                    throw new JsonException($"Unexpected token {reader.TokenType} when parsing a dictionary with smart enum key.");
+            }
+        }
+
+        public override void WriteAsPropertyName(Utf8JsonWriter writer, TEnum value, JsonSerializerOptions options)
+        {
+            writer.WritePropertyName(value.Name);
+        }
     }
 }

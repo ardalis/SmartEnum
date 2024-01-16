@@ -83,5 +83,50 @@ namespace Ardalis.SmartEnum.SystemTextJson
 
             throw new ArgumentOutOfRangeException(typeof(TValue).ToString(), $"{typeof(TValue).Name} is not supported.");
         }
+
+        public override TEnum ReadAsPropertyName(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            if (reader.TokenType != JsonTokenType.PropertyName)
+            {
+                throw new ArgumentException(
+                    $"Unexpected token {reader.TokenType} when parsing a dictionary with smart enum key.");
+            }
+            return GetFromValue(ReadPropertyName(ref reader));
+        }
+
+        public override void WriteAsPropertyName(Utf8JsonWriter writer, TEnum value, JsonSerializerOptions options)
+        {
+            writer.WritePropertyName(value.Value?.ToString() ?? string.Empty);
+        }
+
+        private TValue ReadPropertyName(ref Utf8JsonReader reader)
+        {
+            if (typeof(TValue) == typeof(bool))
+                return (TValue)(object)Convert.ToBoolean(reader.GetString());
+            if (typeof(TValue) == typeof(byte))
+                return (TValue)(object)Convert.ToByte(reader.GetString());
+            if (typeof(TValue) == typeof(sbyte))
+                return (TValue)(object)Convert.ToSByte(reader.GetString());
+            if (typeof(TValue) == typeof(short))
+                return (TValue)(object)Convert.ToInt16(reader.GetString());
+            if (typeof(TValue) == typeof(ushort))
+                return (TValue)(object)Convert.ToUInt16(reader.GetString());
+            if (typeof(TValue) == typeof(int))
+                return (TValue)(object)Convert.ToInt32(reader.GetString());
+            if (typeof(TValue) == typeof(uint))
+                return (TValue)(object)Convert.ToUInt32(reader.GetString());
+            if (typeof(TValue) == typeof(long))
+                return (TValue)(object)Convert.ToInt64(reader.GetString());
+            if (typeof(TValue) == typeof(ulong))
+                return (TValue)(object)Convert.ToUInt64(reader.GetString());
+            if (typeof(TValue) == typeof(float))
+                return (TValue)(object)Convert.ToSingle(reader.GetString());
+            if (typeof(TValue) == typeof(double))
+                return (TValue)(object)Convert.ToDouble(reader.GetString());
+            if (typeof(TValue) == typeof(string))
+                return (TValue)(object)reader.GetString();
+
+            throw new ArgumentOutOfRangeException(typeof(TValue).ToString(), $"{typeof(TValue).Name} is not supported.");
+        }
     }
 }
