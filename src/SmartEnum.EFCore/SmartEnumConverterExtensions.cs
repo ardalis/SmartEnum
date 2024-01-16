@@ -6,7 +6,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace SmartEnum.EFCore
@@ -23,6 +25,7 @@ namespace SmartEnum.EFCore
             var propertyTypes = modelBuilder.Model.GetEntityTypes()
                 .SelectMany(e => e.ClrType.GetProperties())
                 .Where(p => TypeUtil.IsDerived(p.PropertyType, typeof(SmartEnum<,>)))
+                .Where(p => p.GetCustomAttribute<NotMappedAttribute>() == null)
                 .Select(p => p.PropertyType)
                 .Distinct();
 
@@ -52,7 +55,8 @@ namespace SmartEnum.EFCore
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
                 var properties = entityType.ClrType.GetProperties()
-                    .Where(p => TypeUtil.IsDerived(p.PropertyType, typeof(SmartEnum<,>)));
+                    .Where(p => TypeUtil.IsDerived(p.PropertyType, typeof(SmartEnum<,>)))
+                    .Where(p => p.GetCustomAttribute<NotMappedAttribute>() == null);
 
                 foreach (var property in properties)
                 {
