@@ -86,7 +86,7 @@ namespace Ardalis.SmartEnum.MessagePack
                 return default;
             }
 
-            return SmartEnum<TEnum, TValue>.FromValue((TValue)Read(ref reader));
+            return SmartEnum<TEnum, TValue>.FromValue(Read(ref reader));
         }
 
         public TValue Read(ref MessagePackReader reader)

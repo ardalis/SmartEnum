@@ -2,7 +2,6 @@
 	<PropertyGroup>
 		<IsPackable>false</IsPackable>
 		<RootNamespace>Ardalis.SmartEnum.Dapper.UnitTests</RootNamespace>
-		<TargetFrameworks>net6;net7;net8</TargetFrameworks>
 	</PropertyGroup>
 
 	<ItemGroup>

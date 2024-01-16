@@ -2,7 +2,6 @@
 
 	<PropertyGroup>
 		<IsPackable>false</IsPackable>
-		<TargetFrameworks>net6;net7;net8</TargetFrameworks>
 	</PropertyGroup>
 
 	<ItemGroup>

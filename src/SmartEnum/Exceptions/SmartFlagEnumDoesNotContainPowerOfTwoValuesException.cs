@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -15,17 +15,6 @@ namespace Ardalis.SmartEnum.Exceptions
         /// </summary>
         public SmartFlagEnumDoesNotContainPowerOfTwoValuesException()
             : base()
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SmartFlagEnumDoesNotContainPowerOfTwoValuesException"/> class with serialized data.
-        /// </summary>
-        /// <param name="info">The object that holds the serialized object data.</param>
-        /// <param name="context">The contextual information about the source or destination.</param>
-        protected SmartFlagEnumDoesNotContainPowerOfTwoValuesException(
-            System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
-            : base(info, context)
         {
         }
 
