@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace SmartEnum.EFCore.IntegrationTests.Entities
 {
     [Owned]
@@ -18,5 +20,8 @@ namespace SmartEnum.EFCore.IntegrationTests.Entities
         public TestBaseEnumWithDerivedValues Test4 { get; set; }
 
         public SomeOwnedEntity InnerOwnedEntity { get; set; }
+
+        [NotMapped]
+        public TestEnum NotMappedTest { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartEnum.EFCore.IntegrationTests.Entities
 {
@@ -23,6 +24,9 @@ namespace SmartEnum.EFCore.IntegrationTests.Entities
         public SomeOuterOwnedEntity OuterOwnedEntity { get; set; }
 
         public List<SomeOwnedEntity> OwnedEntities { get; set; }
+
+        [NotMapped]
+        public TestEnum NotMappedTest { get; set; }
 
         public class Configuration : IEntityTypeConfiguration<SomeEntity>
         {
