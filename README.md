@@ -98,7 +98,7 @@ Install-Package Ardalis.SmartEnum -Version 2.1.0
 
 ## Usage
 
-Define your smart enum by inheriting from `SmartEnum<TEnum>` where `TEnum` is the type you're declaring. For [example](/src/SmartEnum.UnitTests/TestEnum.cs):
+Define your smart enum by inheriting from `SmartEnum<TEnum>` where `TEnum` is the type you're declaring. For [example](/test/SmartEnum.UnitTests/TestEnum.cs):
 
 ```csharp
 using Ardalis.SmartEnum;
