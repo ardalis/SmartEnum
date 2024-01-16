@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+		<TargetFrameworks>net6;net7;net8</TargetFrameworks>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 
