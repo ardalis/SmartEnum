@@ -7,7 +7,11 @@
 		<Summary>Classes to help produce strongly typed smarter enums in .NET.</Summary>
 		<PackageTags>enum;smartenum;ardalis</PackageTags>
 		<PackageIcon>icon.png</PackageIcon>
-		<PackageReleaseNotes>Updating to net7.</PackageReleaseNotes>
+		<PackageReleaseNotes>
+			Adding multi-targeting.
+			Add SmartEnumNameAttribute, a DataAnnotations ValidationAttribute by @sdepouw in #447
+			Support SmartEnums as dictionary keys by @Steve-OH in #458
+		</PackageReleaseNotes>
 		<AssemblyName>Ardalis.SmartEnum</AssemblyName>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
