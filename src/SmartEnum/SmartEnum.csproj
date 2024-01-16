@@ -28,6 +28,6 @@
 		  <Pack>True</Pack>
 		  <PackagePath>\</PackagePath>
 		</None>
-		<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+		<None Include="$(SolutionDir)img\icon.png" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
 </Project>
