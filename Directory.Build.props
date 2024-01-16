@@ -15,6 +15,7 @@
 		<Features>strict</Features>
 	</PropertyGroup>
 	<PropertyGroup>
+		<SolutionDir Condition="'$(SolutionDir)'==''">$(MSBuildThisFileDirectory)</SolutionDir>
 		<RepoRelativeProjectDir>$([MSBuild]::MakeRelative($(RepoRoot), $(MSBuildProjectDirectory)))</RepoRelativeProjectDir>
 
 		<!-- Define useful flags based on project name conventions -->
