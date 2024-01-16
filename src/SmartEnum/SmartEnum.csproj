@@ -30,4 +30,7 @@
 		</None>
 		<None Include="$(SolutionDir)img\icon.png" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="System.ComponentModel.Annotations" />
+	</ItemGroup>
 </Project>
