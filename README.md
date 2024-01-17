@@ -30,6 +30,7 @@
   * [Dapper support](#dapper-support)
   * [DapperSmartEnum](#dappersmartenum)
   * [Case Insensitive String Enum](#case-insensitive-string-enum)
+  * [Name Validation Attribute](#name-validation-attribute)
   * [Examples in the Real World](#examples-in-the-real-world)
   * [References](#references)
 
@@ -61,7 +62,7 @@ An implementation of a [type-safe object-oriented alternative](https://codeblog.
 
 ## Contributors
 
-Thanks to [Scott Depouw](https://github.com/sdepouw), [Antão Almada](https://github.com/aalmada), and [Nagasudhir Pulla](https://github.com/nagasudhirpulla) for help with this project!
+Thanks to [Scott DePouw](https://github.com/sdepouw), [Antão Almada](https://github.com/aalmada), and [Nagasudhir Pulla](https://github.com/nagasudhirpulla) for help with this project!
 
 # Install
 
@@ -98,7 +99,7 @@ Install-Package Ardalis.SmartEnum -Version 2.1.0
 
 ## Usage
 
-Define your smart enum by inheriting from `SmartEnum<TEnum>` where `TEnum` is the type you're declaring. For [example](/src/SmartEnum.UnitTests/TestEnum.cs):
+Define your smart enum by inheriting from `SmartEnum<TEnum>` where `TEnum` is the type you're declaring. For [example](/test/SmartEnum.UnitTests/TestEnum.cs):
 
 ```csharp
 using Ardalis.SmartEnum;
@@ -828,7 +829,35 @@ var e2 = CaseInsensitiveEnum.FromValue("one");
 
 //e1 is equal to e2
 ```
+## Name Validation Attribute
+The DataAnnotations ValidationAttribute `SmartEnumNameAttribute` allows you to validate your models, mandating that when provided a value it must be matching the name of a given `SmartEnum`. This attribute allows `null` values (use `[Required]` to disallow nulls).
 
+In addition to specifying the `SmartEnum` to match, you may also pass additional parameters:
+- `allowCaseInsensitiveMatch` (default `false`)
+- `errorMessage` (default `"{0} must be one of: {1}"`): A format string to customize the error
+  - `{0}` is the name of the property being validated
+  - `{1}` is the comma-separated list of valid `SmartEnum` names
+
+### Example of Name Validation Attribute
+```csharp
+public sealed class ExampleSmartEnum : SmartEnum<ExampleSmartEnum>
+{
+    public static readonly ExampleSmartEnum Foo = new ExampleSmartEnum(nameof(Foo), 1);
+    public static readonly ExampleSmartEnum Bar = new ExampleSmartEnum(nameof(Bar), 2);
+    
+    private ExampleSmartEnum(string name, int value) : base(name, value) { }
+}
+
+public class ExampleModel
+{
+    [Required]
+    [SmartEnumName(typeof(ExampleSmartEnum)]
+    public string MyExample { get; set; } // must be "Foo" or "Bar"
+    
+    [SmartEnumName(typeof(ExampleSmartEnum), allowCaseInsensitiveMatch: true)]
+    public string CaseInsensitiveExample { get; set; } // "Foo", "foo", etc. allowed; null also allowed here
+}
+```
 
 ## Examples in the Real World
 
