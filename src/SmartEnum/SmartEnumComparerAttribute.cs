@@ -21,7 +21,7 @@ namespace Ardalis.SmartEnum
     }
 
     /// <summary>
-    /// Attribute to apply to <see cref="SmartEnum{TEnum, string}"/> of type <see cref="string"/> to specify how to compare
+    /// Attribute to apply to <see cref="SmartEnum{TEnum, TString}"/> of type <see cref="string"/> to specify how to compare
     /// the enum values
     /// </summary>
     public class SmartEnumStringComparerAttribute : SmartEnumComparerAttribute<string>
