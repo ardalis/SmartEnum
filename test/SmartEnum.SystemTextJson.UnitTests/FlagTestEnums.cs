@@ -1,5 +1,12 @@
 namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
 {
+    public sealed class FlagTestEnumUnsignedInt16 : SmartFlagEnum<FlagTestEnumUnsignedInt16, ushort>
+    {
+        public static readonly FlagTestEnumUnsignedInt16 Instance = new(nameof(Instance), 12);
+
+        FlagTestEnumUnsignedInt16(string name, ushort value) : base(name, value) { }
+    }
+
     public sealed class FlagTestEnumInt16 : SmartFlagEnum<FlagTestEnumInt16, short>
     {
         public static readonly FlagTestEnumInt16 Instance = new FlagTestEnumInt16(nameof(Instance), 1);

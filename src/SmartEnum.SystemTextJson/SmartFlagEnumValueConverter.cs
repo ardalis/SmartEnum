@@ -1,7 +1,6 @@
 namespace Ardalis.SmartEnum.SystemTextJson
 {
     using System;
-    using System.Linq;
     using System.Text.Json;
     using System.Text.Json.Serialization;
 
@@ -75,7 +74,7 @@ namespace Ardalis.SmartEnum.SystemTextJson
             else if (typeof(TValue) == typeof(bool))
                 writer.WriteBooleanValue((bool)(object)value.Value);
             else if (typeof(TValue) == typeof(short))
-                writer.WriteNumberValue((int)(short)(object)value.Value);
+                writer.WriteNumberValue((short)(object)value.Value);
             else if (typeof(TValue) == typeof(int))
                 writer.WriteNumberValue((int)(object)value.Value);
             else if (typeof(TValue) == typeof(double))
@@ -90,6 +89,8 @@ namespace Ardalis.SmartEnum.SystemTextJson
                 writer.WriteNumberValue((float)(object)value.Value);
             else if (typeof(TValue) == typeof(long))
                 writer.WriteNumberValue((long)(object)value.Value);
+            else if (typeof(TValue) == typeof(ushort))
+                writer.WriteNumberValue((ushort)(object)value.Value);
             else
                 writer.WriteStringValue(value.Value.ToString());
         }
