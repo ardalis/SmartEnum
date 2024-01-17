@@ -5,12 +5,28 @@ namespace Ardalis.SmartEnum.SystemTextJson
     using System.Text.Json;
     using System.Text.Json.Serialization;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TEnum"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
     public class SmartFlagEnumNameConverter<TEnum, TValue> : JsonConverter<TEnum> 
     where TEnum : SmartFlagEnum<TEnum, TValue>
     where TValue : struct, IComparable<TValue>, IEquatable<TValue>
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public override bool HandleNull => true;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="typeToConvert"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        /// <exception cref="JsonException"></exception>
         public override TEnum Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             switch (reader.TokenType)
@@ -35,6 +51,12 @@ namespace Ardalis.SmartEnum.SystemTextJson
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="writer"></param>
+        /// <param name="value"></param>
+        /// <param name="options"></param>
         public override void Write(Utf8JsonWriter writer, TEnum value, JsonSerializerOptions options)
         {
             if (value == null)

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Ardalis.SmartEnum
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface ISmartEnum
     {
         // Empty Interface
