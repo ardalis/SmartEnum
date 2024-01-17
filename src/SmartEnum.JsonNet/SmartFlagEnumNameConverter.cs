@@ -8,10 +8,26 @@ namespace Ardalis.SmartEnum.JsonNet
     where TEnum : SmartFlagEnum<TEnum, TValue>
     where TValue : struct, IComparable<TValue>, IEquatable<TValue>
     {
+        /// <summary>
+        /// Default to true.
+        /// </summary>
         public override bool CanRead => true;
 
+        /// <summary>
+        /// Defaults to true
+        /// </summary>
         public override bool CanWrite => true;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="objectType"></param>
+        /// <param name="existingValue"></param>
+        /// <param name="hasExistingValue"></param>
+        /// <param name="serializer"></param>
+        /// <returns></returns>
+        /// <exception cref="JsonSerializationException"></exception>
         public override TEnum ReadJson(JsonReader reader, Type objectType, TEnum existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             switch (reader.TokenType)

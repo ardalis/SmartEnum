@@ -8,6 +8,12 @@ namespace Ardalis.SmartEnum.MessagePack
         where TEnum : SmartEnum<TEnum, TValue>
         where TValue : struct, IEquatable<TValue>, IComparable<TValue>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="writer"></param>
+        /// <param name="value"></param>
+        /// <param name="options"></param>
         public void Serialize(ref MessagePackWriter writer, TEnum value, MessagePackSerializerOptions options)
         {
             if (value is null)
@@ -79,6 +85,12 @@ namespace Ardalis.SmartEnum.MessagePack
             throw new ArgumentOutOfRangeException(nameof(value), $"{typeof(TValue)} is not supported."); // should not get to here
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         public TEnum Deserialize(ref MessagePackReader reader, MessagePackSerializerOptions options)
         {
             if (reader.TryReadNil())
@@ -89,6 +101,12 @@ namespace Ardalis.SmartEnum.MessagePack
             return SmartEnum<TEnum, TValue>.FromValue(Read(ref reader));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public TValue Read(ref MessagePackReader reader)
         {
             if (typeof(TValue) == typeof(bool))
