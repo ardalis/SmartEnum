@@ -4,6 +4,11 @@ namespace Ardalis.SmartEnum.MessagePack
     using global::MessagePack;
     using global::MessagePack.Formatters;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TEnum"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
     public class SmartEnumValueFormatter<TEnum, TValue> : IMessagePackFormatter<TEnum>
         where TEnum : SmartEnum<TEnum, TValue>
         where TValue : struct, IEquatable<TValue>, IComparable<TValue>
