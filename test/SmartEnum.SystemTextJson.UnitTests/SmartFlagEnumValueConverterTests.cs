@@ -1,4 +1,3 @@
-using Ardalis.SmartEnum;
 using FluentAssertions;
 using System;
 using System.Text.Json;
@@ -11,6 +10,9 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
     {
         public class TestClass
         {
+            [JsonConverter(typeof(SmartFlagEnumValueConverter<FlagTestEnumUnsignedInt16, ushort>))]
+            public FlagTestEnumUnsignedInt16 UnsignedInt16 { get; set; }
+
             [JsonConverter(typeof(SmartFlagEnumValueConverter<FlagTestEnumInt16, short>))]
             public FlagTestEnumInt16 Int16 { get; set; }
 
@@ -21,8 +23,9 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
             public FlagTestEnumDouble Double { get; set; }
         }
 
-        static readonly TestClass TestInstance = new TestClass
+        static readonly TestClass TestInstance = new()
         {
+            UnsignedInt16 = FlagTestEnumUnsignedInt16.Instance,
             Int16 = FlagTestEnumInt16.Instance,
             Int32 = FlagTestEnumInt32.Instance2,
             Double = FlagTestEnumDouble.Instance
@@ -30,6 +33,7 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
 
         static readonly string JsonString = JsonSerializer.Serialize(new
         {
+            UnsignedInt16 = 12,
             Int16 = 1,
             Int32 = 2,
             Double = 1
