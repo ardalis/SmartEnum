@@ -1,4 +1,4 @@
-﻿namespace Ardalis.SmartEnum.Utf8Json
+namespace Ardalis.SmartEnum.Utf8Json
 {
     using System;
     using global::Utf8Json;
@@ -14,6 +14,9 @@
         /// </summary>
         public static readonly SmartFlagEnumValueResolver Instance = new SmartFlagEnumValueResolver();
 
+        /// <summary>
+        /// 
+        /// </summary>
         public SmartFlagEnumValueResolver()
         {
         }

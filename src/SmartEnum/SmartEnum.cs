@@ -20,6 +20,11 @@ namespace Ardalis.SmartEnum
         SmartEnum<TEnum, int>
         where TEnum : SmartEnum<TEnum, int>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
         protected SmartEnum(string name, int value) :
             base(name, value)
         {
@@ -91,7 +96,11 @@ namespace Ardalis.SmartEnum
         private readonly string _name;
         private readonly TValue _value;
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
         protected SmartEnum(string name, TValue value)
         {
             if (String.IsNullOrEmpty(name))
@@ -273,13 +282,26 @@ namespace Ardalis.SmartEnum
             return _fromValue.Value.TryGetValue(value, out result);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString() =>
             _name;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode() =>
             _value.GetHashCode();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj) =>
             (obj is SmartEnum<TEnum, TValue> other) && Equals(other);
 
@@ -329,6 +351,12 @@ namespace Ardalis.SmartEnum
         public SmartEnumThen<TEnum, TValue> When(IEnumerable<SmartEnum<TEnum, TValue>> smartEnums) =>
             new SmartEnumThen<TEnum, TValue>(smartEnums.Contains(this), false, this);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static bool operator ==(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right)
         {
             // Handle null on left side
@@ -339,6 +367,12 @@ namespace Ardalis.SmartEnum
             return left.Equals(right);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right) =>
             !(left == right);
@@ -352,28 +386,60 @@ namespace Ardalis.SmartEnum
         public virtual int CompareTo(SmartEnum<TEnum, TValue> other) =>
             _value.CompareTo(other._value);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator <(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right) =>
             left.CompareTo(right) < 0;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator <=(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right) =>
             left.CompareTo(right) <= 0;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator >(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right) =>
             left.CompareTo(right) > 0;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator >=(SmartEnum<TEnum, TValue> left, SmartEnum<TEnum, TValue> right) =>
             left.CompareTo(right) >= 0;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="smartEnum"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator TValue(SmartEnum<TEnum, TValue> smartEnum) =>
             smartEnum is not null
                 ? smartEnum._value 
                 : default;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator SmartEnum<TEnum, TValue>(TValue value) =>
             FromValue(value);

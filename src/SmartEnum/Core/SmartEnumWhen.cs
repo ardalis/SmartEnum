@@ -1,9 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Ardalis.SmartEnum.Core
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TEnum"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
     public readonly struct SmartEnumWhen<TEnum, TValue>
         where TEnum : ISmartEnum
         where TValue : IEquatable<TValue>, IComparable<TValue>
