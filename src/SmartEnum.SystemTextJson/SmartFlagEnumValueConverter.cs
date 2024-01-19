@@ -97,7 +97,7 @@ where TValue: struct, IEquatable<TValue>, IComparable<TValue>
         else if (typeof(TValue) == typeof(bool))
             writer.WriteBooleanValue((bool)(object)value.Value);
         else if (typeof(TValue) == typeof(short))
-            writer.WriteNumberValue((int)(short)(object)value.Value);
+            writer.WriteNumberValue((short)(object)value.Value);
         else if (typeof(TValue) == typeof(int))
             writer.WriteNumberValue((int)(object)value.Value);
         else if (typeof(TValue) == typeof(double))
@@ -106,6 +106,8 @@ where TValue: struct, IEquatable<TValue>, IComparable<TValue>
             writer.WriteNumberValue((decimal)(object)value.Value);
         else if (typeof(TValue) == typeof(ulong))
             writer.WriteNumberValue((ulong)(object)value.Value);
+        else if (typeof(TValue) == typeof(ushort))
+            writer.WriteNumberValue((ushort)(object)value.Value);
         else if (typeof(TValue) == typeof(uint))
             writer.WriteNumberValue((uint)(object)value.Value);
         else if (typeof(TValue) == typeof(float))
