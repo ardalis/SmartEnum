@@ -4,14 +4,25 @@ namespace Ardalis.SmartEnum.MessagePack
     using global::MessagePack;
     using global::MessagePack.Formatters;
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class SmartEnumValueResolver : IFormatterResolver
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public static readonly SmartEnumValueResolver Instance = new SmartEnumValueResolver();
 
         private SmartEnumValueResolver()
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public IMessagePackFormatter<T> GetFormatter<T>() =>
             FormatterCache<T>.Formatter;
 
