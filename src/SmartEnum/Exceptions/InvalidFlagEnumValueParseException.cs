@@ -1,9 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Ardalis.SmartEnum.Exceptions
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Serializable]
     public class InvalidFlagEnumValueParseException : Exception
     {

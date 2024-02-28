@@ -5,14 +5,35 @@ namespace Ardalis.SmartEnum.JsonNet
     using Newtonsoft.Json;
     using System;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TEnum"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
     public class SmartEnumNameConverter<TEnum, TValue> : JsonConverter<TEnum>
         where TEnum : SmartEnum<TEnum, TValue>
         where TValue : IEquatable<TValue>, IComparable<TValue>
     {
+        /// <summary>
+        /// Defaults to true.
+        /// </summary>
         public override bool CanRead => true;
 
+        /// <summary>
+        /// Defaults to true.
+        /// </summary>
         public override bool CanWrite => true;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="objectType"></param>
+        /// <param name="existingValue"></param>
+        /// <param name="hasExistingValue"></param>
+        /// <param name="serializer"></param>
+        /// <returns></returns>
+        /// <exception cref="JsonSerializationException"></exception>
         public override TEnum ReadJson(JsonReader reader, Type objectType, TEnum existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             switch (reader.TokenType)
@@ -37,6 +58,12 @@ namespace Ardalis.SmartEnum.JsonNet
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="writer"></param>
+        /// <param name="value"></param>
+        /// <param name="serializer"></param>
         public override void WriteJson(JsonWriter writer, TEnum value, JsonSerializer serializer)
         {
             if (value is null)
