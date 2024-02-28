@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 
 namespace Ardalis.SmartEnum
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class SmartFlagEnumExtensions
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static bool IsSmartFlagEnum(this Type type) =>
             IsSmartFlagEnum(type, out var _);
 
@@ -44,6 +48,15 @@ namespace Ardalis.SmartEnum
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TEnum"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="dictionary"></param>
+        /// <param name="names"></param>
+        /// <param name="outputEnums"></param>
+        /// <returns></returns>
         public static bool TryGetFlagEnumValuesByName<TEnum, TValue>(this Dictionary<string, TEnum> dictionary, string names, out IEnumerable<TEnum> outputEnums)
             where TEnum : SmartFlagEnum<TEnum, TValue>
             where TValue : IEquatable<TValue>, IComparable<TValue>
