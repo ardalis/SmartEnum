@@ -22,7 +22,7 @@
     <PackageVersion Include="Moq" Version="4.18.4" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageVersion Include="protobuf-net" Version="3.2.26" />
-    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.17.0.82934" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.23.2.88755" />
     <PackageVersion Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageVersion Include="System.Text.Json" Version="8.0.2" />
     <PackageVersion Include="Utf8Json" Version="1.3.7" />
