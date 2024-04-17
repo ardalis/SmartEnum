@@ -14,8 +14,10 @@
 	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
-	<ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'netStandard2.1'">
 		<PackageReference Include="System.Text.Json" />
+	</ItemGroup>
+	<ItemGroup>
 		<PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
 		<PackageReference Include="SonarAnalyzer.CSharp" PrivateAssets="All" />
 	</ItemGroup>
