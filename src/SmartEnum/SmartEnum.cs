@@ -60,8 +60,7 @@ namespace Ardalis.SmartEnum
                 var dictionary = new Dictionary<TValue, TEnum>(GetValueComparer());
                 foreach (var item in _enumOptions.Value)
                 {
-                    if (item._value != null && !dictionary.ContainsKey(item._value))
-                        dictionary.Add(item._value, item);
+                    dictionary.TryAdd(item._value, item);
                 }
                 return dictionary;
             });
@@ -105,6 +104,9 @@ namespace Ardalis.SmartEnum
         {
             if (String.IsNullOrEmpty(name))
                 ThrowHelper.ThrowArgumentNullOrEmptyException(nameof(name));
+
+            if (value is null)
+                ThrowHelper.ThrowArgumentNullException(nameof(value));
 
             _name = name;
             _value = value;
@@ -216,22 +218,12 @@ namespace Ardalis.SmartEnum
         /// <seealso cref="SmartEnum{TEnum, TValue}.TryFromValue(TValue, out TEnum)"/>
         public static TEnum FromValue(TValue value)
         {
-            TEnum result;
+            if (value is null)
+                ThrowHelper.ThrowArgumentNullException(nameof(value));
 
-            if (value != null)
+            if (!_fromValue.Value.TryGetValue(value, out var result))
             {
-                if (!_fromValue.Value.TryGetValue(value, out result))
-                {
-                    ThrowHelper.ThrowValueNotFoundException<TEnum, TValue>(value);
-                }
-            }
-            else
-            {
-                result = _enumOptions.Value.FirstOrDefault(x => x.Value == null);
-                if (result == null)
-                {
-                    ThrowHelper.ThrowValueNotFoundException<TEnum, TValue>(value);
-                }
+                ThrowHelper.ThrowValueNotFoundException<TEnum, TValue>(value);
             }
             return result;
         }
