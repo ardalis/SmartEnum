@@ -1,5 +1,6 @@
 namespace Ardalis.SmartEnum.Benchmarks
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using BenchmarkDotNet.Attributes;
 
@@ -68,6 +69,7 @@ namespace Ardalis.SmartEnum.Benchmarks
         static Stream valueProtoBufDeserializeStream;
 
         [GlobalSetup]
+        [SuppressMessage("Critical Code Smell", "S2696:Instance members should not write to \"static\" fields", Justification = "<Pending>")]
         public void GlobalSetup()
         {
             global::Utf8Json.Resolvers.CompositeResolver.Register(

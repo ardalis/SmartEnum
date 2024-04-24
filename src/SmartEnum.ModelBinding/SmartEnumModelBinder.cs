@@ -36,14 +36,11 @@ namespace Ardalis.SmartEnum.ModelBinding
                 if (methodInfo.Name == "FromName")
                 {
                     ParameterInfo[] methodsParams = methodInfo.GetParameters();
-                    if (methodsParams.Length == 2)
+                    if (methodsParams.Length == 2 && methodsParams[0].ParameterType == typeof(string) && methodsParams[1].ParameterType == typeof(bool))
                     {
-                        if (methodsParams[0].ParameterType == typeof(string) && methodsParams[1].ParameterType == typeof(bool))
-                        {
-                            var enumObj = methodInfo.Invoke(null, new object[] { enumKeyName, true });
-                            bindingContext.Result = ModelBindingResult.Success(enumObj);
-                            return Task.CompletedTask;
-                        }
+                        var enumObj = methodInfo.Invoke(null, new object[] { enumKeyName, true });
+                        bindingContext.Result = ModelBindingResult.Success(enumObj);
+                        return Task.CompletedTask;
                     }
                 }
             }
