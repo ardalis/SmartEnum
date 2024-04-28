@@ -38,15 +38,15 @@ namespace Ardalis.SmartEnum
     /// <typeparam name="TValue">The type of the inner value.</typeparam>
     /// <remarks></remarks>
     public abstract class SmartEnum<TEnum, TValue> :
-        ISmartEnum,
+    	ISmartEnum,
         IEquatable<SmartEnum<TEnum, TValue>>,
         IComparable<SmartEnum<TEnum, TValue>>
         where TEnum : SmartEnum<TEnum, TValue>
         where TValue : IEquatable<TValue>, IComparable<TValue>
     {
-        static readonly Lazy<TEnum[]> _enumOptions =
+        static readonly Lazy<TEnum[]> _enumOptions = 
             new Lazy<TEnum[]>(GetAllOptions, LazyThreadSafetyMode.ExecutionAndPublication);
-
+        
         static readonly Lazy<Dictionary<string, TEnum>> _fromName =
             new Lazy<Dictionary<string, TEnum>>(() => _enumOptions.Value.ToDictionary(item => item.Name));
 
@@ -92,12 +92,6 @@ namespace Ardalis.SmartEnum
             _fromName.Value.Values
                 .ToList()
                 .AsReadOnly();
-
-        /// <summary>
-        /// Enumerates through all the instances of <see cref="SmartEnum{TEnum, TValue}"/>.
-        /// </summary>
-        /// <returns>An <see cref="IEnumerable{TEnum}"/> containing all the instances of <see cref="SmartEnum{TEnum, TValue}"/>.</returns>
-        public static IEnumerable<TEnum> EnumerateList() => _fromName.Value.Values;
 
         private readonly string _name;
         private readonly TValue _value;
@@ -439,7 +433,7 @@ namespace Ardalis.SmartEnum
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator TValue(SmartEnum<TEnum, TValue> smartEnum) =>
             smartEnum is not null
-                ? smartEnum._value
+                ? smartEnum._value 
                 : default;
 
         /// <summary>
