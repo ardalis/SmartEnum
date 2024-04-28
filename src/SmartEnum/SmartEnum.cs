@@ -39,7 +39,7 @@ namespace Ardalis.SmartEnum
     /// <typeparam name="TValue">The type of the inner value.</typeparam>
     /// <remarks></remarks>
     public abstract class SmartEnum<TEnum, TValue> :
-    	ISmartEnum,
+        ISmartEnum,
         IEquatable<SmartEnum<TEnum, TValue>>,
         IComparable<SmartEnum<TEnum, TValue>>
         where TEnum : SmartEnum<TEnum, TValue>
@@ -89,10 +89,7 @@ namespace Ardalis.SmartEnum
         /// </summary>
         /// <value>A <see cref="IReadOnlyCollection{TEnum}"/> containing all the instances of <see cref="SmartEnum{TEnum, TValue}"/>.</value>
         /// <remarks>Retrieves all the instances of <see cref="SmartEnum{TEnum, TValue}"/> referenced by public static read-only fields in the current class or its bases.</remarks>
-        public static IReadOnlyCollection<TEnum> List =>
-            _fromName.Value.Values
-                .ToList()
-                .AsReadOnly();
+        public static IReadOnlyCollection<TEnum> List => _enumOptions.Value;
 
         private readonly string _name;
         private readonly TValue _value;
