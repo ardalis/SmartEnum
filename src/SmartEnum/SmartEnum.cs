@@ -4,6 +4,7 @@ namespace Ardalis.SmartEnum
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Reflection;
     using System.Runtime.CompilerServices;
@@ -21,7 +22,7 @@ namespace Ardalis.SmartEnum
         where TEnum : SmartEnum<TEnum, int>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="name"></param>
         /// <param name="value"></param>
@@ -94,7 +95,7 @@ namespace Ardalis.SmartEnum
         private readonly TValue _value;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="name"></param>
         /// <param name="value"></param>
@@ -128,11 +129,11 @@ namespace Ardalis.SmartEnum
         /// <param name="name">The name of the item to get.</param>
         /// <param name="ignoreCase"><c>true</c> to ignore case during the comparison; otherwise, <c>false</c>.</param>
         /// <returns>
-        /// The item associated with the specified name. 
+        /// The item associated with the specified name.
         /// If the specified name is not found, throws a <see cref="KeyNotFoundException"/>.
         /// </returns>
-        /// <exception cref="ArgumentException"><paramref name="name"/> is <c>null</c>.</exception> 
-        /// <exception cref="SmartEnumNotFoundException"><paramref name="name"/> does not exist.</exception> 
+        /// <exception cref="ArgumentException"><paramref name="name"/> is <c>null</c>.</exception>
+        /// <exception cref="SmartEnumNotFoundException"><paramref name="name"/> does not exist.</exception>
         /// <seealso cref="SmartEnum{TEnum, TValue}.TryFromName(string, out TEnum)"/>
         /// <seealso cref="SmartEnum{TEnum, TValue}.TryFromName(string, bool, out TEnum)"/>
         public static TEnum FromName(string name, bool ignoreCase = false)
@@ -160,12 +161,12 @@ namespace Ardalis.SmartEnum
         /// </summary>
         /// <param name="name">The name of the item to get.</param>
         /// <param name="result">
-        /// When this method returns, contains the item associated with the specified name, if the key is found; 
+        /// When this method returns, contains the item associated with the specified name, if the key is found;
         /// otherwise, <c>null</c>. This parameter is passed uninitialized.</param>
         /// <returns>
         /// <c>true</c> if the <see cref="SmartEnum{TEnum, TValue}"/> contains an item with the specified name; otherwise, <c>false</c>.
         /// </returns>
-        /// <exception cref="ArgumentException"><paramref name="name"/> is <c>null</c>.</exception> 
+        /// <exception cref="ArgumentException"><paramref name="name"/> is <c>null</c>.</exception>
         /// <seealso cref="SmartEnum{TEnum, TValue}.FromName(string, bool)"/>
         /// <seealso cref="SmartEnum{TEnum, TValue}.TryFromName(string, bool, out TEnum)"/>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -178,12 +179,12 @@ namespace Ardalis.SmartEnum
         /// <param name="name">The name of the item to get.</param>
         /// <param name="ignoreCase"><c>true</c> to ignore case during the comparison; otherwise, <c>false</c>.</param>
         /// <param name="result">
-        /// When this method returns, contains the item associated with the specified name, if the name is found; 
+        /// When this method returns, contains the item associated with the specified name, if the name is found;
         /// otherwise, <c>null</c>. This parameter is passed uninitialized.</param>
         /// <returns>
         /// <c>true</c> if the <see cref="SmartEnum{TEnum, TValue}"/> contains an item with the specified name; otherwise, <c>false</c>.
         /// </returns>
-        /// <exception cref="ArgumentException"><paramref name="name"/> is <c>null</c>.</exception> 
+        /// <exception cref="ArgumentException"><paramref name="name"/> is <c>null</c>.</exception>
         /// <seealso cref="SmartEnum{TEnum, TValue}.FromName(string, bool)"/>
         /// <seealso cref="SmartEnum{TEnum, TValue}.TryFromName(string, out TEnum)"/>
         public static bool TryFromName(string name, bool ignoreCase, out TEnum result)
@@ -208,9 +209,10 @@ namespace Ardalis.SmartEnum
         /// The first item found that is associated with the specified value.
         /// If the specified value is not found, throws a <see cref="KeyNotFoundException"/>.
         /// </returns>
-        /// <exception cref="SmartEnumNotFoundException"><paramref name="value"/> does not exist.</exception> 
+        /// <exception cref="SmartEnumNotFoundException"><paramref name="value"/> does not exist.</exception>
         /// <seealso cref="SmartEnum{TEnum, TValue}.FromValue(TValue, TEnum)"/>
         /// <seealso cref="SmartEnum{TEnum, TValue}.TryFromValue(TValue, out TEnum)"/>
+        [SuppressMessage("Minor Code Smell", "S6602:\"Find\" method should be used instead of the \"FirstOrDefault\" extension", Justification = "<Pending>")]
         public static TEnum FromValue(TValue value)
         {
             TEnum result;
@@ -261,7 +263,7 @@ namespace Ardalis.SmartEnum
         /// </summary>
         /// <param name="value">The value of the item to get.</param>
         /// <param name="result">
-        /// When this method returns, contains the item associated with the specified value, if the value is found; 
+        /// When this method returns, contains the item associated with the specified value, if the value is found;
         /// otherwise, <c>null</c>. This parameter is passed uninitialized.</param>
         /// <returns>
         /// <c>true</c> if the <see cref="SmartEnum{TEnum, TValue}"/> contains an item with the specified name; otherwise, <c>false</c>.
@@ -280,14 +282,14 @@ namespace Ardalis.SmartEnum
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public override string ToString() =>
             _name;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -295,7 +297,7 @@ namespace Ardalis.SmartEnum
             _value.GetHashCode();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -313,7 +315,7 @@ namespace Ardalis.SmartEnum
             if (Object.ReferenceEquals(this, other))
                 return true;
 
-            // it's not same instance so 
+            // it's not same instance so
             // check if it's not null and is same value
             if (other is null)
                 return false;
@@ -349,7 +351,7 @@ namespace Ardalis.SmartEnum
             new SmartEnumThen<TEnum, TValue>(smartEnums.Contains(this), false, this);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="left"></param>
         /// <param name="right"></param>
@@ -365,7 +367,7 @@ namespace Ardalis.SmartEnum
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="left"></param>
         /// <param name="right"></param>
@@ -384,7 +386,7 @@ namespace Ardalis.SmartEnum
             _value.CompareTo(other._value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="left"></param>
         /// <param name="right"></param>
@@ -394,7 +396,7 @@ namespace Ardalis.SmartEnum
             left.CompareTo(right) < 0;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="left"></param>
         /// <param name="right"></param>
@@ -404,7 +406,7 @@ namespace Ardalis.SmartEnum
             left.CompareTo(right) <= 0;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="left"></param>
         /// <param name="right"></param>
@@ -414,7 +416,7 @@ namespace Ardalis.SmartEnum
             left.CompareTo(right) > 0;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="left"></param>
         /// <param name="right"></param>
@@ -424,7 +426,7 @@ namespace Ardalis.SmartEnum
             left.CompareTo(right) >= 0;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="smartEnum"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -434,7 +436,7 @@ namespace Ardalis.SmartEnum
                 : default;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="value"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

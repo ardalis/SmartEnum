@@ -1,8 +1,10 @@
 namespace Ardalis.SmartEnum.Benchmarks
 {
     using BenchmarkDotNet.Attributes;
+    using System.Diagnostics.CodeAnalysis;
 
     [Config(typeof(Config))]
+    [SuppressMessage("Major Bug", "S1764:Identical expressions should not be used on both sides of operators", Justification = "<Pending>")]
     public class EqualsBenchmarks
     {
         ////////////////////////////////////////////////////////////////////////////////

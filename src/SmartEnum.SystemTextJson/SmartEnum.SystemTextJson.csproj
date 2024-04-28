@@ -1,28 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<PackageId>Ardalis.SmartEnum.SystemTextJson</PackageId>
-		<Title>Ardalis.SmartEnum.SystemTextJson</Title>
-		<Description>System.Text.Json (de)serialization support for Ardalis.SmartEnum.</Description>
-		<Summary>System.Text.Json (de)serialization support for Ardalis.SmartEnum.</Summary>
-    	<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageTags>enum;smartenum;netstandard2.0;json;system.text.json;converter</PackageTags>
-		<PackageIcon>icon.png</PackageIcon>
-		<PackageReleaseNotes>Updating to net7.</PackageReleaseNotes>
-		<AssemblyName>Ardalis.SmartEnum.SystemTextJson</AssemblyName>
-		<RootNamespace>Ardalis.SmartEnum.SystemTextJson</RootNamespace>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-	</PropertyGroup>
-	<ItemGroup>
-		<PackageReference Include="System.Text.Json" />
-		<PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
-		<PackageReference Include="SonarAnalyzer.CSharp" PrivateAssets="All" />
-	</ItemGroup>
-	<ItemGroup>
-		<None Include="$(SolutionDir)img\icon.png" Pack="true" Visible="false" PackagePath="" />
-	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
-	</ItemGroup>
+    <PropertyGroup>
+        <PackageId>Ardalis.SmartEnum.SystemTextJson</PackageId>
+        <Title>Ardalis.SmartEnum.SystemTextJson</Title>
+        <Description>System.Text.Json (de)serialization support for Ardalis.SmartEnum.</Description>
+        <Summary>System.Text.Json (de)serialization support for Ardalis.SmartEnum.</Summary>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageTags>enum;smartenum;netstandard2.0;json;system.text.json;converter</PackageTags>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageReleaseNotes>Updating to net7.</PackageReleaseNotes>
+        <AssemblyName>Ardalis.SmartEnum.SystemTextJson</AssemblyName>
+        <RootNamespace>Ardalis.SmartEnum.SystemTextJson</RootNamespace>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    </PropertyGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'netStandard2.1'">
+        <PackageReference Include="System.Text.Json" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="$(SolutionDir)img\icon.png" Pack="true" Visible="false" PackagePath="" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
+    </ItemGroup>
 </Project>

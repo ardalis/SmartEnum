@@ -1,9 +1,12 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace Ardalis.SmartEnum.Benchmarks
 {
     ////////////////////////////////////////////////////////////////////////////////
     // Enum
 
     [global::ProtoBuf.ProtoContract]
+    [SuppressMessage("Minor Code Smell", "S2344:Enumeration type names should not have \"Flags\" or \"Enum\" suffixes", Justification = "<Pending>")]
     public enum TestEnum
     {
         [global::ProtoBuf.ProtoEnum]
