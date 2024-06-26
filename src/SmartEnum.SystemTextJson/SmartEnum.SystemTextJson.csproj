@@ -14,7 +14,7 @@
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     </PropertyGroup>
-    <ItemGroup Condition="'$(TargetFramework)' == 'netStandard2.1'">
+    <ItemGroup Condition="'$(TargetFramework)' == 'netStandard2.0'">
         <PackageReference Include="System.Text.Json" />
     </ItemGroup>
     <ItemGroup>
