@@ -89,13 +89,7 @@ Install-Package Ardalis.SmartEnum.Dapper
 
 ## Version
 
-The latest version of the package supports .NET 7. If you don't need or aren't yet ready to move to .NET 7 or later, you should install the previous stable version, [Ardalis.SmartEnum 2.1](https://www.nuget.org/packages/Ardalis.SmartEnum/2.1.0).
-
-Example package manager command:
-
-```
-Install-Package Ardalis.SmartEnum -Version 2.1.0
-```
+The latest version of the package supports .NET 8 and NetStandard 2.0.
 
 ## Usage
 
