@@ -10,11 +10,9 @@ namespace Ardalis.SmartEnum.GuardClauses
         /// if <paramref name="input"/> is not a valid <see cref="SmartEnum{TEnum}"/> value.
         /// </summary>
         /// <typeparam name="TEnum">The type of the smart enum.</typeparam>
-        /// <param name="guardClause"></param>
         /// <param name="input">The value to check against the smart enum values.</param>
-        /// <param name="message">Optional. Custom error message.</param>
+        /// <param name="message">Optional. Custom error message to pass to <see cref="SmartEnumNotFoundException"/>.</param>
         /// <param name="exceptionCreator">Optional. A function that creates a custom exception.</param>
-        /// <param name="parameterName">The name of the parameter being checked. Automatically provided by the compiler.</param>
         /// <returns>The valid  <see cref="SmartEnum{TEnum}"/> value <paramref name="input" />.</returns>
         /// <exception cref="SmartEnumNotFoundException">Thrown when <paramref name="input" /> 
         /// is not a valid enum value, and no custom exception is provided.</exception>
@@ -35,9 +33,8 @@ namespace Ardalis.SmartEnum.GuardClauses
         /// </summary>
         /// <typeparam name="TEnum">The type of the smart enum.</typeparam>
         /// <typeparam name="TValue">The type of the value that the smart enum uses.</typeparam>
-        /// <param name="guardClause"></param>
         /// <param name="input">The value to check against the smart enum values.</param>
-        /// <param name="message">Optional. Custom error message.</param>
+        /// <param name="message">Optional. Custom error message to pass to <see cref="SmartEnumNotFoundException"/>.</param>
         /// <param name="exceptionCreator">Optional. A function that creates a custom exception.</param>
         /// <returns>The valid enum value <typeparamref name="TEnum"/> corresponding to <paramref name="input"/>.</returns>
         /// <exception cref="SmartEnumNotFoundException">Thrown when <paramref name="input"/> 
@@ -52,22 +49,13 @@ namespace Ardalis.SmartEnum.GuardClauses
             where TEnum : SmartEnum<TEnum, TValue>
             where TValue : IEquatable<TValue>, IComparable<TValue>
         {
-            if (!SmartEnum<TEnum, TValue>.TryFromValue(input, out TEnum result))
+            if (SmartEnum<TEnum, TValue>.TryFromValue(input, out TEnum result))
             {
-                if (exceptionCreator != null)
-                {
-                    throw exceptionCreator.Invoke();
-                }
-
-                if (string.IsNullOrEmpty(message))
-                {
-                    message = $"The value '{input}' is not a valid {typeof(TEnum).Name}.";
-                }
-
-                throw new SmartEnumNotFoundException(message);
+                return result;
             }
 
-            return result;
+            var exceptionMessage = message ?? $"The value '{input}' is not a valid {typeof(TEnum).Name}.";
+            throw exceptionCreator?.Invoke() ?? new SmartEnumNotFoundException(exceptionMessage);
         }
     }
 }

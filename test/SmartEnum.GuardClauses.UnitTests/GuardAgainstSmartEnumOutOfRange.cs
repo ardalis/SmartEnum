@@ -40,7 +40,7 @@ namespace SmartEnum.GuardClauses.UnitTests
             var exception = Assert.Throws<SmartEnumNotFoundException>(() =>
                 Guard.Against.SmartEnumOutOfRange<TestEnum>(invalidValue));
 
-            AssertExceptionTypeAndMessage<SmartEnumNotFoundException>(exception, nameof(TestEnum));
+            AssertException<SmartEnumNotFoundException>(exception, nameof(TestEnum));
         }
 
         [Theory]
@@ -52,59 +52,65 @@ namespace SmartEnum.GuardClauses.UnitTests
             var exception = Assert.Throws<SmartEnumNotFoundException>(() =>
                 Guard.Against.SmartEnumOutOfRange<TestEnumDouble, double>(invalidValue));
 
-            AssertExceptionTypeAndMessage<SmartEnumNotFoundException>(exception, nameof(TestEnumDouble));
+            AssertException<SmartEnumNotFoundException>(exception, nameof(TestEnumDouble));
         }
 
         [Fact]
         public void InvalidEnumValueWithCustomMessage_ThrowsSmartEnumNotFoundExceptionWithCustomMessage()
         {
-            int invalidValue = 999;
+            const int invalidValue = 999;
             string customMessage = "Custom error message";
 
             var exception = Assert.Throws<SmartEnumNotFoundException>(() =>
                 Guard.Against.SmartEnumOutOfRange<TestEnum>(invalidValue, customMessage));
 
-            AssertExceptionTypeAndMessage<SmartEnumNotFoundException>(exception, customMessage);
+            AssertException<SmartEnumNotFoundException>(exception, customMessage);
         }
 
         [Fact]
         public void InvalidEnumValueWithCustomMessage_ThrowsSmartEnumDoubleNotFoundExceptionWithCustomMessage()
         {
-            double invalidValue = 32.1;
+            const double invalidValue = 32.1;
             string customMessage = "Custom error message";
 
             var exception = Assert.Throws<SmartEnumNotFoundException>(() =>
                 Guard.Against.SmartEnumOutOfRange<TestEnumDouble, double>(invalidValue, customMessage));
 
-            AssertExceptionTypeAndMessage<SmartEnumNotFoundException>(exception, customMessage);
+            AssertException<SmartEnumNotFoundException>(exception, customMessage);
         }
 
         [Fact]
         public void InvalidEnumValueWithCustomException_ThrowsCustomException()
         {
-            int invalidValue = 999;
+            const int invalidValue = 999;
+            const string Message = "Custom exception";
 
-            var customException = new InvalidOperationException("Custom exception");
+            var customException = new InvalidOperationException(Message);
 
             var exception = Assert.Throws<InvalidOperationException>(() =>
-                Guard.Against.SmartEnumOutOfRange<TestEnum>(invalidValue, exceptionCreator: () => customException));
+                Guard.Against.SmartEnumOutOfRange<TestEnum>(
+                    invalidValue,
+                    message: "ignored",
+                    exceptionCreator: () => customException));
 
-            exception.Should().Be(customException);
+            AssertException<InvalidOperationException>(exception, Message);
         }
 
         [Fact]
         public void InvalidDoubleEnumValueWithCustomException_ThrowsCustomException()
         {
-            double invalidValue = 32.33;
+            const double invalidValue = 32.33;
+            const string Message = "Custom exception";
 
-            var customException = new InvalidOperationException("Custom exception");
+            var customException = new InvalidOperationException(Message);
 
             var exception = Assert.Throws<InvalidOperationException>(() =>
                 Guard.Against.SmartEnumOutOfRange<TestEnumDouble, double>(
-                    invalidValue, 
+                    invalidValue,
+                    message: "ignored",
                     exceptionCreator: () => customException));
 
-            exception.Should().Be(customException);
+            AssertException<InvalidOperationException>(exception, Message);
         }
 
         private static void AssertSmartEnumIsValid<TEnum, TExpected>(TExpected expected, TEnum result)
@@ -116,7 +122,7 @@ namespace SmartEnum.GuardClauses.UnitTests
             result.Value.Should().Be(expected);
         }
 
-        private static void AssertExceptionTypeAndMessage<TException>(Exception exception, string errorMsg)
+        private static void AssertException<TException>(Exception exception, string errorMsg)
             where TException : Exception
         {
             exception.Should().BeOfType<TException>();
