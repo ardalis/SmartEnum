@@ -40,8 +40,7 @@ namespace SmartEnum.GuardClauses.UnitTests
             var exception = Assert.Throws<SmartEnumNotFoundException>(() =>
                 Guard.Against.SmartEnumOutOfRange<TestEnum>(invalidValue));
 
-            AssertExceptionTypeAndMessage(exception, nameof(TestEnum));
-
+            AssertExceptionTypeAndMessage<SmartEnumNotFoundException>(exception, nameof(TestEnum));
         }
 
         [Theory]
@@ -53,7 +52,7 @@ namespace SmartEnum.GuardClauses.UnitTests
             var exception = Assert.Throws<SmartEnumNotFoundException>(() =>
                 Guard.Against.SmartEnumOutOfRange<TestEnumDouble, double>(invalidValue));
 
-            AssertExceptionTypeAndMessage(exception, nameof(TestEnumDouble));
+            AssertExceptionTypeAndMessage<SmartEnumNotFoundException>(exception, nameof(TestEnumDouble));
         }
 
         [Fact]
@@ -65,7 +64,7 @@ namespace SmartEnum.GuardClauses.UnitTests
             var exception = Assert.Throws<SmartEnumNotFoundException>(() =>
                 Guard.Against.SmartEnumOutOfRange<TestEnum>(invalidValue, customMessage));
 
-            AssertExceptionTypeAndMessage(exception, customMessage);
+            AssertExceptionTypeAndMessage<SmartEnumNotFoundException>(exception, customMessage);
         }
 
         [Fact]
@@ -77,7 +76,7 @@ namespace SmartEnum.GuardClauses.UnitTests
             var exception = Assert.Throws<SmartEnumNotFoundException>(() =>
                 Guard.Against.SmartEnumOutOfRange<TestEnumDouble, double>(invalidValue, customMessage));
 
-            AssertExceptionTypeAndMessage(exception, customMessage);
+            AssertExceptionTypeAndMessage<SmartEnumNotFoundException>(exception, customMessage);
         }
 
         [Fact]
@@ -117,11 +116,11 @@ namespace SmartEnum.GuardClauses.UnitTests
             result.Value.Should().Be(expected);
         }
 
-        private static void AssertExceptionTypeAndMessage<T>(T exception, string message)
-            where T : Exception
+        private static void AssertExceptionTypeAndMessage<TException>(Exception exception, string errorMsg)
+            where TException : Exception
         {
-            exception.Should().BeOfType<T>();
-            exception.Message.Should().Contain(message);
+            exception.Should().BeOfType<TException>();
+            exception.Message.Should().Contain(errorMsg);
         }
     }
 }
