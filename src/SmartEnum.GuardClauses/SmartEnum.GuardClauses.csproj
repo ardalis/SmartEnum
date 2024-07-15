@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	
+	<PropertyGroup>
+		<PackageId>Ardalis.SmartEnum.GuardClauses</PackageId>
+		<Title>Ardalis.SmartEnum.GuardClauses</Title>
+		<Description>Guard clauses for Ardalis.SmartEnum.</Description>
+		<Summary>Guard clauses for Ardalis.SmartEnum.</Summary>
+		<PackageTags>enum;smartenum;ardalis;guard;guardclauses</PackageTags>
+		<PackageReleaseNotes>Added support for guard clauses</PackageReleaseNotes>
+		<PackageIcon>icon.png</PackageIcon>
+		<AssemblyName>Ardalis.SmartEnum.GuardClauses</AssemblyName>
+		<RootNamespace>Ardalis.SmartEnum.GuardClauses</RootNamespace>
+	</PropertyGroup>
+	
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
+	<ItemGroup>
+	  <PackageReference Include="Ardalis.GuardClauses" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="$(SolutionDir)img\icon.png" Pack="true" Visible="false" PackagePath="" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
+	</ItemGroup>
+</Project>
