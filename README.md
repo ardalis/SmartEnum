@@ -204,7 +204,7 @@ public class Manager
         {
             if (!ManagerType.TryFromName(value, true, out var parsed))
             {
-                throw new Exception($"Invalid manage type of '{value}'");
+                throw new Exception($"Invalid manager type of '{value}'");
             }
             _managerType = parsed;
         }
@@ -391,7 +391,7 @@ testEnumVar
     .Default( ... );
 ```
 
-N.B. For performance critical code the fluent interface carries some overhead that you may wish to avoid. See the available [benchmarks](src/SmartEnum.Benchmarks) code for your use case.
+N.B. For performance critical code the fluent interface carries some overhead that you may wish to avoid. See the available [benchmarks](benchmarks/SmartEnum.Benchmarks) code for your use case.
 
 ### SmartFlagEnum
 
