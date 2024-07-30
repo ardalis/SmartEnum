@@ -3,13 +3,17 @@ using System;
 
 namespace Ardalis.SmartEnum.GuardClauses
 {
+    /// <summary>
+    /// Provides guard clauses to ensure input values are valid instances of a specified SmartEnum.
+    /// </summary>
     public static class GuardAgainstSmartEnumOutOfRange
     {
         /// <summary>
-        /// Throws a <see cref="SmartEnumNotFoundException" /> or a custom <see cref="Exception" />
+        /// Throws a<see cref="SmartEnumNotFoundException" /> or a custom<see cref="Exception" />
         /// if <paramref name="input"/> is not a valid <see cref="SmartEnum{TEnum}"/> value.
         /// </summary>
         /// <typeparam name="TEnum">The type of the smart enum.</typeparam>
+        /// <param name="guardClause">The guard clause interface.</param>
         /// <param name="input">The value to check against the smart enum values.</param>
         /// <param name="message">Optional. Custom error message to pass to <see cref="SmartEnumNotFoundException"/>.</param>
         /// <param name="exceptionCreator">Optional. A function that creates a custom exception.</param>
@@ -33,6 +37,7 @@ namespace Ardalis.SmartEnum.GuardClauses
         /// </summary>
         /// <typeparam name="TEnum">The type of the smart enum.</typeparam>
         /// <typeparam name="TValue">The type of the value that the smart enum uses.</typeparam>
+        /// <param name="guardClause">The guard clause interface.</param>
         /// <param name="input">The value to check against the smart enum values.</param>
         /// <param name="message">Optional. Custom error message to pass to <see cref="SmartEnumNotFoundException"/>.</param>
         /// <param name="exceptionCreator">Optional. A function that creates a custom exception.</param>
