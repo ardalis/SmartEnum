@@ -10,6 +10,7 @@
 		<PackageIcon>icon.png</PackageIcon>
 		<AssemblyName>Ardalis.SmartEnum.GuardClauses</AssemblyName>
 		<RootNamespace>Ardalis.SmartEnum.GuardClauses</RootNamespace>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -19,6 +20,10 @@
 	  <PackageReference Include="Ardalis.GuardClauses" />
 	</ItemGroup>
 	<ItemGroup>
+		<None Include="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 		<None Include="$(SolutionDir)img\icon.png" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
 	<ItemGroup>
