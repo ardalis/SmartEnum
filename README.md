@@ -26,7 +26,7 @@
   * [Persisting with EF Core 2.1 or higher](#persisting-with-ef-core-21-or-higher)
   * [Using SmartEnum.EFCore](#using-smartenumefcore)
   * [AutoFixture support](#autofixture-support)
-  * [Json.NET support](#jsonnet-support)
+  * [Json support](#jsonnet-support)
   * [Dapper support](#dapper-support)
   * [DapperSmartEnum](#dappersmartenum)
   * [Case Insensitive String Enum](#case-insensitive-string-enum)
@@ -79,6 +79,7 @@ To install support for serialization, AutoFixture, EF Core, Model Binding, or Da
 ```
 Install-Package Ardalis.SmartEnum.AutoFixture
 Install-Package Ardalis.SmartEnum.JsonNet
+Install-Package Ardalis.SmartEnum.SystemTextJson
 Install-Package Ardalis.SmartEnum.Utf8Json
 Install-Package Ardalis.SmartEnum.MessagePack
 Install-Package Ardalis.SmartEnum.ProtoBufNet
@@ -708,9 +709,15 @@ var fixture = new Fixture()
 var smartEnum = fixture.Create<TestEnum>();
 ```
 
-## Json<span></span>.NET support
+## Json support
 
-When serializing a `SmartEnum` to JSON, only one of the properties (`Value` or `Name`) should be used. [Json.NET](https://www.newtonsoft.com/json) by default doesn't know how to do this. The `Ardalis.SmartEnum.JsonNet` package includes a couple of converters to achieve this. Simply use the attribute [JsonConverterAttribute](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonConverter.htm) to assign one of the converters to the `SmartEnum` to be de/serialized:
+When serializing a `SmartEnum` to JSON, only one of the properties (`Value` or `Name`) should be used. 
+
+### Json<span></span>.Net
+[Json.NET](https://www.newtonsoft.com/json) by default doesn't know how to do this. The `Ardalis.SmartEnum.JsonNet` package includes a couple of converters to achieve this. Simply use the attribute [JsonConverterAttribute](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonConverter.htm) to assign one of the converters to the `SmartEnum` to be de/serialized:
+
+### System<span></span>.Text<span></span>.Json
+[System.Text.Json](https://learn.microsoft.com/en-us/dotnet/api/system.text.json?view=net-8.0) by default doesn't know how to do this. The `Ardalis.SmartEnum.SystemTextJson` package includes a couple of converters to achieve this. Simply use the attribute [JsonConverterAttribute](https://learn.microsoft.com/en-us/dotnet/api/system.text.json.serialization.jsonconverterattribute?view=net-8.0) to assign one of the converters to the `SmartEnum` to be de/serialized:
 
 ```csharp
 public class TestClass
