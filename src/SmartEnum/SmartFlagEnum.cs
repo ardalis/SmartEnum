@@ -206,7 +206,7 @@ namespace Ardalis.SmartEnum
         /// <returns></returns>
         public static TEnum DeserializeValue(TValue value)
         {
-            //todo we should not be calling get options for each deserialization. Perhaps move it to a lazy field _enumOptions.
+            // we should not be calling get options for each deserialization. Perhaps move it to a lazy field _enumOptions.
             var enumList = GetAllOptions();
 
             var returnValue = enumList.FirstOrDefault(x => x.Value.Equals(value));
