@@ -12,18 +12,27 @@ namespace Ardalis.SmartEnum.Benchmarks
         ////////////////////////////////////////////////////////////////////////////////
         // Enum
 
-        [Benchmark]
-        public TestEnum Enum_FromName_One() => Enum.Parse<TestEnum>("One");
+        private static TestEnum ParseTestEnum(string value, bool ignoreCase = false)
+        {
+            #if NETSTANDARD2_0
+                return (TestEnum)Enum.Parse(typeof(TestEnum), value, ignoreCase);
+            #else
+                return Enum.Parse<TestEnum>(value, ignoreCase);
+            #endif
+        }
 
         [Benchmark]
-        public TestEnum Enum_FromName_Ten() => Enum.Parse<TestEnum>("Ten");
+        public TestEnum Enum_FromName_One() => ParseTestEnum("One");
+
+        [Benchmark]
+        public TestEnum Enum_FromName_Ten() => ParseTestEnum("Ten");
 
         [Benchmark]
         public TestEnum Enum_FromName_Invalid()
         {
             try
             {
-                return Enum.Parse<TestEnum>("Invalid");
+                return ParseTestEnum("Invalid");
             }
             catch (Exception)
             {
@@ -32,10 +41,10 @@ namespace Ardalis.SmartEnum.Benchmarks
         }
 
         [Benchmark]
-        public TestEnum Enum_FromName_one_IgnoreCase() => Enum.Parse<TestEnum>("one", true);
+        public TestEnum Enum_FromName_one_IgnoreCase() => ParseTestEnum("one", true);
 
         [Benchmark]
-        public TestEnum Enum_FromName_ten_IgnoreCase() => Enum.Parse<TestEnum>("ten", true);
+        public TestEnum Enum_FromName_ten_IgnoreCase() => ParseTestEnum("ten", true);
 
 
         [Benchmark]
@@ -43,7 +52,7 @@ namespace Ardalis.SmartEnum.Benchmarks
         {
             try
             {
-                return Enum.Parse<TestEnum>("Invalid", true);
+                return ParseTestEnum("Invalid", true);
             }
             catch (Exception)
             {
