@@ -34,7 +34,7 @@
 		</None>
 		<None Include="$(SolutionDir)img\icon.png" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
-	<ItemGroup Condition="'$(TargetFramework)' == 'netStandard2.1'">
+	<ItemGroup Condition="'$(TargetFramework)' == 'netStandard2.0'">
 	  <PackageReference Include="System.ComponentModel.Annotations" />
 	</ItemGroup>
 </Project>
