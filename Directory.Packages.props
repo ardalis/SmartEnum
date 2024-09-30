@@ -10,7 +10,7 @@
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />
     <PackageVersion Include="coverlet.msbuild" Version="6.0.2" />
     <PackageVersion Include="Dapper" Version="2.1.28" />
-    <PackageVersion Include="Enums.NET" Version="4.0.1" />
+    <PackageVersion Include="Enums.NET" Version="5.0.0" />
     <PackageVersion Include="FluentAssertions" Version="6.12.0" />
     <PackageVersion Include="MessagePack" Version="2.5.140" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
