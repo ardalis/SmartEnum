@@ -26,7 +26,7 @@
   * [Persisting with EF Core 2.1 or higher](#persisting-with-ef-core-21-or-higher)
   * [Using SmartEnum.EFCore](#using-smartenumefcore)
   * [AutoFixture support](#autofixture-support)
-  * [Json.NET support](#jsonnet-support)
+  * [Json support](#jsonnet-support)
   * [Dapper support](#dapper-support)
   * [DapperSmartEnum](#dappersmartenum)
   * [Case Insensitive String Enum](#case-insensitive-string-enum)
@@ -79,6 +79,7 @@ To install support for serialization, AutoFixture, EF Core, Model Binding, or Da
 ```
 Install-Package Ardalis.SmartEnum.AutoFixture
 Install-Package Ardalis.SmartEnum.JsonNet
+Install-Package Ardalis.SmartEnum.SystemTextJson
 Install-Package Ardalis.SmartEnum.Utf8Json
 Install-Package Ardalis.SmartEnum.MessagePack
 Install-Package Ardalis.SmartEnum.ProtoBufNet
@@ -89,13 +90,7 @@ Install-Package Ardalis.SmartEnum.Dapper
 
 ## Version
 
-The latest version of the package supports .NET 7. If you don't need or aren't yet ready to move to .NET 7 or later, you should install the previous stable version, [Ardalis.SmartEnum 2.1](https://www.nuget.org/packages/Ardalis.SmartEnum/2.1.0).
-
-Example package manager command:
-
-```
-Install-Package Ardalis.SmartEnum -Version 2.1.0
-```
+The latest version of the package supports .NET 8 and NetStandard 2.0.
 
 ## Usage
 
@@ -210,7 +205,7 @@ public class Manager
         {
             if (!ManagerType.TryFromName(value, true, out var parsed))
             {
-                throw new Exception($"Invalid manage type of '{value}'");
+                throw new Exception($"Invalid manager type of '{value}'");
             }
             _managerType = parsed;
         }
@@ -397,7 +392,7 @@ testEnumVar
     .Default( ... );
 ```
 
-N.B. For performance critical code the fluent interface carries some overhead that you may wish to avoid. See the available [benchmarks](src/SmartEnum.Benchmarks) code for your use case.
+N.B. For performance critical code the fluent interface carries some overhead that you may wish to avoid. See the available [benchmarks](benchmarks/SmartEnum.Benchmarks) code for your use case.
 
 ### SmartFlagEnum
 
@@ -714,9 +709,15 @@ var fixture = new Fixture()
 var smartEnum = fixture.Create<TestEnum>();
 ```
 
-## Json<span></span>.NET support
+## Json support
 
-When serializing a `SmartEnum` to JSON, only one of the properties (`Value` or `Name`) should be used. [Json.NET](https://www.newtonsoft.com/json) by default doesn't know how to do this. The `Ardalis.SmartEnum.JsonNet` package includes a couple of converters to achieve this. Simply use the attribute [JsonConverterAttribute](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonConverter.htm) to assign one of the converters to the `SmartEnum` to be de/serialized:
+When serializing a `SmartEnum` to JSON, only one of the properties (`Value` or `Name`) should be used. 
+
+### Json<span></span>.Net
+[Json.NET](https://www.newtonsoft.com/json) by default doesn't know how to do this. The `Ardalis.SmartEnum.JsonNet` package includes a couple of converters to achieve this. Simply use the attribute [JsonConverterAttribute](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonConverter.htm) to assign one of the converters to the `SmartEnum` to be de/serialized:
+
+### System<span></span>.Text<span></span>.Json
+[System.Text.Json](https://learn.microsoft.com/en-us/dotnet/api/system.text.json?view=net-8.0) by default doesn't know how to do this. The `Ardalis.SmartEnum.SystemTextJson` package includes a couple of converters to achieve this. Simply use the attribute [JsonConverterAttribute](https://learn.microsoft.com/en-us/dotnet/api/system.text.json.serialization.jsonconverterattribute?view=net-8.0) to assign one of the converters to the `SmartEnum` to be de/serialized:
 
 ```csharp
 public class TestClass
