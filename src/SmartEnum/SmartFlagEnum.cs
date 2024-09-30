@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -17,6 +18,11 @@ namespace Ardalis.SmartEnum
         SmartFlagEnum<TEnum, int>
         where TEnum : SmartFlagEnum<TEnum, int>
     {
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
         protected SmartFlagEnum(string name, int value) :
             base(name, value)
         {
@@ -85,6 +91,11 @@ namespace Ardalis.SmartEnum
         public TValue Value =>
             _value;
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
         protected SmartFlagEnum(string name, TValue value)
         {
             if (String.IsNullOrEmpty(name))
@@ -101,13 +112,12 @@ namespace Ardalis.SmartEnum
         /// </summary>
         /// <param name="names">The names of the item/s to get.</param>
         /// <param name="ignoreCase"><c>true</c> to ignore case during the comparison; otherwise, <c>false</c>.</param>
+        /// <param name="deserialize"></param>
         /// <returns>
-        /// The items associated with the specified <param name="names"></param>. 
+        /// The items associated with the specified <paramref name="names"/>.
         /// </returns>
-        /// <exception cref="ArgumentException"><paramref name="names"/> is <c>null</c>.</exception> 
-        /// <exception cref="SmartEnumNotFoundException"><paramref name="names"/> does not exist.</exception> 
-        /// <seealso cref="SmartFlagEnum{TEnum, TValue}.TryFromName(string, out TEnum)"/>
-        /// <seealso cref="SmartFlagEnum{TEnum, TValue}.TryFromName(string, bool, out TEnum)"/>
+        /// <exception cref="ArgumentException"><paramref name="names"/> is <c>null</c>.</exception>
+        /// <exception cref="SmartEnumNotFoundException"><paramref name="names"/> does not exist.</exception>
         public static IEnumerable<TEnum> FromName(string names, bool ignoreCase = false, bool deserialize = false)
         {
             if (String.IsNullOrEmpty(names))
@@ -133,14 +143,12 @@ namespace Ardalis.SmartEnum
         /// </summary>
         /// <param name="names">The names of the item/s to get.</param>
         /// <param name="result">
-        /// When this method returns, contains the item associated with the specified names, if the key is found; 
+        /// When this method returns, contains the item associated with the specified names, if the key is found;
         /// otherwise, <c>null</c>. This parameter is passed uninitialized.</param>
         /// <returns>
         /// <c>true</c> if the <see cref="SmartFlagEnum{TEnum, TValue}"/> contains an item with the specified names; otherwise, <c>false</c>.
         /// </returns>
-        /// <exception cref="ArgumentException"><paramref names="names"/> is <c>null</c>.</exception> 
-        /// <seealso cref="SmartFlagEnum{TEnum, TValue}.FromName(string, bool)"/>
-        /// <seealso cref="SmartFlagEnum{TEnum, TValue}.TryFromName(string, bool, out TEnum)"/>
+        /// <exception cref="ArgumentException"><paramref names="names"/> is <c>null</c>.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TryFromName(string names, out IEnumerable<TEnum> result) =>
             TryFromName(names, false, out result);
@@ -151,14 +159,12 @@ namespace Ardalis.SmartEnum
         /// <param name="names">The names of the item/s to get.</param>
         /// <param name="ignoreCase"><c>true</c> to ignore case during the comparison; otherwise, <c>false</c>.</param>
         /// <param name="result">
-        /// When this method returns, contains the items associated with the specified names, if any names are found; 
+        /// When this method returns, contains the items associated with the specified names, if any names are found;
         /// otherwise, <c>null</c>. This parameter is passed uninitialized.</param>
         /// <returns>
         /// <c>true</c> if the <see cref="SmartFlagEnum{TEnum, TValue}"/> contains an item with the specified names; otherwise, <c>false</c>.
         /// </returns>
-        /// <exception cref="ArgumentException"><paramref names="names"/> is <c>null</c>.</exception> 
-        /// <seealso cref="SmartFlagEnum{TEnum, TValue}.FromName(string, bool)"/>
-        /// <seealso cref="SmartFlagEnum{TEnum, TValue}.TryFromName(string, out TEnum)"/>
+        /// <exception cref="ArgumentException"><paramref names="names"/> is <c>null</c>.</exception>
         public static bool TryFromName(string names, bool ignoreCase, out IEnumerable<TEnum> result)
         {
             if (String.IsNullOrEmpty(names))
@@ -177,9 +183,8 @@ namespace Ardalis.SmartEnum
         /// <returns>
         /// An <see cref="IEnumerable{TEnum}"/> containing the item/s found.
         /// </returns>
-        /// <exception cref="SmartEnumNotFoundException"><paramref name="value"/> does not exist.</exception> 
-        /// <seealso cref="SmartFlagEnum{TEnum, TValue}.FromValue(TValue, TEnum)"/>
-        /// <seealso cref="SmartFlagEnum{TEnum, TValue}.TryFromValue(TValue, out TEnum)"/>
+        /// <exception cref="SmartEnumNotFoundException"><paramref name="value"/> does not exist.</exception>
+        [SuppressMessage("Minor Code Smell", "S4136:Method overloads should be grouped together", Justification = "<Pending>")]
         public static IEnumerable<TEnum> FromValue(TValue value)
         {
             if (value == null)
@@ -196,24 +201,22 @@ namespace Ardalis.SmartEnum
         /// <summary>
         /// Attempts to retrieve a single <see cref="SmartFlagEnum{TEnum}"/> by value.  (Bypasses all Flag behaviour)
         /// </summary>
-        /// <exception cref="SmartEnumNotFoundException"><paramref name="value"/> does not exist.</exception> 
+        /// <exception cref="SmartEnumNotFoundException"><paramref name="value"/> does not exist.</exception>
         /// <param name="value"></param>
         /// <returns></returns>
         public static TEnum DeserializeValue(TValue value)
         {
+            // we should not be calling get options for each deserialization. Perhaps move it to a lazy field _enumOptions.
             var enumList = GetAllOptions();
 
-            foreach (var smartFlagEnum in enumList)
+            var returnValue = enumList.FirstOrDefault(x => x.Value.Equals(value));
+
+            if (returnValue == null)
             {
-                if (smartFlagEnum.Value.Equals(value))
-                {
-                    return smartFlagEnum;
-                }
+                ThrowHelper.ThrowValueNotFoundException<TEnum, TValue>(value);
             }
 
-            ThrowHelper.ThrowValueNotFoundException<TEnum, TValue>(value);
-
-            return null;
+            return returnValue;
         }
 
         /// <summary>
@@ -226,7 +229,6 @@ namespace Ardalis.SmartEnum
         /// If the specified value is not found, returns <paramref name="defaultValue"/>.
         /// </returns>
         /// <seealso cref="SmartFlagEnum{TEnum, TValue}.FromValue(TValue)"/>
-        /// <seealso cref="SmartFlagEnum{TEnum, TValue}.TryFromValue(TValue, out TEnum)"/>
         public static IEnumerable<TEnum> FromValue(TValue value, IEnumerable<TEnum> defaultValue)
         {
             if (value == null)
@@ -240,13 +242,12 @@ namespace Ardalis.SmartEnum
         /// </summary>
         /// <param name="value">The value of the item/s to get.</param>
         /// <param name="result">
-        /// When this method returns, contains the IEnumerable of item/s associated with the specified value, if any value is found; 
+        /// When this method returns, contains the IEnumerable of item/s associated with the specified value, if any value is found;
         /// otherwise, <c>null</c>. This parameter is passed uninitialized.</param>
         /// <returns>
         /// <c>true</c> if the <see cref="SmartFlagEnum{TEnum, TValue}"/> contains any items with the specified names; otherwise, <c>false</c>.
         /// </returns>
         /// <seealso cref="SmartFlagEnum{TEnum, TValue}.FromValue(TValue)"/>
-        /// <seealso cref="SmartFlagEnum{TEnum, TValue}.FromValue(TValue, TEnum)"/>
         public static bool TryFromValue(TValue value, out IEnumerable<TEnum> result)
         {
             if (value == null || !int.TryParse(value.ToString(), out _))
@@ -284,7 +285,7 @@ namespace Ardalis.SmartEnum
         /// </summary>
         /// <param name="value">The value of the item/s to get.</param>
         /// <param name="result">
-        /// When this method returns, contains the string representation associated with the specified value, if any value is found; 
+        /// When this method returns, contains the string representation associated with the specified value, if any value is found;
         /// otherwise, returns null.</param>
         /// <returns>A comma delineated series of enum names as a <see cref="string"/></returns>
         public static bool TryFromValueToString(TValue value, out string result)
@@ -299,15 +300,16 @@ namespace Ardalis.SmartEnum
             return true;
         }
 
+        [SuppressMessage("Minor Code Smell", "S6608:Prefer indexing instead of \"Enumerable\" methods on types implementing \"IList\"", Justification = "<Pending>")]
         private static string FormatEnumListString(IEnumerable<TEnum> enumInputList)
         {
             var enumList = enumInputList.ToList();
             var sb = new StringBuilder();
 
-            foreach (var smartFlagEnum in enumList)
+            foreach (var smartFlagEnum in enumList.Select(x => x.Name))
             {
-                sb.Append(smartFlagEnum.Name);
-                if (enumList.Last().Name != smartFlagEnum.Name && enumList.Count > 1)
+                sb.Append(smartFlagEnum);
+                if (enumList.Last().Name != smartFlagEnum && enumList.Count > 1)
                 {
                     sb.Append(", ");
                 }
@@ -316,15 +318,23 @@ namespace Ardalis.SmartEnum
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Returns the _name of the <see cref="SmartFlagEnum{TEnum, TValue}"/>.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString() =>
             _name;
 
+        /// <summary>
+        /// Returns the GetHashCode of the value
+        /// </summary>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode() =>
             _value.GetHashCode();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param names="obj"></param>
         /// <returns></returns>
@@ -342,7 +352,7 @@ namespace Ardalis.SmartEnum
             if (Object.ReferenceEquals(this, other))
                 return true;
 
-            // it's not same instance so 
+            // it's not same instance so
             // check if it's not null and is same value
             if (other is null)
                 return false;
@@ -377,6 +387,12 @@ namespace Ardalis.SmartEnum
         public SmartEnumThen<TEnum, TValue> When(IEnumerable<SmartFlagEnum<TEnum, TValue>> smartEnums) =>
             new SmartEnumThen<TEnum, TValue>(smartEnums.Contains(this), false, this);
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static bool operator ==(SmartFlagEnum<TEnum, TValue> left, SmartFlagEnum<TEnum, TValue> right)
         {
             // Handle null on left side
@@ -387,6 +403,12 @@ namespace Ardalis.SmartEnum
             return left.Equals(right);
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(SmartFlagEnum<TEnum, TValue> left, SmartFlagEnum<TEnum, TValue> right) =>
             !(left == right);
@@ -400,26 +422,58 @@ namespace Ardalis.SmartEnum
         public virtual int CompareTo(SmartFlagEnum<TEnum, TValue> other) =>
             _value.CompareTo(other._value);
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator <(SmartFlagEnum<TEnum, TValue> left, SmartFlagEnum<TEnum, TValue> right) =>
             left.CompareTo(right) < 0;
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator <=(SmartFlagEnum<TEnum, TValue> left, SmartFlagEnum<TEnum, TValue> right) =>
             left.CompareTo(right) <= 0;
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator >(SmartFlagEnum<TEnum, TValue> left, SmartFlagEnum<TEnum, TValue> right) =>
             left.CompareTo(right) > 0;
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator >=(SmartFlagEnum<TEnum, TValue> left, SmartFlagEnum<TEnum, TValue> right) =>
             left.CompareTo(right) >= 0;
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="smartFlagEnum"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator TValue(SmartFlagEnum<TEnum, TValue> smartFlagEnum) =>
             smartFlagEnum._value;
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="value"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator SmartFlagEnum<TEnum, TValue>(TValue value) =>
             FromValue(value).First();

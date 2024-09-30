@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -9,10 +10,18 @@ using Ardalis.SmartEnum.Exceptions;
 
 namespace Ardalis.SmartEnum
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TEnum"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
     public abstract class SmartFlagEngine<TEnum, TValue>
         where TEnum : SmartFlagEnum<TEnum, TValue>
         where TValue : IEquatable<TValue>, IComparable<TValue>
     {
+        /// <summary>
+        /// 
+        /// </summary>
         protected SmartFlagEngine() { }
 
         /// <summary>
@@ -21,6 +30,7 @@ namespace Ardalis.SmartEnum
         /// <param name="value">The value to retrieve.</param>
         /// <param name="allEnumList">an <see cref="IEnumerable{T}"/> of <see cref="SmartFlagEnum{TEnum}"/> from which to retrieve values.</param>
         /// <returns></returns>
+        [SuppressMessage("Major Code Smell", "S1168:Empty arrays and collections should be returned instead of null", Justification = "<Pending>")]
         protected static IEnumerable<TEnum> GetFlagEnumValues(TValue value, IEnumerable<TEnum> allEnumList)
         {
             GuardAgainstNull(value);
@@ -176,6 +186,8 @@ namespace Ardalis.SmartEnum
             return false;
         }
 
+        [SuppressMessage("Performance", "CA1826:Do not use Enumerable methods on indexable collections", Justification = "<Pending>")]
+        [SuppressMessage("Minor Code Smell", "S6608:Prefer indexing instead of \"Enumerable\" methods on types implementing \"IList\"", Justification = "<Pending>")]
         private static int HighestFlagValue(IReadOnlyList<TEnum> enumList)
         {
             var highestIndex = enumList.Count - 1;
@@ -199,10 +211,10 @@ namespace Ardalis.SmartEnum
         /// <summary>
         /// Gets the largest possible value of the underlying type for the SmartFlagEnum.
         /// </summary>
-        /// <exception cref="NotSupportedException">If the underlying type <see cref="TValue"/>
+        /// <exception cref="NotSupportedException">If the underlying type <typeparamref name="TValue"/>
         /// does not define a <c>MaxValue</c> field, this exception is thrown.
         /// </exception>
-        /// <returns>The value of the constant <c>MaxValue</c> field defined by the underlying type <see cref="TValue"/>.</returns>
+        /// <returns>The value of the constant <c>MaxValue</c> field defined by the underlying type <typeparamref name="TValue"/>.</returns>
         private static TValue GetMaxValue()
         {
             FieldInfo maxValueField = typeof(TValue).GetField("MaxValue", BindingFlags.Public

@@ -73,9 +73,9 @@ namespace Ardalis.SmartEnum.Dapper.IntegrationTests
 
         private class EnumA : SmartEnum<EnumA>
         {
-            public static readonly EnumA One = new EnumA(1);
-            public static readonly EnumA Two = new EnumA(2);
-            public static readonly EnumA Three = new EnumA(3);
+            public static readonly EnumA One = new(1);
+            public static readonly EnumA Two = new(2);
+            public static readonly EnumA Three = new(3);
 
             protected EnumA(int value, [CallerMemberName] string name = null) : base(name, value)
             {
@@ -84,9 +84,9 @@ namespace Ardalis.SmartEnum.Dapper.IntegrationTests
 
         private class EnumB : SmartEnum<EnumB>
         {
-            public static readonly EnumB One = new EnumB(1);
-            public static readonly EnumB Two = new EnumB(2);
-            public static readonly EnumB Three = new EnumB(3);
+            public static readonly EnumB One = new(1);
+            public static readonly EnumB Two = new(2);
+            public static readonly EnumB Three = new(3);
 
             protected EnumB(int value, [CallerMemberName] string name = null) : base(name, value)
             {
@@ -95,9 +95,9 @@ namespace Ardalis.SmartEnum.Dapper.IntegrationTests
 
         private class TestDapperEnumByName : DapperSmartEnumByName<TestDapperEnumByName>
         {
-            public static readonly TestDapperEnumByName One = new TestDapperEnumByName(1);
-            public static readonly TestDapperEnumByName Two = new TestDapperEnumByName(2);
-            public static readonly TestDapperEnumByName Three = new TestDapperEnumByName(3);
+            public static readonly TestDapperEnumByName One = new(1);
+            public static readonly TestDapperEnumByName Two = new(2);
+            public static readonly TestDapperEnumByName Three = new(3);
 
             protected TestDapperEnumByName(int value, [CallerMemberName] string name = null) : base(name, value)
             {
@@ -106,9 +106,9 @@ namespace Ardalis.SmartEnum.Dapper.IntegrationTests
 
         private class TestDapperEnumByValue : DapperSmartEnumByValue<TestDapperEnumByValue>
         {
-            public static readonly TestDapperEnumByValue One = new TestDapperEnumByValue(1);
-            public static readonly TestDapperEnumByValue Two = new TestDapperEnumByValue(2);
-            public static readonly TestDapperEnumByValue Three = new TestDapperEnumByValue(3);
+            public static readonly TestDapperEnumByValue One = new(1);
+            public static readonly TestDapperEnumByValue Two = new(2);
+            public static readonly TestDapperEnumByValue Three = new(3);
 
             protected TestDapperEnumByValue(int value, [CallerMemberName] string name = null) : base(name, value)
             {

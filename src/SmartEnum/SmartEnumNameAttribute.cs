@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -10,7 +11,7 @@ namespace Ardalis.SmartEnum
 {
     /// <summary>
     /// A <see cref="ValidationAttribute"/> that ensures the provided value matches the
-    /// <see cref="SmartEnum{TEnum}.Name"/> of a <see cref="SmartEnum{TEnum}"/>/<see cref="SmartEnum{TEnum,TValue}"/>.
+    /// <see cref="SmartEnum{TEnum}"/>.Name of a <see cref="SmartEnum{TEnum}"/>/<see cref="SmartEnum{TEnum,TValue}"/>.
     /// Nulls and non-<see cref="string"/> values are considered valid
     /// (add <see cref="RequiredAttribute"/> if you want the field to be required).
     /// </summary>
@@ -34,6 +35,7 @@ namespace Ardalis.SmartEnum
         ///     When <paramref name="smartEnumType" /> is not a
         ///     <see cref="SmartEnum{TEnum}" /> or <see cref="SmartEnum{TEnum,TValue}" />
         /// </exception>
+        [SuppressMessage("Major Bug", "S3343:Caller information parameters should come at the end of the parameter list", Justification = "<Pending>")]
         public SmartEnumNameAttribute(
             Type smartEnumType,
             [CallerMemberName] string propertyName = null,
@@ -52,6 +54,11 @@ namespace Ardalis.SmartEnum
             ErrorMessage = string.Format(errorMessage, propertyName, string.Join(", ", GetValidSmartEnumNames()));
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public override bool IsValid(object value)
         {
             if (value is not string name) return true;

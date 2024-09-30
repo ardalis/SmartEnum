@@ -5,6 +5,11 @@ using System.Reflection;
 
 namespace Ardalis.SmartEnum.EFCore
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TEnum"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
     public class SmartEnumConverter<TEnum, TValue> : ValueConverter<TEnum, TValue>
         where TEnum : SmartEnum<TEnum, TValue>
         where TValue : IEquatable<TValue>, IComparable<TValue>
@@ -34,6 +39,12 @@ namespace Ardalis.SmartEnum.EFCore
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
         public static TEnum GetFromValue(TValue value)
         {
             if (!CanConvert(typeof(TEnum)))
@@ -46,6 +57,9 @@ namespace Ardalis.SmartEnum.EFCore
             return method.Invoke(null, new[] { (object)value }) as TEnum;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public SmartEnumConverter() : base(item => item.Value, key => GetFromValue(key), null)
         {
         }

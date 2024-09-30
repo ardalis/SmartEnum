@@ -3,8 +3,14 @@ namespace Ardalis.SmartEnum.Utf8Json
     using System;
     using global::Utf8Json;
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class SmartEnumValueResolver : IJsonFormatterResolver
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public static readonly SmartEnumValueResolver Instance = new SmartEnumValueResolver();
 
         private SmartEnumValueResolver()

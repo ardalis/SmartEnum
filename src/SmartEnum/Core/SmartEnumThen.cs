@@ -1,7 +1,12 @@
-﻿using System;
+using System;
 
 namespace Ardalis.SmartEnum.Core
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="TEnum"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
     public readonly struct SmartEnumThen<TEnum, TValue>
         where TEnum : ISmartEnum
         where TValue : IEquatable<TValue>, IComparable<TValue>

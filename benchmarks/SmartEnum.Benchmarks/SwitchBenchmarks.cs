@@ -1,9 +1,12 @@
 namespace Ardalis.SmartEnum.Benchmarks
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using BenchmarkDotNet.Attributes;
 
     [Config(typeof(Config))]
+    [SuppressMessage("Major Bug", "S2583:Conditionally executed code should be reachable", Justification = "<Pending>")]
+    [SuppressMessage("Major Code Smell", "S112:General or reserved exceptions should never be thrown", Justification = "<Pending>")]
     public class SwitchBenchmarks
     {
         ////////////////////////////////////////////////////////////////////////////////
