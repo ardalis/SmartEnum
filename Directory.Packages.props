@@ -5,7 +5,7 @@
   <ItemGroup>
     <PackageVersion Include="Ardalis.GuardClauses" Version="4.5.0" />
     <PackageVersion Include="AutoFixture" Version="4.18.1" />
-    <PackageVersion Include="BenchmarkDotNet" Version="0.13.12" />
+    <PackageVersion Include="BenchmarkDotNet" Version="0.14.0" />
     <PackageVersion Include="Constant" Version="2.0.4" />
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />
     <PackageVersion Include="coverlet.msbuild" Version="6.0.2" />
@@ -22,7 +22,7 @@
     <PackageVersion Include="Moq" Version="4.18.4" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageVersion Include="protobuf-net" Version="3.2.30" />
-    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.12.0.78982" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.25.1.91650" />
     <PackageVersion Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageVersion Include="System.Text.Json" Version="8.0.4" />
     <PackageVersion Include="Utf8Json" Version="1.3.7" />
