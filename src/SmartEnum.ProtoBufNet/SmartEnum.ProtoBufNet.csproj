@@ -5,7 +5,7 @@
 		<Description>protobuf-net (de)serialization support for Ardalis.SmartEnum.</Description>
 		<Summary>protobuf-net (de)serialization support for Ardalis.SmartEnum.</Summary>
 		<PackageTags>enum;smartenum;ardalis;protobuf;protobufnet;surrogate</PackageTags>
-		<PackageReleaseNotes>Updating to net7.</PackageReleaseNotes>
+		<PackageReleaseNotes>See root package release notes</PackageReleaseNotes>
 		<PackageIcon>icon.png</PackageIcon>
 		<AssemblyName>Ardalis.SmartEnum.ProtoBufNet</AssemblyName>
 		<RootNamespace>Ardalis.SmartEnum.ProtoBufNet</RootNamespace>

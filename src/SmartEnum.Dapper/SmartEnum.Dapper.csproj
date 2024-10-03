@@ -5,7 +5,7 @@
 		<Description>Dapper support for Ardalis.SmartEnum.</Description>
 		<Summary>Dapper support for Ardalis.SmartEnum.</Summary>
 		<PackageTags>enum;smartenum;dapper;ardalis</PackageTags>
-		<PackageReleaseNotes>Updating to net7.</PackageReleaseNotes>
+		<PackageReleaseNotes>See root package release notes</PackageReleaseNotes>
 		<PackageIcon>icon.png</PackageIcon>
 		<AssemblyName>Ardalis.SmartEnum.Dapper</AssemblyName>
 		<RootNamespace>Ardalis.SmartEnum.Dapper</RootNamespace>

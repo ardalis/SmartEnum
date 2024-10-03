@@ -6,7 +6,7 @@
 		<Description>Guard clauses for Ardalis.SmartEnum.</Description>
 		<Summary>Guard clauses for Ardalis.SmartEnum.</Summary>
 		<PackageTags>enum;smartenum;ardalis;guard;guardclauses</PackageTags>
-		<PackageReleaseNotes>Added support for guard clauses</PackageReleaseNotes>
+		<PackageReleaseNotes>See root package release notes</PackageReleaseNotes>
 		<PackageIcon>icon.png</PackageIcon>
 		<AssemblyName>Ardalis.SmartEnum.GuardClauses</AssemblyName>
 		<RootNamespace>Ardalis.SmartEnum.GuardClauses</RootNamespace>

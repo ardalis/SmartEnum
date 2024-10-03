@@ -12,7 +12,7 @@
 		<TargetFrameworks>net6.0;net7.0;net8.0;netstandard2.0</TargetFrameworks>
 		<!-- <TreatWarningsAsErrors>true</TreatWarningsAsErrors> -->
 		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-		<Version>8.0.0</Version>
+		<Version>8.1.0</Version>
 		<LangVersion>11</LangVersion>
 		<Features>strict</Features>
 	</PropertyGroup>

@@ -8,7 +8,7 @@
 		<Summary>EFCore support for Ardalis.SmartEnum.</Summary>
 		<PackageTags>enum;smartenum;entityframeworkcore;ardalis</PackageTags>
 		<PackageIcon>icon.png</PackageIcon>
-		<PackageReleaseNotes>Updating to net7.</PackageReleaseNotes>
+		<PackageReleaseNotes>See root package release notes</PackageReleaseNotes>
 		<AssemblyName>Ardalis.SmartEnum.EFCore</AssemblyName>
 		<RootNamespace>Ardalis.SmartEnum.EFCore</RootNamespace>
 		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

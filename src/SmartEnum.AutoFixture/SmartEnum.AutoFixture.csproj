@@ -7,7 +7,7 @@
 		<Summary>AutoFixture support for Ardalis.SmartEnum.</Summary>
 		<PackageTags>enum;smartenum;ardalis;autofixture</PackageTags>
 		<PackageIcon>icon.png</PackageIcon>
-		<PackageReleaseNotes>Updating to net7</PackageReleaseNotes>
+		<PackageReleaseNotes>See root package release notes</PackageReleaseNotes>
 		<AssemblyName>Ardalis.SmartEnum.AutoFixture</AssemblyName>
 		<RootNamespace>Ardalis.SmartEnum.AutoFixture</RootNamespace>
 	</PropertyGroup>

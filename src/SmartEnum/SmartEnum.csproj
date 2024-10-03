@@ -8,9 +8,13 @@
 		<PackageTags>enum;smartenum;ardalis</PackageTags>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageReleaseNotes>
-			Adding multi-targeting.
-			Add SmartEnumNameAttribute, a DataAnnotations ValidationAttribute by @sdepouw in #447
-			Support SmartEnums as dictionary keys by @Steve-OH in #458
+* Updating package dependencies
+* Add Missing XML Doc Comments to Public Types by @sdepouw in https://github.com/ardalis/SmartEnum/pull/489
+* 449: Support JSON serialization of ushort SmartEnums by @sdepouw in https://github.com/ardalis/SmartEnum/pull/48
+* #515 Optimise dependencies to remove polyfil by @thompson-tomo in https://github.com/ardalis/SmartEnum/pull/516
+* Add netstandard2.0 support by @ThumNet in https://github.com/ardalis/SmartEnum/pull/531
+* Add guard clauses for SmartEnum by @Asafima in https://github.com/ardalis/SmartEnum/pull/533
+* Updated Readme.md to include details of SystemText.Json. by @MarkLFT in https://github.com/ardalis/SmartEnum/pull/536
 		</PackageReleaseNotes>
 		<AssemblyName>Ardalis.SmartEnum</AssemblyName>
 		<PackageReadmeFile>README.md</PackageReadmeFile>

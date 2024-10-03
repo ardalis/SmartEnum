@@ -7,7 +7,7 @@
         <Summary>ASP.NET Core MVC Model Binding Support for Ardalis.SmartEnum.</Summary>
         <PackageTags>enum;smartenum;ardalis;aspnet;aspnetcore;mvc;model binding;modelbinding</PackageTags>
         <PackageIcon>icon.png</PackageIcon>
-        <PackageReleaseNotes>Updating to net7.</PackageReleaseNotes>
+		<PackageReleaseNotes>See root package release notes</PackageReleaseNotes>
         <AssemblyName>Ardalis.SmartEnum.ModelBinding</AssemblyName>
     </PropertyGroup>
 

@@ -7,7 +7,7 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageTags>enum;smartenum;netstandard2.0;json;system.text.json;converter</PackageTags>
         <PackageIcon>icon.png</PackageIcon>
-        <PackageReleaseNotes>Updating to net7.</PackageReleaseNotes>
+		    <PackageReleaseNotes>See root package release notes</PackageReleaseNotes>
         <AssemblyName>Ardalis.SmartEnum.SystemTextJson</AssemblyName>
         <RootNamespace>Ardalis.SmartEnum.SystemTextJson</RootNamespace>
     </PropertyGroup>
