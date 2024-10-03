@@ -69,7 +69,7 @@ namespace Ardalis.SmartEnum
 
         private static void GuardAgainstNull(TValue value)
         {
-            if (value == null)
+            if (value is null)
                 ThrowHelper.ThrowArgumentNullException(nameof(value));
         }
 
@@ -84,7 +84,7 @@ namespace Ardalis.SmartEnum
             AllowNegativeInputValuesAttribute attribute = (AllowNegativeInputValuesAttribute)
                 Attribute.GetCustomAttribute(typeof(TEnum), typeof(AllowNegativeInputValuesAttribute));
 
-            if (attribute == null && int.Parse(value.ToString()) < -1)
+            if (attribute is null && int.Parse(value.ToString()) < -1)
             {
                 ThrowHelper.ThrowNegativeValueArgumentException<TEnum, TValue>(value);
             }
@@ -130,7 +130,7 @@ namespace Ardalis.SmartEnum
             AllowUnsafeFlagEnumValuesAttribute attribute = (AllowUnsafeFlagEnumValuesAttribute)
                 Attribute.GetCustomAttribute(typeof(TEnum), typeof(AllowUnsafeFlagEnumValuesAttribute));
 
-            if (attribute == null)
+            if (attribute is null)
             {
                 CheckEnumListForPowersOfTwo(list);
             }
