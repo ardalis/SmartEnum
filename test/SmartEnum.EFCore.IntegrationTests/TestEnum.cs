@@ -18,7 +18,7 @@ namespace SmartEnum.EFCore.IntegrationTests
     {
         public static TestBaseEnum One;
 
-        internal TestBaseEnum(string name, int value) : base(name, value)
+        private protected TestBaseEnum(string name, int value) : base(name, value)
         {
         }
     }

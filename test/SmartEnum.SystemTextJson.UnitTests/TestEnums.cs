@@ -39,7 +39,7 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
         TestEnumString(string name, string value) : base(name, value) { }
     }
 
-    public sealed class TestJsonConverters
+    public static class TestJsonConverters
     {
         public static readonly JsonSerializerOptions NameConverterOptions = new()
         {
@@ -63,13 +63,13 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
 
     }
 
-    public sealed class TestDictInt32EnumString
+    public static class TestDictInt32EnumString
     {
         public static readonly IDictionary<TestEnumInt32, string> Instance = new Dictionary<TestEnumInt32, string>
             { { TestEnumInt32.Instance, nameof(Instance) } };
     }
 
-    public sealed class TestDictStringEnumString
+    public static class TestDictStringEnumString
     {
         public static readonly IDictionary<TestEnumString, string> Instance = new Dictionary<TestEnumString, string>
             { { TestEnumString.Instance, nameof(Instance) } };
