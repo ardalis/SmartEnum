@@ -100,7 +100,7 @@ namespace Ardalis.SmartEnum
         {
             if (String.IsNullOrEmpty(name))
                 ThrowHelper.ThrowArgumentNullOrEmptyException(nameof(name));
-            if (value == null)
+            if (value is null)
                 ThrowHelper.ThrowArgumentNullException(nameof(value));
 
             _name = name;
@@ -187,10 +187,10 @@ namespace Ardalis.SmartEnum
         [SuppressMessage("Minor Code Smell", "S4136:Method overloads should be grouped together", Justification = "<Pending>")]
         public static IEnumerable<TEnum> FromValue(TValue value)
         {
-            if (value == null)
+            if (value is null)
                 ThrowHelper.ThrowArgumentNullException(nameof(value));
 
-            if (GetFlagEnumValues(value, GetAllOptions()) == null)
+            if (GetFlagEnumValues(value, GetAllOptions()) is null)
             {
                 ThrowHelper.ThrowValueNotFoundException<TEnum, TValue>(value);
             }
@@ -231,7 +231,7 @@ namespace Ardalis.SmartEnum
         /// <seealso cref="SmartFlagEnum{TEnum, TValue}.FromValue(TValue)"/>
         public static IEnumerable<TEnum> FromValue(TValue value, IEnumerable<TEnum> defaultValue)
         {
-            if (value == null)
+            if (value is null)
                 ThrowHelper.ThrowArgumentNullException(nameof(value));
 
             return !TryFromValue(value, out var result) ? defaultValue : result;
@@ -250,7 +250,7 @@ namespace Ardalis.SmartEnum
         /// <seealso cref="SmartFlagEnum{TEnum, TValue}.FromValue(TValue)"/>
         public static bool TryFromValue(TValue value, out IEnumerable<TEnum> result)
         {
-            if (value == null || !int.TryParse(value.ToString(), out _))
+            if (value is null || !int.TryParse(value.ToString(), out _))
             {
                 result = default;
                 return false;
@@ -258,7 +258,7 @@ namespace Ardalis.SmartEnum
 
 
             result = GetFlagEnumValues(value, GetAllOptions());
-            if (result == null)
+            if (result is null)
             {
                 return false;
             }
