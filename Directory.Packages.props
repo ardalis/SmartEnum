@@ -33,6 +33,6 @@
   </ItemGroup>
   <ItemGroup>
     <GlobalPackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
-    <GlobalPackageReference Include="SonarAnalyzer.CSharp" Version="9.25.1.91650" PrivateAssets="All" />
+    <GlobalPackageReference Include="SonarAnalyzer.CSharp" Version="9.32.0.97167" PrivateAssets="All" />
   </ItemGroup>
 </Project>
