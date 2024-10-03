@@ -6,13 +6,22 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet"  />
-    <PackageReference Include="Constant"  />
-    <PackageReference Include="Enums.NET"  />
+    <PackageReference Include="BenchmarkDotNet" />
+    <PackageReference Include="Constant" />
+    <PackageReference Include="Enums.NET" />
     <ProjectReference Include="..\..\src\SmartEnum.MessagePack\SmartEnum.MessagePack.csproj" />
     <ProjectReference Include="..\..\src\SmartEnum\SmartEnum.csproj" />
     <ProjectReference Include="..\..\src\SmartEnum.JsonNet\SmartEnum.JsonNet.csproj" />
     <ProjectReference Include="..\..\src\SmartEnum.Utf8Json\SmartEnum.Utf8Json.csproj" />
     <ProjectReference Include="..\..\src\SmartEnum.ProtoBufNet\SmartEnum.ProtoBufNet.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Update="SonarAnalyzer.CSharp" Version="9.32.0.97167" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="SonarAnalyzer.CSharp">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>

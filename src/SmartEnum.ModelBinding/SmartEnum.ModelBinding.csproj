@@ -12,12 +12,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" />
+        <PackageReference Include="Newtonsoft.Json" />
+        <PackageReference Include="System.Text.Encodings.Web" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\SmartEnum\SmartEnum.csproj"/>
+        <ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
     </ItemGroup>
     <ItemGroup>
-        <None Include="$(SolutionDir)img\icon.png" Pack="true" Visible="false" PackagePath=""/>
+        <None Include="$(SolutionDir)img\icon.png" Pack="true" Visible="false" PackagePath="" />
     </ItemGroup>
 </Project>

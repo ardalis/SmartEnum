@@ -23,4 +23,15 @@
 		<ProjectReference Include="..\..\src\SmartEnum.EFCore\SmartEnum.EFCore.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <PackageVersion Update="SonarAnalyzer.CSharp" Version="9.32.0.97167" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Update="SonarAnalyzer.CSharp">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+	  </PackageReference>
+	</ItemGroup>
+
 </Project>
