@@ -46,18 +46,8 @@ namespace Ardalis.SmartEnum.UnitTests
         public static readonly TestStringEnum One = new TestStringEnum(nameof(One), nameof(One));
         public static readonly TestStringEnum Two = new TestStringEnum(nameof(Two), nameof(Two));
         public static readonly TestStringEnum Three = new TestStringEnum(nameof(Three), nameof(Three));
-        public static readonly TestStringEnum Empty = new TestStringEnum(nameof(Empty), string.Empty);
 
         protected TestStringEnum(string name, string value) : base(name, value)
-        {
-        }
-    }
-
-    public class TestNullableStringEnum : SmartEnum<TestNullableStringEnum, string>
-    {
-        public static readonly TestNullableStringEnum None = new TestNullableStringEnum(nameof(None), null);
-
-        protected TestNullableStringEnum(string name, string value) : base(name, value)
         {
         }
     }
