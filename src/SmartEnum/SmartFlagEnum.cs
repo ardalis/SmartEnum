@@ -46,9 +46,6 @@ namespace Ardalis.SmartEnum
         static readonly Lazy<Dictionary<string, TEnum>> _fromName =
             new Lazy<Dictionary<string, TEnum>>(() => GetAllOptions().ToDictionary(item => item.Name));
 
-        static readonly Lazy<Dictionary<string, TEnum>> _fromNameIgnoreCase =
-            new Lazy<Dictionary<string, TEnum>>(() => GetAllOptions().ToDictionary(item => item.Name, StringComparer.OrdinalIgnoreCase));
-
         private static IEnumerable<TEnum> GetAllOptions()
         {
             Type baseType = typeof(TEnum);
@@ -123,19 +120,12 @@ namespace Ardalis.SmartEnum
             if (String.IsNullOrEmpty(names))
                 ThrowHelper.ThrowArgumentNullOrEmptyException(nameof(names));
 
-            if (ignoreCase)
-                return FromName(_fromNameIgnoreCase.Value);
-            else
-                return FromName(_fromName.Value);
-
-            IEnumerable<TEnum> FromName(Dictionary<string, TEnum> dictionary)
+            if (!_fromName.Value.TryGetFlagEnumValuesByName<TEnum, TValue>(names, ignoreCase, out var result))
             {
-                if (!dictionary.TryGetFlagEnumValuesByName<TEnum, TValue>(names, out var result))
-                {
-                    ThrowHelper.ThrowNameNotFoundException<TEnum, TValue>(names);
-                }
-                return result;
+                ThrowHelper.ThrowNameNotFoundException<TEnum, TValue>(names);
             }
+
+            return result;
         }
 
         /// <summary>
@@ -170,10 +160,7 @@ namespace Ardalis.SmartEnum
             if (String.IsNullOrEmpty(names))
                 ThrowHelper.ThrowArgumentNullOrEmptyException(nameof(names));
 
-            if (ignoreCase)
-                return _fromNameIgnoreCase.Value.TryGetFlagEnumValuesByName<TEnum, TValue>(names, out result);
-            else
-                return _fromName.Value.TryGetFlagEnumValuesByName<TEnum, TValue>(names, out result);
+            return _fromName.Value.TryGetFlagEnumValuesByName<TEnum, TValue>(names, ignoreCase, out result);
         }
 
         /// <summary>
