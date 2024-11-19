@@ -45,8 +45,8 @@ namespace Ardalis.SmartEnum
         where TEnum : SmartEnum<TEnum, TValue>
         where TValue : IEquatable<TValue>, IComparable<TValue>
     {
-        static readonly Lazy<TEnum[]> _enumOptions =
-            new Lazy<TEnum[]>(GetAllOptions, LazyThreadSafetyMode.ExecutionAndPublication);
+        static readonly Lazy<List<TEnum>> _enumOptions =
+            new Lazy<List<TEnum>>(GetAllOptions, LazyThreadSafetyMode.ExecutionAndPublication);
 
         static readonly Lazy<Dictionary<string, TEnum>> _fromName =
             new Lazy<Dictionary<string, TEnum>>(() => _enumOptions.Value.ToDictionary(item => item.Name));
@@ -67,7 +67,7 @@ namespace Ardalis.SmartEnum
                 return dictionary;
             });
 
-        private static TEnum[] GetAllOptions()
+        private static List<TEnum> GetAllOptions()
         {
             Type baseType = typeof(TEnum);
             return Assembly.GetAssembly(baseType)
@@ -75,7 +75,7 @@ namespace Ardalis.SmartEnum
                 .Where(t => baseType.IsAssignableFrom(t))
                 .SelectMany(t => t.GetFieldsOfType<TEnum>())
                 .OrderBy(t => t.Name)
-                .ToArray();
+                .ToList();
         }
 
         private static IEqualityComparer<TValue> GetValueComparer()
