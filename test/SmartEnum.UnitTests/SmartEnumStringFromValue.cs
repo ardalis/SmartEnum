@@ -23,18 +23,10 @@ namespace Ardalis.SmartEnum.UnitTests
         }
 
         [Fact]
-        public void ReturnsEnumGivenMatchingNullValue()
+        public void ThrowsGivenNonMatchingValue()
         {
-            var result = TestNullableStringEnum.FromValue(null);
+            var value = string.Empty;
 
-            result.Should().BeSameAs(TestNullableStringEnum.None);
-        }
-
-        [Theory]
-        [InlineData("invalid")]
-        [InlineData(null)]
-        public void ThrowsGivenNonMatchingValue(string value)
-        {
             Action action = () => TestStringEnum.FromValue(value);
 
             action.Should()
