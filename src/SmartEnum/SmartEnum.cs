@@ -207,7 +207,7 @@ namespace Ardalis.SmartEnum
         /// <param name="value">The value of the item to get.</param>
         /// <returns>
         /// The first item found that is associated with the specified value.
-        /// If the specified value is not found, throws a <see cref="KeyNotFoundException"/>.
+        /// If the specified value is not found, throws a <see cref="SmartEnumNotFoundException"/>.
         /// </returns>
         /// <exception cref="SmartEnumNotFoundException"><paramref name="value"/> does not exist.</exception>
         /// <seealso cref="SmartEnum{TEnum, TValue}.FromValue(TValue, TEnum)"/>
