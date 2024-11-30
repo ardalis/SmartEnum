@@ -27,7 +27,7 @@ public static class SmartEnumConverterExtensions
         var propertyTypes = modelBuilder.Model.GetEntityTypes()
             .SelectMany(e => e.ClrType.GetProperties())
             .Where(p => TypeUtil.IsDerived(p.PropertyType, typeof(SmartEnum<,>)))
-            .Where(p => p.GetCustomAttribute<NotMappedAttribute>() == null)
+            .Where(p => p.GetCustomAttribute<NotMappedAttribute>() is null)
             .Select(p => p.PropertyType)
             .Distinct();
 
@@ -58,7 +58,7 @@ public static class SmartEnumConverterExtensions
         {
             var properties = entityType.ClrType.GetProperties()
                 .Where(p => TypeUtil.IsDerived(p.PropertyType, typeof(SmartEnum<,>)))
-                .Where(p => p.GetCustomAttribute<NotMappedAttribute>() == null);
+                .Where(p => p.GetCustomAttribute<NotMappedAttribute>() is null);
 
             foreach (var property in properties)
             {
@@ -74,7 +74,7 @@ public static class SmartEnumConverterExtensions
                 var converter = (ValueConverter)Activator.CreateInstance(converterType);
 
                 var propertyBuilder = GetPropertyBuilder(modelBuilder, entityType, property.Name);
-                if (propertyBuilder == null)
+                if (propertyBuilder is null)
                 {
                     continue;
                 }
@@ -111,7 +111,7 @@ public static class SmartEnumConverterExtensions
         }
 
         var ownedNavigationBuilder = GetOwnedNavigationBuilder(entityTypeBuilder, ownershipPath);
-        if (ownedNavigationBuilder == null)
+        if (ownedNavigationBuilder is null)
         {
             return null;
         }
@@ -129,12 +129,12 @@ public static class SmartEnumConverterExtensions
             var ownership = ownershipPath[i];
 
             var navigation = ownership.GetNavigation(pointsToPrincipal: false);
-            if (navigation == null)
+            if (navigation is null)
             {
                 return null;
             }
 
-            if (ownedNavigationBuilder == null)
+            if (ownedNavigationBuilder is null)
             {
                 if (ownership.IsUnique)
                 {

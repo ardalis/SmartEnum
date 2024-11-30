@@ -42,7 +42,7 @@ namespace Ardalis.SmartEnum
 
                 type = type.BaseType;
             }
-            while (!(type is null));
+            while (type is not null);
 
             genericArguments = null;
             return false;
