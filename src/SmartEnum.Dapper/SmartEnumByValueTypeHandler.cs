@@ -34,7 +34,7 @@ namespace Ardalis.SmartEnum.Dapper
         /// <inheritdoc/>
         public override TEnum Parse(object value)
         {
-            if (value == null || value is DBNull)
+            if (value is null || value is DBNull)
                 return null;
 
             if (value is not TValue tValue)

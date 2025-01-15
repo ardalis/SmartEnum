@@ -61,7 +61,7 @@ namespace Ardalis.SmartEnum
                 var dictionary = new Dictionary<TValue, TEnum>(GetValueComparer());
                 foreach (var item in _enumOptions.Value)
                 {
-                    if (item._value != null && !dictionary.ContainsKey(item._value))
+                    if (item._value is not null && !dictionary.ContainsKey(item._value))
                         dictionary.Add(item._value, item);
                 }
                 return dictionary;
@@ -217,7 +217,7 @@ namespace Ardalis.SmartEnum
         {
             TEnum result;
 
-            if (value != null)
+            if (value is not null)
             {
                 if (!_fromValue.Value.TryGetValue(value, out result))
                 {
@@ -226,7 +226,7 @@ namespace Ardalis.SmartEnum
             }
             else
             {
-                result = _enumOptions.Value.FirstOrDefault(x => x.Value == null);
+                result = _enumOptions.Value.FirstOrDefault(x => x.Value is null);
                 if (result == null)
                 {
                     ThrowHelper.ThrowValueNotFoundException<TEnum, TValue>(value);
@@ -248,7 +248,7 @@ namespace Ardalis.SmartEnum
         /// <seealso cref="SmartEnum{TEnum, TValue}.TryFromValue(TValue, out TEnum)"/>
         public static TEnum FromValue(TValue value, TEnum defaultValue)
         {
-            if (value == null)
+            if (value is null)
                 ThrowHelper.ThrowArgumentNullException(nameof(value));
 
             if (!_fromValue.Value.TryGetValue(value, out var result))
@@ -272,7 +272,7 @@ namespace Ardalis.SmartEnum
         /// <seealso cref="SmartEnum{TEnum, TValue}.FromValue(TValue, TEnum)"/>
         public static bool TryFromValue(TValue value, out TEnum result)
         {
-            if (value == null)
+            if (value is null)
             {
                 result = default;
                 return false;
