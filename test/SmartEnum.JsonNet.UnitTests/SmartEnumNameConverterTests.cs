@@ -1,9 +1,9 @@
 namespace Ardalis.SmartEnum.JsonNet.UnitTests
 {
-    using System;
-    using Newtonsoft.Json;
-    using Xunit;
     using FluentAssertions;
+    using Newtonsoft.Json;
+    using System;
+    using Xunit;
 
     public class SmartEnumNameConverterTests
     {
@@ -23,24 +23,29 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
 
             [JsonConverter(typeof(SmartEnumNameConverter<TestEnumString, string>))]
             public TestEnumString String { get; set; }
+
+            [JsonConverter(typeof(SmartEnumNameConverter<TestEnumGuid, Guid>))]
+            public TestEnumGuid Guid { get; set; }
         }
 
-        static readonly TestClass TestInstance = new TestClass
+        private static readonly TestClass TestInstance = new TestClass
         {
             Bool = TestEnumBoolean.Instance,
             Int16 = TestEnumInt16.Instance,
             Int32 = TestEnumInt32.Instance,
             Double = TestEnumDouble.Instance,
             String = TestEnumString.Instance,
+            Guid = TestEnumGuid.Instance,
         };
 
-        static readonly string JsonString = JsonConvert.SerializeObject(new
+        private static readonly string JsonString = JsonConvert.SerializeObject(new
         {
             Bool = "Instance",
             Int16 = "Instance",
             Int32 = "Instance",
             Double = "Instance",
-            String = "Instance"
+            String = "Instance",
+            Guid = "Instance"
         }, Formatting.Indented);
 
         [Fact]
@@ -61,6 +66,7 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
             obj.Int32.Should().BeSameAs(TestEnumInt32.Instance);
             obj.Double.Should().BeSameAs(TestEnumDouble.Instance);
             obj.String.Should().BeSameAs(TestEnumString.Instance);
+            obj.Guid.Should().BeSameAs(TestEnumGuid.Instance);
         }
 
         [Fact]
@@ -75,6 +81,7 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
             obj.Int32.Should().BeNull();
             obj.Double.Should().BeNull();
             obj.String.Should().BeNull();
+            obj.Guid.Should().BeNull();
         }
 
         [Fact]
