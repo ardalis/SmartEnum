@@ -5,7 +5,7 @@
 
 - [Table Of Contents](#table-of-contents)
   * [Sub-packages](#sub-packages)
-  * [Give a Star! ⭐](give-a-star-star)
+  * [Give a Star! ⭐](#give-a-star-star)
 - [SmartEnum](#smart-enum)
   * [Contributors](#contributors)
 - [Install](#install)
@@ -26,7 +26,7 @@
   * [Persisting with EF Core 2.1 or higher](#persisting-with-ef-core-21-or-higher)
   * [Using SmartEnum.EFCore](#using-smartenumefcore)
   * [AutoFixture support](#autofixture-support)
-  * [Json support](#jsonnet-support)
+  * [Json support](#json-support)
   * [Dapper support](#dapper-support)
   * [DapperSmartEnum](#dappersmartenum)
   * [Case Insensitive String Enum](#case-insensitive-string-enum)
