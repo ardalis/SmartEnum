@@ -35,6 +35,14 @@ namespace Ardalis.SmartEnum.UnitTests
         }
 
         [Fact]
+        public void ReturnsEnumGivenMatchingNameIgnoreCase()
+        {
+            var result = TestEnum.FromName("ONE", true);
+
+            result.Should().BeSameAs(TestEnum.One);
+        }
+
+        [Fact]
         public void ReturnsEnumGivenDerivedClass()
         {
             var result = TestDerivedEnum.FromName("One");
