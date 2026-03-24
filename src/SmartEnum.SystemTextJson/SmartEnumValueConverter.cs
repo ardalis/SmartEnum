@@ -11,7 +11,7 @@ namespace Ardalis.SmartEnum.SystemTextJson
     /// <typeparam name="TValue"></typeparam>
     public class SmartEnumValueConverter<TEnum, TValue> : JsonConverter<TEnum>
         where TEnum : SmartEnum<TEnum, TValue>
-        where TValue : IEquatable<TValue>, IComparable<TValue>, IConvertible
+        where TValue : IEquatable<TValue>, IComparable<TValue>
     {
         /// <summary>
         /// 
@@ -41,7 +41,7 @@ namespace Ardalis.SmartEnum.SystemTextJson
             else if (typeof(TValue) == typeof(bool))
                 writer.WriteBooleanValue((bool)(object)value.Value);
             else if (typeof(TValue) == typeof(short))
-                writer.WriteNumberValue((int)(short)(object)value.Value);
+                writer.WriteNumberValue((short)(object)value.Value);
             else if (typeof(TValue) == typeof(int))
                 writer.WriteNumberValue((int)(object)value.Value);
             else if (typeof(TValue) == typeof(double))
@@ -98,6 +98,8 @@ namespace Ardalis.SmartEnum.SystemTextJson
                 return (TValue)(object)reader.GetDouble();
             if (typeof(TValue) == typeof(string))
                 return (TValue)(object)reader.GetString();
+            if (typeof(TValue) == typeof(Guid))
+                return (TValue)(object)Guid.Parse(reader.GetString());
 
             throw new ArgumentOutOfRangeException(typeof(TValue).ToString(), $"{typeof(TValue).Name} is not supported.");
         }
@@ -155,6 +157,8 @@ namespace Ardalis.SmartEnum.SystemTextJson
                 return (TValue)(object)Convert.ToSingle(reader.GetString());
             if (typeof(TValue) == typeof(double))
                 return (TValue)(object)Convert.ToDouble(reader.GetString());
+            if (typeof(TValue) == typeof(Guid))
+                return (TValue)(object)Guid.Parse(reader.GetString());
             if (typeof(TValue) == typeof(string))
                 return (TValue)(object)reader.GetString();
 

@@ -49,6 +49,8 @@ namespace Ardalis.SmartEnum.Utf8Json
                 writer.WriteSingle((float)(object)value.Value);
             else if (typeof(TValue) == typeof(double))
                 writer.WriteDouble((double)(object)value.Value);
+            else if (typeof(TValue) == typeof(Guid))
+                writer.WriteString(value.Value.ToString());
             else
                 throw new ArgumentOutOfRangeException(typeof(TValue).ToString(), $"{typeof(TValue).Name} is not supported.");
         }
@@ -67,7 +69,7 @@ namespace Ardalis.SmartEnum.Utf8Json
             return SmartEnum<TEnum, TValue>.FromValue(ReadValue(ref reader));
         }
 
-        TValue ReadValue(ref JsonReader reader)
+        private TValue ReadValue(ref JsonReader reader)
         {
             if (typeof(TValue) == typeof(bool))
                 return (TValue)(object)reader.ReadBoolean();
@@ -91,6 +93,8 @@ namespace Ardalis.SmartEnum.Utf8Json
                 return (TValue)(object)reader.ReadSingle();
             if (typeof(TValue) == typeof(double))
                 return (TValue)(object)reader.ReadDouble();
+            if (typeof(TValue) == typeof(Guid))
+                return (TValue)(object)Guid.Parse(reader.ReadString());
             throw new ArgumentOutOfRangeException(typeof(TValue).ToString(), $"{typeof(TValue).Name} is not supported.");
         }
     }
