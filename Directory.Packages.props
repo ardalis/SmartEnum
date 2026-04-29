@@ -11,7 +11,7 @@
     <PackageVersion Include="coverlet.msbuild" Version="6.0.2" />
     <PackageVersion Include="Dapper" Version="2.1.35" />
     <PackageVersion Include="Enums.NET" Version="5.0.0" />
-    <PackageVersion Include="FluentAssertions" Version="6.12.2" />
+    <PackageVersion Include="FluentAssertions" Version="8.9.0" />
     <PackageVersion Include="MessagePack" Version="2.5.192" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageVersion Include="Microsoft.Data.Sqlite" Version="7.0.13" />
