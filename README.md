@@ -197,13 +197,13 @@ You can take this a step further and use the `ManagerType` and associated `Bonus
 ```csharp
 public class Manager
 {
-    private ManagerType _managerType { get; set; }
+    private EmployeeType _managerType = EmployeeType.Manager;
     public string Type
     {
         get => _managerType.Name;
         set
         {
-            if (!ManagerType.TryFromName(value, true, out var parsed))
+            if (!EmployeeType.TryFromName(value, true, out var parsed))
             {
                 throw new Exception($"Invalid manager type of '{value}'");
             }
@@ -211,10 +211,9 @@ public class Manager
         }
     }
 
-    public string BonusSize
+    public decimal BonusSize
     {
-        get => _managerType.BonusSize();
-        set => _bonusSize_ = value;
+        get => _managerType.BonusSize;
     }
 }
 ```
