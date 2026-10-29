@@ -1,6 +1,10 @@
 [![NuGet](https://img.shields.io/nuget/v/Ardalis.SmartEnum.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.SmartEnum.svg)](https://www.nuget.org/packages/Ardalis.SmartEnum)
 ![Last Publish Ardalis.SmartEnum to NuGet](https://github.com/ardalis/SmartEnum/workflows/publish%20Ardalis.SmartEnum%20to%20nuget/badge.svg)
 
+## Announcement!
+
+Ardalis.SmartEnum is moving to a commercial license. [Tell me more](https://nimbletools.io/news/ardalis-nuget-packages/)
+
 ## Table Of Contents
 
 - [Table Of Contents](#table-of-contents)
