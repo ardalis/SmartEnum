@@ -11,6 +11,20 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
         TestEnumBoolean(string name, bool value) : base(name, value) { }
     }
 
+    public sealed class TestEnumByte : SmartEnum<TestEnumByte, byte>
+    {
+        public static readonly TestEnumByte Instance = new TestEnumByte(nameof(Instance), 1);
+
+        TestEnumByte(string name, byte value) : base(name, value) { }
+    }
+
+    public sealed class TestEnumSByte : SmartEnum<TestEnumSByte, sbyte>
+    {
+        public static readonly TestEnumSByte Instance = new TestEnumSByte(nameof(Instance), 1);
+
+        TestEnumSByte(string name, sbyte value) : base(name, value) { }
+    }
+
     public sealed class TestEnumInt16 : SmartEnum<TestEnumInt16, short>
     {
         public static readonly TestEnumInt16 Instance = new TestEnumInt16(nameof(Instance), 1);
