@@ -57,18 +57,19 @@ namespace Ardalis.SmartEnum
         /// <param name="names"></param>
         /// <param name="outputEnums"></param>
         /// <returns></returns>
-        public static bool TryGetFlagEnumValuesByName<TEnum, TValue>(this Dictionary<string, TEnum> dictionary, string names, out IEnumerable<TEnum> outputEnums)
+        public static bool TryGetFlagEnumValuesByName<TEnum, TValue>(this Dictionary<string, TEnum> dictionary, string names, bool ignoreCase, out IEnumerable<TEnum> outputEnums)
             where TEnum : SmartFlagEnum<TEnum, TValue>
             where TValue : IEquatable<TValue>, IComparable<TValue>
         {
             var outputList = new List<TEnum>(dictionary.Count);
 
             var commaSplitNameList = names.Replace(" ", "").Trim().Split(',');
-            Array.Sort(commaSplitNameList);
+            var nameComparer = ignoreCase ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal;
+            Array.Sort(commaSplitNameList, nameComparer);
 
             foreach (var enumValue in dictionary.Values)
             {
-                var result = Array.BinarySearch(commaSplitNameList, enumValue.Name);
+                var result = Array.BinarySearch(commaSplitNameList, enumValue.Name, nameComparer);
                 if (result >= 0)
                 {
                     outputList.Add(enumValue);
