@@ -41,7 +41,8 @@ namespace Ardalis.SmartEnum
     public abstract class SmartEnum<TEnum, TValue> :
         ISmartEnum,
         IEquatable<SmartEnum<TEnum, TValue>>,
-        IComparable<SmartEnum<TEnum, TValue>>
+        IComparable<SmartEnum<TEnum, TValue>>,
+        IComparable
         where TEnum : SmartEnum<TEnum, TValue>
         where TValue : IEquatable<TValue>, IComparable<TValue>
     {
@@ -384,6 +385,23 @@ namespace Ardalis.SmartEnum
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual int CompareTo(SmartEnum<TEnum, TValue> other) =>
             _value.CompareTo(other._value);
+
+        /// <summary>
+        /// Compares this instance to a specified object for non-generic <see cref="IComparable"/> consumers.
+        /// </summary>
+        /// <param name="obj">An object to compare to this instance. Must be a <see cref="SmartEnum{TEnum, TValue}"/>, or null.</param>
+        /// <returns>A signed number indicating the relative values; a null <paramref name="obj"/> sorts before this instance.</returns>
+        /// <exception cref="ArgumentException"><paramref name="obj"/> is not a <see cref="SmartEnum{TEnum, TValue}"/>.</exception>
+        int IComparable.CompareTo(object obj)
+        {
+            if (obj is null)
+                return 1;
+
+            if (obj is SmartEnum<TEnum, TValue> other)
+                return CompareTo(other);
+
+            throw new ArgumentException($"Object must be a SmartEnum<{typeof(TEnum).Name}, {typeof(TValue).Name}>, but was {obj.GetType().Name}.", nameof(obj));
+        }
 
         /// <summary>
         ///
