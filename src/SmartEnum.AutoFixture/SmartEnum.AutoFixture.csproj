@@ -16,7 +16,6 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="AutoFixture" />
-		<PackageReference Include="System.Net.Http" />
 		<PackageReference Include="System.Text.RegularExpressions" />
 	</ItemGroup>
 	<ItemGroup>
@@ -24,14 +23,5 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-	  <PackageVersion Update="SonarAnalyzer.CSharp" Version="9.32.0.97167" />
-	</ItemGroup>
-	<ItemGroup>
-	  <PackageReference Update="SonarAnalyzer.CSharp">
-	    <PrivateAssets>all</PrivateAssets>
-	    <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-	  </PackageReference>
 	</ItemGroup>
 </Project>
