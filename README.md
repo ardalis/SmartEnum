@@ -675,7 +675,28 @@ protected override void OnModelCreating(ModelBuilder builder)
 }
 ```
 
-Remember, you need to implement your own parameterless constructor to make it work with a DbContext. See [issue #103](https://github.com/ardalis/SmartEnum/issues/103).
+Value conversions don't require a parameterless constructor on your SmartEnum.
+
+If you want to store the SmartEnum itself in its own table (for example, a lookup table with both `Name` and `Value` columns), you still don't need a parameterless constructor. EF Core 2.1 and later can [bind to a constructor](https://learn.microsoft.com/en-us/ef/core/modeling/constructors) whose parameters match the mapped properties:
+
+```csharp
+public sealed class PolicyStatus : SmartEnum<PolicyStatus>
+{
+    public static readonly PolicyStatus Active = new(nameof(Active), 1);
+    public static readonly PolicyStatus Inactive = new(nameof(Inactive), 2);
+
+    private PolicyStatus(string name, int value) : base(name, value) { }
+}
+
+builder.Entity<PolicyStatus>(e =>
+{
+    e.HasKey(s => s.Value);
+    e.Property(s => s.Value).ValueGeneratedNever();
+    e.Property(s => s.Name);
+});
+```
+
+Instances that EF Core loads this way are new objects, not the static fields. They compare equal with `==` and `Equals` (equality is by `Value`), but not with `ReferenceEquals`. See [issue #103](https://github.com/ardalis/SmartEnum/issues/103) for more background.
 
 #### Using SmartEnum.EFCore
 
