@@ -1,11 +1,11 @@
 namespace Ardalis.SmartEnum.Utf8Json.UnitTests
 {
-    using System;
-    using System.Text;
+    using FluentAssertions;
     using global::Utf8Json;
     using global::Utf8Json.Resolvers;
+    using System;
+    using System.Text;
     using Xunit;
-    using FluentAssertions;
 
     public class SmartEnumValueFormatterTests
     {
@@ -22,17 +22,21 @@ namespace Ardalis.SmartEnum.Utf8Json.UnitTests
 
             [JsonFormatter(typeof(SmartEnumValueFormatter<TestEnumDouble, double>))]
             public TestEnumDouble Double { get; set; }
+
+            [JsonFormatter(typeof(SmartEnumValueFormatter<TestEnumGuid, Guid>))]
+            public TestEnumGuid Guid { get; set; }
         }
 
-        static readonly TestClass TestInstance = new TestClass
+        private static readonly TestClass TestInstance = new TestClass
         {
             Bool = TestEnumBoolean.Instance,
             Int16 = TestEnumInt16.Instance,
             Int32 = TestEnumInt32.Instance,
             Double = TestEnumDouble.Instance,
+            Guid = TestEnumGuid.Instance,
         };
 
-        static readonly string JsonString = @"{""Bool"":true,""Int16"":1,""Int32"":1,""Double"":1}";
+        private static readonly string JsonString = @"{""Bool"":true,""Int16"":1,""Int32"":1,""Double"":1,""Guid"":""00000000-1111-2222-3333-444444444444""}";
 
         static SmartEnumValueFormatterTests()
         {
@@ -40,7 +44,8 @@ namespace Ardalis.SmartEnum.Utf8Json.UnitTests
                 new SmartEnumValueFormatter<TestEnumBoolean, bool>(),
                 new SmartEnumValueFormatter<TestEnumInt16, short>(),
                 new SmartEnumValueFormatter<TestEnumInt32, int>(),
-                new SmartEnumValueFormatter<TestEnumDouble, double>()
+                new SmartEnumValueFormatter<TestEnumDouble, double>(),
+                new SmartEnumValueFormatter<TestEnumGuid, Guid>()
             );
         }
 
@@ -61,6 +66,7 @@ namespace Ardalis.SmartEnum.Utf8Json.UnitTests
             obj.Int16.Should().BeSameAs(TestEnumInt16.Instance);
             obj.Int32.Should().BeSameAs(TestEnumInt32.Instance);
             obj.Double.Should().BeSameAs(TestEnumDouble.Instance);
+            obj.Guid.Should().BeSameAs(TestEnumGuid.Instance);
         }
 
         [Fact]
@@ -74,12 +80,13 @@ namespace Ardalis.SmartEnum.Utf8Json.UnitTests
             obj.Int16.Should().BeNull();
             obj.Int32.Should().BeNull();
             obj.Double.Should().BeNull();
+            obj.Guid.Should().BeNull();
         }
 
         [Fact]
         public void DeserializesNull()
         {
-            string json = @"{ ""Bool"": null, ""Int16"": null, ""Int32"": null, ""Double"": null }";
+            string json = @"{ ""Bool"": null, ""Int16"": null, ""Int32"": null, ""Double"": null, ""Guid"": null }";
 
             var obj = JsonSerializer.Deserialize<TestClass>(json);
 
@@ -87,6 +94,7 @@ namespace Ardalis.SmartEnum.Utf8Json.UnitTests
             obj.Int16.Should().BeNull();
             obj.Int32.Should().BeNull();
             obj.Double.Should().BeNull();
+            obj.Guid.Should().BeNull();
         }
 
         [Fact]
@@ -108,6 +116,7 @@ namespace Ardalis.SmartEnum.Utf8Json.UnitTests
                 { @"{ ""Int16"": true }", @"expected:'Number Token', actual:'true', at offset:11" },
                 { @"{ ""Int32"": true }", @"expected:'Number Token', actual:'true', at offset:11" },
                 { @"{ ""Double"": true }", @"expected:'Number Token', actual:'true', at offset:12" },
+                { @"{ ""Guid"": true }", @"expected:'String Begin Token', actual:'true', at offset:10" },
             };
 
         [Theory]

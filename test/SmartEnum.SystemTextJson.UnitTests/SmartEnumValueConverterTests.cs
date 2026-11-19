@@ -26,29 +26,34 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
             [JsonConverter(typeof(SmartEnumValueConverter<TestEnumString, string>))]
             public TestEnumString String { get; set; }
 
+            [JsonConverter(typeof(SmartEnumValueConverter<TestEnumGuid, Guid>))]
+            public TestEnumGuid Guid { get; set; }
+
             public IDictionary<TestEnumInt32, string> DictInt32String { get; set; }
 
             public IDictionary<TestEnumString, string> DictStringString { get; set; }
         }
 
-        static readonly TestClass TestInstance = new TestClass
+        private static readonly TestClass TestInstance = new TestClass
         {
             Bool = TestEnumBoolean.Instance,
             Int16 = TestEnumInt16.Instance,
             Int32 = TestEnumInt32.Instance,
             Double = TestEnumDouble.Instance,
             String = TestEnumString.Instance,
+            Guid = TestEnumGuid.Instance,
             DictInt32String = TestDictInt32EnumString.Instance,
             DictStringString = TestDictStringEnumString.Instance
         };
 
-        static readonly string JsonString = JsonSerializer.Serialize(new
+        private static readonly string JsonString = JsonSerializer.Serialize(new
         {
             Bool = true,
             Int16 = 1,
             Int32 = 1,
             Double = 1.2,
             String = "1.5",
+            Guid = "00000000-1111-2222-3333-444444444444",
             DictInt32String = new DictInt32EnumStringJson(),
             DictStringString = new DictStringEnumStringJson()
         }, TestJsonConverters.ValueConverterOptions);
@@ -71,6 +76,7 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
             obj.Int32.Should().BeSameAs(TestEnumInt32.Instance);
             obj.Double.Should().BeSameAs(TestEnumDouble.Instance);
             obj.String.Should().BeSameAs(TestEnumString.Instance);
+            obj.Guid.Should().BeSameAs(TestEnumGuid.Instance);
             obj.DictInt32String.Should().BeEquivalentTo(TestDictInt32EnumString.Instance);
             obj.DictStringString.Should().BeEquivalentTo(TestDictStringEnumString.Instance);
         }
@@ -87,6 +93,7 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
             obj.Int32.Should().BeNull();
             obj.Double.Should().BeNull();
             obj.String.Should().BeNull();
+            obj.Guid.Should().BeNull();
             obj.DictInt32String.Should().BeNull();
             obj.DictStringString.Should().BeNull();
         }
@@ -113,6 +120,7 @@ namespace Ardalis.SmartEnum.SystemTextJson.UnitTests
                 { @"{ ""Int32"": true }", @"Cannot get the value of a token type 'True' as a number." },
                 { @"{ ""Double"": true }", @"Cannot get the value of a token type 'True' as a number." },
                 { @"{ ""String"": true }", @"Cannot get the value of a token type 'True' as a string." },
+                { @"{ ""Guid"": true }", @"Cannot get the value of a token type 'True' as a string." },
             };
 
         [Theory]

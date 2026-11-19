@@ -36,7 +36,11 @@ namespace Ardalis.SmartEnum.JsonNet
             try
             {
                 TValue value;
-                if (reader.TokenType == JsonToken.Integer && typeof(TValue) != typeof(long) && typeof(TValue) != typeof(bool))
+                if (reader.TokenType == JsonToken.String && typeof(TValue) == typeof(Guid))
+                {
+                    value = (TValue)(object)Guid.Parse(reader.Value.ToString());
+                }
+                else if (reader.TokenType == JsonToken.Integer && typeof(TValue) != typeof(long) && typeof(TValue) != typeof(bool))
                 {
                     value = (TValue)Convert.ChangeType(reader.Value, typeof(TValue));
                 }

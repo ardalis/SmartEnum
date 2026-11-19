@@ -1,11 +1,11 @@
 namespace Ardalis.SmartEnum.Utf8Json.UnitTests
 {
-    using System;
-    using System.Text;
+    using FluentAssertions;
     using global::Utf8Json;
     using global::Utf8Json.Resolvers;
+    using System;
+    using System.Text;
     using Xunit;
-    using FluentAssertions;
 
     public class SmartEnumNameFormatterTests
     {
@@ -22,17 +22,21 @@ namespace Ardalis.SmartEnum.Utf8Json.UnitTests
 
             [JsonFormatter(typeof(SmartEnumNameFormatter<TestEnumDouble, double>))]
             public TestEnumDouble Double { get; set; }
+
+            [JsonFormatter(typeof(SmartEnumNameFormatter<TestEnumGuid, Guid>))]
+            public TestEnumGuid Guid { get; set; }
         }
 
-        static readonly TestClass TestInstance = new TestClass
+        private static readonly TestClass TestInstance = new TestClass
         {
             Bool = TestEnumBoolean.Instance,
             Int16 = TestEnumInt16.Instance,
             Int32 = TestEnumInt32.Instance,
             Double = TestEnumDouble.Instance,
+            Guid = TestEnumGuid.Instance,
         };
 
-        static readonly string JsonString = @"{""Bool"":""Instance"",""Int16"":""Instance"",""Int32"":""Instance"",""Double"":""Instance""}";
+        private static readonly string JsonString = @"{""Bool"":""Instance"",""Int16"":""Instance"",""Int32"":""Instance"",""Double"":""Instance"",""Guid"":""Instance""}";
 
         static SmartEnumNameFormatterTests()
         {
@@ -40,7 +44,8 @@ namespace Ardalis.SmartEnum.Utf8Json.UnitTests
                 new SmartEnumNameFormatter<TestEnumBoolean, bool>(),
                 new SmartEnumNameFormatter<TestEnumInt16, short>(),
                 new SmartEnumNameFormatter<TestEnumInt32, int>(),
-                new SmartEnumNameFormatter<TestEnumDouble, double>()
+                new SmartEnumNameFormatter<TestEnumDouble, double>(),
+                new SmartEnumNameFormatter<TestEnumGuid, Guid>()
             );
         }
 
@@ -61,6 +66,7 @@ namespace Ardalis.SmartEnum.Utf8Json.UnitTests
             obj.Int16.Should().BeSameAs(TestEnumInt16.Instance);
             obj.Int32.Should().BeSameAs(TestEnumInt32.Instance);
             obj.Double.Should().BeSameAs(TestEnumDouble.Instance);
+            obj.Guid.Should().BeSameAs(TestEnumGuid.Instance);
         }
 
         [Fact]
@@ -74,6 +80,7 @@ namespace Ardalis.SmartEnum.Utf8Json.UnitTests
             obj.Int16.Should().BeNull();
             obj.Int32.Should().BeNull();
             obj.Double.Should().BeNull();
+            obj.Guid.Should().BeNull();
         }
 
 
@@ -88,6 +95,7 @@ namespace Ardalis.SmartEnum.Utf8Json.UnitTests
             obj.Int16.Should().BeNull();
             obj.Int32.Should().BeNull();
             obj.Double.Should().BeNull();
+            obj.Guid.Should().BeNull();
         }
 
         [Fact]

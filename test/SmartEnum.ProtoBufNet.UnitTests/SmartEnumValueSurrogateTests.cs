@@ -1,9 +1,10 @@
 namespace Ardalis.SmartEnum.ProtoBufNet.UnitTests
 {
+    using FluentAssertions;
     using ProtoBuf;
     using ProtoBuf.Meta;
+    using System;
     using Xunit;
-    using FluentAssertions;
 
     public class SmartEnumValueSurrogateTests
     {
@@ -21,25 +22,30 @@ namespace Ardalis.SmartEnum.ProtoBufNet.UnitTests
 
             [ProtoMember(4)]
             public TestEnumDouble Double { get; set; }
+
+            [ProtoMember(5)]
+            public TestEnumGuid Guid { get; set; }
         }
 
-        static readonly TestClass NullTestInstance = new TestClass
+        private static readonly TestClass NullTestInstance = new TestClass
         {
             Bool = null,
             Int16 = null,
             Int32 = null,
             Double = null,
+            Guid = null,
         };
 
-        static readonly TestClass TestInstance = new TestClass
+        private static readonly TestClass TestInstance = new TestClass
         {
             Bool = TestEnumBoolean.Instance,
             Int16 = TestEnumInt16.Instance,
             Int32 = TestEnumInt32.Instance,
             Double = TestEnumDouble.Instance,
+            Guid = TestEnumGuid.Instance,
         };
 
-        readonly string SchemaString =
+        private readonly string SchemaString =
 @"syntax = ""proto3"";
 package Ardalis.SmartEnum.ProtoBufNet;
 
@@ -48,7 +54,7 @@ message SmartEnumValueSurrogate_TestEnumBoolean_Boolean {
 }
 ";
 
-        readonly RuntimeTypeModel model;
+        private readonly RuntimeTypeModel model;
 
         public SmartEnumValueSurrogateTests()
         {
@@ -57,6 +63,7 @@ message SmartEnumValueSurrogate_TestEnumBoolean_Boolean {
             model.Add(typeof(TestEnumInt16), false).SetSurrogate(typeof(SmartEnumValueSurrogate<TestEnumInt16, short>));
             model.Add(typeof(TestEnumInt32), false).SetSurrogate(typeof(SmartEnumValueSurrogate<TestEnumInt32, int>));
             model.Add(typeof(TestEnumDouble), false).SetSurrogate(typeof(SmartEnumValueSurrogate<TestEnumDouble, double>));
+            model.Add(typeof(TestEnumGuid), false).SetSurrogate(typeof(SmartEnumValueSurrogate<TestEnumGuid, Guid>));
         }
 
         [Fact]

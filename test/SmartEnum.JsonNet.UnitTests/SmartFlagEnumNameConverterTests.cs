@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Ardalis.SmartEnum;
-using Ardalis.SmartEnum.JsonNet;
-using Ardalis.SmartEnum.JsonNet.UnitTests;
 using FluentAssertions;
 using Newtonsoft.Json;
+using System;
 using Xunit;
 
 namespace Ardalis.SmartEnum.JsonNet.UnitTests
@@ -23,20 +17,25 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
 
             [JsonConverter(typeof(SmartFlagEnumNameConverter<FlagTestEnums.FlagTestEnumDouble, double>))]
             public FlagTestEnums.FlagTestEnumDouble Double { get; set; }
+
+            [JsonConverter(typeof(SmartFlagEnumNameConverter<FlagTestEnums.FlagTestEnumGuid, Guid>))]
+            public FlagTestEnums.FlagTestEnumGuid Guid { get; set; }
         }
 
-        static readonly FlagTestClass TestInstance = new FlagTestClass
+        private static readonly FlagTestClass TestInstance = new FlagTestClass
         {
             Int16 = FlagTestEnums.FlagTestEnumInt16.Instance,
             Int32 = FlagTestEnums.FlagTestEnumInt32.Instance,
-            Double = FlagTestEnums.FlagTestEnumDouble.Instance
+            Double = FlagTestEnums.FlagTestEnumDouble.Instance,
+            Guid = FlagTestEnums.FlagTestEnumGuid.Instance
         };
 
-        static readonly string JsonString = JsonConvert.SerializeObject(new
+        private static readonly string JsonString = JsonConvert.SerializeObject(new
         {
             Int16 = "Instance",
             Int32 = "Instance",
-            Double = "Instance"
+            Double = "Instance",
+            Guid = "Instance"
         }, Formatting.Indented);
 
         [Fact]
@@ -55,6 +54,7 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
             obj.Int16.Should().BeSameAs(FlagTestEnums.FlagTestEnumInt16.Instance);
             obj.Int32.Should().BeSameAs(FlagTestEnums.FlagTestEnumInt32.Instance);
             obj.Double.Should().BeSameAs(FlagTestEnums.FlagTestEnumDouble.Instance);
+            obj.Guid.Should().BeSameAs(FlagTestEnums.FlagTestEnumGuid.Instance);
         }
 
         [Fact]
@@ -67,6 +67,7 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
             obj.Int16.Should().BeNull();
             obj.Int32.Should().BeNull();
             obj.Double.Should().BeNull();
+            obj.Guid.Should().BeNull();
         }
 
         [Fact]

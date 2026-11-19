@@ -1,5 +1,3 @@
-﻿using Ardalis.SmartEnum;
-using Ardalis.SmartEnum.JsonNet;
 using FluentAssertions;
 using Newtonsoft.Json;
 using System;
@@ -19,22 +17,27 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
 
             [JsonConverter(typeof(SmartFlagEnumValueConverter<FlagTestEnums.FlagTestEnumDouble, double>))]
             public FlagTestEnums.FlagTestEnumDouble Double { get; set; }
+
+            [JsonConverter(typeof(SmartFlagEnumValueConverter<FlagTestEnums.FlagTestEnumGuid, Guid>))]
+            public FlagTestEnums.FlagTestEnumGuid Guid { get; set; }
         }
 
-        static readonly TestClass TestInstance = new TestClass
+        private static readonly TestClass TestInstance = new TestClass
         {
             Int16 = FlagTestEnums.FlagTestEnumInt16.Instance,
             Int32 = FlagTestEnums.FlagTestEnumInt32.Instance2,
-            Double = FlagTestEnums.FlagTestEnumDouble.Instance
+            Double = FlagTestEnums.FlagTestEnumDouble.Instance,
+            Guid = FlagTestEnums.FlagTestEnumGuid.Instance
         };
 
-        static readonly string JsonString = JsonConvert.SerializeObject(new
+        private static readonly string JsonString = JsonConvert.SerializeObject(new
         {
             Int16 = 1,
             Int32 = 2,
-            Double = 1.0
+            Double = 1.0,
+            Guid = "00000000-1111-2222-3333-444444444444"
         }, Formatting.Indented);
-        
+
         [Fact]
         public void SerializesValue()
         {
@@ -51,6 +54,7 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
             Assert.Equal(obj.Int32, FlagTestEnums.FlagTestEnumInt32.Instance2);
             Assert.Equal(obj.Int16, FlagTestEnums.FlagTestEnumInt16.Instance);
             Assert.Equal(obj.Double, FlagTestEnums.FlagTestEnumDouble.Instance);
+            Assert.Equal(obj.Guid, FlagTestEnums.FlagTestEnumGuid.Instance);
         }
 
         [Fact]
@@ -63,6 +67,7 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
             obj.Int16.Should().BeNull();
             obj.Int32.Should().BeNull();
             obj.Double.Should().BeNull();
+            obj.Guid.Should().BeNull();
         }
 
         [Fact]
@@ -87,7 +92,7 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
             Action act = () => JsonConvert.DeserializeObject<TestClass>(json);
 
             Assert.True(FlagTestEnums.FlagTestEnumInt32.Instance.Value == 1);
-            Assert.True(FlagTestEnums.FlagTestEnumInt32.Instance2.Value == 2); 
+            Assert.True(FlagTestEnums.FlagTestEnumInt32.Instance2.Value == 2);
 
             act.Should()
                 .Throw<JsonSerializationException>()
@@ -102,6 +107,7 @@ namespace Ardalis.SmartEnum.JsonNet.UnitTests
                 { @"{ ""Int16"": true }", @"Error converting True to FlagTestEnumInt16." },
                 { @"{ ""Int32"": true }", @"Error converting True to FlagTestEnumInt32." },
                 { @"{ ""Double"": true }", @"Error converting True to FlagTestEnumDouble." },
+                { @"{ ""Guid"": true }", @"Error converting True to FlagTestEnumGuid." },
             };
 
         [Theory]

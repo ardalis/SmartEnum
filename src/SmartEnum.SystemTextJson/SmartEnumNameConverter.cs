@@ -11,7 +11,7 @@ namespace Ardalis.SmartEnum.SystemTextJson
     /// <typeparam name="TValue"></typeparam>
     public class SmartEnumNameConverter<TEnum, TValue> : JsonConverter<TEnum>
         where TEnum : SmartEnum<TEnum, TValue>
-        where TValue : IEquatable<TValue>, IComparable<TValue>, IConvertible
+        where TValue : IEquatable<TValue>, IComparable<TValue>
     {
         /// <summary>
         /// 

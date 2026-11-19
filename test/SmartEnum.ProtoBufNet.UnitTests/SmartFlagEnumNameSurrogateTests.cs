@@ -1,6 +1,7 @@
 using FluentAssertions;
 using ProtoBuf;
 using ProtoBuf.Meta;
+using System;
 using Xunit;
 
 namespace Ardalis.SmartEnum.ProtoBufNet.UnitTests
@@ -13,28 +14,33 @@ namespace Ardalis.SmartEnum.ProtoBufNet.UnitTests
             [ProtoMember(1)]
             public FlagTestEnumInt16 Int16 { get; set; }
 
-            [ProtoMember(2)] 
+            [ProtoMember(2)]
             public FlagTestEnumInt32 Int32 { get; set; }
 
             [ProtoMember(3)]
             public FlagTestEnumDouble Double { get; set; }
+
+            [ProtoMember(4)]
+            public FlagTestEnumGuid Guid { get; set; }
         }
 
         private static readonly TestClass NullTestInstance = new TestClass
         {
             Int16 = null,
             Int32 = null,
-            Double = null
+            Double = null,
+            Guid = null
         };
 
         private static readonly TestClass TestInstance = new TestClass
         {
             Int16 = FlagTestEnumInt16.Instance,
             Int32 = FlagTestEnumInt32.Instance2,
-            Double = FlagTestEnumDouble.Instance
+            Double = FlagTestEnumDouble.Instance,
+            Guid = FlagTestEnumGuid.Instance
         };
 
-        readonly string SchemaString =
+        private readonly string SchemaString =
             @"syntax = ""proto3"";
 package Ardalis.SmartEnum.ProtoBufNet;
 
@@ -43,7 +49,7 @@ message SmartFlagEnumNameSurrogate_FlagTestEnumInt32_Int32 {
 }
 ";
 
-        readonly RuntimeTypeModel model;
+        private readonly RuntimeTypeModel model;
 
         public SmartFlagEnumNameSurrogateTests()
         {
@@ -51,6 +57,7 @@ message SmartFlagEnumNameSurrogate_FlagTestEnumInt32_Int32 {
             model.Add(typeof(FlagTestEnumInt16), false).SetSurrogate(typeof(SmartFlagEnumNameSurrogate<FlagTestEnumInt16, short>));
             model.Add(typeof(FlagTestEnumInt32), false).SetSurrogate(typeof(SmartFlagEnumNameSurrogate<FlagTestEnumInt32, int>));
             model.Add(typeof(FlagTestEnumDouble), false).SetSurrogate(typeof(SmartFlagEnumNameSurrogate<FlagTestEnumDouble, double>));
+            model.Add(typeof(FlagTestEnumGuid), false).SetSurrogate(typeof(SmartFlagEnumNameSurrogate<FlagTestEnumGuid, Guid>));
         }
 
         [Fact]

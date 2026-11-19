@@ -1,5 +1,5 @@
-using System;
 using Newtonsoft.Json;
+using System;
 
 namespace Ardalis.SmartEnum.JsonNet;
 
@@ -10,7 +10,7 @@ namespace Ardalis.SmartEnum.JsonNet;
 /// <typeparam name="TValue"></typeparam>
 public class SmartFlagEnumValueConverter<TEnum, TValue> : JsonConverter<TEnum>
 where TEnum : SmartFlagEnum<TEnum, TValue>
-where TValue: struct, IEquatable<TValue>, IComparable<TValue>
+where TValue : struct, IEquatable<TValue>, IComparable<TValue>
 {
     /// <summary>
     /// Defaults to true.
@@ -36,7 +36,11 @@ where TValue: struct, IEquatable<TValue>, IComparable<TValue>
         try
         {
             TValue value;
-            if (reader.TokenType == JsonToken.Integer && typeof(TValue) != typeof(long) && typeof(TValue) != typeof(bool))
+            if (reader.TokenType == JsonToken.String && typeof(TValue) == typeof(Guid))
+            {
+                value = (TValue)(object)Guid.Parse(reader.Value.ToString());
+            }
+            else if (reader.TokenType == JsonToken.Integer && typeof(TValue) != typeof(long) && typeof(TValue) != typeof(bool))
             {
                 value = (TValue)Convert.ChangeType(reader.Value, typeof(TValue));
             }
