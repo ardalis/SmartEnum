@@ -1,3 +1,4 @@
+using Ardalis.SmartEnum.Core;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -5,7 +6,6 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
-using Ardalis.SmartEnum.Core;
 
 namespace Ardalis.SmartEnum
 {
@@ -43,13 +43,16 @@ namespace Ardalis.SmartEnum
         where TEnum : SmartFlagEnum<TEnum, TValue>
         where TValue : IEquatable<TValue>, IComparable<TValue>
     {
+        static readonly Lazy<List<TEnum>> _enumOptions =
+            new Lazy<List<TEnum>>(GetAllOptions, System.Threading.LazyThreadSafetyMode.ExecutionAndPublication);
+
         static readonly Lazy<Dictionary<string, TEnum>> _fromName =
-            new Lazy<Dictionary<string, TEnum>>(() => GetAllOptions().ToDictionary(item => item.Name));
+            new Lazy<Dictionary<string, TEnum>>(() => _enumOptions.Value.ToDictionary(item => item.Name));
 
         static readonly Lazy<Dictionary<string, TEnum>> _fromNameIgnoreCase =
-            new Lazy<Dictionary<string, TEnum>>(() => GetAllOptions().ToDictionary(item => item.Name, StringComparer.OrdinalIgnoreCase));
+            new Lazy<Dictionary<string, TEnum>>(() => _enumOptions.Value.ToDictionary(item => item.Name, StringComparer.OrdinalIgnoreCase));
 
-        private static IEnumerable<TEnum> GetAllOptions()
+        private static List<TEnum> GetAllOptions()
         {
             Type baseType = typeof(TEnum);
             IEnumerable<Type> enumTypes = Assembly.GetAssembly(baseType).GetTypes().Where(t => baseType.IsAssignableFrom(t));
@@ -61,7 +64,7 @@ namespace Ardalis.SmartEnum
                 options.AddRange(typeEnumOptions);
             }
 
-            return options.OrderBy(t => t.Value);
+            return options.OrderBy(t => t.Value).ToList();
         }
 
         /// <summary>
@@ -70,9 +73,7 @@ namespace Ardalis.SmartEnum
         /// <value>A <see cref="IReadOnlyCollection{TEnum}"/> containing all the instances of <see cref="SmartFlagEnum{TEnum, TValue}"/>.</value>
         /// <remarks>Retrieves all the instances of <see cref="SmartFlagEnum{TEnum, TValue}"/> referenced by public static read-only fields in the current class or its bases.</remarks>
         public static IReadOnlyCollection<TEnum> List =>
-            _fromName.Value.Values
-                .ToList()
-                .AsReadOnly();
+            _enumOptions.Value;
 
         private readonly string _name;
         private readonly TValue _value;
@@ -190,12 +191,12 @@ namespace Ardalis.SmartEnum
             if (value is null)
                 ThrowHelper.ThrowArgumentNullException(nameof(value));
 
-            if (GetFlagEnumValues(value, GetAllOptions()) is null)
+            if (GetFlagEnumValues(value, _enumOptions.Value) is null)
             {
                 ThrowHelper.ThrowValueNotFoundException<TEnum, TValue>(value);
             }
 
-            return GetFlagEnumValues(value, GetAllOptions());
+            return GetFlagEnumValues(value, _enumOptions.Value);
         }
 
         /// <summary>
@@ -206,10 +207,7 @@ namespace Ardalis.SmartEnum
         /// <returns></returns>
         public static TEnum DeserializeValue(TValue value)
         {
-            // we should not be calling get options for each deserialization. Perhaps move it to a lazy field _enumOptions.
-            var enumList = GetAllOptions();
-
-            var returnValue = enumList.FirstOrDefault(x => x.Value.Equals(value));
+            var returnValue = _enumOptions.Value.FirstOrDefault(x => x.Value.Equals(value));
 
             if (returnValue == null)
             {
@@ -257,7 +255,7 @@ namespace Ardalis.SmartEnum
             }
 
 
-            result = GetFlagEnumValues(value, GetAllOptions());
+            result = GetFlagEnumValues(value, _enumOptions.Value);
             if (result is null)
             {
                 return false;
@@ -277,7 +275,7 @@ namespace Ardalis.SmartEnum
                 ThrowHelper.ThrowValueNotFoundException<TEnum, TValue>(value);
             }
 
-            return FormatEnumListString(GetFlagEnumValues(value, GetAllOptions()));
+            return FormatEnumListString(GetFlagEnumValues(value, _enumOptions.Value));
         }
 
         /// <summary>
