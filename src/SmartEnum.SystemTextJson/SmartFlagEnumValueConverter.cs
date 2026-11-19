@@ -96,6 +96,10 @@ where TValue: struct, IEquatable<TValue>, IComparable<TValue>
             writer.WriteNullValue();
         else if (typeof(TValue) == typeof(bool))
             writer.WriteBooleanValue((bool)(object)value.Value);
+        else if (typeof(TValue) == typeof(byte))
+            writer.WriteNumberValue((byte)(object)value.Value);
+        else if (typeof(TValue) == typeof(sbyte))
+            writer.WriteNumberValue((sbyte)(object)value.Value);
         else if (typeof(TValue) == typeof(short))
             writer.WriteNumberValue((short)(object)value.Value);
         else if (typeof(TValue) == typeof(int))
