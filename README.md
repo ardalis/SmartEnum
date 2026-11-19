@@ -7,9 +7,8 @@ Ardalis.SmartEnum is moving to a commercial license. [Tell me more](https://nimb
 
 ## Table Of Contents
 
-- [Table Of Contents](#table-of-contents)
-  * [Sub-packages](#sub-packages)
-  * [Give a Star! ⭐](#give-a-star-star)
+- [Sub-packages](#sub-packages)
+- [Give a Star! ⭐](#give-a-star-star)
 - [SmartEnum](#smart-enum)
   * [Contributors](#contributors)
 - [Install](#install)
@@ -30,7 +29,9 @@ Ardalis.SmartEnum is moving to a commercial license. [Tell me more](https://nimb
   * [Persisting with EF Core 2.1 or higher](#persisting-with-ef-core-21-or-higher)
   * [Using SmartEnum.EFCore](#using-smartenumefcore)
   * [AutoFixture support](#autofixture-support)
+  * [Guard Clauses support](#guard-clauses-support)
   * [Json support](#json-support)
+  * [Model Binding support](#model-binding-support)
   * [Dapper support](#dapper-support)
   * [DapperSmartEnum](#dappersmartenum)
   * [Case Insensitive String Enum](#case-insensitive-string-enum)
@@ -66,7 +67,7 @@ If you like or are using this project please give it a star. Thanks!
 
 # Smart Enum
 
-An implementation of a [type-safe object-oriented alternative](https://codeblog.jonskeet.uk/2006/01/05/classenum/) to [C# enum](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/enum).
+An implementation of a [type-safe object-oriented alternative](https://codeblog.jonskeet.uk/2006/01/05/classenum/) to [C# enum](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/enum).
 
 ## Contributors
 
@@ -99,7 +100,7 @@ Install-Package Ardalis.SmartEnum.GuardClauses
 
 ## Version
 
-The latest version of the package supports .NET 8 and NetStandard 2.0.
+The latest version of the package supports .NET 6, .NET 7, .NET 8, and .NET Standard 2.0. (`Ardalis.SmartEnum.EFCore` targets .NET 6, 7, and 8 only.)
 
 ## Usage
 
@@ -204,23 +205,23 @@ public abstract class EmployeeType : SmartEnum<EmployeeType>
 You can take this a step further and use `EmployeeType` and its `BonusSize` property from another class like so:
 
 ```csharp
-public class Manager
+public class Employee
 {
-    private EmployeeType _managerType = EmployeeType.Manager;
+    private EmployeeType _employeeType = EmployeeType.Manager;
     public string Type
     {
-        get => _managerType.Name;
+        get => _employeeType.Name;
         set
         {
             if (!EmployeeType.TryFromName(value, true, out var parsed))
             {
-                throw new Exception($"Invalid manager type of '{value}'");
+                throw new Exception($"Invalid employee type of '{value}'");
             }
-            _managerType = parsed;
+            _employeeType = parsed;
         }
     }
 
-    public decimal BonusSize => _managerType.BonusSize;
+    public decimal BonusSize => _employeeType.BonusSize;
 }
 ```
 
@@ -659,7 +660,7 @@ var myFlagEnums = TestFlagEnumDecimal.FromValue((int)TestFlagEnumDecimal.One | (
 
 ### Persisting with EF Core 2.1 or higher
 
-EF Core 2.1 introduced [value conversions](https://docs.microsoft.com/en-us/ef/core/modeling/value-conversions) which can be used to map SmartEnum types to simple database types. For example, given an entity named `Policy` with a property `PolicyStatus` that is a SmartEnum, you could use the following code to persist just the value to the database:
+EF Core 2.1 introduced [value conversions](https://learn.microsoft.com/en-us/ef/core/modeling/value-conversions) which can be used to map SmartEnum types to simple database types. For example, given an entity named `Policy` with a property `PolicyStatus` that is a SmartEnum, you could use the following code to persist just the value to the database:
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder builder)
@@ -711,6 +712,30 @@ var fixture = new Fixture()
 var smartEnum = fixture.Create<TestEnum>();
 ```
 
+## Guard Clauses support
+
+The `Ardalis.SmartEnum.GuardClauses` package adds a `SmartEnumOutOfRange` extension to [Ardalis.GuardClauses](https://github.com/ardalis/GuardClauses). It returns the matching `SmartEnum` instance for a value, or throws a `SmartEnumNotFoundException` if there isn't one:
+
+```csharp
+using Ardalis.GuardClauses;
+using Ardalis.SmartEnum.GuardClauses;
+
+public void UpdateStatus(int statusValue)
+{
+    TestEnum status = Guard.Against.SmartEnumOutOfRange<TestEnum>(statusValue);
+    // use status here
+}
+```
+
+For a `SmartEnum` whose value type isn't `int`, pass both type arguments, e.g. `Guard.Against.SmartEnumOutOfRange<TestStringEnum, string>(input)`. You can also pass a custom `message`, or an `exceptionCreator` to throw your own exception type:
+
+```csharp
+var status = Guard.Against.SmartEnumOutOfRange<TestEnum>(statusValue,
+    exceptionCreator: () => new ArgumentException("Invalid status."));
+```
+
+See the [package README](src/SmartEnum.GuardClauses/README.md) for more examples.
+
 ## Json support
 
 When serializing a `SmartEnum` to JSON, only one of the properties (`Value` or `Name`) should be used. 
@@ -756,6 +781,34 @@ uses the `Value`:
 ```
 
 Note: The SmartFlagEnum works identically to the SmartEnum when being Serialized and Deserialized.
+
+## Model Binding support
+
+The `Ardalis.SmartEnum.ModelBinding` package lets ASP.NET Core MVC bind `SmartEnum` action parameters and model properties from route values, query strings, and form fields. Register the binder provider when adding controllers:
+
+```csharp
+using Ardalis.SmartEnum.ModelBinding;
+
+builder.Services.AddControllers(options =>
+{
+    options.ModelBinderProviders.Insert(0, new SmartEnumBinderProvider());
+});
+```
+
+Incoming values are matched against the enum's `Name`, ignoring case:
+
+```csharp
+[ApiController]
+[Route("reservations")]
+public class ReservationsController : ControllerBase
+{
+    // GET /reservations?status=paid binds ReservationStatus.Paid
+    [HttpGet]
+    public IActionResult GetByStatus([FromQuery] ReservationStatus status) => Ok(status.Name);
+}
+```
+
+The binder doesn't apply to JSON request bodies, which are handled by the input formatter. Use one of the [Json converters](#json-support) for those.
 
 ## Dapper support
 
@@ -866,7 +919,7 @@ public class ExampleModel
 
 ## Examples in the Real World
 
-- [Race](https://github.com/pdevito3/PeakLimsApi/blob/main/PeakLims/src/PeakLims/Domain/Races/Race.cs)
+- [Race](https://github.com/peaklims/PeakLimsApi/blob/main/PeakLims/src/PeakLims/Domain/Races/Race.cs)
 
 [Search for more](https://github.com/search?l=C%23&q=Ardalis.SmartEnum&type=Code)
 
@@ -874,5 +927,5 @@ public class ExampleModel
 
 - [Listing Strongly Typed Enum Options in C#](https://ardalis.com/listing-strongly-typed-enum-options-in-c)
 - [Enum Alternatives in C#](https://ardalis.com/enum-alternatives-in-c)
-- [Smarter Enumerations (podcast episode)](http://www.weeklydevtips.com/014)
+- [Smarter Enumerations (podcast episode)](https://www.weeklydevtips.com/014)
 - [Persisting a Smart Enum with Entity Framework Core](https://blog.nimblepros.com/blogs/persisting-a-smart-enum-with-entity-framework-core/)
