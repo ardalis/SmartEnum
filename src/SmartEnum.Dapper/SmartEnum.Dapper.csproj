@@ -3,6 +3,7 @@
 		<PackageId>Ardalis.SmartEnum.Dapper</PackageId>
 		<Title>Ardalis.SmartEnum.Dapper</Title>
 		<Description>Dapper support for Ardalis.SmartEnum.</Description>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Summary>Dapper support for Ardalis.SmartEnum.</Summary>
 		<PackageTags>enum;smartenum;dapper;ardalis</PackageTags>
 		<PackageReleaseNotes>See root package release notes</PackageReleaseNotes>
@@ -15,6 +16,7 @@
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
 		<None Include="$(SolutionDir)img\icon.png" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
 	<ItemGroup>

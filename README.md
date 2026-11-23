@@ -703,6 +703,8 @@ Instances that EF Core loads this way are new objects, not the static fields. Th
 EF Core 6 introduced pre-convention model configuration which allows value conversions to be configured for specific types within a model. If you have installed `Ardalis.SmartEnum.EFCore` it is sufficient to add the following line at the beginning of the `ConfigureConventions` method:
 
 ```csharp
+using Ardalis.SmartEnum.EFCore; // was SmartEnum.EFCore before 9.0
+
 protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
 {
     configurationBuilder.ConfigureSmartEnum();
@@ -755,7 +757,7 @@ var status = Guard.Against.SmartEnumOutOfRange<TestEnum>(statusValue,
     exceptionCreator: () => new ArgumentException("Invalid status."));
 ```
 
-See the [package README](src/SmartEnum.GuardClauses/README.md) for more examples.
+See the [package README](src/SmartEnum.GuardClauses/README.md) for more details.
 
 ## Json support
 

@@ -3,6 +3,7 @@
 		<PackageId>Ardalis.SmartEnum.Utf8Json</PackageId>
 		<Title>Ardalis.SmartEnum.Utf8Json</Title>
 		<Description>Utf8Json (de)serialization support for Ardalis.SmartEnum.</Description>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Summary>Utf8Json (de)serialization support for Ardalis.SmartEnum.</Summary>
 		<PackageTags>enum;smartenum;ardalis;json;utf8json;resolver</PackageTags>
 		<PackageReleaseNotes>See root package release notes</PackageReleaseNotes>
@@ -14,6 +15,7 @@
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
 		<None Include="$(SolutionDir)img\icon.png" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
 	<ItemGroup>

@@ -3,6 +3,7 @@
 		<PackageId>Ardalis.SmartEnum.ProtoBufNet</PackageId>
 		<Title>Ardalis.SmartEnum.ProtoBufNet</Title>
 		<Description>protobuf-net (de)serialization support for Ardalis.SmartEnum.</Description>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Summary>protobuf-net (de)serialization support for Ardalis.SmartEnum.</Summary>
 		<PackageTags>enum;smartenum;ardalis;protobuf;protobufnet;surrogate</PackageTags>
 		<PackageReleaseNotes>See root package release notes</PackageReleaseNotes>
@@ -17,6 +18,7 @@
 		<PackageReference Include="protobuf-net" />
 	</ItemGroup>
 	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
 		<None Include="$(SolutionDir)img\icon.png" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
 	<ItemGroup>

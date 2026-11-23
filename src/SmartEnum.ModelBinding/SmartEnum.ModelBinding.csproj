@@ -4,6 +4,7 @@
         <PackageId>Ardalis.SmartEnum.ModelBinding</PackageId>
         <Title>Ardalis.SmartEnum.ModelBinding</Title>
         <Description>ASP.NET Core MVC Model Binding Support for Ardalis.SmartEnum.</Description>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <Summary>ASP.NET Core MVC Model Binding Support for Ardalis.SmartEnum.</Summary>
         <PackageTags>enum;smartenum;ardalis;aspnet;aspnetcore;mvc;model binding;modelbinding</PackageTags>
         <PackageIcon>icon.png</PackageIcon>
@@ -22,6 +23,7 @@
         <ProjectReference Include="..\SmartEnum\SmartEnum.csproj" />
     </ItemGroup>
     <ItemGroup>
+        <None Include="README.md" Pack="true" PackagePath="\" />
         <None Include="$(SolutionDir)img\icon.png" Pack="true" Visible="false" PackagePath="" />
     </ItemGroup>
 </Project>

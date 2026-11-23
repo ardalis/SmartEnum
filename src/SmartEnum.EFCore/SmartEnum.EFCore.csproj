@@ -5,6 +5,7 @@
 		<PackageId>Ardalis.SmartEnum.EFCore</PackageId>
 		<Title>Ardalis.SmartEnum.EFCore</Title>
 		<Description>EFCore support for Ardalis.SmartEnum.</Description>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Summary>EFCore support for Ardalis.SmartEnum.</Summary>
 		<PackageTags>enum;smartenum;entityframeworkcore;ardalis</PackageTags>
 		<PackageIcon>icon.png</PackageIcon>
@@ -17,6 +18,7 @@
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
 		<None Include="$(SolutionDir)img\icon.png" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
 	<ItemGroup>

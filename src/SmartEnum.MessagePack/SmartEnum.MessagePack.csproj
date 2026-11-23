@@ -3,6 +3,7 @@
 		<PackageId>Ardalis.SmartEnum.MessagePack</PackageId>
 		<Title>Ardalis.SmartEnum.MessagePack</Title>
 		<Description>MessagePack (de)serialization support for Ardalis.SmartEnum.</Description>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Summary>MessagePack (de)serialization support for Ardalis.SmartEnum.</Summary>
 		<PackageTags>enum;smartenum;ardalis;messagepack;resolver</PackageTags>
 		<PackageReleaseNotes>See root package release notes</PackageReleaseNotes>
@@ -17,6 +18,7 @@
 		<PackageReference Include="MessagePack" />
 	</ItemGroup>
 	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
 		<None Include="$(SolutionDir)img\icon.png" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
 	<ItemGroup>
