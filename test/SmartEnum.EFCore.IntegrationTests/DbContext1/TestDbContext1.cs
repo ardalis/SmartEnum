@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using SmartEnum.EFCore.IntegrationTests.Entities;
+using Ardalis.SmartEnum.EFCore.IntegrationTests.Entities;
 
-namespace SmartEnum.EFCore.IntegrationTests.DbContext1
+namespace Ardalis.SmartEnum.EFCore.IntegrationTests.DbContext1
 {
     /// <summary>
     /// This DbContext configures SmartEnum via the OnModelCreating extension method.

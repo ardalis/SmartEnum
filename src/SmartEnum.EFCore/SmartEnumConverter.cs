@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SmartEnum.EFCore;
 using System;
 using System.Reflection;
 

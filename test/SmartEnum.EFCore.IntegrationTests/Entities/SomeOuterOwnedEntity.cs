@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SmartEnum.EFCore.IntegrationTests.Entities
+namespace Ardalis.SmartEnum.EFCore.IntegrationTests.Entities
 {
     [Owned]
     public class SomeOuterOwnedEntity
