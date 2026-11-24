@@ -13,9 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v7
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v6
       with:
           dotnet-version: |
             10.0.x
@@ -44,7 +44,7 @@ jobs:
         output: 'both'
 
     - name: Upload code coverage results artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: success() || failure()
       with:
         name: code-coverage-results
@@ -59,7 +59,7 @@ jobs:
       run: echo $PR_NUMBER > pr-number.txt
   
     - name: Upload the PR number
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: github.event_name == 'pull_request' &&  (success() || failure())
       with:
         name: pr-number

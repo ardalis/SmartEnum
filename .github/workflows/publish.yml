@@ -1,34 +1,48 @@
-name: publish Ardalis.SmartEnum to nuget
+name: Publish Ardalis.SmartEnum packages to NuGet
+
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main # Your default release branch
-    paths:
-      - 'src/SmartEnum/**'
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write # required for NuGet trusted publishing (OIDC)
+
 jobs:
   publish:
-    name: list Ardalis.SmartEnum on nuget.org
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v2
+    name: Publish Ardalis.SmartEnum packages to nuget.org
+    runs-on: ubuntu-latest
 
-      # Required for a specific dotnet version that doesn't come with ubuntu-latest / windows-latest
-      # Visit bit.ly/2synnZl to see the list of SDKs that are pre-installed with ubuntu-latest / windows-latest
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v3
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v6
         with:
-            dotnet-version: |
-              10.0.x
-              11.0.x
-      
-      # Publish
-      - name: publish on version change
-        uses: alirezanet/publish-nuget@v3.0.0
+          dotnet-version: |
+            10.x
+            11.x
+
+      - name: Build
+        run: dotnet build --configuration Release
+
+      - name: Test
+        run: dotnet test --configuration Release --no-build
+
+      # Every package under src/ shares the version in Directory.Build.props,
+      # so one release publishes all of them. Packages whose version already
+      # exists on nuget.org are skipped.
+      - name: Pack
+        run: |
+          for proj in src/*/*.csproj; do
+            dotnet pack "$proj" --configuration Release --no-build --output ./artifacts
+          done
+
+      - name: NuGet login (trusted publishing)
+        uses: NuGet/login@v1
+        id: login
         with:
-          PROJECT_FILE_PATH: src/SmartEnum/SmartEnum.csproj # Relative to repository root
-          VERSION_FILE_PATH: Directory.Build.props # Filepath with version info, relative to repository root. Defaults to project file
-          VERSION_REGEX: <Version>(.*)<\/Version> # Regex pattern to extract version info in a capturing group
-          TAG_COMMIT: true # Flag to enable / disable git tagging
-          TAG_FORMAT: SmartEnum-v* # Format of the git tag, [*] gets replaced with version
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}} # nuget.org API key
+          user: ardalis
+
+      - name: Push to NuGet
+        run: dotnet nuget push "./artifacts/*.nupkg" --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
