@@ -1,6 +1,7 @@
 namespace Ardalis.SmartEnum.UnitTests
 {
     using FluentAssertions;
+    using System;
     using Xunit;
 
     public class SmartEnumCompareTo
@@ -20,6 +21,42 @@ namespace Ardalis.SmartEnum.UnitTests
             var result = left.CompareTo(right);
 
             result.Should().Be(expected);
+        }
+
+        [Theory]
+        [MemberData(nameof(CompareToData))]
+        public void NonGenericCompareToReturnsExpected(TestEnum left, TestEnum right, int expected)
+        {
+            var comparable = AsNonGenericComparable(left);
+
+            comparable.CompareTo(right).Should().Be(expected);
+        }
+
+        [Fact]
+        public void NonGenericCompareToNullReturnsOne()
+        {
+            var comparable = AsNonGenericComparable(TestEnum.Two);
+
+            comparable.CompareTo(null).Should().Be(1);
+        }
+
+        [Fact]
+        public void NonGenericCompareToNonSmartEnumThrows()
+        {
+            var comparable = AsNonGenericComparable(TestEnum.Two);
+
+            Action act = () => comparable.CompareTo(new object());
+
+            act.Should().Throw<ArgumentException>().WithParameterName("obj");
+        }
+
+        // Cast via 'as' so a missing non-generic IComparable fails at runtime with an assertion,
+        // rather than breaking compilation of the whole test project.
+        private static IComparable AsNonGenericComparable(object value)
+        {
+            var comparable = value as IComparable;
+            comparable.Should().NotBeNull("SmartEnum should implement non-generic IComparable");
+            return comparable;
         }
 
         public static TheoryData<TestEnum, TestEnum, bool, bool, bool> ComparisonOperatorsData =>
