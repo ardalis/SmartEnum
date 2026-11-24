@@ -1,14 +1,14 @@
 using FluentAssertions;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using SmartEnum.EFCore.IntegrationTests.DbContext1;
-using SmartEnum.EFCore.IntegrationTests.Entities;
+using Ardalis.SmartEnum.EFCore.IntegrationTests.DbContext1;
+using Ardalis.SmartEnum.EFCore.IntegrationTests.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace SmartEnum.EFCore.IntegrationTests
+namespace Ardalis.SmartEnum.EFCore.IntegrationTests
 {
     public class SmartEnumEFCoreDbTests
     {

@@ -1,6 +1,6 @@
 using Ardalis.SmartEnum;
 
-namespace SmartEnum.EFCore.IntegrationTests
+namespace Ardalis.SmartEnum.EFCore.IntegrationTests
 {
     public sealed class Weekday : SmartEnum<Weekday, int>
     {

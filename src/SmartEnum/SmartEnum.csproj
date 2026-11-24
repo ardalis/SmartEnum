@@ -8,11 +8,16 @@
 		<PackageTags>enum;smartenum;ardalis</PackageTags>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageReleaseNotes>
-* Updating package dependencies
-* TEnum[] to List-TEnum for webassembly compatibility issue in .net 9 by @soenneker in https://github.com/ardalis/SmartEnum/pull/557
+* Last MIT-licensed release. See https://nimbletools.io/news/ardalis-nuget-packages/
+* Breaking: now targets net10.0, net11.0, and netstandard2.0 (dropped net6.0, net7.0, net8.0) (#583)
+* Breaking (Ardalis.SmartEnum.EFCore): ConfigureSmartEnum() moved from the SmartEnum.EFCore namespace to Ardalis.SmartEnum.EFCore
+* Each companion package now ships its own NuGet readme
+* Updated dependencies to latest secure versions (#583)
+* Null checks now consistently use pattern matching (#550)
+* Corrected the documented exception type for FromValue (#549)
 		</PackageReleaseNotes>
 		<AssemblyName>Ardalis.SmartEnum</AssemblyName>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageReadmeFile>readme-nuget.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
@@ -27,7 +32,7 @@
 		<Folder Include="Properties\PublishProfiles\" />
 	</ItemGroup>
 	<ItemGroup>
-		<None Include="..\..\README.md">
+		<None Include="..\..\readme-nuget.md" Link="readme-nuget.md">
 		  <Pack>True</Pack>
 		  <PackagePath>\</PackagePath>
 		</None>

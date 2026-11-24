@@ -1,5 +1,3 @@
-using Ardalis.SmartEnum;
-using Ardalis.SmartEnum.EFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -10,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
 
-namespace SmartEnum.EFCore;
+namespace Ardalis.SmartEnum.EFCore;
 
 /// <summary>
 /// 

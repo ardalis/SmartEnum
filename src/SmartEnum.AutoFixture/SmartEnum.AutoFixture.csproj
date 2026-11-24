@@ -4,6 +4,7 @@
 		<PackageId>Ardalis.SmartEnum.AutoFixture</PackageId>
 		<Title>Ardalis.SmartEnum.AutoFixture</Title>
 		<Description>AutoFixture support for Ardalis.SmartEnum.</Description>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Summary>AutoFixture support for Ardalis.SmartEnum.</Summary>
 		<PackageTags>enum;smartenum;ardalis;autofixture</PackageTags>
 		<PackageIcon>icon.png</PackageIcon>
@@ -19,6 +20,7 @@
 		<PackageReference Include="System.Text.RegularExpressions" />
 	</ItemGroup>
 	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
 		<None Include="$(SolutionDir)img\icon.png" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
 	<ItemGroup>

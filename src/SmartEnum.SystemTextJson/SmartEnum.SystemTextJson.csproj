@@ -3,6 +3,7 @@
         <PackageId>Ardalis.SmartEnum.SystemTextJson</PackageId>
         <Title>Ardalis.SmartEnum.SystemTextJson</Title>
         <Description>System.Text.Json (de)serialization support for Ardalis.SmartEnum.</Description>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <Summary>System.Text.Json (de)serialization support for Ardalis.SmartEnum.</Summary>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageTags>enum;smartenum;netstandard2.0;json;system.text.json;converter</PackageTags>
@@ -18,6 +19,7 @@
         <PackageReference Include="System.Text.Json" />
     </ItemGroup>
     <ItemGroup>
+        <None Include="README.md" Pack="true" PackagePath="\" />
         <None Include="$(SolutionDir)img\icon.png" Pack="true" Visible="false" PackagePath="" />
     </ItemGroup>
     <ItemGroup>

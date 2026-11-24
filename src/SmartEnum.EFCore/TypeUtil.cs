@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SmartEnum.EFCore
+namespace Ardalis.SmartEnum.EFCore
 {
     internal static class TypeUtil
     {

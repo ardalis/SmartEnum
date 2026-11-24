@@ -1,7 +1,7 @@
 using Ardalis.SmartEnum;
 using System.Runtime.CompilerServices;
 
-namespace SmartEnum.EFCore.IntegrationTests
+namespace Ardalis.SmartEnum.EFCore.IntegrationTests
 {
     public class TestEnum : SmartEnum<TestEnum>
     {

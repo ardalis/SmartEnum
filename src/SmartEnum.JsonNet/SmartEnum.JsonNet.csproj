@@ -3,6 +3,7 @@
 		<PackageId>Ardalis.SmartEnum.JsonNet</PackageId>
 		<Title>Ardalis.SmartEnum.JsonNet</Title>
 		<Description>Json.NET (de)serialization support for Ardalis.SmartEnum.</Description>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Summary>Json.NET (de)serialization support for Ardalis.SmartEnum.</Summary>
 		<PackageTags>enum;smartenum;ardalis;json;json.net;converter</PackageTags>
 		<PackageReleaseNotes>See root package release notes</PackageReleaseNotes>
@@ -17,6 +18,7 @@
 		<PackageReference Include="Newtonsoft.Json" />
 	</ItemGroup>
 	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
 		<None Include="$(SolutionDir)img\icon.png" Pack="true" Visible="false" PackagePath="" />
 	</ItemGroup>
 	<ItemGroup>

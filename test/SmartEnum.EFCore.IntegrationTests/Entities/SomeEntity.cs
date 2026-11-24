@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SmartEnum.EFCore.IntegrationTests.Entities
+namespace Ardalis.SmartEnum.EFCore.IntegrationTests.Entities
 {
     public class SomeEntity
     {
