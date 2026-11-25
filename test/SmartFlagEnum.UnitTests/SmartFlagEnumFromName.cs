@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +14,7 @@ namespace Ardalis.SmartFlagEnum.UnitTests
         [Fact]
         public void IgnoreCaseReturnsIEnumerableWithSameValues()
         {
-            var result = SmartFlagTestEnum.FromName("One, Two", true).ToList();
+            var result = SmartFlagTestEnum.FromName("ONE, TWO", true).ToList();
 
             Assert.Equal("One", result[0].Name);
             Assert.Equal("Two", result[1].Name);
